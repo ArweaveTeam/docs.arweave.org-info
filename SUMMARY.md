@@ -8,3 +8,7 @@
 * [Mining FAQs](mining/mining-faqs.md)
 * [Mining Reward Factors](mining/optimisation-tips.md)
 
+## Wallets
+
+* [Moving Tokens Between Wallets](wallets/moving-tokens-between-wallets.md)
+
