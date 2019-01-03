@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Initial page](README.md)
+* [Getting Started](README.md)
 
 ## Mining
 
@@ -11,4 +11,5 @@
 ## Wallets
 
 * [Moving Tokens from Upvest Wallet](wallets/moving-tokens-between-wallets.md)
+* [Arweave Web Extension Wallet](wallets/arweave-web-extension-wallet.md)
 
