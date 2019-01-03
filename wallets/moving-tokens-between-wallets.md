@@ -4,7 +4,7 @@ description: >-
   your Upvest and Arweave wallets
 ---
 
-# Moving Tokens Between Wallets
+# Moving Tokens from Upvest Wallet
 
 ## Moving Upvest tokens to your Arweave Web Extension Wallet
 

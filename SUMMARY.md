@@ -10,5 +10,5 @@
 
 ## Wallets
 
-* [Moving Tokens Between Wallets](wallets/moving-tokens-between-wallets.md)
+* [Moving Tokens from Upvest Wallet](wallets/moving-tokens-between-wallets.md)
 
