@@ -9,7 +9,7 @@ description: >-
 ## Moving Upvest tokens to your Arweave Web Extension Wallet
 
 {% hint style="warning" %}
-Before moving tokens from your Upvest wallet, you should have already created your Arweave web extension wallet. If you haven't done so, you can find instructions on how to do so here -&gt; 
+Before moving tokens from your Upvest wallet, you should have already created your Arweave web extension wallet. If you haven't done so, you can find instructions on how to do so [here -&gt;](arweave-web-extension-wallet.md) 
 {% endhint %}
 
 ### Step 1. 
@@ -22,7 +22,7 @@ Head over to [https://upvest.co/](https://upvest.co/) and tap on 'Arweave Wallet
 
 ### Step.2
 
-Sign in to Upvest. You should already have login credentials from when you created your Upvest wallet, and if you have forgotten your password you can tap the 'Reset' password link. In the event that you have forgotten both your email _and_ password,  fear not, Upvest can work some magic to help locate your account credentials with their recovery kit. You can do so by contacting Upvest support here -&gt; 
+Sign in to Upvest. You should already have login credentials from when you created your Upvest wallet, and if you have forgotten your password you can tap the 'Reset' password link. In the event that you have forgotten both your email _and_ password,  fear not, Upvest can work some magic to help locate your account credentials with their recovery kit. You can do so by contacting support@upvest.co
 
 ![](../.gitbook/assets/2.png)
 
