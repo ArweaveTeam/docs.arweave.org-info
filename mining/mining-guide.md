@@ -7,7 +7,9 @@ description: >-
 
 # Mining Guide
 
-
+{% hint style="warning" %}
+**For any questions and support queries regarding mining on Arweave, we strongly recommend that you join our** [**Discord server**](https://discord.gg/EtQq8J7) **as this is the hub of our mining and developer communities. Here you will find plenty of community members and Arweave team members available to help you out** 🤖 
+{% endhint %}
 
 ## Preparation: Linux 
 
@@ -70,8 +72,6 @@ If you would like to see a log of your miner’s activity, you can run **‘make
 * Join our mining [mailing list](https://mailchi.mp/fa68b561fd82/arweavemining)
 
 Once you are successfully mining on the Arweave, you will need to stay up to date with new releases. [Join our mailing list](https://mailchi.mp/fa68b561fd82/arweavemining) to receive emails informing you that a new update has been released, along with the steps you need to take to stay up to speed. Updates that require you to perform an action within a certain time period in order to stay in sync with the network will be labeled ‘\[ACTION REQUIRED\]’. Keep an eye out for these messages, and if possible make sure that you add team@arweave.org to your email provider’s trusted senders list!
-
-**We also recommend that you join our** [**Discord server**](https://discord.gg/kh9BeEm) **as this is the hub of our mining and developer communities. Here you will find plenty of community members or team members available to help you out** [👾](https://emojipedia.org/alien-monster/)
 
 
 
