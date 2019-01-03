@@ -67,7 +67,7 @@ If you would like to see a log of your miner’s activity, you can run **‘make
 ## Staying up to Date
 
 * Join our [Discord](https://discord.gg/kh9BeEm) server
-* Join our mining mailing list
+* Join our mining [mailing list](https://mailchi.mp/fa68b561fd82/arweavemining)
 
 Once you are successfully mining on the Arweave, you will need to stay up to date with new releases. [Join our mailing list](https://mailchi.mp/fa68b561fd82/arweavemining) to receive emails informing you that a new update has been released, along with the steps you need to take to stay up to speed. Updates that require you to perform an action within a certain time period in order to stay in sync with the network will be labeled ‘\[ACTION REQUIRED\]’. Keep an eye out for these messages, and if possible make sure that you add team@arweave.org to your email provider’s trusted senders list!
 
