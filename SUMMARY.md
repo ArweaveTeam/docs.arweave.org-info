@@ -13,3 +13,7 @@
 * [Moving Tokens from Upvest Wallet](wallets/moving-tokens-between-wallets.md)
 * [Arweave Web Extension Wallet](wallets/arweave-web-extension-wallet.md)
 
+## Archiving
+
+* [Archiving Web Pages](archiving/archiving-web-pages.md)
+
