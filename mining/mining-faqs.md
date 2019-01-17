@@ -26,7 +26,7 @@ At the moment we have a Linux client available, but we will be making mining mor
 
 ## **Is there a specific recommendation for Ubuntu version?**
 
-We recommend Ubuntu version 18.04+ 
+We recommend [Ubuntu version 18.04+ ](http://releases.ubuntu.com/18.04/)
 
 ## **I don’t seem to be receiving new blocks from peers - why is this?**
 

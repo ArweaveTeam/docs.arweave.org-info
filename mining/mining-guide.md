@@ -53,10 +53,10 @@ Now you’re ready to start the mining process by using the following command fr
 
 ```text
 ./arweave-server \
-                peer 52.56.119.91 peer 34.216.88.202 \
-                peer 54.93.54.173 peer 18.130.126.49 \
-                peer 13.231.142.3 peer 18.179.119.203 \
-                peer 54.159.24.25 peer 54.175.114.204 \
+                peer 206.189.5.91 peer 206.189.5.91 \
+                peer 209.97.142.169 peer 204.48.27.17 \
+                peer 167.99.98.48 peer 209.97.160.159 \
+                peer 138.197.131.159 peer 34.216.88.202 \
                 mine mining_addr YOUR-MINING-ADDRESS
 ```
 
