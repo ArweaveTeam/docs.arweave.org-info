@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Getting Started](README.md)
+* [Developer Docs](https://docs.arweave.org/developers)
 
 ## Mining
 
