@@ -1,10 +1,13 @@
 ---
 description: >-
-  Once you've successfully generated your Arweave web extension wallet, it's
-  super easy to begin archiving web pages using our web extension tool
+  Once you've successfully generated your Arweave wallet, it's super easy to
+  begin archiving web pages using our web extension tool.
 ---
 
 # Archiving Web Pages
+
+  
+If you're new to Arweave check out the web extension [getting started](../) guide, and download the [chrome extension](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc).
 
 ## Archiving a web page
 
