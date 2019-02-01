@@ -7,7 +7,7 @@ description: >-
 # Archiving Web Pages
 
   
-If you're new to Arweave check out the web extension [getting started](../) guide, and download the [chrome extension](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc).
+If you're new to Arweave check out the web extension [getting started](../wallets/arweave-web-extension-wallet.md) guide, and download the [chrome extension](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc).
 
 ## Archiving a web page
 
