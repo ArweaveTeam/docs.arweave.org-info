@@ -19,3 +19,7 @@
 
 * [Archiving Web Pages](archiving/archiving-web-pages.md)
 
+## Policies
+
+* [Privacy Policy](policies/privacy-policy.md)
+
