@@ -18,6 +18,7 @@
 ## Archiving
 
 * [Archiving Web Pages](archiving/archiving-web-pages.md)
+* [Step-by-Step Beginner's Archiving Guide](archiving/step-by-step-beginners-guide.md)
 
 ## Policies
 
