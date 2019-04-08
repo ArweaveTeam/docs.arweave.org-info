@@ -97,6 +97,22 @@ If you want to bootstrap another miner on a different machine, you can copy the 
 2. Copy the following folders to the new machine: `blocks`, `txs`, `wallet_lists`, `data`.
 3. Start the miners.
 
+### Run a miner on Windows
+
+We do not recommend using Windows for mining because according to our experience it is less efficient and reliable. Nevertheless, mining on Windows is possible.
+
+You can run an Arweave miner inside Windows Subsystem for Linux \(WSL\). Note that the default TCP configuration WSL relies on is more restrictive than a typical Linux configuration. The WSL configuration offers about half as many TCP ports for making TCP connections and twice as long socket re-use timeout, what significantly reduces the number of simultaneous requests per second the miner can make to other nodes.
+
+As a result, you may see the following errors in the miner console:  
+  
+  
+`=ERROR REPORT====...=== Socket connection error: exit badarg, [{gen_tcp,connect,4, [{file,"gen_tcp.erl"},{line,149}]}`
+
+  
+Windows Event Log is expected to have the following warning:  
+  
+`TCP/IP failed to establish an outgoing connection because the selected local endpoint was recently used to connect to the same remote endpoint. This error typically occurs when outgoing connections are opened and closed at a high rate, causing all available local ports to be used and forcing TCP/IP to reuse a local port for an outgoing connection. To minimize the risk of data corruption, the TCP/IP standard requires a minimum time period to elapse between successive connections from a given local endpoint to a given remote endpoint.`
+
 ## Staying up to Date
 
 * Join our [Discord](https://discord.gg/3UTNZky) server
