@@ -16,7 +16,7 @@ Before moving tokens from your Upvest wallet, you should have already created yo
 
 Head over to [https://upvest.co/](https://upvest.co/) and tap on 'Arweave Wallet' 
 
-![](../.gitbook/assets/1.png)
+![](../.gitbook/assets/1%20%282%29.png)
 
 
 
@@ -30,7 +30,7 @@ Sign in to Upvest. You should already have login credentials from when you creat
 
 Tap the 'Send' button under your Arweave wallet
 
-![](../.gitbook/assets/3.png)
+![](../.gitbook/assets/3%20%281%29.png)
 
 ### Step.4
 

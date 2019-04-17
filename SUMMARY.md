@@ -25,3 +25,7 @@
 
 * [Privacy Policy](policies/privacy-policy.md)
 
+## Tools
+
+* [Weavemail](tools/weavemail.md)
+
