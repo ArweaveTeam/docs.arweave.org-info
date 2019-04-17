@@ -16,13 +16,13 @@ If you are new to Weavemail, you will need to create an Arweave wallet in order 
 
 ## **Creating your wallet:** 
 
-## **Step.1** 
+## **Step 1** 
 
 Head over to [https://weavemail.app/](https://weavemail.app/) ****and tap the '**Get a wallet with some tokens**' button:
 
 ![](../.gitbook/assets/new-1.png)
 
-## **Step.2**
+## **Step 2**
 
 A new tab will open, taking you to [https://tokens.arweave.org](https://tokens.arweave.org) where you can grab a free wallet. After you have checked the privacy policy box, choose whether you would like to continue with Google or GitHub:
 
@@ -36,7 +36,7 @@ Once you've chosen which account you'd like to proceed with and you've successfu
 
 ![](../.gitbook/assets/3.png)
 
-## **Step.3**
+## **Step 3**
 
 Head over to your inbox and open the email titled: **Woohoo! Your free Arweave tokens are ready**. Tap 'Download your wallet now' 
 
@@ -44,7 +44,7 @@ Head over to your inbox and open the email titled: **Woohoo! Your free Arweave t
 
 ![](../.gitbook/assets/4%20%282%29.png)
 
-## **Step.4**
+## **Step 4**
 
 Your wallet is now available for download! Once you've confirmed that you are responsible for your key file, it will be downloaded onto your machine: 
 
@@ -56,7 +56,7 @@ Your wallet is now available for download! Once you've confirmed that you are re
 
 ## **Now you're ready to load your brand new wallet into Weavemail!** [🎉](https://emojipedia.org/party-popper/) [🔜](https://emojipedia.org/soon-with-rightwards-arrow-above/) [✉️](https://emojipedia.org/envelope/)
 
-## **Step.5**
+## **Step 5**
 
 Head back over to ****[https://weavemail.app/](https://weavemail.app/) and drag & drop your key file into the box: 
 
@@ -68,7 +68,7 @@ Head back over to ****[https://weavemail.app/](https://weavemail.app/) and drag 
 In need of a weave-buddy to send your first mail to? Drop Arweave Sam a line: **vLRHFqCw1uHu75xqB4fCDW-QxpkpJxBtFD9g4QYUbfw**
 {% endhint %}
 
-## **Step.6**
+## **Step 6**
 
 Tap the 'Compose' button:
 
