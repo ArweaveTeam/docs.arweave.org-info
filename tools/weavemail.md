@@ -29,7 +29,7 @@ A new tab will open, taking you to [https://tokens.arweave.org](https://tokens.a
 ![](../.gitbook/assets/1.png)
 
 {% hint style="warning" %}
-Note, none of your data will be readable by Google or GitHub. This process is required to simply verify that you are are indeed a fresh faced human 😎 
+Note, none of your data will be readable by Google or GitHub. This process is required to simply verify that you are are indeed, a fresh faced human 😎 
 {% endhint %}
 
 Once you've chosen which account you'd like to proceed with and you've successfully completed CAPTCHA, you will get the following message:
