@@ -52,7 +52,7 @@ It is also possible to set-up an Arweave mining environment on Windows using the
 Now you’re ready to start the mining process by using the following command from the Arweave directory: 
 
 ```text
-./arweave-server mine mining_addr YOUR-MINING-ADDRESS peer 206.189.5.91 peer 209.97.142.143 peer 209.97.142.169 peer 204.48.27.17 peer 167.99.98.48 peer 209.97.160.159 peer 138.197.131.159 peer 34.216.88.202
+./arweave-server mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 159.203.49.13 peer 139.59.51.59 peer 138.197.232.192 peer 46.101.67.172
 ```
 
 {% hint style="warning" %}
