@@ -12,7 +12,7 @@ Weavemail is the mail that cannot be lost, censored, or read by Google: Weavemai
 
 ## **Getting started**
 
-If you are new to Weavemail, you will need to create an Arweave wallet in order to send and receive mail. Fear not, because we've hooked you up with 5 free AR tokens so you can get up and running in no time. Follow the instructions below to set up your new wallet or alternatively, if you have an existing Arweave wallet with tokens you can skip to **Step 5**.
+If you are new to Weavemail, you will need to create an Arweave wallet in order to send and receive mail. Fear not, because we've hooked you up with some free AR tokens so you can get up and running in no time. Follow the instructions below to set up your new wallet or alternatively, if you have an existing Arweave wallet with tokens you can skip to **Step 5**.
 
 ## **Creating your wallet:** 
 
