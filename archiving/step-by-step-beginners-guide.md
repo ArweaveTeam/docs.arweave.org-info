@@ -20,9 +20,9 @@ When that’s successfully added to Chrome, you will see the little Arweave icon
 
 The archiving tokens are used to pay the people who donate their hard drive space to store your web pages and PDFs. Your tokens are kept within a digital ‘wallet’, which is simply a file you keep on your computer. 
 
-![](../.gitbook/assets/screenshot-2.png)
+![](../.gitbook/assets/gitbook-tokens.png)
 
-Today you can grab a wallet with some free tokens to get started! Just click the extension icon, then click ‘Try for free, get a 5 AR wallet’.
+Today you can grab a wallet with some free tokens to get started! Just click the extension icon, then click ‘Get started with some free AR’.
 
 This will start to download a file - this file is your wallet! You can rename it to something else, but by default it will be named something like: ‘arweave-keyfile-2PYo73uPr4AqnUi0dnNFUtejVvDv\_9NsRC7k3RQ4Pto’.
 
@@ -34,7 +34,7 @@ We strongly recommend storing an extra couple of copes of your wallet keyfile as
 
 So, now you need to load your brand new wallet file into the web extension.
 
-![](../.gitbook/assets/screenshot-3%20%281%29.png)
+![](../.gitbook/assets/import.png)
 
 ![](../.gitbook/assets/screenshot-4.png)
 
@@ -46,7 +46,7 @@ When you load a new wallet, the extension will prompt you to enter a password to
 
 ![](../.gitbook/assets/screenshot-6.png)
 
-Now, you can see your ‘wallet address’ - the long string of numbers, letters, and symbols totally unique to your token wallet. Also, your balance will show as 5 ‘AR’ tokens \(the ‘ar’ stands for ar-chiving, naturally\).
+Now, you can see your ‘wallet address’ - the long string of numbers, letters, and symbols totally unique to your token wallet. Also, your balance will show as 'AR’ tokens \(the ‘ar’ stands for ar-chiving, naturally\).
 
 ## 4\) Archive your first page! 
 
