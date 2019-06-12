@@ -14,25 +14,19 @@ Before moving tokens from your Upvest wallet, you should have already created yo
 
 ### Step 1. 
 
-Head over to [https://upvest.co/](https://upvest.co/) and tap on 'Arweave Wallet' 
+Head over to [https://me.upvest.co/signin](https://me.upvest.co/signin) and sign in to Upvest:
 
-![](../.gitbook/assets/1%20%282%29.png)
+![](../.gitbook/assets/screen-shot-2019-06-12-at-15.35.55.png)
 
-
+You should already have login credentials from when you created your Upvest wallet, and if you have forgotten your password you can tap the 'Reset' password link. In the event that you have forgotten both your email _and_ password,  fear not, Upvest can work some magic to help locate your account credentials with their recovery kit. You can do so by contacting [support@upvest.co](mailto:support@upvest.co)
 
 ### Step.2
-
-Sign in to Upvest. You should already have login credentials from when you created your Upvest wallet, and if you have forgotten your password you can tap the 'Reset' password link. In the event that you have forgotten both your email _and_ password,  fear not, Upvest can work some magic to help locate your account credentials with their recovery kit. You can do so by contacting support@upvest.co
-
-![](../.gitbook/assets/2.png)
-
-### Step.3
 
 Tap the 'Send' button under your Arweave wallet
 
 ![](../.gitbook/assets/3%20%281%29.png)
 
-### Step.4
+### Step.3
 
 Input the amount of AR you would like to send and paste your Arweave wallet address into the Recipient field 
 
@@ -44,13 +38,13 @@ You must ensure that the correct wallet address is inputted into the 'Recipient'
 
 ![](../.gitbook/assets/4.png)
 
-### Step.5
+### Step.4
 
 Review the transaction and once you're satisfied, input your Upvest wallet password and press 'Confirm transaction'
 
 ![](../.gitbook/assets/5.png)
 
-### Step.6 
+### Step.5 
 
 Next you will see the transaction receipt. And that's it, you're done! 
 
