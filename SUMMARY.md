@@ -15,6 +15,7 @@
 * [Arweave Web Extension Wallet](wallets/arweave-web-extension-wallet.md)
 * [Wallet FAQ](wallets/wallet-faq.md)
 * [Generating a Cold Wallet](wallets/generating-cold-wallet.md)
+* [Privacy Policy](wallets/privacy-policy.md)
 
 ## Archiving
 
