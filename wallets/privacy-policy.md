@@ -1,5 +1,5 @@
 ---
-description: Privacy Policy for the Arweave web extension
+description: Privacy Policy for the Arweave Web Extension
 ---
 
 # Privacy Policy
