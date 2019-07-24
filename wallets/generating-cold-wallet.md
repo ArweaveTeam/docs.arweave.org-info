@@ -25,7 +25,7 @@ This procedure may seem long but we have broken each of its steps down into gran
 11. Under ‘Wallet Options’ click ‘Delete Stored Data’ and confirm this operation
 12. Delete the key file from your hard drive, after having ensured the safety of your offline backups. Optionally, use [BleachBit](https://www.bleachbit.org/) or similar to write over the file a number of times
 13. Reconnect to the internet
-14. Paste the address that you stored in step 10 into a reply to this email and hit send!
+14. Paste the address that you stored in step 10 into an email to [team@arweave.org](mailto:team@arweave.org) and hit send!
 
 {% hint style="success" %}
 **Congratulations for completing the steps! Your AR tokens will now be stored safely and securely for months and years to come**
