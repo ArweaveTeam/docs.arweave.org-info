@@ -6,9 +6,7 @@ description: >-
 
 # Arweave Web Extension Wallet
 
-{% hint style="warning" %}
-#### If you haven't already downloaded the Arweave web extension from the Chrome Store, you can do so [here -&gt;](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc)
-{% endhint %}
+#### Make sure you've already downloaded & installed the Arweave web extension for [Chrome](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/arweave/), or [Brave](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc). 
 
 If you have an existing wallet you should already be familiar with the basics, however if it’s your first venture into the wonderful world of Arweave: don’t sweat it, because we’ve put together a step-by-step guide to ensure that you can get up and running in no time.
 
