@@ -61,6 +61,14 @@ Please replace **YOUR-MINING-ADDRESS** with the address of the wallet you would 
 
 If you would like to see a log of your miner’s activity, you can run **‘make log’** in the Arweave directory in a different terminal. The miner terminal itself only displays the most important logs to keep it clean so that you can interact with the system using the console.
 
+## Tuning the Miner
+
+To get an additional performance boost, consider configuring huge memory pages in your OS.  
+  
+On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=2000`.`2000` corresponds to two thousand pages 2 MiB each. Consider increasing the value if you have more memory. 400 multiplied by the number of CPU threads you have might work the best if you have more than 2 MiB \* 400 \* the number of CPU threads amount of memory.
+
+You can benchmark your machine's performance with different settings by running `./arweave-server benchmark randomx enable randomx_large_pages`. Note that you have to stop the miner before running the benchmark.
+
 ## Troubleshooting
 
 ### Make sure your node is accessible on the Internet

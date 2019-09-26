@@ -8,13 +8,11 @@ description: >-
 
 ## 1\) Install Arweave web extension 
 
-First thing’s first - you need to have the Google Chrome web browser installed. If you don’t, you can download a copy [here](https://support.google.com/chrome/answer/95346?co=GENIE.Platform%3DDesktop&hl=en) and follow the installation instructions. 
-
-Once you have Chrome installed, you just need to add the Arweave web extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc?hl=en-GB). 
+First thing’s first - you need to have the [Chrome](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/arweave/), or [Brave](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc) web browser installed.  
 
 ![](../.gitbook/assets/screenshot-1-copy.png)
 
-When that’s successfully added to Chrome, you will see the little Arweave icon in your browser, as pictured above. 
+When that’s successfully added to your browser, you will see the little Arweave icon, as pictured above. 
 
 ## 2\) Grab a wallet & free archiving tokens 
 
