@@ -52,7 +52,7 @@ It is also possible to set-up an Arweave mining environment on Windows using the
 Now you’re ready to start the mining process by using the following command from the Arweave directory: 
 
 ```text
-./arweave-server mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 159.203.49.13 peer 139.59.51.59 peer 138.197.232.192 peer 46.101.67.172
+./arweave-server mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 159.203.49.13 peer 139.59.51.59 peer 138.197.232.192
 ```
 
 {% hint style="warning" %}
@@ -84,7 +84,7 @@ Missing port forwarding is a common reason for the warning which begins with:
 Alternatively, you can run the miner in the polling mode. In this mode, your node does not have to be publicly accessible. It would check with other peers for updates at regular intervals. To run in the polling mode, specify "polling" in the command line:
 
 ```text
-./arweave-server polling mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 159.203.49.13 peer 139.59.51.59 peer 138.197.232.192 peer 46.101.67.172
+./arweave-server polling mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 159.203.49.13 peer 139.59.51.59 peer 138.197.232.192
 ```
 
 Note that the polling mode is significantly less efficient.
