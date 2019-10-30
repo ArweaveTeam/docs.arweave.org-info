@@ -13,7 +13,7 @@ description: >-
 
 ## Preparation: Linux 
 
-1. **Install an up-to-date version of** [**Erlang**](https://www.erlang.org/downloads) **\(Erlang/OTP 20+\), git and libssl-dev or equivalent**
+1. **Install an up-to-date version of** [**Erlang**](https://www.erlang.org/downloads) **\(Erlang/OTP 21\), git, libsqlite3-dev or equivalent, and libssl-dev or equivalent**
 
    \(usually available from your Linux distribution’s package manager\)
 
@@ -35,7 +35,7 @@ curl https://raw.githubusercontent.com/ArweaveTeam/arweave/stable/install.sh | b
 In order to run the Arweave miner on Mac OS X please execute the following steps:
 
 1. **Install** [**Homebrew**](https://brew.sh/)\*\*\*\*
-2. **Install Erlang OTP 20: `brew install erlang@20 && brew link --force erlang@20`**
+2. **Install Erlang OTP 21: `brew install erlang@21`**  If you are already using Erlang OTP 20, switch to the new version: **`brew unlink erlang@20 brew link --force erlang@21`**
 3. **Finally, run the following command:** 
 
 ```text
