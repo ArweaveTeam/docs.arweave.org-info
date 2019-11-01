@@ -35,7 +35,7 @@ curl https://raw.githubusercontent.com/ArweaveTeam/arweave/stable/install.sh | b
 In order to run the Arweave miner on Mac OS X please execute the following steps:
 
 1. **Install** [**Homebrew**](https://brew.sh/)\*\*\*\*
-2. **Install Erlang OTP 21: `brew install erlang@21`**  If you are already using Erlang OTP 20, switch to the new version: **`brew unlink erlang@20 brew link --force erlang@21`**
+2. **Install Erlang OTP 21: `brew install erlang@21 brew link --force erlang@21`**  If you are already using Erlang OTP 20, switch to the new version: **`brew unlink erlang@20 brew link --force erlang@21`**
 3. **Finally, run the following command:** 
 
 ```text
