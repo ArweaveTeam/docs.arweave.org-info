@@ -15,8 +15,8 @@ This procedure may seem long but we have broken each of its steps down into gran
 1. [Download and install](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc?hl=en-GB) the Arweave web extension for Chrome
 2. Right click on the new Arweave icon in your browser, then select ‘Options’ 
 3. Disconnect your computer from the internet 
-4. Click ‘Wallet Options’ in the bottom left-hand corner of the page
-5. Click ‘Generate Wallet’
+4. Click ‘Wallets’ in the top right-hand corner of the page
+5. Click ‘Create New Wallet’
 6. Save this file somewhere safe on your machine
 7. Make copies of this file on multiple offline storage mediums \(for example, USB sticks or prints of the file to physical paper\). **Store these copies securely**
 8. Click ‘Load Wallet’ on the web extension and load the key file
