@@ -65,9 +65,11 @@ If you would like to see a log of your miner’s activity, you can run **‘make
 
 To get an additional performance boost, consider configuring huge memory pages in your OS.  
   
-On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=2000`.`2000` corresponds to two thousand pages 2 MiB each. Consider increasing the value if you have more memory. 400 multiplied by the number of CPU threads you have might work the best if you have more than 2 MiB \* 400 \* the number of CPU threads amount of memory.
+On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=2000`. "2000" corresponds to two thousand pages 2 MiB each. Do not set a value bigger than the amount of available memory \("free" in `top)` minus 6 GiB.
 
 You can benchmark your machine's performance with different settings by running `./arweave-server benchmark randomx enable randomx_large_pages`. Note that you have to stop the miner before running the benchmark.
+
+It is recommended to reboot the machine after configuring huge pages and before running the miner, especially if the machine had a significant uptime before to the change. To make the configuration survive reboots, create `/etc/sysctl.d/local.conf` and put `vm.nr_hugepages=[YOUR NUMBER]` there.
 
 ## Troubleshooting
 
