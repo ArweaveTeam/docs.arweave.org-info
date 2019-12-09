@@ -47,6 +47,20 @@ cd arweave && git -c advice.detachedHead=false checkout stable
 It is also possible to set-up an Arweave mining environment on Windows using the ‘Windows Subsystem for Linux’ or a virtual machine environment
 {% endhint %}
 
+## Preparation: File Descriptors Limit
+
+The number of available file descriptors affects the rate at which your node can process data. The default limit assigned to user processes in the operating systems is usually low, so we recommend to increase it.
+
+You can check the current limit by executing `ulimit -n`.
+
+On Linux, to set a bigger limit, open `/etc/security/limits.conf` and edit \(or add\) the line:
+
+```text
+<your OS user>         soft    nofile  10000
+```
+
+Open a new terminal session \(you can also change the limit for the current session via `ulimit -n 1000`\). Make sure the limit is increased - `ulimit -n`.
+
 ## Running the Miner
 
 Now you’re ready to start the mining process by using the following command from the Arweave directory: 
