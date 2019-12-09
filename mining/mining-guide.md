@@ -59,7 +59,7 @@ On Linux, to set a bigger limit, open `/etc/security/limits.conf` and edit \(or 
 <your OS user>         soft    nofile  10000
 ```
 
-Open a new terminal session \(you can also change the limit for the current session via `ulimit -n 1000`\). Make sure the limit is increased - `ulimit -n`.
+Open a new terminal session \(you can also change the limit for the current session via `ulimit -n 10000`\). Make sure the limit is increased - `ulimit -n`.
 
 ## Running the Miner
 
