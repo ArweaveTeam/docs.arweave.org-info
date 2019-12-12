@@ -11,45 +11,21 @@ description: >-
 **For any questions and support queries regarding mining on Arweave, we strongly recommend that you join our** [**Discord server**](https://discord.gg/DjAFMJc) **as this is the hub of our mining and developer communities. Here you will find plenty of community members and Arweave team members available to help you out** 🤖 
 {% endhint %}
 
-## Preparation: Linux 
+## Install the Miner
 
-1. **Install an up-to-date version of** [**Erlang**](https://www.erlang.org/downloads) **\(Erlang/OTP 21\), git, libsqlite3-dev or equivalent, and libssl-dev or equivalent**
+Download the `.tar.gz` archive for your OS from the [releases page](https://github.com/ArweaveTeam/arweave/releases).
 
-   \(usually available from your Linux distribution’s package manager\)
+Extract the contents of the archive. It's recommended to unpack it inside a dedicated directory. You can always move this directory around, but the miner may not work if you move only some of the files. The weave data would, by default, be stored in this directory as well, but it can be overridden using the `data_dir` command-line argument.
 
-2. **Use git to clone the latest stable release using the following command:**
-
-```
-git clone https://github.com/ArweaveTeam/arweave.git arweave && \
-cd arweave && git -c advice.detachedHead=false checkout stable
-```
-
-Alternatively, you can simply run this [script](https://raw.githubusercontent.com/ArweaveTeam/arweave/master/install.sh) on a fresh Ubuntu installation. Because this script installs dependencies for you it will require your root password, so please make sure you are comfortable with the commands that it will run before execution. You can download and execute the script with this command:
-
-```bash
-curl https://raw.githubusercontent.com/ArweaveTeam/arweave/stable/install.sh | bash
-```
-
-## Preparation: Other Operating Systems
-
-In order to run the Arweave miner on Mac OS X please execute the following steps:
-
-1. **Install** [**Homebrew**](https://brew.sh/)\*\*\*\*
-2. **Install Erlang OTP 21: `brew install erlang@21 brew link --force erlang@21`**  If you are already using Erlang OTP 20, switch to the new version: **`brew unlink erlang@20 brew link --force erlang@21`**
-3. **Finally, run the following command:** 
-
-```text
-git clone https://github.com/ArweaveTeam/arweave.git arweave && \
-cd arweave && git -c advice.detachedHead=false checkout stable
-```
+If your OS/platform architecture is not in the list, check the source code repository [README](https://github.com/ArweaveTeam/arweave#building-from-source) for how to build the miner from source.
 
 {% hint style="info" %}
-It is also possible to set-up an Arweave mining environment on Windows using the ‘Windows Subsystem for Linux’ or a virtual machine environment
+It is also possible to set-up an Arweave mining environment on Windows using the ‘Windows Subsystem for Linux’ or a virtual machine environment.
 {% endhint %}
 
-## Preparation: File Descriptors Limit
+## Preparation: File Descriptors Limit <a id="preparation-file-descriptors-limit"></a>
 
-The number of available file descriptors affects the rate at which your node can process data. The default limit assigned to user processes in the operating systems is usually low, so we recommend to increase it.
+The number of available file descriptors affects the rate at which your node can process data. As the default limit assigned to user processes on most operating systems is usually low, we recommend increasing it.
 
 You can check the current limit by executing `ulimit -n`.
 
@@ -59,29 +35,29 @@ On Linux, to set a bigger limit, open `/etc/security/limits.conf` and edit \(or 
 <your OS user>         soft    nofile  10000
 ```
 
-Open a new terminal session \(you can also change the limit for the current session via `ulimit -n 10000`\). Make sure the limit is increased - `ulimit -n`.
+Open a new terminal session. To make sure the changes took effect, and the limit was increased, type `ulimit -n`. You can also change the limit for the current session via `ulimit -n 10000`
 
 ## Running the Miner
 
 Now you’re ready to start the mining process by using the following command from the Arweave directory: 
 
 ```text
-./arweave-server mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
+./bin/start mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 159.203.49.13 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
 ```
 
 {% hint style="warning" %}
 Please replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to credit when you find a block!
 {% endhint %}
 
-If you would like to see a log of your miner’s activity, you can run **‘make log’** in the Arweave directory in a different terminal. The miner terminal itself only displays the most important logs to keep it clean so that you can interact with the system using the console.
+If you would like to see a log of your miner’s activity, you can run **‘./bin/logs -f’** in the Arweave directory in a different terminal.
 
 ## Tuning the Miner
 
 To get an additional performance boost, consider configuring huge memory pages in your OS.  
   
-On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=2000`. "2000" corresponds to two thousand pages 2 MiB each. Do not set a value bigger than the amount of available memory \("free" in `top)` minus 6 GiB.
+On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=2000`. Here, "2000" corresponds to two thousand pages of 2 MiB each. Do not set a value bigger than the amount of available memory \(the "total" column from `"free -m"`\) minus 6 GiB.
 
-You can benchmark your machine's performance with different settings by running `./arweave-server benchmark randomx enable randomx_large_pages`. Note that you have to stop the miner before running the benchmark.
+You can benchmark your machine's performance with different settings by running `./bin/start benchmark randomx enable randomx_large_pages`. Note that you have to stop the miner before running the benchmark.
 
 It is recommended to reboot the machine after configuring huge pages and before running the miner, especially if the machine had a significant uptime before to the change. To make the configuration survive reboots, create `/etc/sysctl.d/local.conf` and put `vm.nr_hugepages=[YOUR NUMBER]` there.
 
@@ -91,19 +67,21 @@ It is recommended to reboot the machine after configuring huge pages and before 
 
 An important part of the mining process is discovering blocks mined by other miners. Your node needs to be accessible from anywhere on the Internet so that your peers can connect with you and share their blocks.
 
-To check if your node is publicly accessible, browse to `http://[Your Internet IP]:1984`. If you specified a different port when starting the miner, replace "1984" anywhere in these instructions with your port. If you can not access the node, you need to set up TCP port forwarding for incoming HTTP requests to your Internet IP address on port 1984 to port 1984 on your mining machine. For more details on how to set up port forwarding, consult your ISP or cloud provider.
+To check if your node is publicly accessible, browse to `http://[Your Internet IP]:1984`. You can [obtain your public IP here](https://ifconfig.me/), or by running `curl ifconfig.me/ip`. If you specified a different port when starting the miner, replace "1984" anywhere in these instructions with your port. If you can not access the node, you need to set up TCP port forwarding for incoming HTTP requests to your Internet IP address on port 1984 to the selected port on your mining machine. For more details on how to set up port forwarding, consult your ISP or cloud provider.
 
 Missing port forwarding is a common reason for the warning which begins with:  
   
-`"WARNING: No foreign blocks received from the network.`
+`WARNING: No foreign blocks received from the network or found by trusted peers.`
 
 Alternatively, you can run the miner in the polling mode. In this mode, your node does not have to be publicly accessible. It would check with other peers for updates at regular intervals. To run in the polling mode, specify "polling" in the command line:
 
 ```text
-./arweave-server polling mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
+./bin/start polling mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 159.203.49.13 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
 ```
 
-Note that the polling mode is significantly less efficient.
+Note that the polling mode is significantly less efficient and is not recommended.  
+  
+Also note that if your node does not receive any blocks for a minute, even when the polling mode is not enabled, the node will ask its trusted peers for new blocks. This is a safety measure to avoid stalling.
 
 ### Wait until the blocks are downloaded
 
@@ -113,13 +91,13 @@ The following log indicates the miner does not have a block required to mine the
 
 `=INFO REPORT==== 13-Mar-2019::11:02:20 === could_not_start_mining stored_recall_block_for_foreign_verification`
 
-### Bootstrap the second miner faster
+### Bootstrapping a second miner faster
 
 If you want to bootstrap another miner on a different machine, you can copy the downloaded data over from the first miner to bring it up to speed faster. Please follow these steps:
 
-1. Stop the first Arweave miner \(also, do not run the new miner just yet\).
+1. Stop the first Arweave miner, and ensure the second miner is also not running.
 2. Copy the following folders to the new machine: `blocks`, `txs`, `wallet_lists`, `data`.
-3. Start the miners.
+3. Start both miners.
 
 ### Run a miner on Windows
 
