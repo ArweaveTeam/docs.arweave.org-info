@@ -29,7 +29,15 @@ The number of available file descriptors affects the rate at which your node can
 
 You can check the current limit by executing `ulimit -n`.
 
-On Linux, to set a bigger limit, open `/etc/security/limits.conf` and edit \(or add\) the line:
+On Linux, to set a bigger global limit, open `/etc/sysctl.conf` and add the following line:
+
+```text
+fs.file-max=10000
+```
+
+Execute `sysctl -p` to make the changes take effect.
+
+You may also need to set a proper limit for the particular user. To set a user-level limit, open `/etc/security/limit.conf` and add the following line:
 
 ```text
 <your OS user>         soft    nofile  10000
