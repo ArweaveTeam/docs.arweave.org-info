@@ -51,8 +51,6 @@ During safe mode, all of your personal information becomes invisible — as 
 
 ![](../.gitbook/assets/safe-ode-2.png)
 
-During safe mode, all of your personal information becomes invisible — as you can see in the screenshot below.
-
 **How does it work?**
 
 Safe mode works similar to ‘Incognito Mode’ which you may be familiar with from using the Google Chrome browser. When archiving in safe mode a fresh request copy of the URL is made without any cookies, meaning your archive only exposes the minimum amount of information possible about your browser session.
