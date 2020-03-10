@@ -60,7 +60,7 @@ Your wallet is now available for download! Once you've confirmed that you are re
 
 Head back over to ****[https://weavemail.app/](https://weavemail.app/) and drag & drop your key file into the box: 
 
-![](../.gitbook/assets/2%20%282%29.png)
+![](../.gitbook/assets/2%20%283%29.png)
 
 ## **Whoop! Time to write your first mail** [✍️](https://emojipedia.org/writing-hand/) [✉️](https://emojipedia.org/envelope/)
 

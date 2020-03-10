@@ -14,13 +14,13 @@ If you have an existing wallet you should already be familiar with the basics, h
 
 Setting up your wallet is super easy, simply click the Arweave icon in your browser menu to get started. If you’re a first time user select _Create a new wallet,_ and if you have an existing Arweave key file, you can select _Import an existing wallet._ For those of you with existing wallets, you can jump to the ‘Existing Users’ section further down the page.
 
-![](../.gitbook/assets/web-wallet-1.png)
+![](../.gitbook/assets/11.png)
 
 ## **New Users: Generating Your Wallet**
 
 If you’re using the Arweave wallet for the first time and have selected _Create a new wallet,_ this will prompt __the Arweave extension to open and automatically download your key file.
 
-![](../.gitbook/assets/wallet-2.png)
+![](../.gitbook/assets/2%20%282%29.png)
 
 This key file is for your newly generated Arweave wallet that **you must keep safe and secure**. By safe and secure, we mean keeping it protected from loss or misplacement as it’s not possible to regenerate. In simpler terms: once it’s gone, it’s gone! We always recommend storing it in a safe location on multiple \(at least 3\) devices. We also recommend that you encrypt the file, as anyone who has access to it also has access to your wallet. For more information, check out the encryption tips section at the bottom of this guide.
 
@@ -36,7 +36,7 @@ Once you’ve given your wallet a name and set an encryption passphrase, click _
 
 _**This encryption passphrase is only used for the copy of the key file stored in the Chrome extension, it is in no way related to the JSON file you first downloaded — this downloaded file will remain unencrypted unless you choose to encrypt it! For more information, check out the encryption tips section at the bottom of this guide.**_
 
-![](../.gitbook/assets/wallet-3.png)
+![](../.gitbook/assets/3%20%283%29.png)
 
 ## **New Users: Your Encryption Passphrase**
 
@@ -48,17 +48,17 @@ Note: using your chosen encryption passphrase is the _only_ way to decrypt your 
 Your wallet is now loaded, secured, and ready to go! 
 {% endhint %}
 
-![](../.gitbook/assets/wallet-4.png)
+![](../.gitbook/assets/4%20%283%29.png)
 
 To navigate back to the wallet menu or add another wallet, click any of the two options shown in the image below:
 
-![](../.gitbook/assets/wallet-5.png)
+![](../.gitbook/assets/wallets.png)
 
 ## **Existing Users: Loading Your Wallet**
 
 If you already have an Arweave key file, you can dive straight into loading your wallet by clicking the Arweave icon in the Chrome browser menu, then selecting _Import an existing wallet_.
 
-![](../.gitbook/assets/wallet-6.png)
+![](../.gitbook/assets/side.png)
 
 Load your existing key file by clicking the folder icon, or by dragging and dropping it into the highlighted box. You are also required to give your wallet a name and set an encryption passphrase, as this keeps your wallet secure while it is loaded into your web extension - preventing anyone apart from yourself from sending tokens or archiving content.
 
@@ -78,7 +78,7 @@ To switch between the currently active wallet used to archive pages or send AR f
 
 This menu also has options for renaming, exporting, and removing wallets.
 
-![](../.gitbook/assets/wallet-7.png)
+![](../.gitbook/assets/screenshot-2020-03-10-at-12.03.59.png)
 
 When you change your active wallet, you will also see the address change on the ‘transfers’ page and in the ‘wallets’ popup window.
 
