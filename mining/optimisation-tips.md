@@ -20,7 +20,7 @@ Because of the way that the Arweave proof of access system works, miners are fav
 
 The hashing algorithm used underneath the proof of access mechanism in the Arweave is SHA2-384, for which the CPU is the most efficient miner currently available
 
-![](../.gitbook/assets/info.png)
+![](../.gitbook/assets/mining-infographic-01%20%281%29.png)
 
 {% file src="../.gitbook/assets/mining-on-the-arweave.pdf" caption="Mining infographic" %}
 
