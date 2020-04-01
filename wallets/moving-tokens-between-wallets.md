@@ -24,7 +24,7 @@ You should already have login credentials from when you created your Upvest wall
 
 Tap the 'Send' button under your Arweave wallet
 
-![](../.gitbook/assets/3%20%281%29.png)
+![](../.gitbook/assets/3%20%282%29.png)
 
 ### Step.3
 
@@ -42,7 +42,7 @@ You must ensure that the correct wallet address is inputted into the 'Recipient'
 
 Review the transaction and once you're satisfied, input your Upvest wallet password and press 'Confirm transaction'
 
-![](../.gitbook/assets/5.png)
+![](../.gitbook/assets/5%20%281%29.png)
 
 ### Step.5 
 

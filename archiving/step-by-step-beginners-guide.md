@@ -10,7 +10,7 @@ description: >-
 
 First thing’s first - you need to have the [Chrome](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/arweave/), or [Brave](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc) web browser installed.  
 
-![](../.gitbook/assets/screenshot-1-copy.png)
+![](../.gitbook/assets/1%20%283%29.png)
 
 When that’s successfully added to your browser, you will see the little Arweave icon, as pictured above. 
 
@@ -18,7 +18,7 @@ When that’s successfully added to your browser, you will see the little Arweav
 
 The archiving tokens are used to pay the people who donate their hard drive space to store your web pages and PDFs. Your tokens are kept within a digital ‘wallet’, which is simply a file you keep on your computer. 
 
-![](../.gitbook/assets/gitbook-tokens.png)
+![](../.gitbook/assets/2%20%283%29.png)
 
 Today you can grab a wallet with some free tokens to get started! Just click the extension icon, then click ‘Get started with some free AR’.
 
@@ -32,17 +32,17 @@ We strongly recommend storing an extra couple of copes of your wallet keyfile as
 
 So, now you need to load your brand new wallet file into the web extension.
 
-![](../.gitbook/assets/import.png)
+![](../.gitbook/assets/3.png)
 
-![](../.gitbook/assets/screenshot-4.png)
+![](../.gitbook/assets/4%20%281%29.png)
 
 To do this, click the Arweave icon, then click ‘Import an existing wallet’, then simply drag and drop the wallet key file you downloaded previously into the box the web extension shows you, or click ‘Load wallet’ and locate the file in your directory as you would normally open a file.
 
-![](../.gitbook/assets/screenshot-5.png)
+![](../.gitbook/assets/5.png)
 
 When you load a new wallet, the extension will prompt you to enter a password to keep your archiving tokens secure - it’s not compulsory but it’s recommended. to keep your tokens secure. You’ll need to enter this later when archiving.
 
-![](../.gitbook/assets/screenshot-6.png)
+![](../.gitbook/assets/66.png)
 
 Now, you can see your ‘wallet address’ - the long string of numbers, letters, and symbols totally unique to your token wallet. Also, your balance will show as 'AR’ tokens \(the ‘ar’ stands for ar-chiving, naturally\).
 
@@ -50,11 +50,11 @@ Now, you can see your ‘wallet address’ - the long string of numbers, letters
 
 Let’s get archiving! We’ll now work through the steps of archiving the WIkipedia page about W**i**kipedia itself, as an example.
 
-![](../.gitbook/assets/screenshot-7.png)
+![](../.gitbook/assets/7.png)
 
 Once you’re on a web page you’d like to archive, all you need to do is press the Arweave icon then ‘Archive this page’ or ‘Archive this PDF’.
 
-![](../.gitbook/assets/screenshot-8.png)
+![](../.gitbook/assets/8.png)
 
 Now, you can see a preview of what your page will look like once archived. Make sure to pay attention at this stage, as some web pages might look quite different once archived. Only proceed if you’re happy with how the page appears.
 
@@ -66,15 +66,15 @@ Only proceed with archiving if you’re happy to permanently, publicly archive t
 
 If you’re happy with how the preview looks, click ‘Archive this on Arweave’.
 
-![](../.gitbook/assets/screenshot-9.png)
+![](../.gitbook/assets/9.png)
 
 Then, you will be asked to confirm if you’re happy with the cost of archiving \(the ‘fee’\) which will be deducted from your wallet balance, and you’ll also be prompted to enter your wallet password. When ready, click ‘Confirm and Archive Page’.
 
-![](../.gitbook/assets/screenshot-10.png)
+![](../.gitbook/assets/10.png)
 
 When you see this confirmation screen, you know your page has been submitted to the permaweb for archiving!
 
-![](../.gitbook/assets/pending-icon.png)
+![](../.gitbook/assets/11%20%281%29.png)
 
 If your extension icon has a little '1', this means that you have a pending archive that hasn't been finalised yet. 
 
@@ -92,11 +92,11 @@ Here’s an example to show how it works in practice with our Wikipedia  [https:
 
 To view archived pages and PDFs of your own, you'll first have to grab the archive's transaction ID - follow these steps to do so:
 
-![](../.gitbook/assets/screenshot-11.png)
+![](../.gitbook/assets/220.png)
 
 So, as normal just click on the extension icon then either 'PDFs' or 'Pages' depending on which type of archive you're looking for. 
 
-![](../.gitbook/assets/screenshot-12.png)
+![](../.gitbook/assets/13.png)
 
 So, just click the top field where it says 'ID' and it will automatically copy it to your clipboard. Then, as we mentioned above, enter the transaction ID at the end of this link: arweave.net/_\[insert your transaction ID here\]_, like this: [https://arweave.net/MAVgEMO3qlqe-qHNVs00qgwwbCb6FY2k15vJP3gBLW4](https://arweave.net/MAVgEMO3qlqe-qHNVs00qgwwbCb6FY2k15vJP3gBLW4). 
 
@@ -114,11 +114,11 @@ Although everything you archive is permanently stored, your own web extension is
 
 You can download an easily browsable backup of your previous archives very simply.
 
-![](../.gitbook/assets/screenshot-14.png)
+![](../.gitbook/assets/110.png)
 
 Click the extension icon again, then click ‘Wallets’.
 
-![](../.gitbook/assets/screenshot-15.png)
+![](../.gitbook/assets/15.png)
 
 Click ‘Export Transactions’, which will allow you to download a file with all of your archive history inside. We recommend backing up your archives regularly. The file format is CSV, so it will be compatible with Microsoft Excel, Google Sheets, and Apple Numbers.
 

@@ -34,7 +34,7 @@ Note, none of your data will be readable by Google or GitHub. This process is re
 
 Once you've chosen which account you'd like to proceed with and you've successfully completed CAPTCHA, you will get the following message:
 
-![](../.gitbook/assets/3.png)
+![](../.gitbook/assets/3%20%281%29.png)
 
 ## **Step 3**
 
@@ -42,13 +42,13 @@ Head over to your inbox and open the email titled: **Woohoo! Your free Arweave t
 
 ## 
 
-![](../.gitbook/assets/4%20%282%29.png)
+![](../.gitbook/assets/4%20%283%29.png)
 
 ## **Step 4**
 
 Your wallet is now available for download! Once you've confirmed that you are responsible for your key file, it will be downloaded onto your machine: 
 
-![](../.gitbook/assets/5%20%282%29.png)
+![](../.gitbook/assets/5%20%283%29.png)
 
 {% hint style="warning" %}
 **Key File:** Your key file will be called something like _arweave-keyfile-abc123.json_ and the ‘_abc123’_ part is your unique wallet address. Wallet addresses are 43 characters long and can contain any alphanumeric characters, as wall as dashes and underscores \(_a-z0–9-\_\)._ Your key file is a standardised and interoperable format called JSON Web Key, which you can [read more about here](https://tools.ietf.org/html/rfc7517).
@@ -60,7 +60,7 @@ Your wallet is now available for download! Once you've confirmed that you are re
 
 Head back over to ****[https://weavemail.app/](https://weavemail.app/) and drag & drop your key file into the box: 
 
-![](../.gitbook/assets/2%20%283%29.png)
+![](../.gitbook/assets/2%20%284%29.png)
 
 ## **Whoop! Time to write your first mail** [✍️](https://emojipedia.org/writing-hand/) [✉️](https://emojipedia.org/envelope/)
 
@@ -72,15 +72,15 @@ In need of a weave-buddy to send your first mail to? Drop Arweave Sam a line: **
 
 Tap the 'Compose' button:
 
-![](../.gitbook/assets/3%20%282%29.png)
+![](../.gitbook/assets/3%20%283%29.png)
 
 Once the email interface has opened, input the mail recipient address, the mail contents, and amount of AR you'd like to send with your email \[optional\]. Next, tap '**Send'** 
 
-![](../.gitbook/assets/4%20%281%29.png)
+![](../.gitbook/assets/4%20%282%29.png)
 
 Once your mail has been sent successfully, you will receive the following message: 
 
-![](../.gitbook/assets/5%20%281%29.png)
+![](../.gitbook/assets/5%20%282%29.png)
 
 ## [🚀](https://emojipedia.org/rocket/)[🚀](https://emojipedia.org/rocket/)[🚀](https://emojipedia.org/rocket/) Congratulations, you sent your first Weavemail [🚀](https://emojipedia.org/rocket/)[🚀](https://emojipedia.org/rocket/)[🚀](https://emojipedia.org/rocket/)
 
