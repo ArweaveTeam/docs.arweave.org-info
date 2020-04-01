@@ -63,7 +63,7 @@ If you would like to see a log of your miner’s activity, you can run **‘./bi
 
 To get an additional performance boost, consider configuring huge memory pages in your OS.  
   
-On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=2000`. Here, "2000" corresponds to two thousand pages of 2 MiB each. Do not set a value bigger than the amount of available memory \(the "total" column from `"free -m"`\) minus 6 GiB.
+On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=2000`. Here, "2000" corresponds to two thousand pages of 2 MiB each. Do not set a value bigger than the amount of available memory \(the "total" column from `"free -m"`\) minus 6 GiB. If the displayed value is lower than what you have set, reboot the machine and try again.
 
 You can benchmark your machine's performance with different settings by running `./bin/start benchmark randomx enable randomx_large_pages`. Note that you have to stop the miner before running the benchmark.
 
