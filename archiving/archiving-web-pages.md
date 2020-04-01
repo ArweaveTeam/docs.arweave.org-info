@@ -13,7 +13,7 @@ If you're new to Arweave check out the web extension [getting started](../wallet
 
 Archiving is easy, simply browse whichever page you’d like to archive and click _Archive this Page_.
 
-![](../.gitbook/assets/archiving-1.png)
+![](../.gitbook/assets/7.png)
 
 Before your page is archived, you’ll see a preview of how the page will look. You may notice some slight differences from the original page, this is for a few reasons:
 
@@ -25,15 +25,15 @@ Before your page is archived, you’ll see a preview of how the page will look. 
 
 We’re continually working to make the archiving process more resilient, which means progressively reducing web pages’ reliance on outside sources to function. For example, by including CSS \(the code that styles web pages\) within archived pages, we are ensuring that pages always display correctly even if the CSS outside of the archived page is altered.
 
-![](../.gitbook/assets/archiving-2.png)
+![](../.gitbook/assets/8.png)
 
 Once you’re happy with the preview, click _Archive this on Arweave_ review the information and price, enter your wallet encryption passphrase, then hit confirm.
 
-![](../.gitbook/assets/archive-3.png)
+![](../.gitbook/assets/9.png)
 
 It should only take a few seconds to submit your transaction to the network, however this depends on a few factors such as the current network state, your internet connection speed, and the size of the page you’re archiving. Once you’re done, you’ll see the screen that says ‘Transaction sent — This should be mined into a block soon.’
 
-![](../.gitbook/assets/archiving-4.png)
+![](../.gitbook/assets/10.png)
 
 ## Safe Mode
 
@@ -45,11 +45,11 @@ This means that when you archive a page from a browser which contains personal i
 
 Here’s an example: Imagine you’re logged into amazon.co.uk and information such as your name, postal code, account age, number of items in basket, and recent Prime Video streams are on display, as seen in the screenshot below.
 
-![](../.gitbook/assets/safe-mode.png)
+![](../.gitbook/assets/16.png)
 
 During safe mode, all of your personal information becomes invisible — as you can see in the screenshot below.
 
-![](../.gitbook/assets/safe-ode-2.png)
+![](../.gitbook/assets/17.png)
 
 During safe mode, all of your personal information becomes invisible — as you can see in the screenshot below.
 
