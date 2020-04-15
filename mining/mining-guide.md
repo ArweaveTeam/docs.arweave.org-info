@@ -93,11 +93,13 @@ Also note that if your node does not receive any blocks for a minute, even when 
 
 ### Wait until the blocks are downloaded
 
-The Arweave miner does not mine without data. For every new block in order to mine it, a random block from the past is required. It takes a few days to download all the blocks from the peers so do not expect the mining to be very intensive after the first launch. For example, if you have 10% of the total amount of blocks, you have a 10% chance for being able to participate in mining the next block.
+The Arweave miner does not mine without data. For every new block in order to mine it, a random chunk of data from the past is required. It takes time to download data from the peers, so do not expect the mining to be very intensive after the first launch. For example, if you have 10% of the total weave size, you have a 10% chance of being able to participate in mining the next block at the current network difficulty. The miner will still attempt to mine using the data it has, but the difficulty increases exponentially with every missing chunk taken from the deterministic sequence of chunks seeded by the current block hash.
 
-The following log indicates the miner does not have a block required to mine the current block \(the network mines a new block approximately every two minutes\). You do not have to take any action.
+The following log indicates the miner gave up looking for data required to mine the current block \(the network mines a new block approximately every two minutes\). You do not have to take any action.
 
-`=INFO REPORT==== 13-Mar-2019::11:02:20 === could_not_start_mining stored_recall_block_for_foreign_verification`
+`=INFO REPORT==== 13-Mar-2019::11:02:20 ===  
+event: could_not_start_mining  
+reason: data_unavailable_to_generate_poa`
 
 ### Bootstrapping a second miner faster
 
@@ -106,6 +108,16 @@ If you want to bootstrap another miner on a different machine, you can copy the 
 1. Stop the first Arweave miner, and ensure the second miner is also not running.
 2. Copy the following folders to the new machine: `blocks`, `txs`, `wallet_lists`, `data`.
 3. Start both miners.
+
+### Removing old wallet lists to clean up some space
+
+Run the following script while the miner is running:
+
+```text
+./bin/remove-old-wallet-lists
+```
+
+If you are building the miner from source, the script is `./bin/remove-old-wallet-lists-dev`.
 
 ### Run a miner on Windows
 
