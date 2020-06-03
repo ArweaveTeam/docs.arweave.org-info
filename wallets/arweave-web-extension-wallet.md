@@ -36,7 +36,7 @@ Once you’ve given your wallet a name and set an encryption passphrase, click _
 
 _**This encryption passphrase is only used for the copy of the key file stored in the Chrome extension, it is in no way related to the JSON file you first downloaded — this downloaded file will remain unencrypted unless you choose to encrypt it! For more information, check out the encryption tips section at the bottom of this guide.**_
 
-![](../.gitbook/assets/3%20%284%29.png)
+![](../.gitbook/assets/3%20%283%29.png)
 
 ## **New Users: Your Encryption Passphrase**
 
@@ -48,7 +48,7 @@ Note: using your chosen encryption passphrase is the _only_ way to decrypt your 
 Your wallet is now loaded, secured, and ready to go! 
 {% endhint %}
 
-![](../.gitbook/assets/4%20%284%29.png)
+![](../.gitbook/assets/4%20%283%29.png)
 
 To navigate back to the wallet menu or add another wallet, click any of the two options shown in the image below:
 
