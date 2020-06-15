@@ -57,7 +57,9 @@ Now you’re ready to start the mining process by using the following command fr
 Please replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to credit when you find a block!
 {% endhint %}
 
-If you would like to see a log of your miner’s activity, you can run **‘./bin/logs -f’** in the Arweave directory in a different terminal.
+If you would like to see a log of your miner’s activity, you can run `./bin/logs -f` in the Arweave directory in a different terminal.
+
+To stop the miner, run `./bin/stop` or kill the OS process \(`kill -sigterm <pid>` or `pkill <name>`\). Sending a SIGKILL \(`kill -9`\) is **not** recommended.
 
 ## Tuning the Miner
 
