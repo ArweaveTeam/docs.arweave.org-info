@@ -87,7 +87,7 @@ When you change your active wallet, you will also see the address change on the 
 ## Encryption Tips
 
 {% hint style="info" %}
-If you already use an encrypted password manager like 1password then this is a quick and easy way to secure the file.
+If you already use an encrypted password manager like [1password](https://1password.com/) then this is a quick and easy way to secure the file.
 {% endhint %}
 
 \*\*\*\*
