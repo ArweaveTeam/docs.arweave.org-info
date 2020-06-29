@@ -16,19 +16,19 @@ Before moving tokens from your Upvest wallet, you should have already created yo
 
 Head over to [https://me.upvest.co/signin](https://me.upvest.co/signin) and sign in to Upvest:
 
-![](../.gitbook/assets/screen-shot-2019-06-12-at-15.35.55.png)
+![](../.gitbook/assets/screenshot-2020-06-29-at-15.45.17.png)
 
 You should already have login credentials from when you created your Upvest wallet, and if you have forgotten your password you can tap the 'Reset' password link. In the event that you have forgotten both your email _and_ password,  fear not, Upvest can work some magic to help locate your account credentials with their recovery kit. You can do so by contacting [support@upvest.co](mailto:support@upvest.co)
 
 ### Step.2
 
-Tap the 'Send' button under your Arweave wallet
+Located at the top right-hand corner of your screen, tap the 'send' button
 
-![](../.gitbook/assets/3%20%281%29.png)
+![](../.gitbook/assets/upvest-1.png)
 
 ### Step.3
 
-Input the amount of AR you would like to send and paste your Arweave wallet address into the Recipient field 
+Input the amount of AR you would like to send and paste your Arweave wallet address into the Recipient field, then tap 'Next'
 
 {% hint style="danger" %}
 You must ensure that the correct wallet address is inputted into the 'Recipient' field. If you input an incorrect or invalid address, you risk permanently losing your tokens. 
@@ -36,21 +36,27 @@ You must ensure that the correct wallet address is inputted into the 'Recipient'
 **We always recommend you send a test transaction \(1AR\) to ensure that your tokens are being sent to the correct wallet address**
 {% endhint %}
 
-![](../.gitbook/assets/4.png)
+![](../.gitbook/assets/screenshot-2020-06-29-at-15.50.29.png)
 
 ### Step.4
 
 Review the transaction and once you're satisfied, input your Upvest wallet password and press 'Confirm transaction'
 
-![](../.gitbook/assets/5%20%283%29.png)
+![](../.gitbook/assets/screenshot-2020-06-29-at-15.51.23.png)
 
 ### Step.5 
 
 Next you will see the transaction receipt. And that's it, you're done! 
 
-![](../.gitbook/assets/6.png)
+![](../.gitbook/assets/screenshot-2020-06-29-at-16.02.12.png)
 
 {% hint style="info" %}
 Your tokens should be displayed in your Arweave web extension wallet within a few hours, however transaction times can vary. You can view the status of your transaction on Viewblock [here -&gt;](https://viewblock.io/arweave) 
 {% endhint %}
+
+To view the status of your transaction\(s\), tap the 'Back to overview' button. Here you will find your transaction history and updated balance. 
+
+## Support
+
+If you encounter any problems whilst sending tokens from your Upvest wallet, you can contact Upvest on **support@upvest.co,** or **via their** [**Telegram support group**](https://t.me/joinchat/FPkAjlJp2SuQjJzfUe0S_g)**.**
 
