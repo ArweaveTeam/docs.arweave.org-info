@@ -6,8 +6,7 @@ description: >-
 
 # Archiving Web Pages
 
-  
-If you're new to Arweave check out the web extension [getting started](../wallets/arweave-web-extension-wallet.md) guide, and download the [chrome extension](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc).
+If you're new to Arweave check out the web extension [getting started](../wallets/arweave-web-extension-wallet.md) guide, and download the Arweave web extension for [**Chrome**](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc), [**Firefox**](https://addons.mozilla.org/en-US/firefox/addon/arweave/), or [**Brave**](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc). 
 
 ## Archiving a web page
 
@@ -27,11 +26,13 @@ We’re continually working to make the archiving process more resilient, which 
 
 ![](../.gitbook/assets/8.png)
 
-Once you’re happy with the preview, click _Archive this on Arweave_ review the information and price, enter your wallet encryption passphrase, then hit confirm.
+Once you’re happy with the preview, click _Archive this on Arweave._
 
 ![](../.gitbook/assets/9.png)
 
-It should only take a few seconds to submit your transaction to the network, however this depends on a few factors such as the current network state, your internet connection speed, and the size of the page you’re archiving. Once you’re done, you’ll see the screen that says ‘Transaction sent — This should be mined into a block soon.’
+Review the information in the 'Confirm Transaction' window, enter your wallet encryption passphrase, then hit **Confirm and Archive Page**.
+
+It should only take a few seconds to submit your transaction to the network, however this depends on a few factors such as the current network state, your internet connection speed, and the size of the page you are archiving. Once you’re done, you’ll see the screen that says ‘Transaction sent — This should be mined into a block soon.’
 
 ![](../.gitbook/assets/10.png)
 
@@ -43,15 +44,9 @@ Many websites employ various means of customising content for users by tracking 
 
 This means that when you archive a page from a browser which contains personal information \(e.g. you’re logged into Google Suite, Amazon, Facebook\), you may also end up archiving tiny artifacts about yourself, such as your browsing habits. Because some of these artifacts are subtle and are often hidden or embedded within the source code, it’s important to make sure you protect your information by archiving in safe mode.
 
-Here’s an example: Imagine you’re logged into amazon.co.uk and information such as your name, postal code, account age, number of items in basket, and recent Prime Video streams are on display, as seen in the screenshot below.
+Here’s an example: Imagine you’re logged into amazon.co.uk and information such as your name, postal code, account age, number of items in basket, and recently viewed products are on display, as seen in the screenshot below.
 
 ![](../.gitbook/assets/16.png)
-
-During safe mode, all of your personal information becomes invisible — as you can see in the screenshot below.
-
-![](../.gitbook/assets/17.png)
-
-During safe mode, all of your personal information becomes invisible — as you can see in the screenshot below.
 
 **How does it work?**
 
