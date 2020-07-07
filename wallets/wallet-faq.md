@@ -6,19 +6,11 @@ description: All questions surrounding wallets
 
 ## **Which wallet\(s\) can I use for AR tokens?**
 
-We support two wallets: The Arweave web extension wallet for Chrome browsers, which you can [download here &gt;](https://chrome.google.com/webstore/detail/arweave-client/iplppiggblloelhoglpmkmbinggcaaoc?hl=en-US) Alternatively, you can use the Upvest Wallet [available here &gt;](https://me.upvest.co/)
-
-## **What’s the difference between the Arweave and Upvest wallets?**
-
-Each wallet works differently, so choosing the best fit for you is completely down to your needs. The Upvest wallet has a simple website login interface, which also works well on mobile. The Arweave web extension is super slick, but currently unavailable on mobile and all browsers \(except for Google Chrome\).
-
-## **Which wallet is more secure?**
-
-Both wallets are secure and have been extensively tested.
+AR is currently only compatible with the Arweave web extension wallet. You can download it  from [**Chrome**](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc), [**Firefox**](https://addons.mozilla.org/en-US/firefox/addon/arweave/), or [**Brave**](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc).
 
 ## **How do I use the Arweave web extension wallet?**
 
-Lucky for you, we’ve created a step-by-step guide which can be [found here &gt;](https://medium.com/@arweave/dd706d1c9523)
+Lucky for you, we’ve created a step-by-step guide which can be [**found here**](https://docs.arweave.org/info/wallets/arweave-web-extension-wallet)**.**
 
 ## **Can I use the Arweave wallet as a cold wallet?**
 
@@ -36,6 +28,6 @@ At the moment, unfortunately not. We would like to achieve this in the future, b
 
 ## **Can I send AR tokens to MyEtherWallet/another third party wallet or an ETH address?**
 
-No, these are fundamentally incompatible. Don’t send your AR tokens to any wallets other than the Arweave web extension wallet or the Upvest wallet.  
+No, these are fundamentally incompatible. Don’t send your AR tokens to any wallets other than the Arweave web extension wallet!  
 
 
