@@ -37,7 +37,7 @@ fs.file-max=1000000
 
 Execute `sysctl -p` to make the changes take effect.
 
-You may also need to set a proper limit for the particular user. To set a user-level limit, open `/etc/security/limit.conf` and add the following line:
+You may also need to set a proper limit for the particular user. To set a user-level limit, open `/etc/security/limits.conf` and add the following line:
 
 ```text
 <your OS user>         soft    nofile  100000
