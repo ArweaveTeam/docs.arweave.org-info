@@ -7,8 +7,12 @@ description: >-
 
 # Mining Guide
 
-{% hint style="warning" %}
+{% hint style="info" %}
 **For any questions and support queries regarding mining on Arweave, we strongly recommend that you join our** [**Discord server**](https://discord.gg/DjAFMJc) **as this is the hub of our mining and developer communities. Here you will find plenty of community members and Arweave team members available to help you out** 🤖 
+{% endhint %}
+
+{% hint style="warning" %}
+Arweave core developers have been made aware that at least one mining node inside the Chinese mainland has been seized by the government. Node operators should understand that the Arweave network stores and serves a significant amount of material related to the activities of the Chinese government. The Arweave protocol does not require that any miner to store data that they deem inappropriate. You can read more about our content policies [here](https://www.arweave.org/technology#content-moderation).
 {% endhint %}
 
 ## Install the Miner
