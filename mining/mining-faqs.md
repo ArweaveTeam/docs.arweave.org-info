@@ -12,7 +12,7 @@ Nope! You don’t have to store the whole weave to mine, there’s no set minimu
 
 You can run **./arweave-server** benchmark to calculate your per core hashing rate. By default, the Arweave server will start one less than the number of cores you have in your machine \(in order for it to stay responsive during mining\)
 
-## **How do I see if i’ve mined a block?**
+## **How do I see if I've mined a block?**
 
 Luckily for you, we’ve created a neat infographic to show you how the mining process works. You can find that on the 'Mining Reward Factors' page. There are three key phases to mining on the Arweave: First you need to store the recall block. Once you have this, you can begin hashing. The second phase is mining the candidate block. The third and final phase: the mined block will be submitted to the network and the network will then decide whether or not to accept this
 
