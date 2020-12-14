@@ -36,7 +36,7 @@ You can check the current limit by executing `ulimit -n`.
 On Linux, to set a bigger global limit, open `/etc/sysctl.conf` and add the following line:
 
 ```text
-fs.file-max=10000000
+fs.file-max=100000000
 ```
 
 Execute `sysctl -p` to make the changes take effect.
@@ -44,10 +44,10 @@ Execute `sysctl -p` to make the changes take effect.
 You may also need to set a proper limit for the particular user. To set a user-level limit, open `/etc/security/limits.conf` and add the following line:
 
 ```text
-<your OS user>         soft    nofile  1000000
+<your OS user>         soft    nofile  10000000
 ```
 
-Open a new terminal session. To make sure the changes took effect, and the limit was increased, type `ulimit -n`. You can also change the limit for the current session via `ulimit -n 1000000`
+Open a new terminal session. To make sure the changes took effect, and the limit was increased, type `ulimit -n`. You can also change the limit for the current session via `ulimit -n 10000000`
 
 ## Running the Miner
 
@@ -107,12 +107,14 @@ The following log indicates the miner gave up looking for data required to mine 
 event: could_not_start_mining  
 reason: data_unavailable_to_generate_poa`
 
-### Bootstrapping a second miner faster
+To speed up bootstrapping, use a higher \(default is 2\) value for the `sync_jobs` configuration parameter.
+
+### Copying data to another machine
 
 If you want to bootstrap another miner on a different machine, you can copy the downloaded data over from the first miner to bring it up to speed faster. Please follow these steps:
 
 1. Stop the first Arweave miner, and ensure the second miner is also not running.
-2. Copy the following folders to the new machine: `blocks`, `txs`, `wallet_lists`, `data`.
+2. Copy the entire `data_dir` folder to the new machine. You can optionally only copy the `data_sync_state` file and the `rocksdb/ar_data_sync_db` and `rocksdb/ar_data_sync_chunk_db` folders. These folders contain all the data required for mining. However, unless one of the two nodes stores the entire weave, letting them sync data themselves would increase mining efficiency in the long run. You can set a high value for the `sync_jobs` configuration parameter to bootstrap the node faster.
 3. Start both miners.
 
 ### Removing old wallet lists to clean up some space
