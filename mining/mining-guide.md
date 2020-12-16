@@ -49,6 +49,14 @@ You may also need to set a proper limit for the particular user. To set a user-l
 
 Open a new terminal session. To make sure the changes took effect, and the limit was increased, type `ulimit -n`. You can also change the limit for the current session via `ulimit -n 10000000`
 
+If the above does not work, set 
+
+```text
+DefaultLimitNOFILE=10000000
+```
+
+in both `/etc/systemd/user.conf`and `/etc/systemd/system.conf`
+
 ## Running the Miner
 
 Now you’re ready to start the mining process by using the following command from the Arweave directory: 
