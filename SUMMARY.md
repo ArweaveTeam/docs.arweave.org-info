@@ -11,7 +11,6 @@
 
 ## Wallets
 
-* [Moving Tokens from Upvest Wallet](wallets/moving-tokens-between-wallets.md)
 * [Arweave Web Extension Wallet](wallets/arweave-web-extension-wallet.md)
 * [Wallet FAQ](wallets/wallet-faq.md)
 * [Generating a Cold Wallet](wallets/generating-cold-wallet.md)
