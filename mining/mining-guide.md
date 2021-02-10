@@ -95,10 +95,10 @@ Missing port forwarding is a common reason for the warning which begins with:
   
 `WARNING: No foreign blocks received from the network or found by trusted peers.`
 
-Alternatively, you can run the miner in the polling mode. In this mode, your node does not have to be publicly accessible. It would check with other peers for updates at regular intervals. To run in the polling mode, specify "polling" in the command line:
+Alternatively, you can run the miner in the polling mode. In this mode, your node does not have to be publicly accessible. It would check with other peers for updates at regular intervals. To run in the polling mode, specify "polling \[frequency\]" in the command line:
 
 ```text
-./bin/start polling mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
+./bin/start polling 30 mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
 ```
 
 Note that the polling mode is significantly less efficient and is not recommended.  
