@@ -115,7 +115,13 @@ The following log indicates the miner gave up looking for data required to mine 
 event: could_not_start_mining  
 reason: data_unavailable_to_generate_poa`
 
-To speed up bootstrapping, use a higher \(default is 2\) value for the `sync_jobs` configuration parameter.
+To speed up bootstrapping, use a higher \(default is 2\) value for the `sync_jobs` configuration parameter like this:
+
+```text
+./bin/start mine sync_jobs 20 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
+```
+
+You can set the sync_jobs back to 2 after historical data is synced.
 
 ### Copying data to another machine
 
