@@ -60,7 +60,7 @@ Your wallet is now available for download! Once you've confirmed that you are re
 
 Head back over to ****[https://weavemail.app/](https://weavemail.app/) and drag & drop your key file into the box: 
 
-![](../.gitbook/assets/2%20%282%29%20%281%29.png)
+![](../.gitbook/assets/2%20%282%29%20%281%29%20%281%29.png)
 
 ## **Whoop! Time to write your first mail** [✍️](https://emojipedia.org/writing-hand/) [✉️](https://emojipedia.org/envelope/)
 
@@ -72,7 +72,7 @@ In need of a weave-buddy to send your first mail to? Drop Arweave Sam a line: **
 
 Tap the 'Compose' button:
 
-![](../.gitbook/assets/3%20%282%29.png)
+![](../.gitbook/assets/3%20%283%29%20%281%29.png)
 
 Once the email interface has opened, input the mail recipient address, the mail contents, and amount of AR you'd like to send with your email \[optional\]. Next, tap '**Send'** 
 
