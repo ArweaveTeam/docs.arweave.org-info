@@ -40,3 +40,17 @@ We recommend starting the miner in a screen session, you can then safely disconn
 
 Though it’s possible to do so with a dynamic IP, this is very inefficient, so we strongly recommend a static IP. However if you are using a dynamic IP, make sure you’re operating in ‘polling mode’
 
+
+## **Error while loading shared libraries**
+
+You may encounter the following error when starting the miner:
+
+```text
+arweave: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory
+```
+
+If so, just install the missing `libcurses` dependency and you're done:
+
+```text
+sudo apt install libncurses5
+```
