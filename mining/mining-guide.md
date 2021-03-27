@@ -62,7 +62,7 @@ in both `/etc/systemd/user.conf`and `/etc/systemd/system.conf`
 Now you’re ready to start the mining process by using the following command from the Arweave directory:
 
 ```text
-./bin/start mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
+./bin/start mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
 ```
 
 {% hint style="warning" %}
@@ -122,7 +122,7 @@ Finally, to see the upper hashrate limit of a setup, run `./bin/hashrate-upper-l
 We made our best effort to choose reasonable defaults; however, changing some of the following parameters may improve the efficiency of your miner: `stage_one_hashing_threads` \(between 1 and the number of CPU cores\), `stage_two_hashing_threads` , `io_threads`, `randomx_bulk_hashing_iterations`. For example,
 
 ```text
-./bin/start stage_one_hashing_threads 32 stage_two_hashing_threads 32 io_threads 50 randomx_bulk_hashing_iterations 64 data_dir /your/dir mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
+./bin/start stage_one_hashing_threads 32 stage_two_hashing_threads 32 io_threads 50 randomx_bulk_hashing_iterations 64 data_dir /your/dir mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
 ```
 
 `recall bytes computed/s` should be roughly equal to `Miner spora rate` divided by your share of the weave. If it is not, consider increasing `io_threads` and decreasing`stage_one_hashing_threads`. You can learn the share of the weave the node has synced to date by dividing the size of the `chunk_storage` folder \(`du -sh /path/to/data/dir/chunk_storage`\) by the [total weave size](https://viewblock.io/arweave/stats). Increasing `randomx_bulk_hashing_iterations` to 128 or bigger might make a big difference on the powerful machine.
@@ -134,7 +134,7 @@ The Arweave miner does not mine without data. For every new block, in order to m
 To speed up bootstrapping, use a higher \(default is 20\) value for the `sync_jobs` configuration parameter like this:
 
 ```text
-./bin/start mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
+./bin/start mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
 ```
 
 You can set the sync\_jobs back to 2 after historical data is synced. Turn the miner off \(do not set the `mine` flag\) to further speed up syncing.
@@ -158,7 +158,7 @@ If it does not or if there is a "erl\_drv\_rwlock\_destroy" error on startup, re
 Finally, tell the miner it can use large pages by specifying `enable randomx_large_pages`on startup:
 
 ```text
-./bin/start mine enable randomx_large_pages mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
+./bin/start mine enable randomx_large_pages mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
 ```
 
 ### Using Multiple Disks
@@ -182,7 +182,7 @@ The output of `df -h` should look like:
 Replace /dev/nvme1n1, /dev/nvme1n2, /dev/hdd1 with the filesystems you have, replace `/your/dir` with the directory you specify on startup:
 
 ```text
-./bin/start data_dir /your/dir mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 159.203.158.108 peer 139.59.51.59 peer 138.197.232.192
+./bin/start data_dir /your/dir mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
 ```
 
 ## Troubleshooting
