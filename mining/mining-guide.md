@@ -111,7 +111,7 @@ The node reports its hashrate in the console - `Miner spora rate: 1546 h/s`and l
 
 To estimate your hashrate in advance, you would need to know or measure your CPU's performance, the disk throughput, and the amount of disk space you will allocate for mining.
 
-To benchmark CPU, you can run the packaged `randomx-benchmark` script.`./bin/randomx-benchmark --mine --init 32 --threads 32 --jit --largePages`. Replace 32 with the number of CPU cores. Note that reducing the number of cores might improve the outcome. Do not specify `--largePages` if you have not configured them yet. For the reference, a 32-core AMD Ryzen 3950x can do about 10000 h/s, a 32-core AMD EPYC 7502P - 24000 h/s, a 12-core Intel Xeon E-2276G CPU - 2500 h/s, a 2-core Intel Xeon CPU E5-2650 machine in the cloud - 600 h/s.
+To benchmark CPU, you can run the packaged `randomx-benchmark` script.`./bin/randomx-benchmark --mine --init 32 --threads 32 --jit --largePages`. Replace 32 with the number of CPU threads. Note that reducing the number of threads might improve the outcome. Do not specify `--largePages` if you have not configured them yet. For the reference, a 32-threads AMD Ryzen 3950x can do about 10000 h/s, a 32-threads AMD EPYC 7502P - 24000 h/s, a 12-threads Intel Xeon E-2276G CPU - 2500 h/s, a 2-threads Intel Xeon CPU E5-2650 machine in the cloud - 600 h/s.
 
 If you do not know the throughput of your disk, run `hdparm -t /dev/sda`. Replace `/dev/sda` with the disk name from `df -h`. To be competitive, consider a fast NVMe SSD capable of several GiB per second and more.
 
@@ -119,7 +119,7 @@ Finally, to see the upper hashrate limit of a setup, run `./bin/hashrate-upper-l
 
 ### Changing the mining configuration
 
-We made our best effort to choose reasonable defaults; however, changing some of the following parameters may improve the efficiency of your miner: `stage_one_hashing_threads` \(between 1 and the number of CPU cores\), `stage_two_hashing_threads` , `io_threads`, `randomx_bulk_hashing_iterations`. For example,
+We made our best effort to choose reasonable defaults; however, changing some of the following parameters may improve the efficiency of your miner: `stage_one_hashing_threads` \(between 1 and the number of CPU threads\), `stage_two_hashing_threads` , `io_threads`, `randomx_bulk_hashing_iterations`. For example,
 
 ```text
 ./bin/start stage_one_hashing_threads 32 stage_two_hashing_threads 32 io_threads 50 randomx_bulk_hashing_iterations 64 data_dir /your/dir mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
