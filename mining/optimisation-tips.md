@@ -6,7 +6,7 @@ Because of the way that the Arweave proof of access system works, miners are fav
 
 
 Hard drive space will become an increasingly important part of the mining process as more data is stored in the system. However, the most efficient miners in the Arweave network will combine all three categories: hard drive space, bandwidth, and computational power.  
-We also recommend that you join our [Discord](https://discord.gg/DzNZPaZ) community, as members of our mining channel will be able to offer help on how to best-optimise your efforts
+We also recommend that you join our [Discord](https://discord.gg/GHB4fxVv8B) community, as members of our mining channel will be able to offer help on how to best-optimise your efforts
 
 ## **How much RAM do I need to dedicate?**
 
