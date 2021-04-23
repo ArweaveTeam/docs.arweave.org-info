@@ -6,19 +6,35 @@ Yes, if you do not provide a wallet address on the command line when starting th
 
 ## **Do I have to download & store the whole blockweave to begin mining?**
 
-Nope! You don’t have to store the whole weave to mine, there’s no set minimum requirement. However, the more blocks of the blockweave that you store, the more likely you are to receive mining rewards from the network
+Nope! You don’t have to store the whole weave to mine, there’s no set minimum requirement. However, the more data you store, the more likely you are to receive mining rewards from the network
 
-## **How do I measure my mining performance?**
+## **How do I see my mining performance?**
 
-You can run **./arweave-server** benchmark to calculate your per core hashing rate. By default, the Arweave server will start one less than the number of cores you have in your machine \(in order for it to stay responsive during mining\)
+When you run **./bin/start**  you will see your miners **H/S** in the logs as you running your node. If your node is syncing the weave it will display 0 h/s but will go up over time.  
 
-## **How do I see if i’ve mined a block?**
 
-Luckily for you, we’ve created a neat infographic to show you how the mining process works. You can find that on the 'Mining Reward Factors' page. There are three key phases to mining on the Arweave: First you need to store the recall block. Once you have this, you can begin hashing. The second phase is mining the candidate block. The third and final phase: the mined block will be submitted to the network and the network will then decide whether or not to accept this
+
+## What do \[Stage X/3\] in the logs mean?“ 
+
+There are three key phases to mining on the Arweave:
+
+First stage is the node started the mining process to produce a block. Once the miner produced the candidate block, it goes into the second phase and sends the block out to the network . The third and final phase: the mined block will be submitted to the network, and the network will then decide whether or not to accept this.
+
+```text
+# Log output example  
+
+2021-03-19T [info] [Stage 1/3] Starting to hash
+2021-03-19T [info] [Stage 2/3] Produced candidate block <hash> and dispatched to network.
+2021-03-19T [info] [Stage 3/3] Your block <hash> was accepted by the network!
+```
+
+ 
+
+
 
 ## **Can I use multiple hard drives/external auxiliary hard drives to provide more data storage on the network?**
 
-Yes, this is possible. In order to build this kind of setup, you will need to set up a cross-disk file system and mount this in the ‘blocks’ subdirectory of your Arweave installation. You will be able to find tutorials for how to achieve this with your specific OS online
+Yes, this is possible. In order to build this kind of setup, you will need to set up a cross-disk file system and mount your Arweave directory. You will be able to find tutorials for how to achieve this with your specific OS online
 
 ## **Can I mine on Windows/MacOS?**
 

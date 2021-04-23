@@ -103,13 +103,13 @@ To stop the miner, run `./bin/stop` or kill the OS process \(`kill -sigterm <pid
 
 ## Tuning the Miner
 
-### Estimating and measuring the hashrate
+### Optimizing Miners SPoRA Rate
 
 The three crucial factors determining your miner's efficiency are disk throughput \(GiB/s\), the amount of synchronized data, and processor power. We recommend that you have 32 GiB of RAM, while the minimum requirement is 8 GiB.
 
 The node reports its hashrate in the console - `Miner spora rate: 1546 h/s`and logs -`miner_sporas_per_second`. Note that it is 0 when you start the miner without data and slowly increases as more data is synchronized. After the number stabilizes, you can input it into the mining calculator generously created by the community member @tiamat [here](https://chronobot.io/arweave/) to see the expected return.
 
-To estimate your hashrate in advance, you would need to know or measure your CPU's performance, the disk throughput, and the amount of disk space you will allocate for mining.
+To estimate the hashrate in advance, you would need to know or measure your CPU's performance, the disk throughput, and the amount of disk space you will allocate for mining.
 
 To benchmark CPU, you can run the packaged `randomx-benchmark` script.`./bin/randomx-benchmark --mine --init 32 --threads 32 --jit --largePages`. Replace 32 with the number of CPU threads. Note that reducing the number of threads might improve the outcome. Do not specify `--largePages` if you have not configured them yet. For the reference, a 32-threads AMD Ryzen 3950x can do about 10000 h/s, a 32-threads AMD EPYC 7502P - 24000 h/s, a 12-threads Intel Xeon E-2276G CPU - 2500 h/s, a 2-threads Intel Xeon CPU E5-2650 machine in the cloud - 600 h/s.
 
