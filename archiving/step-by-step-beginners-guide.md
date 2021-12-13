@@ -25,7 +25,7 @@ Today you can grab a wallet with some free tokens to get started! Just click the
 This will start to download a file - this file is your wallet! You can rename it to something else, but by default it will be named something like: ‘arweave-keyfile-2PYo73uPr4AqnUi0dnNFUtejVvDv\_9NsRC7k3RQ4Pto’.
 
 {% hint style="warning" %}
-We strongly recommend storing an extra couple of copes of your wallet keyfile as backups on different computers/USB drives, to ensure you don't lose access to your wallet! We can't help you to recover lost wallets, so it's important to keep your keyfile\(s\) safe.
+We strongly recommend storing an extra couple of copies of your wallet keyfile as backups on different computers/USB drives, to ensure you don't lose access to your wallet! We can't help you to recover lost wallets, so it's important to keep your keyfile\(s\) safe.
 {% endhint %}
 
 ## 3\) Set up your web extension
