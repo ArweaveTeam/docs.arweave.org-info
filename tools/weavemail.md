@@ -18,7 +18,7 @@ If you are new to Weavemail, you will need to create an Arweave wallet in order 
 
 ## **Step 1** 
 
-Head over to [weavemail](https://arweave.net/oEhzHOE2o9uZbi6O9cQatzhiHtc2EdFBGCQdqHsK-o4) ****and tap the '**Get a wallet with some tokens**' button:
+Head over to **[weavemail](https://arweave.net/oEhzHOE2o9uZbi6O9cQatzhiHtc2EdFBGCQdqHsK-o4)** and tap the '**Get a wallet with some tokens**' button:
 
 ![](../.gitbook/assets/new-1.png)
 
@@ -58,7 +58,7 @@ Your wallet is now available for download! Once you've confirmed that you are re
 
 ## **Step 5**
 
-Head back over to ****[https://weavemail.app/](https://weavemail.app/) and drag & drop your key file into the box: 
+Head back over to **[weavemail app](https://arweave.net/oEhzHOE2o9uZbi6O9cQatzhiHtc2EdFBGCQdqHsK-o4)** and drag & drop your key file into the box: 
 
 ![](../.gitbook/assets/2%20%282%29%20%281%29%20%281%29.png)
 
