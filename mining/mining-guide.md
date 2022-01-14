@@ -200,7 +200,7 @@ If the node is not accessible on the Internet, the miner functions but is signif
 If you want to bootstrap another miner on a different machine, you can copy the downloaded data over from the first miner to bring it up to speed faster. Please follow these steps:
 
 1. Stop the first Arweave miner, and ensure the second miner is also not running.
-2. Copy the entire `data_dir` folder to the new machine. Note that the `chunk_storage` folder contains [sparse files](https://wiki.archlinux.org/index.php/sparse_file), so copying them the usual way will take a lot of time and the size of the destination folder will be too large. To copy this folder, use rsync with the `-aS` flags or archive it via `tar -Scf` before copying. You can optionally only copy the `data_sync_state` and `chunk_storage_index` files and the `rocksdb/ar_data_sync_db` , `rocksdb/ar_data_sync_chunk_db`  and `chunk_storage` folders. These folders contain all the data required for mining. However, unless one of the two nodes stores the full weave, letting them sync data themselves would increase mining efficiency in the long run. You can set a high value for the `sync_jobs` configuration parameter to bootstrap the node faster.
+2. Copy the entire `data_dir` folder to the new machine. Note that the `chunk_storage` folder contains [sparse files](https://wiki.archlinux.org/index.php/sparse_file), so copying them the usual way will take a lot of time and the size of the destination folder will be too large. To copy this folder, use rsync with the `-aS` flags or archive it via `tar -Scf` before copying.
 3. Start both miners.
 
 ### Run a miner on Windows
