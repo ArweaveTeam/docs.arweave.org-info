@@ -1,10 +1,13 @@
 # Getting Started
 
-{% page-ref page="mining/mining-guide.md" %}
+{% content-ref url="mining/mining-guide.md" %}
+[mining-guide.md](mining/mining-guide.md)
+{% endcontent-ref %}
 
-{% page-ref page="wallets/arweave-web-extension-wallet.md" %}
+{% content-ref url="wallets/arweave-web-extension-wallet.md" %}
+[arweave-web-extension-wallet.md](wallets/arweave-web-extension-wallet.md)
+{% endcontent-ref %}
 
-{% page-ref page="archiving/archiving-web-pages.md" %}
-
-
-
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
+{% endcontent-ref %}

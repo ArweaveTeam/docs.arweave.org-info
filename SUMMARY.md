@@ -11,15 +11,10 @@
 
 ## Wallets
 
-* [Arweave Web Extension Wallet](wallets/arweave-web-extension-wallet.md)
+* [Arweave.app Web Wallet](wallets/arweave-web-extension-wallet.md)
 * [Wallet FAQ](wallets/wallet-faq.md)
 * [Generating a Cold Wallet](wallets/generating-cold-wallet.md)
 * [Privacy Policy](wallets/privacy-policy.md)
-
-## Archiving
-
-* [Archiving Web Pages](archiving/archiving-web-pages.md)
-* [Step-by-Step Beginner's Archiving Guide](archiving/step-by-step-beginners-guide.md)
 
 ## Policies
 
@@ -28,4 +23,3 @@
 ## Tools
 
 * [Weavemail](tools/weavemail.md)
-

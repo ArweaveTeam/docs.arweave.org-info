@@ -1,96 +1,93 @@
 ---
 description: >-
-  Here you will find a step-by-step guide on how to set up an Arweave web
-  extension wallet
+  Here you will find a step-by-step guide on how to set up an Arweave.app web
+  wallet
 ---
 
-# Arweave Web Extension Wallet
-
-{% hint style="warning" %}
-Make sure you've already downloaded & installed the Arweave web extension for [**Chrome**](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc), [**Firefox**](https://addons.mozilla.org/en-US/firefox/addon/arweave/), or [**Brave**](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc). 
-{% endhint %}
+# Arweave.app Web Wallet
 
 If you have an existing wallet you should already be familiar with the basics, however if it’s your first venture into the wonderful world of Arweave: don’t sweat it, because we’ve put together a step-by-step guide to ensure that you can get up and running in no time.
 
-## Getting Started 
+## Getting Started
 
-Setting up your wallet is super easy, simply click the Arweave icon in your browser menu to get started. If you’re a first time user select _Create a new wallet,_ and if you have an existing Arweave key file, you can select _Import an existing wallet._ For those of you with existing wallets, you can jump to the ‘Existing Users’ section further down the page.
+Setting up your wallet is super easy, simply open up [https://arweave.app](https://arweave.app) in your browser. Arweave.app is a community developed, open source, project that gets you started on Arweave with a minimum of effort. Upon arrival you'll be presented with the welcome screen.
 
-![](../.gitbook/assets/11.png)
+![arweave.app welcome screen](<../.gitbook/assets/image (9).png>)
+
+If you're a new arweave wallet user, continue on to the next section. If you're an existing user who already has a keyfile, you can skip to the 'Existing Users' section further down the page.
 
 ## **New Users: Generating Your Wallet**
 
-If you’re using the Arweave wallet for the first time and have selected _Create a new wallet,_ this will prompt __the Arweave extension to open and automatically download your key file.
+If you're a first time user click the small ![](<../.gitbook/assets/image (5).png>)button in the bottom left to generate a new public/private key pair. These keys are both your password and your unique ID when interacting with arweave.&#x20;
 
-![](../.gitbook/assets/2%20%282%29.png)
+![Add Wallet Screen](<../.gitbook/assets/image (3).png>)
 
-This key file is for your newly generated Arweave wallet that **you must keep safe and secure**. By safe and secure, we mean keeping it protected from loss or misplacement as it’s not possible to regenerate. In simpler terms: once it’s gone, it’s gone! We always recommend storing it in a safe location on multiple \(at least 3\) devices. We also recommend that you encrypt the file, as anyone who has access to it also has access to your wallet. For more information, check out the encryption tips section at the bottom of this guide.
+Click the "Create new wallet" button on the screen that appears.
+
+![Passphrase window](<../.gitbook/assets/image (7).png>)
+
+Immediately you'll be presented with a 12 word passphrase. This is a secret code that will allow you to recreate your wallets public and private key pair. Write this phrase down on a piece of paper,  place it in a ziplock bag (to protect from water damage) and store it in a save and secure location. This is your way to recover your wallet and its contents if your computer is ever stops working.
+
+It will also let you store your key pair in wallet applications on other devices. It may take a few seconds for the keys to finish generating but once they do you'll see the button change to look like this.
+
+![Click here to proceed](<../.gitbook/assets/image (10).png>)
+
+Click the button to proceed 😀
+
+![New Wallet](../.gitbook/assets/image.png)
+
+Congratulations, you've added a new wallet key pair. The line of text that looks like some kind of code is your wallet address. In the image above the wallet address is `omsGXfLHi0AeE144E0uQXaNxsRoaftzPjq2TxaZyDLg`. Wallet addresses are public and sharing them will not compromise the security of your wallet.
+
+Arweave.app generates a unique icon for each wallet key pair you add to help distinguish them from one another visually.
+
+Along with your 12 word passphrase, you can also download your public/private key pair in a key file. The 12 word passphrase will be able to recreate this file if you lose it, but it's often convenient to have a copy of the key file as well.  Not all wallet apps support restoring from a passphrase.
+
+Click the "Download" button. This will initiate a download of the key file.
+
+This key file is for your newly generated Arweave wallet that **you must keep safe and secure**. By safe and secure, we mean keeping it protected from loss or misplacement as it’s not possible to regenerate. In simpler terms: once it’s gone, it’s gone! We always recommend storing it in a safe location on multiple (at least 3) devices. We also recommend that you encrypt the file, as anyone who has access to it also has access to your wallet. For more information, check out the encryption tips section at the bottom of this guide.
 
 You only have one chance to download the key file, however if for some reason the download couldn’t be completed, you can start the process all over again and a fresh wallet will be generated.
 
 {% hint style="info" %}
-**Key File:** Your key file will be called something like _arweave-keyfile-abc123.json_ and the ‘_abc123’_ part is your unique wallet address. Wallet addresses are 43 characters long and can contain any alphanumeric characters, as wall as dashes and underscores \(_a-z0–9-\_\)._ Your key file is a standardised and interoperable format called JSON Web Key, which you can [read more about here](https://tools.ietf.org/html/rfc7517).
+**Key File:** Your key file will be called something like _omsGXfLHi0AeE144E0uQXaNxsRoaftzPjq2TxaZyDLg.json._ The filename is your unique wallet address + ".json". Wallet addresses are 43 characters long and can contain any alphanumeric characters, as wall as dashes and underscores (_a-z0–9-\_)._ Your key file is a standardized and interoperable format called JSON Web Key, which you can [read more about here](https://tools.ietf.org/html/rfc7517).
 {% endhint %}
 
-## **New Users: Protecting Your Wallet**
+_****_
 
-Once you’ve given your wallet a name and set an encryption passphrase, click _Continue_.
+## **New Users: Managing your key pairs**
 
-_**This encryption passphrase is only used for the copy of the key file stored in the Chrome extension, it is in no way related to the JSON file you first downloaded — this downloaded file will remain unencrypted unless you choose to encrypt it! For more information, check out the encryption tips section at the bottom of this guide.**_
-
-![](../.gitbook/assets/3%20%283%29.png)
-
-## **New Users: Your Encryption Passphrase**
-
-In addition to downloading the key file to your computer/hard drive, a copy of the file will also exist in the web extension. Don’t worry though, your browser storage is secure and there are lots of mechanisms to stop malicious content \(like websites and other extensions\) from accessing it. However, this doesn’t stop anybody with physical access to your machine, so setting an encryption passphrase adds an additional layer of protection.
-
-Note: using your chosen encryption passphrase is the _only_ way to decrypt your wallet again, meaning that you’ll be prompted for it each time you perform actions such as archiving a web page, or sending AR to another user/wallet. If you forget this passphrase there is no way to reset it, you must re-import the file \(as explained in the ‘Existing users: Loading your wallet’ section below\).
-
-{% hint style="success" %}
-Your wallet is now loaded, secured, and ready to go! 
-{% endhint %}
-
-![](../.gitbook/assets/4%20%283%29.png)
-
-To navigate back to the wallet menu or add another wallet, click any of the two options shown in the image below:
-
-![](../.gitbook/assets/wallets.png)
+In addition to downloading the key file to your computer/hard drive, a copy of the file will also exist in local storage for the arwave.app page. Don’t worry though, your browser storage is secure and there are lots of mechanisms to stop malicious content (like websites and other extensions) from accessing it. However this doesn't stop someone with physical access to your machine from using your wallets. Once you've stored the passphrase and/or key file for your wallet key pair you can safely delete them from the arwave.app wallet app, knowing you can re-add them later. It's a good idea not to keep wallet key pairs with a lot of AR tokens in the arweave.app wallet for this reason.
 
 ## **Existing Users: Loading Your Wallet**
 
-If you already have an Arweave key file, you can dive straight into loading your wallet by clicking the Arweave icon in the Chrome browser menu, then selecting _Import an existing wallet_.
+If you already have an Arweave key file, you can dive straight into loading your wallet by dragging and dropping it onto the "Passphrase" area.
 
-![](../.gitbook/assets/side.png)
+![Passphrase or Key File](<../.gitbook/assets/image (2).png>)
 
-Load your existing key file by clicking the folder icon, or by dragging and dropping it into the highlighted box. You are also required to give your wallet a name and set an encryption passphrase, as this keeps your wallet secure while it is loaded into your web extension - preventing anyone apart from yourself from sending tokens or archiving content.
+You can also click the little ![](<../.gitbook/assets/image (12).png>) icon to bring up a file explore and brows for the key file.
 
-_**This encryption passphrase is only used for the copy of the key file stored in the Chrome extension, it is in no way related to the JSON file you first downloaded — this downloaded file will remain unencrypted unless you choose to encrypt it! For more information, check out the encryption tips section at the bottom of this guide.**_
-
-{% hint style="success" %}
-Click _Continue_ and you’re done! 
-{% endhint %}
+If you'd prefer to restore your wallet using the 12 word passphrase, you can click on the little ![](<../.gitbook/assets/image (6).png>)icon and type or paste your 12 words into the passphrase box.
 
 ## **Wallet Options & Multiple Wallets**
 
-You can load multiple wallets into the web extension at any time, by simply heading to the wallets menu and clicking _Load Wallet_ or _Generate New Wallet_ — the process is exactly the same as the first wallet.
+You can load additional wallet key pairs into the arweave.app web wallet at any time, by clicking the ![](<../.gitbook/assets/image (5).png>)icon in the bottom left at any time and repeating the process of creating a new wallet or loading an existing one from passphrase or key file.
 
-To switch between wallets, left-click the extension icon, then select the ‘Wallets’ tab
+You can navigate between loaded wallets by clicking their unique icon in the top left.
 
-To switch between the currently active wallet used to archive pages or send AR from, just click the wallet, then select _Use._
+![Two wallets](<../.gitbook/assets/image (1).png>)
 
-This menu also has options for renaming, exporting, and removing wallets.
+## Removing a key pair from the wallet
 
-![](../.gitbook/assets/screenshot-2020-03-10-at-12.03.59.png)
+To remove a set of wallet keys from the wallet app, click the ![](<../.gitbook/assets/image (4).png>) icon in the bottom left. This will bring up a settings panel for the app.
 
-When you change your active wallet, you will also see the address change on the ‘transfers’ page and in the ‘wallets’ popup window.
+![Wallet Settings](<../.gitbook/assets/image (8).png>)
+
+From this screen you'll be able to re-download the key file for a particular wallet key pair or click the "Delete" button to remove it from the wallet app entirely. As long as you have your passphrase or key file you'll be able to add it back whenever you like so keep those safe and secure.
 
 ## Encryption Tips
 
 {% hint style="info" %}
-If you already use an encrypted password manager like [1password](https://1password.com/) then this is a quick and easy way to secure the file.
+If you already use an encrypted password manager like [1password](https://1password.com) then this is a quick and easy way to secure the file.
 {% endhint %}
 
 \*\*\*\*
-
-
-
