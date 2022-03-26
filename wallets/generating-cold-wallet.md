@@ -15,14 +15,13 @@ This procedure may seem long but we have broken each of its steps down into gran
 1. Open up [https://arweave.app](https://arweave.app) in your browser tab.
 2. Once loaded, disconnect your computer from the internet
 3. Click the \[ + ] button in the bottom left&#x20;
-4. Click the big "Create new Wallet" button in the screen that pops up.
-5. Click ‘Create new wallet’
-6. Write down your passphrase on a piece of paper.
-7. When the wallet generation step completes, click the "Click to proceed" button.
-8. Identify your newly created wallet on the next screen and click the "Download" button to download the key file.
-9. Make copies of this file on multiple offline storage mediums (for example, USB sticks or prints of the file to physical paper). **Store these copies securely**
-10. Click the "Delete" button to remove your newly created wallet from the browser.
-11. Reconnect to the internet
+4. Click the big "Create new wallet" button in the screen that pops up.
+5. Write down your passphrase on a piece of paper.
+6. When the wallet generation step completes, click the "Click to proceed" button.
+7. Identify your newly created wallet on the next screen and click the "Download" button to download the key file.
+8. Make copies of this file on multiple offline storage mediums (for example, USB sticks or prints of the file to physical paper). **Store these copies securely**
+9. Click the "Delete" button to remove your newly created wallet from the browser.
+10. Reconnect to the internet
 
 {% hint style="success" %}
 **Congratulations for completing the steps! Your AR tokens will now be stored safely and securely for months and years to come**
