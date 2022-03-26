@@ -12,13 +12,13 @@ If you have an existing wallet you should already be familiar with the basics, h
 
 Setting up your wallet is super easy, simply open up [https://arweave.app](https://arweave.app) in your browser. Arweave.app is a community developed, open source, project that gets you started on Arweave with a minimum of effort. Upon arrival you'll be presented with the welcome screen.
 
-![arweave.app welcome screen](<../.gitbook/assets/image (9).png>)
+![arweave.app welcome screen](<../.gitbook/assets/image (9) (1).png>)
 
 If you're a new arweave wallet user, continue on to the next section. If you're an existing user who already has a keyfile, you can skip to the 'Existing Users' section further down the page.
 
 ## **New Users: Generating Your Wallet**
 
-If you're a first time user click the small ![](<../.gitbook/assets/image (5).png>)button in the bottom left to generate a new public/private key pair. These keys are both your password and your unique ID when interacting with arweave.&#x20;
+If you're a first time user click the small ![](<../.gitbook/assets/image (5).png>)button in the bottom left to generate a new public/private key pair. These keys are both your password and your unique ID when interacting with arweave.
 
 ![Add Wallet Screen](<../.gitbook/assets/image (3).png>)
 
@@ -26,11 +26,11 @@ Click the "Create new wallet" button on the screen that appears.
 
 ![Passphrase window](<../.gitbook/assets/image (7).png>)
 
-Immediately you'll be presented with a 12 word passphrase. This is a secret code that will allow you to recreate your wallets public and private key pair. Write this phrase down on a piece of paper,  place it in a ziplock bag (to protect from water damage) and store it in a save and secure location. This is your way to recover your wallet and its contents if your computer is ever stops working.
+Immediately you'll be presented with a 12 word passphrase. This is a secret code that will allow you to recreate your wallets public and private key pair. Write this phrase down on a piece of paper, place it in a ziplock bag (to protect from water damage) and store it in a save and secure location. This is your way to recover your wallet and its contents if your computer is ever stops working.
 
 It will also let you store your key pair in wallet applications on other devices. It may take a few seconds for the keys to finish generating but once they do you'll see the button change to look like this.
 
-![Click here to proceed](<../.gitbook/assets/image (10).png>)
+![Click here to proceed](<../.gitbook/assets/image (10) (1).png>)
 
 Click the button to proceed 😀
 
@@ -40,11 +40,11 @@ Congratulations, you've added a new wallet key pair. The line of text that looks
 
 Arweave.app generates a unique icon for each wallet key pair you add to help distinguish them from one another visually.
 
-Along with your 12 word passphrase, you can also download your public/private key pair in a key file. The 12 word passphrase will be able to recreate this file if you lose it, but it's often convenient to have a copy of the key file as well.  Not all wallet apps support restoring from a passphrase.
+Along with your 12 word passphrase, you can also download your public/private key pair in a key file. The 12 word passphrase will be able to recreate this file if you lose it, but it's often convenient to have a copy of the key file as well. Not all wallet apps support restoring from a passphrase.
 
 Click the "Download" button. This will initiate a download of the key file.
 
-This key file is for your newly generated Arweave wallet that **you must keep safe and secure**. By safe and secure, we mean keeping it protected from loss or misplacement as it’s not possible to regenerate. In simpler terms: once it’s gone, it’s gone! We always recommend storing it in a safe location on multiple (at least 3) devices. We also recommend that you encrypt the file, as anyone who has access to it also has access to your wallet. For more information, check out the encryption tips section at the bottom of this guide.
+This key file is for your newly generated Arweave wallet that **you must keep safe and secure**. By safe and secure, we mean keeping it protected from loss or misplacement as it’s not possible to regenerate. In simpler terms: once it’s gone, it’s gone! We always recommend storing it in a safe location on multiple (at least 3) devices. We also recommend that you encrypt the file, as anyone who has access to it also has access to your wallet.&#x20;
 
 You only have one chance to download the key file, however if for some reason the download couldn’t be completed, you can start the process all over again and a fresh wallet will be generated.
 
@@ -52,7 +52,7 @@ You only have one chance to download the key file, however if for some reason th
 **Key File:** Your key file will be called something like _omsGXfLHi0AeE144E0uQXaNxsRoaftzPjq2TxaZyDLg.json._ The filename is your unique wallet address + ".json". Wallet addresses are 43 characters long and can contain any alphanumeric characters, as wall as dashes and underscores (_a-z0–9-\_)._ Your key file is a standardized and interoperable format called JSON Web Key, which you can [read more about here](https://tools.ietf.org/html/rfc7517).
 {% endhint %}
 
-_****_
+_\*\*\*\*_
 
 ## **New Users: Managing your key pairs**
 
@@ -78,16 +78,10 @@ You can navigate between loaded wallets by clicking their unique icon in the top
 
 ## Removing a key pair from the wallet
 
-To remove a set of wallet keys from the wallet app, click the ![](<../.gitbook/assets/image (4).png>) icon in the bottom left. This will bring up a settings panel for the app.
+To remove a set of wallet keys from the wallet app, click the ![](<../.gitbook/assets/image (4) (1).png>) icon in the bottom left. This will bring up a settings panel for the app.
 
 ![Wallet Settings](<../.gitbook/assets/image (8).png>)
 
 From this screen you'll be able to re-download the key file for a particular wallet key pair or click the "Delete" button to remove it from the wallet app entirely. As long as you have your passphrase or key file you'll be able to add it back whenever you like so keep those safe and secure.
-
-## Encryption Tips
-
-{% hint style="info" %}
-If you already use an encrypted password manager like [1password](https://1password.com) then this is a quick and easy way to secure the file.
-{% endhint %}
 
 \*\*\*\*
