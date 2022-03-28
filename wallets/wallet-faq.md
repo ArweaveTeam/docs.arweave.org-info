@@ -14,9 +14,9 @@ The following are wallets (developed by the Arweave community)  which are capabl
 
 Lucky for you, we’ve created a step-by-step guide which can be [**found here**](https://docs.arweave.org/info/wallets/arweave-web-extension-wallet)**.**
 
-## **Can I use the Arweave wallet as a cold wallet?**
+## **Can I use the arweave.app web wallet as a cold wallet?**
 
-Yes, you can find detailed instructions for how to securely generate an Arweave cold wallet with the official Arweave web extension [here](https://docs.arweave.org/info/wallets/generating-cold-wallet).
+Yes, you can find detailed instructions for how to securely generate an Arweave cold wallet with the arweave.app [here](https://docs.arweave.org/info/wallets/generating-cold-wallet).
 
 **\* Please make sure to keep multiple copies of your wallet key file in secure locations, as we cannot help you to recover your wallet if you lose it \***
 
