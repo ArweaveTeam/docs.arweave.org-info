@@ -18,7 +18,7 @@ If you're a new arweave wallet user, continue on to the next section. If you're 
 
 ## **New Users: Generating Your Wallet**
 
-If you're a first time user click the small <image style="height: 1em;" src="../.gitbook/assets/image (5).png"/> button in the bottom left to generate a new public/private key pair. These keys are both your password and your unique ID when interacting with arweave.
+If you're a first time user click the small <img style="height: 1em;" src="../.gitbook/assets/image (5).png"/> button in the bottom left to generate a new public/private key pair. These keys are both your password and your unique ID when interacting with arweave.
 
 ![Add Wallet Screen](<../.gitbook/assets/image (3).png>)
 
@@ -64,13 +64,13 @@ If you already have an Arweave key file, you can dive straight into loading your
 
 ![Passphrase or Key File](<../.gitbook/assets/image (2).png>)
 
-You can also click the little <image style="height: 1em;" src="../.gitbook/assets/image (12).png"/> icon to bring up a file explore and brows for the key file.
+You can also click the little <img style="height: 1em;" src="../.gitbook/assets/image (12).png"/> icon to bring up a file explore and brows for the key file.
 
-If you'd prefer to restore your wallet using the 12 word passphrase, you can click on the little <image style="height: 1em;" src="../.gitbook/assets/image (6).png"/> icon and type or paste your 12 words into the passphrase box.
+If you'd prefer to restore your wallet using the 12 word passphrase, you can click on the little <img style="height: 1em;" src="../.gitbook/assets/image (6).png"/> icon and type or paste your 12 words into the passphrase box.
 
 ## **Wallet Options & Multiple Wallets**
 
-You can load additional wallet key pairs into the arweave.app web wallet at any time, by clicking the <image style="height: 1em;" src="../.gitbook/assets/image (5).png"/> icon in the bottom left at any time and repeating the process of creating a new wallet or loading an existing one from passphrase or key file.
+You can load additional wallet key pairs into the arweave.app web wallet at any time, by clicking the <img style="height: 1em;" src="../.gitbook/assets/image (5).png"/> icon in the bottom left at any time and repeating the process of creating a new wallet or loading an existing one from passphrase or key file.
 
 You can navigate between loaded wallets by clicking their unique icon in the top left.
 
@@ -78,7 +78,7 @@ You can navigate between loaded wallets by clicking their unique icon in the top
 
 ## Removing a key pair from the wallet
 
-To remove a set of wallet keys from the wallet app, click the <image style="height: 1em;" src="../.gitbook/assets/image (4) (1).png"/> icon in the bottom left. This will bring up a settings panel for the app.
+To remove a set of wallet keys from the wallet app, click the <img style="height: 1em;" src="../.gitbook/assets/image (4) (1).png"/> icon in the bottom left. This will bring up a settings panel for the app.
 
 ![Wallet Settings](<../.gitbook/assets/image (8).png>)
 
