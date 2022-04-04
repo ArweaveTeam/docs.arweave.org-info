@@ -8,6 +8,4 @@
 [arweave-web-extension-wallet.md](wallets/arweave-web-extension-wallet.md)
 {% endcontent-ref %}
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
+
