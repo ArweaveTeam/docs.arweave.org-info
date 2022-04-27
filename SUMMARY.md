@@ -11,7 +11,7 @@
 
 ## Wallets
 
-* [Arweave.app Web Wallet](wallets/arweave-web-extension-wallet.md)
+* [Arweave.app Web Wallet](wallets/arweave-wallet.md)
 * [Wallet FAQ](wallets/wallet-faq.md)
 * [Generating a Cold Wallet](wallets/generating-cold-wallet.md)
 
