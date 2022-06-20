@@ -51,7 +51,7 @@ Your wallet is now available for download! Once you've confirmed that you are re
 ![](<../.gitbook/assets/#5 (1).png>)
 
 {% hint style="warning" %}
-**Key File:** Your key file will be called something like _arweave-keyfile-abc123.json_ and the ‘_abc123’_ part is your unique wallet address. Wallet addresses are 43 characters long and can contain any alphanumeric characters, as wall as dashes and underscores (_a-z0–9-\_)._ Your key file is a standardised and interoperable format called JSON Web Key, which you can [read more about here](https://tools.ietf.org/html/rfc7517).
+**Key File:** Your key file will be called something like _arweave-keyfile-abc123.json_ and the ‘_abc123’_ part is your unique wallet address. Wallet addresses are 43 characters long and can contain any alphanumeric characters, as well as dashes and underscores (_a-z0–9-\_)._ Your key file is a standardised and interoperable format called JSON Web Key, which you can [read more about here](https://tools.ietf.org/html/rfc7517).
 {% endhint %}
 
 ## **Now you're ready to load your brand new wallet into Weavemail!** [🎉](https://emojipedia.org/party-popper/) [🔜](https://emojipedia.org/soon-with-rightwards-arrow-above/) [✉️](https://emojipedia.org/envelope/)
@@ -74,7 +74,7 @@ Tap the 'Compose' button:
 
 ![](<../.gitbook/assets/3 (3) (1).png>)
 
-Once the email interface has opened, input the mail recipient address, the mail contents, and amount of AR you'd like to send with your email \[optional]. Next, tap '**Send'**
+Once the email interface has opened, input the mail recipient address, the mail contents, and the amount of AR you'd like to send with your email \[optional]. Next, tap '**Send'**
 
 ![](<../.gitbook/assets/#4 (2).png>)
 

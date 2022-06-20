@@ -49,7 +49,7 @@ This key file is for your newly generated Arweave wallet that **you must keep sa
 You only have one chance to download the key file, however if for some reason the download couldn’t be completed, you can start the process all over again and a fresh wallet will be generated.
 
 {% hint style="info" %}
-**Key File:** Your key file will be called something like _omsGXfLHi0AeE144E0uQXaNxsRoaftzPjq2TxaZyDLg.json._ The filename is your unique wallet address + ".json". Wallet addresses are 43 characters long and can contain any alphanumeric characters, as wall as dashes and underscores (_a-z0–9-\_)._ Your key file is a standardized and interoperable format called JSON Web Key, which you can [read more about here](https://tools.ietf.org/html/rfc7517).
+**Key File:** Your key file will be called something like _omsGXfLHi0AeE144E0uQXaNxsRoaftzPjq2TxaZyDLg.json._ The filename is your unique wallet address + ".json". Wallet addresses are 43 characters long and can contain any alphanumeric characters, as well as dashes and underscores (_a-z0–9-\_)._ Your key file is a standardized and interoperable format called JSON Web Key, which you can [read more about here](https://tools.ietf.org/html/rfc7517).
 {% endhint %}
 
 _\*\*\*\*_
