@@ -68,7 +68,7 @@ In order to protect your machine from material that may be illegal in your count
 
 In order to help you get started quickly, @ArweaveTeam provides an NSFW content filter which you can load by adding the following to your Arweave start command:&#x20;
 
-`transaction_blacklist_url http://shepherd-v.com/rangelist.txt`
+`transaction_blacklist_url http://shepherd-v.com/list.txt`
 {% endhint %}
 
 ```
