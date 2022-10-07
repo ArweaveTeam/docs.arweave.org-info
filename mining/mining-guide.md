@@ -169,7 +169,7 @@ Finally, tell the miner it can use large pages by specifying `enable randomx_lar
 
 ### Using Multiple Disks
 
-The simplest approach is to store everything one a single disk. Skip this section if you are fine with that. However, you may store metadata that is not used in mining on a cheaper and slower medium, e.g., an HDD disk.
+The simplest approach is to store everything on a single disk. Skip this section if you are fine with that. However, you may store metadata that is not used in mining on a cheaper and slower medium, e.g., an HDD disk.
 
 Mount the fast devices to the `chunk_storage` and `rocksdb` folders:
 
