@@ -14,11 +14,11 @@ When you run **./bin/start**  you will see your miners **H/S** in the logs as yo
 
 
 
-## What do \[Stage X/3\] in the logs mean?“ 
+## What do \[Stage X/3\] in the logs mean?
 
 There are three key phases to mining on the Arweave:
 
-First stage is the node started the mining process to produce a block. Once the miner produced the candidate block, it goes into the second phase and sends the block out to the network . The third and final phase: the mined block will be submitted to the network, and the network will then decide whether or not to accept this.
+First stage is the node started the mining process to produce a block. Once the miner produced the candidate block, it goes into the second phase and sends the block out to the network. The third and final phase: the mined block will be submitted to the network, and the network will then decide whether or not to accept this.
 
 ```text
 # Log output example  

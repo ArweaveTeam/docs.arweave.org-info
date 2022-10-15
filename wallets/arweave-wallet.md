@@ -26,7 +26,7 @@ Click the "Create new wallet" button on the screen that appears.
 
 ![Passphrase window](<../.gitbook/assets/image (7).png>)
 
-Immediately you'll be presented with a 12 word passphrase. This is a secret code that will allow you to recreate your wallets public and private key pair. Write this phrase down on a piece of paper, place it in a ziplock bag (to protect from water damage) and store it in a save and secure location. This is your way to recover your wallet and its contents if your computer is ever stops working.
+Immediately you'll be presented with a 12 word passphrase. This is a secret code that will allow you to recreate your wallets public and private key pair. Write this phrase down on a piece of paper, place it in a ziplock bag (to protect from water damage) and store it in a safe and secure location. This is your way to recover your wallet and its contents if your computer ever stops working.
 
 It will also let you store your key pair in wallet applications on other devices. It may take a few seconds for the keys to finish generating but once they do you'll see the button change to look like this.
 
@@ -64,7 +64,7 @@ If you already have an Arweave key file, you can dive straight into loading your
 
 ![Passphrase or Key File](<../.gitbook/assets/image (2) (1).png>)
 
-You can also click the little <img src="../.gitbook/assets/image_12.png" alt="" data-size="line"> icon to bring up a file explore and brows for the key file.
+You can also click the little <img src="../.gitbook/assets/image_12.png" alt="" data-size="line"> icon to bring up a file explore and browse for the key file.
 
 If you'd prefer to restore your wallet using the 12 word passphrase, you can click on the little <img src="../.gitbook/assets/image_6.png" alt="" data-size="line"> icon and type or paste your 12 words into the passphrase box.
 
