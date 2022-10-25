@@ -8,20 +8,20 @@ description: >-
 # Mining Guide
 
 {% hint style="info" %}
-**For any questions and support queries regarding mining on Arweave, we strongly recommend that you join our** [**Discord server**](https://discord.gg/GHB4fxVv8B) **as this is the hub of our mining and developer communities. Here you will find plenty of community members and Arweave team members available to help you out** 🤖
+**For any questions and support queries regarding mining on Arweave, we strongly recommend that you join our** [**_Discord server_**](https://discord.gg/GHB4fxVv8B) **as this is the hub of our mining and developer communities. Here you will find plenty of community members and Arweave team members available to help you out** 🤖
 {% endhint %}
 
 {% hint style="warning" %}
-Arweave core developers have been made aware that at least one mining node inside the Chinese mainland has been seized by the government. Node operators should understand that the Arweave network stores and serves a significant amount of material related to the activities of the Chinese government. The Arweave protocol does not require that any miner to store data that they deem inappropriate. You can read more about our content policies [here](https://www.arweave.org/technology#content-moderation).
+Arweave core developers have been made aware that at least one mining node inside the Chinese mainland has been seized by the government. Node operators should understand that the Arweave network stores and serves a significant amount of material related to the activities of the Chinese government. The Arweave protocol does not require that any miner to store data that they deem inappropriate. You can read more about our content policies [**_here_**](https://www.arweave.org/technology#content-moderation).
 {% endhint %}
 
 ## Install the Miner
 
-Download the `.tar.gz` archive for your OS from the [releases page](https://github.com/ArweaveTeam/arweave/releases).
+Download the `.tar.gz` archive for your OS from the [**_releases page_**](https://github.com/ArweaveTeam/arweave/releases).
 
 Extract the contents of the archive. It's recommended to unpack it inside a dedicated directory. You can always move this directory around, but the miner may not work if you move only some of the files. The weave data would, by default, be stored in this directory as well, but we recommend to override it using the `data_dir` command-line argument.
 
-If your OS/platform architecture is not in the list, check the source code repository [README](https://github.com/ArweaveTeam/arweave#building-from-source) for how to build the miner from source.
+If your OS/platform architecture is not in the list, check the source code repository [**_README_**](https://github.com/ArweaveTeam/arweave#building-from-source) for how to build the miner from source.
 
 {% hint style="info" %}
 It is also possible to set-up an Arweave mining environment on Windows using the ‘Windows Subsystem for Linux’ or a virtual machine environment.
@@ -64,7 +64,7 @@ Now you’re ready to start the mining process by using the following command fr
 {% hint style="info" %}
 Note:
 
-In order to protect your machine from material that may be illegal in your country, you should use a content policy when mining Arweave. Content policies can be generated using the [Shepherd tool](https://github.com/shepherd-media-classifier/shepherd). Shepherd allows you to create your own content policies for the content that you would like to store on your Arweave node, abiding by your moral and legal requirements.
+In order to protect your machine from material that may be illegal in your country, you should use a content policy when mining Arweave. Content policies can be generated using the [**_Shepherd tool_**](https://github.com/shepherd-media-classifier/shepherd). Shepherd allows you to create your own content policies for the content that you would like to store on your Arweave node, abiding by your moral and legal requirements.
 
 In order to help you get started quickly, @ArweaveTeam provides an NSFW content filter which you can load by adding the following to your Arweave start command:&#x20;
 
@@ -117,7 +117,7 @@ To stop the miner, run `./bin/stop` or kill the OS process (`kill -sigterm <pid>
 
 The three crucial factors determining your miner's efficiency are disk throughput (GiB/s), the amount of synchronized data, and processor power. We recommend that you have 32 GiB of RAM, while the minimum requirement is 8 GiB.
 
-The node reports its hashrate in the console - `Miner spora rate: 1546 h/s`and logs -`miner_sporas_per_second`. Note that it is 0 when you start the miner without data and slowly increases as more data is synchronized. After the number stabilizes, you can input it into the mining calculator generously created by the community member @tiamat [here](https://chronobot.io/arweave/) to see the expected return.
+The node reports its hashrate in the console - `Miner spora rate: 1546 h/s`and logs -`miner_sporas_per_second`. Note that it is 0 when you start the miner without data and slowly increases as more data is synchronized. After the number stabilizes, you can input it into the mining calculator generously created by the community member @tiamat [**_here_**](https://chronobot.io/arweave/) to see the expected return.
 
 To estimate the hashrate in advance, you would need to know or measure your CPU's performance, the disk throughput, and the amount of disk space you will allocate for mining.
 
@@ -135,7 +135,7 @@ We made our best effort to choose reasonable defaults; however, changing some of
 ./bin/start stage_one_hashing_threads 32 stage_two_hashing_threads 32 io_threads 50 randomx_bulk_hashing_iterations 64 data_dir /your/dir mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
 ```
 
-`recall bytes computed/s` should be roughly equal to `Miner spora rate` divided by your share of the weave. If it is not, consider increasing `io_threads` and decreasing`stage_one_hashing_threads`. You can learn the share of the weave the node has synced to date by dividing the size of the `chunk_storage` folder (`du -sh /path/to/data/dir/chunk_storage`) by the [total weave size](https://viewblock.io/arweave/stats). Increasing `randomx_bulk_hashing_iterations` to 128 or bigger might make a big difference on the powerful machine.
+`recall bytes computed/s` should be roughly equal to `Miner spora rate` divided by your share of the weave. If it is not, consider increasing `io_threads` and decreasing`stage_one_hashing_threads`. You can learn the share of the weave the node has synced to date by dividing the size of the `chunk_storage` folder (`du -sh /path/to/data/dir/chunk_storage`) by the [**_total weave size_**](https://viewblock.io/arweave/stats). Increasing `randomx_bulk_hashing_iterations` to 128 or bigger might make a big difference on the powerful machine.
 
 ### Syncing the weave
 
@@ -195,7 +195,7 @@ Replace /dev/nvme1n1, /dev/nvme1n2, /dev/hdd1 with the filesystems you have, rep
 
 An important part of the mining process is discovering blocks mined by other miners. Your node needs to be accessible from anywhere on the Internet so that your peers can connect with you and share their blocks.
 
-To check if your node is publicly accessible, browse to `http://[Your Internet IP]:1984`. You can [obtain your public IP here](https://ifconfig.me/), or by running `curl ifconfig.me/ip`. If you specified a different port when starting the miner, replace "1984" anywhere in these instructions with your port. If you can not access the node, you need to set up TCP port forwarding for incoming HTTP requests to your Internet IP address on port 1984 to the selected port on your mining machine. For more details on how to set up port forwarding, consult your ISP or cloud provider.
+To check if your node is publicly accessible, browse to `http://[Your Internet IP]:1984`. You can [**_obtain your public IP here_**](https://ifconfig.me/), or by running `curl ifconfig.me/ip`. If you specified a different port when starting the miner, replace "1984" anywhere in these instructions with your port. If you can not access the node, you need to set up TCP port forwarding for incoming HTTP requests to your Internet IP address on port 1984 to the selected port on your mining machine. For more details on how to set up port forwarding, consult your ISP or cloud provider.
 
 If the node is not accessible on the Internet, the miner functions but is significantly less efficient.
 
@@ -204,7 +204,7 @@ If the node is not accessible on the Internet, the miner functions but is signif
 If you want to bootstrap another miner on a different machine, you can copy the downloaded data over from the first miner to bring it up to speed faster. Please follow these steps:
 
 1. Stop the first Arweave miner, and ensure the second miner is also not running.
-2. Copy the entire `data_dir` folder to the new machine. Note that the `chunk_storage` folder contains [sparse files](https://wiki.archlinux.org/index.php/sparse\_file), so copying them the usual way will take a lot of time and the size of the destination folder will be too large. To copy this folder, use rsync with the `-aS` flags or archive it via `tar -Scf` before copying.
+2. Copy the entire `data_dir` folder to the new machine. Note that the `chunk_storage` folder contains [**_sparse files_**](https://wiki.archlinux.org/index.php/sparse\_file), so copying them the usual way will take a lot of time and the size of the destination folder will be too large. To copy this folder, use rsync with the `-aS` flags or archive it via `tar -Scf` before copying.
 3. Start both miners.
 
 ### Run a miner on Windows
@@ -223,7 +223,7 @@ Windows Event Log is expected to have the following warning:
 
 ## Staying up to Date
 
-* Join our [Discord](https://discord.gg/GHB4fxVv8B) server
-* Join our mining [mailing list](https://mailchi.mp/fa68b561fd82/arweavemining)
+* Join our [**_Discord_**](https://discord.gg/GHB4fxVv8B) server
+* Join our mining [**_mailing list_**](https://mailchi.mp/fa68b561fd82/arweavemining)
 
-Once you are successfully mining on the Arweave, you will need to stay up to date with new releases. [Join our mailing list](https://mailchi.mp/fa68b561fd82/arweavemining) to receive emails informing you that a new update has been released, along with the steps you need to take to stay up to speed - particularly updates that require you to perform an action within a certain time period in order to stay in sync with the network. Keep an eye out for these messages, and if possible make sure that you add [team@arweave.org](mailto:team@arweave.org) to your email provider’s trusted senders list!
+Once you are successfully mining on the Arweave, you will need to stay up to date with new releases. [**_Join our mailing list_**](https://mailchi.mp/fa68b561fd82/arweavemining) to receive emails informing you that a new update has been released, along with the steps you need to take to stay up to speed - particularly updates that require you to perform an action within a certain time period in order to stay in sync with the network. Keep an eye out for these messages, and if possible make sure that you add [**_team@arweave.org_**](mailto:team@arweave.org) to your email provider’s trusted senders list!
