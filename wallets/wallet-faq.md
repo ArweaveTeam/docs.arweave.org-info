@@ -8,11 +8,66 @@ description: All questions surrounding wallets
 
 The following are wallets (developed by the Arweave community)  which are capable of storing AR tokens.
 
-<table><thead><tr><th> </th><th data-type="checkbox">arweave.app</th><th data-type="checkbox">ArConnect</th><th data-type="checkbox">Finnie</th></tr></thead><tbody><tr><td>AR tokens</td><td>true</td><td>true</td><td>true</td></tr><tr><td>dApp permissions</td><td>true</td><td>true</td><td>true</td></tr><tr><td>Open Source</td><td>true</td><td>true</td><td>false</td></tr><tr><td>No Install</td><td>true</td><td>false</td><td>false</td></tr><tr><td>NFTs</td><td>false</td><td>true</td><td>true</td></tr><tr><td>PSTs</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Page Archiving</td><td>false</td><td>true</td><td>true</td></tr></tbody></table>
-
-## **How do I use the arweave.app web wallet?**
-
-Lucky for you, we’ve created a step-by-step guide which can be [**found here**](https://docs.arweave.org/info/wallets/arweave-web-extension-wallet)**.**
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th data-type="checkbox">arweave.app</th>
+      <th data-type="checkbox">ArConnect</th>
+      <th data-type="checkbox">Finnie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AR tokens</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>dApp permissions</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>Open Source</td>
+      <td>true</td>
+      <td>true</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>No Install</td>
+      <td>true</td>
+      <td>false</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>NFTs</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>PSTs</td>
+      <td>false</td>
+      <td>true</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>Page Archiving</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>Guide</td>
+      <td><a href="https://docs.arweave.org/info/wallets/arweave-web-extension-wallet">Link</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
 
 ## **Can I use the arweave.app web wallet as a cold wallet?**
 
