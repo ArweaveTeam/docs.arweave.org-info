@@ -69,12 +69,6 @@ The following are wallets (developed by the Arweave community)  which are capabl
   </tbody>
 </table>
 
-## **Can I use the arweave.app web wallet as a cold wallet?**
-
-Yes, you can find detailed instructions for how to securely generate an Arweave cold wallet with the arweave.app [**here**](https://docs.arweave.org/info/wallets/generating-cold-wallet).
-
-**\* Please make sure to keep multiple copies of your wallet key file in secure locations, as we cannot help you to recover your wallet if you lose it \***
-
 ## **Are AR tokens compatible with any hardware wallets?**
 
 We are almost there! arweave.app has done the initial client integration but full support is pending an upcoming ledger release.
