@@ -63,7 +63,7 @@ The following are wallets (developed by the Arweave community)  which are capabl
     <tr>
       <td>Guide</td>
       <td><a href="https://docs.arweave.org/info/wallets/arweave-web-extension-wallet">Link</a></td>
-      <td> </td>
+      <td><a href="https://docs.arweave.org/info/wallets/arconnect">Link</a></td>
       <td> </td>
     </tr>
   </tbody>
