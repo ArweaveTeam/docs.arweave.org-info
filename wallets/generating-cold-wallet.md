@@ -34,6 +34,29 @@ This procedure may seem long but we have broken each of its steps down into gran
 7. Now go into your extensions settings by entering `chrome://extensions` on Chrome, `about:addons` on Firefox into your browser's address bar. There you'll have to identify the ArConnect extension/add-on an click on the "Remove" button to uninstall it.
 8. Your wallet is now removed from your browser and you can reconnect to the internet.
 
+### Cold Wallet generation with the ArDrive CLI (Advanced)
+
+{% hint style="warning" %}
+**This process is for more advanced users. If you have not used a CLI before, it is recommended to follow the guides above!**
+{% endhint %}
+
+1. You'll need to have [Node.js](https://nodejs.org/) and [npm](https://docs.npmjs.com/cli/v9/) installed for the ArDrive CLI to work.
+2. Open up your OS' default terminal and install the [ArDrive CLI](https://www.npmjs.com/package/ardrive-cli) with the following command:
+```sh
+npm install -g ardrive-cli
+```
+3. Disconnect your device from the internet.
+4. Generate a seedphrase with the following command, then write it down on a piece of paper.
+```sh
+ardrive generate-seedphrase
+```
+5. Copy the generated seedphrase and paste it between the quotes in the following command. Run the command to generate a keyfile.
+```sh
+ardrive generate-wallet -s "PASTE_GENERATED_SEEDPHRASE_HERE" > ./wallet.json
+```
+6. You'll be able to find you keyfile name `wallet.json` in the directory where you ran the CLI. You should copy it to an offline storage medium and delete the file from your device.
+7. You can now reconnect your device to the internet.
+
 {% hint style="success" %}
 **Congratulations for completing the steps! Your AR tokens will now be stored safely and securely for months and years to come**
 {% endhint %}
