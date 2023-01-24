@@ -32,11 +32,44 @@ This procedure may seem long but we have broken each of its steps down into gran
 
 1. Download ArConnect for [Chrome](https://chrome.google.com/webstore/detail/arconnect/einnioafmpimabjcddiinlhmijaionap) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/arconnect/).
 2. Once downloaded, the wallet will take you to the setup page. At this point, you'll need to disconnect your device from the internet. If the setup page has not been opened, you can click on the ArConnect icon in the extensions section (seen below) to open it.
+<table>
+  <tr>
+    <td>
+      <img src="../.gitbook/assets/arconnect_chrome_extensions_list.png" alt="ArConnect Chrome Icon" />
+    </td>
+    <td>
+      <img src="../.gitbook/assets/arconnect_firefox_extensions_list.png" alt="ArConnect Chrome Icon" />
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">Chrome</td>
+    <td style="text-align: center;">Firefox</td>
+  </tr>
+</table>
+
 3. On the setup page, you'll need to create a password. Fill out the password inputs and click "Create".
-4. Click the "New Wallet" button on the next screen and wait for your new wallet to generate. While this process is in progress you can write down your seedphrase on a piece of paper
+![ArConnect Welcome Screen](<../.gitbook/assets/arconnect_welcome_screen.png>)
+4. Click the "New Wallet" button on the next screen and wait for your new wallet to generate. While this process is in progress you can write down your seedphrase on a piece of paper.
+![ArConnect New Wallet Button](<../.gitbook/assets/arconnect_welcome_new_wallet.png>)
 5. Once the wallet has generated, a button with the text "Download Keyfile" will appear. Click it to download the generated keyfile.
+![ArConnect Download Wallet Button](<../.gitbook/assets/arconnect_download_keyfile.png>)
 6. As a safety measure, this file should be stored on different offline storage mediums, like how mentioned [above](#cold-wallet-generation-with-arweaveapp).
 7. Now go into your extensions settings by entering `chrome://extensions` on Chrome, `about:addons` on Firefox into your browser's address bar. There you'll have to identify the ArConnect extension/add-on an click on the "Remove" button to uninstall it.
+<table>
+  <tr>
+    <td>
+      <img src="../.gitbook/assets/arconnect_chrome_remove.png" alt="ArConnect Chrome Icon" />
+    </td>
+    <td>
+      <img src="../.gitbook/assets/arconnect_firefox_remove.png" alt="ArConnect Chrome Icon" />
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">Chrome</td>
+    <td style="text-align: center;">Firefox</td>
+  </tr>
+</table>
+
 8. Your wallet is now removed from your browser and you can reconnect to the internet.
 
 ### Cold Wallet generation with the ArDrive CLI (Advanced)
