@@ -90,3 +90,7 @@ We are almost there! Both Ledger and Keystone are working on integrating Arweave
 ## **Can I send AR tokens to MyEtherWallet/another third party wallet or an ETH address?**
 
 No, these are fundamentally incompatible. Don’t send your AR tokens to other blockchain addresses or wallets.
+
+## **Where can I see my AR token transfers' status?**
+
+The [Viewblock](https://viewblock.io/arweave) block explorer allows you to discover and view statuses of Arweave transactions. To find your transfer, you can search for your wallet address or the ID of your transfer in the search bar, at the top of their site.
