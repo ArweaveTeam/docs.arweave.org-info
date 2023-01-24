@@ -69,9 +69,23 @@ The following are wallets (developed by the Arweave community)  which are capabl
   </tbody>
 </table>
 
+## **Why is it recommended to use an Arweave wallet?**
+
+Wallets securely store your private keys and provide a bridge-like interface for dApps to sign transactions and other data with your approval. This protects your AR tokens from malicious applications, by preventing them from draining your wallet or signing a message without your consent.
+
+## **How do I use an Arweave wallet?**
+
+You can find the guides for each wallet above, by clicking on the links.
+
+## **Can I use these wallets as a cold wallet?**
+
+Yes, you can use most of the wallets available for Arweave to generate cold wallets. You can find a step by step guide for this [here](./generating-cold-wallet.md).
+
+**\* Please make sure to keep multiple copies of your wallet key file in secure locations, as we cannot help you to recover your wallet if you lose it \***
+
 ## **Are AR tokens compatible with any hardware wallets?**
 
-We are almost there! arweave.app has done the initial client integration but full support is pending an upcoming ledger release.
+We are almost there! Both Ledger and Keystone are working on integrating Arweave into their services. arweave.app has done the initial client integration but full support is pending an upcoming ledger release.
 
 ## **Can I send AR tokens to MyEtherWallet/another third party wallet or an ETH address?**
 
