@@ -84,10 +84,4 @@ To remove a set of wallet keys from the wallet app, click the <img src="../.gitb
 
 From this screen you'll be able to re-download the key file for a particular wallet key pair or click the "Delete" button to remove it from the wallet app entirely. As long as you have your passphrase or key file you'll be able to add it back whenever you like so keep those safe and secure.
 
-## **Using Arweave.app as a cold wallet**
-
-You can find detailed instructions for how to securely generate an Arweave cold wallet with the arweave.app [**here**](https://docs.arweave.org/info/wallets/generating-cold-wallet).
-
-**\* Please make sure to keep multiple copies of your wallet key file in secure locations, as we cannot help you to recover your wallet if you lose it \***
-
 \*\*\*\*
