@@ -15,12 +15,17 @@ This procedure may seem long but we have broken each of its steps down into gran
 1. Open up [https://arweave.app](https://arweave.app) in your browser tab.
 2. Once loaded, disconnect your computer from the internet
 3. Click the \[ + ] button in the bottom left&#x20;
+   ![arweave.app add wallet button in welcome screen](<../.gitbook/assets/cold_wallet_arweave_app_plus.png>)
 4. Click the big "Create new wallet" button in the screen that pops up.
+   ![arweave.app create wallet screen](<../.gitbook/assets/cold_wallet_arweave_app_create_btn.png>)
 5. Write down your passphrase on a piece of paper.
 6. When the wallet generation step completes, click the "Click to proceed" button.
+   ![arweave.app proceed btn](<../.gitbook/assets/cold_wallet_arweave_app_proceed_btn.png>)
 7. Identify your newly created wallet on the next screen and click the "Download" button to download the key file.
+   ![arweave.app download wallet](<../.gitbook/assets/cold_wallet_arweave_app_download_wallet.png>)
 8. Make copies of this file on multiple offline storage mediums (for example, USB sticks or prints of the file to physical paper). **Store these copies securely**
-9. Click the "Delete" button to remove your newly created wallet from the browser.
+9.  Click the "Delete" button to remove your newly created wallet from the browser.
+    ![arweave.app delete wallet](<../.gitbook/assets/cold_wallet_arweave_app_delete_wallet.png>)
 10. Reconnect to the internet
 
 ### Cold Wallet generation with ArConnect
