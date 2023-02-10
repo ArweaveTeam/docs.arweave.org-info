@@ -17,15 +17,9 @@ Arweave core developers have been made aware that at least one mining node insid
 
 ## Install the Miner
 
-Download the `.tar.gz` archive for your OS from the [releases page](https://github.com/ArweaveTeam/arweave/releases).
-
-Extract the contents of the archive. It's recommended to unpack it inside a dedicated directory. You can always move this directory around, but the miner may not work if you move only some of the files. The weave data would, by default, be stored in this directory as well, but we recommend to override it using the `data_dir` command-line argument.
+Download the `.tar.gz` archive for your OS from the [releases page](https://github.com/ArweaveTeam/arweave/releases). Extract the contents of the archive - `tar -xzf [release_file]`.
 
 If your OS/platform architecture is not in the list, check the source code repository [README](https://github.com/ArweaveTeam/arweave#building-from-source) for how to build the miner from source.
-
-{% hint style="info" %}
-It is also possible to set-up an Arweave mining environment on Windows using the ‘Windows Subsystem for Linux’ or a virtual machine environment.
-{% endhint %}
 
 ## Preparation: File Descriptors Limit <a href="#preparation-file-descriptors-limit" id="preparation-file-descriptors-limit"></a>
 
@@ -57,42 +51,147 @@ DefaultLimitNOFILE=10000000
 
 in both `/etc/systemd/user.conf`and `/etc/systemd/system.conf`
 
-## Running the Miner
+## Preparation: Data Directory
 
-Now you’re ready to start the mining process by using the following command from the Arweave directory:
+Create a directory somewhere in your system. We will refer to it as `[data_dir]` throughout this guide. We recommend having at least 200 GB available on the corresponding disk, although it is possible to configure the node for less space. For mining, you obviously need a lot more space, but the mining data should be stored on separate drives mounted in or symlinked to the folders inside `[data_dir].`More about it later in this guide.
 
-{% hint style="info" %}
-Note:
+## Preparation: Mining Key
 
-In order to protect your machine from material that may be illegal in your country, you should use a content policy when mining Arweave. Content policies can be generated using the [Shepherd tool](https://github.com/shepherd-media-classifier/shepherd). Shepherd allows you to create your own content policies for the content that you would like to store on your Arweave node, abiding by your moral and legal requirements.
+In order to mine in 2.6, your mining key needs to be present on your machine. If you want to create a new wallet, run `./bin/create-wallet.` The file is then created in `[data_dir]/wallets/.` Make sure you never share it with anyone! If you want to use an existing wallet, place it under the aforementioned path.
 
-In order to help you get started quickly, @ArweaveTeam provides an NSFW content filter which you can load by adding the following to your Arweave start command:&#x20;
+## Preparation: Storage Setup
 
-`transaction_blacklist_url http://shepherd-v.com/nsfw.txt`
-{% endhint %}
+To maximize your mining efficiency, store data on 4 TB hard drives capable of reading about 200 MiB/s. It is fine to use faster disks, but the extra cost won't be justified.
+
+The first step is to create a folder inside `[data_dir]/storage_modules/` for each of the 4 TB disks you intend to mine with. The Arweave dataset is logically partitioned into a collection of 3.6 TB  "mining partitions". Each 4 TB disk will store and mine one of these mining partitions. The partitions are indexed sequentially starting from 0, with 0 being the very first 3.6 TB worth of data stored on Arweave, and ranging to whatever the current mining partition count is. You can choose which mining partitions you store by indicating their index in the folder name. For example, to set up a storage module with the very first mining partition in the weave (packed with your mining address), create the folder \[data\_dir]/storage\_modules/storage\_module\_0\_\[your\_mining\_address].
+
+Mount your drives in the `[data_dir]/storage_modules` folder. E.g.,
 
 ```
-./bin/start mine mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
+sudo mount /dev/sda [data_dir]/storage_modules/storage_module_0_[your_mining_address]
+```
+
+Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_dir]`  - with the absolute path to your data folder, and `[your_mining_address]` - with your mining address.\
+\
+If you have a drive already mounted elsewhere, you may create a symbolic link instead:
+
+```
+ln -s [path/to/disk/folder] [data_dir]/storage_modules/storage_module_0_[your_mining_address]
+```
+
+If you have a RAID setup with a lot of space, you can create a symlink link from the `[data_dir]/storage_modules` folder.
+
+A few important notes about the storage modules:
+
+* Having two or more identical partitions (say, the partition 0 repeated) with the same mining address does not increase your mining performance. Also, it is more profitable mine a complete replica (all mining partitions) of the weave packed with a single address than mine off an equal amount of data packed with different mining addresses. Currently, we only support one mining address per node.
+* If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter,  copy the data, and restart the node with the storage module again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module.
+* The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
+* If you do not mine off the full weave, the required disk read throughput is, on average, (100 + your weave share \* 100) MiB/s.\
+
+
+### Upgrading Existing 2.5 Node
+
+Ignore this paragraph if you are running the miner for the first time.\
+\
+When starting the upgraded node, set `enable legacy_storage_repacking` to start a process that would repack your packed 2.5 data. If you have storage modules configured, every repacked chunk is also written in the corresponding storage module. When the 2.6 fork activates, the node will use repacked data in mining (even if there are no storage modules). Note that your 2.5 mining performance before the fork will drop as more data is being repacked. Also, note that the node will NOT sync new data into the 2.5 storage - if you want to sync more data, configure storage modules.
+
+### Reusing Storage Modules from Testnet 2.6&#x20;
+
+If you have been running some nodes in the 2.6 test network, you can reuse the storage modules synced there with data up to the weave offset `122635245363446` (the block [1072170](https://arweave.net/block/height/1072170)) in the mainnet. You can try to start the miner with all the storage modules you have - if any of them contain data which does not belong to the mainnet, the node will stop and offer you to restart with `enable remove_orphaned_storage_module_data`. If this flag is set, the node will erase the extra data from the corresponding storage modules before launching.
+
+## Preparation: RAM
+
+We recommend you have 8 GB + 400 MB per mining partition (4 TB drive) worth of RAM. The node determines the amount of chunks to read in memory while mining automatically. If your node runs out of memory anyway, try setting the `mining_server_chunk_cache_size_limit` option in the command line (specify the number of 256 KiB to cache).
+
+## Preparation: CPU
+
+We can broadly outline three tasks computing units solve in Arweave:
+
+1. Packing and unpacking data
+2. Executing the VDF
+3. Calculating storage proofs
+
+### 1. Packing
+
+Packing mostly consists of executing RandomX instructions so the [faster your CPU computes RandomX hashes](https://xmrig.com/benchmark), the faster you can pack. Note that packing a single 256 KiB chunk takes about 30 times longer than computing one RandomX hash. Once you have packed a dataset, you do not necessarily have to keep the powerful process around. You can control the maximum allowed packing rate with the `packing_rate` start command parameter. The default is 50 256 KiB chunks per second.
+
+### 2. VDF
+
+In order to maintain the proper mining performance and keep up with the network, you need to compute VDF steps timely (every step should take about one second). For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel\_SHA\_extensions). It should be noted that the VDF is executed by a single core.\
+The node will report the VDF performance on startup, warning you if it is too low.
+
+\
+You may have another machine compute VDF for you.\
+\
+Running a node fetching VDF states from a peer:
+
+```
+./bin/start vdf_server_trusted_peer IP-ADDRESS ...
+```
+
+Running a node pushing its VDF outputs to other peers:
+
+```
+./bin/start vdf_client_peer IP-ADDRESS-1 vdf_client_peer IP-ADDRESS-2 ...
+```
+
+Make sure to specify \[IP-ADDRESS]:\[PORT] if your node is configured to listen on a TCP port other than 1984.
+
+{% hint style="warning" %}
+Do not connect to an external peer you do not trust.&#x20;
+{% endhint %}
+
+{% hint style="info" %}
+Please, reach out to us via team@arweave.org if you would like to use our team's VDF servers.
+{% endhint %}
+
+### Configuring Large Memory Pages
+
+Mining involves computing 1 RandomX hash and several SHA2 hashes every second for every 3.6 TB mining partition. It is not a lot, but your CPU may nevertheless become a bottleneck when you configure a lot of mining partitions. To maximize your hashing performance, consider configuring huge memory pages in your OS.
+
+On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=1000`. To make the configuration survive reboots, create `/etc/sysctl.d/local.conf` and put `vm.nr_hugepages=1000` there.
+
+The output of `cat /proc/meminfo | grep HugePages` should then look like this:\
+`AnonHugePages: 0 kB`\
+`ShmemHugePages: 0 kB HugePages_Total: 1000 HugePages_Free: 1000 HugePages_Rsvd: 0 HugePages_Surp: 0`
+
+If it does not or if there is a "erl\_drv\_rwlock\_destroy" error on startup, reboot the machine.
+
+Finally, tell the miner it can use large pages by specifying `enable randomx_large_pages`on startup (you can find a complete startup example further in the guide).
+
+## Running the Miner
+
+Now you’re ready to start the mining process by running the following command from the Arweave directory:
+
+```
+./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable legacy_storage_repacking enable randomx_large_pages peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192 debug mine storage_module 0,YOUR-MINING-ADDRESS storage_module 8,YOUR-MINING-ADDRESS storage_module 9,YOUR-MINING-ADDRESS storage_module 10,YOUR-MINING-ADDRESS storage_module 11,YOUR-MINING-ADDRESS
 ```
 
 {% hint style="warning" %}
 Please replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to credit when you find a block!
 {% endhint %}
 
-If you would like to see a log of your miner’s activity, you can run `./bin/logs -f` in the Arweave directory in a different terminal.
+{% hint style="info" %}
+Note:
+
+In order to protect your machine from material that may be illegal in your country, you should use a content policy when mining Arweave. Content policies can be generated using the [Shepherd tool](https://github.com/shepherd-media-classifier/shepherd). Shepherd allows you to create your own content policies for the content that you would like to store on your Arweave node, abiding by your moral and legal requirements.
+
+In order to help you get started quickly, @ArweaveTeam provides an NSFW content filter which you can load by adding the following to your Arweave start command:
+
+`transaction_blacklist_url http://shepherd-v.com/nsfw.txt`
+{% endhint %}
+
+If you would like to see a log of your miner’s activity, you can run `./bin/logs -f` in the Arweave directory in a different terminal. Sometimes it is helpful to look at the debug logs which are written if the node is started with the `debug` flag in the command line - `./bin/debug-logs -f`
 
 The mining console should eventually look like this:
 
 ```
-[Stage 1/3] Starting to hash
-Miner spora rate: 1545 h/s, recall bytes computed/s: 3129, MiB/s read: 386, the round lasted 145 seconds.
-[Stage 1/3] Starting to hash
-Skipping hashrate report, the round lasted less than 10 seconds.
-[Stage 1/3] Starting to hash
-Miner spora rate: 1545 h/s, recall bytes computed/s: 3182, MiB/s read: 386, the round lasted 135 seconds.
-[Stage 1/3] Starting to hash
-Miner spora rate: 1637 h/s, recall bytes computed/s: 3292, MiB/s read: 409, the round lasted 245 seconds.
-[Stage 1/3] Starting to hash
+Mining performance report:
+Total avg: 9.97 MiB/s,  39.87 h/s; current: 0.00 MiB/s, 0 h/s.
+Partition 1 avg: 0.01 MiB/s, current: 0.00 MiB/s.
+Partition 2 avg: 0.03 MiB/s, current: 0.00 MiB/s.
+Partition 3 avg: 0.34 MiB/s, current: 0.00 MiB/s.
+Partition 4 avg: 0.31 MiB/s, current: 0.00 MiB/s.
 ```
 
 When you mine a block, the console shows:
@@ -109,85 +208,31 @@ Approximately 20 minutes later, you should see
 
 Note that occasionally your block won't be confirmed (the chain chooses a different fork).
 
-To stop the miner, run `./bin/stop` or kill the OS process (`kill -sigterm <pid>` or `pkill <name>`). Sending a SIGKILL (`kill -9`) is **not** recommended.
+#### Staying in Sync
 
-## Tuning the Miner
+Watch for the following warnings in your mining console:
 
-### Optimizing Miners SPoRA Rate
+{% code overflow="wrap" %}
+```
+WARNING: Peer 138.197.232.192 is 5 or more blocks ahead of us. Please, double-check if you are in sync with the network and make sure your CPU computes VDF fast enough or you are connected to a VDF server.
+```
+{% endcode %}
 
-The three crucial factors determining your miner's efficiency are disk throughput (GiB/s), the amount of synchronized data, and processor power. We recommend that you have 32 GiB of RAM, while the minimum requirement is 8 GiB.
+If you see them shortly after joining the network, see if they disappear in a few minutes - everything might be fine then. Otherwise, it is likely your processor cannot keep up with VDF computation or there are network connection issues. While VDF execution is done by a single core/thread, the validation of the VDF checkpoints in a block header can be done in parallel (with multiple threads). To speed up VDF validation, try restarting the node with a higher value for `max_vdf_validation_thread_count` (e.g., the number of CPU threads - 1).
 
-The node reports its hashrate in the console - `Miner spora rate: 1546 h/s`and logs -`miner_sporas_per_second`. Note that it is 0 when you start the miner without data and slowly increases as more data is synchronized. After the number stabilizes, you can input it into the mining calculator generously created by the community member @tiamat [here](https://chronobot.io/arweave/) to see the expected return.
+#### Stopping the Miner
 
-To estimate the hashrate in advance, you would need to know or measure your CPU's performance, the disk throughput, and the amount of disk space you will allocate for mining.
+To stop the node, run `./bin/stop` or kill the OS process (`kill -sigterm <pid>` or `pkill <name>`). Sending a SIGKILL (`kill -9`) is **not** recommended.
 
-To benchmark CPU, you can run the packaged `randomx-benchmark` script.`./bin/randomx-benchmark --mine --init 32 --threads 32 --jit --largePages`. Replace 32 with the number of CPU threads. Note that reducing the number of threads might improve the outcome. Do not specify `--largePages` if you have not configured them yet. For the reference, a 32-threads AMD Ryzen 3950x can do about 10000 h/s, a 32-threads AMD EPYC 7502P - 24000 h/s, a 12-threads Intel Xeon E-2276G CPU - 2500 h/s, a 2-threads Intel Xeon CPU E5-2650 machine in the cloud - 600 h/s.
+#### Defragmenting Storage
 
-If you do not know the throughput of your disk, run `hdparm -t /dev/sda`. Replace `/dev/sda` with the disk name from `df -h`. To be competitive, consider a fast NVMe SSD capable of several GiB per second and more.
-
-Finally, to see the upper hashrate limit of a setup, run `./bin/hashrate-upper-limit 2500 1 3` where 2500 is a RandomX hashrate, 1 is the number of GiB a disk reads per second, 3 is 1/replicated share of the weave. For example, a 12-core Intel Xeon with a 1 GiB/s SSD with a third of the weave is capped at 540 h/s. In practice, the performance is usually about 0.7 - 0.9 of the upper limit.
-
-### Changing the mining configuration
-
-We made our best effort to choose reasonable defaults; however, changing some of the following parameters may improve the efficiency of your miner: `stage_one_hashing_threads` (between 1 and the number of CPU threads), `stage_two_hashing_threads` , `io_threads`, `randomx_bulk_hashing_iterations`. For example,
+Due to Arweave node specifics (storing data in the sparse files), the read throughput during mining after the initial sync might be suboptimal on some disks. In the performance reports printed in the console you can see the estimated optimal performance in MiB/s, per configured storage module. The first number estimates the optimum on a small dataset, the second - on the dataset close in size to the weave size.  If the actual performance of a storage module is noticeably lower, consider running a defragmentation procedure to improve your mining performance on this module. (Re)start the miner with the following parameters:
 
 ```
-./bin/start stage_one_hashing_threads 32 stage_two_hashing_threads 32 io_threads 50 randomx_bulk_hashing_iterations 64 data_dir /your/dir mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
+./bin/start run_defragmentation defragment_module 8,YOUR-MINING-ADDRESS defragmentation_trigger_threshold 500000000 ...
 ```
 
-`recall bytes computed/s` should be roughly equal to `Miner spora rate` divided by your share of the weave. If it is not, consider increasing `io_threads` and decreasing`stage_one_hashing_threads`. You can learn the share of the weave the node has synced to date by dividing the size of the `chunk_storage` folder (`du -sh /path/to/data/dir/chunk_storage`) by the [total weave size](https://viewblock.io/arweave/stats). Increasing `randomx_bulk_hashing_iterations` to 128 or bigger might make a big difference on the powerful machine.
-
-### Syncing the weave
-
-The Arweave miner does not mine without data. For every new block, in order to mine it, numerous random chunks of the past data need to be read and checked. It takes time to download data from the peers, so do not expect mining to be very intensive after the first launch. For example, if you have 10% of the total weave size, you are mining at 10% efficiency of a similar setup with the entire dataset. Note that it is not required to download the complete dataset. If you only have 1 TiB of space for the `chunk_storage` and `rocksdb` folders, the node will fill it up, and your miner may nevertheless be competitive, assuming the disk and the processor are sufficiently performant.
-
-To speed up bootstrapping, use a higher (default is 20) value for the `sync_jobs` configuration parameter like this:
-
-```
-./bin/start mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
-```
-
-You can set the sync\_jobs back to 2 after historical data is synced. Turn the miner off (do not set the `mine` flag) to further speed up syncing.
-
-### Configuring large memory pages
-
-To get an additional performance boost, consider configuring huge memory pages in your OS.
-
-On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=1000`. To make the configuration survive reboots, create `/etc/sysctl.d/local.conf` and put `vm.nr_hugepages=1000` there.
-
-The output of `cat /proc/meminfo | grep HugePages` should then look like this:\
-`AnonHugePages: 0 kB`\
-`ShmemHugePages: 0 kB HugePages_Total: 1000 HugePages_Free: 1000 HugePages_Rsvd: 0 HugePages_Surp: 0`
-
-If it does not or if there is a "erl\_drv\_rwlock\_destroy" error on startup, reboot the machine.
-
-Finally, tell the miner it can use large pages by specifying `enable randomx_large_pages`on startup:
-
-```
-./bin/start mine enable randomx_large_pages mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
-```
-
-### Using Multiple Disks
-
-The simplest approach is to store everything on a single disk. Skip this section if you are fine with that. However, you may store metadata that is not used in mining on a cheaper and slower medium, e.g., an HDD disk.
-
-Mount the fast devices to the `chunk_storage` and `rocksdb` folders:
-
-```
-sudo mount /dev/nvme1n1 /your/dir/chunk_storage
-sudo mount /dev/nvme1n2 /your/dir/rocksdb
-sudo mount /dev/hdd1 /your/dir
-```
-
-The output of `df -h` should look like:
-
-`/dev/hdd1 5720650792 344328088 5087947920 7% /your/dir /dev/nvme1n1 104857600 2097152 102760448 2% /your/dir/chunk_storage /dev/nvme1n2 104857600 2097152 102760448 2% /your/dir/rocksdb`
-
-Replace /dev/nvme1n1, /dev/nvme1n2, /dev/hdd1 with the filesystems you have, replace `/your/dir` with the directory you specify on startup:
-
-```
-./bin/start data_dir /your/dir mine sync_jobs 80 mining_addr YOUR-MINING-ADDRESS peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192
-```
+The defragmentation is performed before startup. Only chunk files larger than `defragmentation_trigger_threshold` bytes and those which have grown by more than 10% since the last defragmenation of this module will be updated. Note the defragmentation may take a lot of time.
 
 ## Troubleshooting
 
@@ -199,31 +244,9 @@ To check if your node is publicly accessible, browse to `http://[Your Internet I
 
 If the node is not accessible on the Internet, the miner functions but is significantly less efficient.
 
-### Copying data to another machine
-
-If you want to bootstrap another miner on a different machine, you can copy the downloaded data over from the first miner to bring it up to speed faster. Please follow these steps:
-
-1. Stop the first Arweave miner, and ensure the second miner is also not running.
-2. Copy the entire `data_dir` folder to the new machine. Note that the `chunk_storage` folder contains [sparse files](https://wiki.archlinux.org/index.php/sparse\_file), so copying them the usual way will take a lot of time and the size of the destination folder will be too large. To copy this folder, use rsync with the `-aS` flags or archive it via `tar -Scf` before copying.
-3. Start both miners.
-
-### Run a miner on Windows
-
-We do not recommend using Windows for mining because according to our experience it is less efficient and reliable. Nevertheless, mining on Windows is possible.
-
-You can run an Arweave miner inside Windows Subsystem for Linux (WSL). Note that the default TCP configuration WSL relies on is more restrictive than a typical Linux configuration. The WSL configuration offers about half as many TCP ports for making TCP connections and twice as long socket re-use timeout, what significantly reduces the number of simultaneous requests per second the miner can make to other nodes.
-
-As a result, you may see the following errors in the miner console:
-
-`=ERROR REPORT====...=== Socket connection error: exit badarg, [{gen_tcp,connect,4, [{file,"gen_tcp.erl"},{line,149}]}`
-
-Windows Event Log is expected to have the following warning:
-
-`TCP/IP failed to establish an outgoing connection because the selected local endpoint was recently used to connect to the same remote endpoint. This error typically occurs when outgoing connections are opened and closed at a high rate, causing all available local ports to be used and forcing TCP/IP to reuse a local port for an outgoing connection. To minimize the risk of data corruption, the TCP/IP standard requires a minimum time period to elapse between successive connections from a given local endpoint to a given remote endpoint.`
-
 ## Staying up to Date
 
 * Join our [Discord](https://discord.gg/GHB4fxVv8B) server
 * Join our mining [mailing list](https://mailchi.mp/fa68b561fd82/arweavemining)
 
-Once you are successfully mining on the Arweave, you will need to stay up to date with new releases. [Join our mailing list](https://mailchi.mp/fa68b561fd82/arweavemining) to receive emails informing you that a new update has been released, along with the steps you need to take to stay up to speed - particularly updates that require you to perform an action within a certain time period in order to stay in sync with the network. Keep an eye out for these messages, and if possible make sure that you add [team@arweave.org](mailto:team@arweave.org) to your email provider’s trusted senders list!
+Once you are successfully mining on the Arweave, you will need to stay up to date with new releases. [Join the mailing list](https://mailchi.mp/fa68b561fd82/arweavemining) to receive emails informing you that a new update has been released, along with the steps you need to take to stay up to speed - particularly updates that require you to perform an action within a certain time period in order to stay in sync with the network. Keep an eye out for these messages, and if possible make sure that you add [team@arweave.org](mailto:team@arweave.org) to your email provider’s trusted senders list!
