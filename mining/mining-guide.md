@@ -118,10 +118,10 @@ Packing mostly consists of executing RandomX instructions so the [faster your CP
 ### 2. VDF
 
 In order to maintain the proper mining performance and keep up with the network, you need to compute VDF steps timely (every step should take about one second). For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel\_SHA\_extensions). It should be noted that the VDF is executed by a single core.\
-The node will report the VDF performance on startup, warning you if it is too low.
+The node will report the VDF performance on startup, warning you if it is too low. Some viable options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM.
 
 \
-You may have another machine compute VDF for you.\
+You may have another machine compute VDF for you (e.g., you may set up a dedicated VDF node broadcasting VDF outputs to all your mining nodes.)\
 \
 Running a node fetching VDF states from a peer:
 
