@@ -84,16 +84,36 @@ If you have a RAID setup with a lot of space, you can create a symlink link from
 A few important notes about the storage modules:
 
 * Having two or more identical partitions (say, the partition 0 repeated) with the same mining address does not increase your mining performance. Also, it is more profitable mine a complete replica (all mining partitions) of the weave packed with a single address than mine off an equal amount of data packed with different mining addresses. Currently, we only support one mining address per node.
-* If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter,  copy the data, and restart the node with the storage module again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module.
+* If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter,  copy the data, and restart the node with the storage module again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module. Do NOT mine on several nodes with the same mining address simultaneously (see the warning below.)
 * The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
 * If you do not mine off the full weave, the required disk read throughput is, on average, (100 + your weave share \* 100) MiB/s.\
 
 
-### Upgrading Existing 2.5 Node
+{% hint style="danger" %}
+It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! We are currently working on the coordinated mining framework that would allow you to safely connect the nodes covering different sections of the weave with the same mining address.
+{% endhint %}
 
-Ignore this paragraph if you are running the miner for the first time.\
 \
-When starting the upgraded node, set `enable legacy_storage_repacking` to start a process that would repack your packed 2.5 data. If you have storage modules configured, every repacked chunk is also written in the corresponding storage module. When the 2.6 fork activates, the node will use repacked data in mining (even if there are no storage modules). Note that your 2.5 mining performance before the fork will drop as more data is being repacked. Also, note that the node will NOT sync new data into the 2.5 storage - if you want to sync more data, configure storage modules.
+If you are upgrading a 2.5 miner, set `enable legacy_storage_repacking` to start a process that would repack your packed 2.5 data in place so that the default storage can be later used in 2.6 mining. In any case, the data will be copied from the 2.5 storage to the configured storage modules, if any.
+
+{% hint style="info" %}
+When the 2.6 fork activates, the node will also use the repacked data from the 2.5 storage for mining even if there are no storage modules (when run with `enable legacy_storage_repacking`).
+{% endhint %}
+
+{% hint style="warning" %}
+When running with `enable legacy_storage_repacking`, your 2.5 mining performance before the fork drops as data is being repacked.
+{% endhint %}
+
+{% hint style="warning" %}
+The node will NOT sync new data into the 2.5 storage - if you want to sync more data, configure storage modules.
+{% endhint %}
+
+### Preparation: Unpacked Storage Modules
+
+If you want to sync many replicas of the weave, it makes sense to first create an "unpacked" replica. Then, packing for each mining address will be two times faster compared to repacking a replica packed with another mining address. To configure a storage module for storing unpacked data, specify "unpacked" instead of the mining address.\
+\
+For example, to sync an unpacked partition 12, specify `storage_module 12,unpacked` on startup.  As with the other storage modules, make sure the `[data_dir]/storage_modules/storage_module_12_unpacked`folder resides on the desired disk (if you do not create the directory in advance, the node will create it for you so the data will end up on the disk `data_dir]/storage_modules`is mounted to.)\
+
 
 ### Reusing Storage Modules from Testnet 2.6&#x20;
 
