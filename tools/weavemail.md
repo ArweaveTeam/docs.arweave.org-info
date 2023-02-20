@@ -72,7 +72,7 @@ In need of a weave-buddy to send your first mail to? Drop Arweave Sam a line: **
 
 Tap the 'Compose' button:
 
-![](<../.gitbook/assets/#3 (2) (1).png>)
+![](<../.gitbook/assets/#3 (2).png>)
 
 Once the email interface has opened, input the mail recipient address, the mail contents, and the amount of AR you'd like to send with your email \[optional]. Next, tap '**Send'**
 
