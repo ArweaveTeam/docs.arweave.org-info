@@ -111,12 +111,15 @@ When running with `enable legacy_storage_repacking`, your 2.5 mining performance
 The node will NOT sync new data into the 2.5 storage - if you want to sync more data, configure storage modules.
 {% endhint %}
 
+### Preparation: Copying Data Across Storage Modules
+
+Starting from the release 2.6.1, when a node starts, it copies (and packs, if required) the data from one storage module to another, in the case when there are two or more intersecting storage modules. For example, if you specify `storage_module 11,unpacked storage_module 11,[mining_address]` and there is some data in the "unpacked" module that is absent from the "mining address" module, the data will be packed with this mining address and stored in `11,[mining_address]`.
+
 ### Preparation: Unpacked Storage Modules
 
 If you want to sync many replicas of the weave, it makes sense to first create an "unpacked" replica. Then, packing for each mining address will be two times faster compared to repacking a replica packed with another mining address. To configure a storage module for storing unpacked data, specify "unpacked" instead of the mining address.\
 \
-For example, to sync an unpacked partition 12, specify `storage_module 12,unpacked` on startup.  As with the other storage modules, make sure the `[data_dir]/storage_modules/storage_module_12_unpacked`folder resides on the desired disk (if you do not create the directory in advance, the node will create it for you so the data will end up on the disk `data_dir]/storage_modules`is mounted to.)\
-
+For example, to sync an unpacked partition 12, specify `storage_module 12,unpacked` on startup.  As with the other storage modules, make sure the `[data_dir]/storage_modules/storage_module_12_unpacked`folder resides on the desired disk (if you do not create the directory in advance, the node will create it for you so the data will end up on the disk `data_dir]/storage_modules`is mounted to.) After the replica is synced, you can copy it to the other machines where its contents would be copied and packed for the storage modules you configure there.
 
 ### Reusing Storage Modules from Testnet 2.6&#x20;
 
