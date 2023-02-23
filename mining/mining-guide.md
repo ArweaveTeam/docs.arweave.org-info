@@ -89,8 +89,7 @@ A few important notes about the storage modules:
   `storage_module [number],[size],[mining_address]`\
   The module will sync data with the weave offsets between `number * size` (in bytes) and `(number + 1) * size`. You also need to give some space to the filesystem, the merkle proofs, and some other metadata stored inside each storage module - about 10% of the configured storage module size.
 * The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
-* If you do not mine off the full weave, the required disk read throughput is, on average, (100 + your weave share \* 100) MiB/s.\
-
+* If you do not mine off the full weave, the required disk read throughput is, on average, (100 + your weave share \* 100) MiB/s.
 
 {% hint style="danger" %}
 It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! We are currently working on the coordinated mining framework that would allow you to safely connect the nodes covering different sections of the weave with the same mining address.
@@ -113,7 +112,9 @@ The node will NOT sync new data into the 2.5 storage - if you want to sync more 
 
 ### Preparation: Copying Data Across Storage Modules
 
-Starting from the release 2.6.1, when a node starts, it copies (and packs, if required) the data from one storage module to another, in the case when there are two or more intersecting storage modules. For example, if you specify `storage_module 11,unpacked storage_module 11,[mining_address]` and there is some data in the "unpacked" module that is absent from the "mining address" module, the data will be packed with this mining address and stored in `11,[mining_address]`.
+Starting from the release 2.6.1, when a node starts, it copies (and packs, if required) the data from one storage module to another, in the case when there are two or more intersecting storage modules. For example, if you specify `storage_module 11,unpacked storage_module 11,[mining_address]` and there is some data in the "unpacked" module that is absent from the "mining address" module, the data will be packed with this mining address and stored in `11,[mining_address]`.\
+\
+If you want to repack a storage module, do not rename the existing one - renaming will not cause repacking, create a new storage module instead.
 
 ### Preparation: Unpacked Storage Modules
 
