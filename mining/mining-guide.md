@@ -145,8 +145,7 @@ Packing mostly consists of executing RandomX instructions so the [faster your CP
 ### 2. VDF
 
 In order to maintain the proper mining performance and keep up with the network, you need to compute VDF steps timely (every step should take about one second). For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel\_SHA\_extensions). It should be noted that the VDF is executed by a single core.\
-The node will report the VDF performance on startup, warning you if it is too low. Some viable options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM.
-
+The node will report the VDF performance on startup, warning you if it is too low. Some viable options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM. Some CPUs may require boosting to achieve the maximum performance.\
 \
 You may have another machine compute VDF for you (e.g., you may set up a dedicated VDF node broadcasting VDF outputs to all your mining nodes.)\
 \
@@ -188,19 +187,27 @@ Finally, tell the miner it can use large pages by specifying `enable randomx_lar
 
 ## Running the Miner
 
-Now you’re ready to start the mining process by running the following command from the Arweave directory:
+Now you’re ready to start the mining process by running the following command from the Arweave directory. An example with one storage module (covering partition 0):
 
 ```
-./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable legacy_storage_repacking enable randomx_large_pages peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192 debug mine storage_module 0,YOUR-MINING-ADDRESS storage_module 8,YOUR-MINING-ADDRESS storage_module 9,YOUR-MINING-ADDRESS storage_module 10,YOUR-MINING-ADDRESS storage_module 11,YOUR-MINING-ADDRESS
+./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable legacy_storage_repacking enable randomx_large_pages peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192 debug mine storage_module 0,YOUR-MINING-ADDRESS
 ```
 
 {% hint style="warning" %}
-Please replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to credit when you find a block!
+Replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to credit when you find a block!
+{% endhint %}
+
+An example with several storage modules (covering partitions 21, 22, 23):
+
+```
+./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable legacy_storage_repacking enable randomx_large_pages peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192 debug mine storage_module 21,YOUR-MINING-ADDRESS storage_module 22,YOUR-MINING-ADDRESS storage_module 23,YOUR-MINING-ADDRESS
+```
+
+{% hint style="info" %}
+Make sure each disk holding a storage module has at least 4 TB of available space.
 {% endhint %}
 
 {% hint style="info" %}
-Note:
-
 In order to protect your machine from material that may be illegal in your country, you should use a content policy when mining Arweave. Content policies can be generated using the [Shepherd tool](https://github.com/shepherd-media-classifier/shepherd). Shepherd allows you to create your own content policies for the content that you would like to store on your Arweave node, abiding by your moral and legal requirements.
 
 In order to help you get started quickly, @ArweaveTeam provides an NSFW content filter which you can load by adding the following to your Arweave start command:
@@ -253,7 +260,7 @@ To stop the node, run `./bin/stop` or kill the OS process (`kill -sigterm <pid>`
 
 #### Defragmenting Storage
 
-Due to Arweave node specifics (storing data in the sparse files), the read throughput during mining after the initial sync might be suboptimal on some disks. In the performance reports printed in the console you can see the estimated optimal performance in MiB/s, per configured storage module. The first number estimates the optimum on a small dataset, the second - on the dataset close in size to the weave size.  If the actual performance of a storage module is noticeably lower, consider running a defragmentation procedure to improve your mining performance on this module. (Re)start the miner with the following parameters:
+Due to Arweave node specifics (storing data in the sparse files), the read throughput during mining after the initial sync might be suboptimal on some disks. In the performance reports printed in the console you can see the estimated optimal performance in MiB/s, per configured storage module. The first number estimates the optimum on a small dataset, the second - on the dataset close in size to the weave size.  If the actual performance of a storage module is noticeably lower, consider running a defragmentation procedure to improve your mining performance on this module. (Re)start the miner with the following parameters (in this example, the storage module storing the partition 8 will be defragmented):
 
 ```
 ./bin/start run_defragmentation defragment_module 8,YOUR-MINING-ADDRESS defragmentation_trigger_threshold 500000000 ...
