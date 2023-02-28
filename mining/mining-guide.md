@@ -12,7 +12,7 @@ description: >-
 {% endhint %}
 
 {% hint style="warning" %}
-Arweave core developers have been made aware that at least one mining node inside the Chinese mainland has been seized by the government. Node operators should understand that the Arweave network stores and serves a significant amount of material related to the activities of the Chinese government. The Arweave protocol does not require that any miner to store data that they deem inappropriate. You can read more about our content policies [here](https://www.arweave.org/technology#content-moderation).
+Miners are responsible for their own compliance with data protection laws (such as GDPR) and other applicable laws in their jurisdiction. Data storage laws vary country to country.  Failure to adhere to these laws may entail substantial legal risks for the miner. Please only participate in mining Arweave data if you have understood the legal implications of doing so and consider seeking legal advice.&#x20;
 {% endhint %}
 
 ## Install the Miner
@@ -23,7 +23,7 @@ If your OS/platform architecture is not in the list, check the source code repos
 
 ## Preparation: File Descriptors Limit <a href="#preparation-file-descriptors-limit" id="preparation-file-descriptors-limit"></a>
 
-The number of available file descriptors affects the rate at which your node can process data. As the default limit assigned to user processes on most operating systems is usually low, we recommend increasing it.
+The number of available file descriptors affects the rate at which your node can process data. Most operating systems default to assigning a low limit for user processes, we recommend increasing it.
 
 You can check the current limit by executing `ulimit -n`.
 
@@ -83,8 +83,8 @@ If you have a RAID setup with a lot of space, you can create a symlink link from
 
 A few important notes about the storage modules:
 
-* Having two or more identical partitions (say, the partition 0 repeated) with the same mining address does not increase your mining performance. Also, it is more profitable mine a complete replica (all mining partitions) of the weave packed with a single address than mine off an equal amount of data packed with different mining addresses. Currently, we only support one mining address per node.
-* If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter,  copy the data, and restart the node with the storage module again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module. Do NOT mine on several nodes with the same mining address simultaneously (see the warning below.)
+* Having two or more storage modules that store the same mining partition (say, the partition at index 0 more than once) with the same mining address does not increase your mining performance. Also, it is more profitable mine a complete replica (all mining partitions) of the weave packed with a single address than mine off an equal amount of data packed with different mining addresses. Currently, we only support one mining address per node.
+* If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter,  copy the data, and restart the node with the `storage_module` parameter again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module. Do NOT mine on several nodes with the same mining address simultaneously (see the warning below.)
 * Make sure the disks with the storage modules have sufficient available space. The `disk_space` parameter does NOT apply to the storage modules. If you want to create a storage module on a disk smaller than 4 TB, specify a custom size for this module:\
   `storage_module [number],[size],[mining_address]`\
   The module will sync data with the weave offsets between `number * size` (in bytes) and `(number + 1) * size`. You also need to give some space to the filesystem, the merkle proofs, and some other metadata stored inside each storage module - about 10% of the configured storage module size.
@@ -144,8 +144,10 @@ Packing mostly consists of executing RandomX instructions so the [faster your CP
 
 ### 2. VDF
 
-In order to maintain the proper mining performance and keep up with the network, you need to compute VDF steps timely (every step should take about one second). For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel\_SHA\_extensions). It should be noted that the VDF is executed by a single core.\
-The node will report the VDF performance on startup, warning you if it is too low. Some viable options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM. Some CPUs may require boosting to achieve the maximum performance.\
+The VDF controls the speed of mining with new mining "seeds" available at 1 second intervals. To keep up with the network your CPU must be able to maintain this 1 second cadence while calculating the VDF. For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel\_SHA\_extensions). Additional cores will not improve VDF performance as VDF hash calculations are sequential and therefor limited to a single thread on a single core.
+
+\
+The node will report the VDF performance on startup, warning you if it is too low. Some viable CPU options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM. Some CPUs may require boosting to achieve the maximum VDF performance.\
 \
 You may have another machine compute VDF for you (e.g., you may set up a dedicated VDF node broadcasting VDF outputs to all your mining nodes.)\
 \
