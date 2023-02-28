@@ -153,6 +153,13 @@ You may have another machine compute VDF for you (e.g., you may set up a dedicat
 \
 Running a node fetching VDF states from a peer:
 
+\
+The node will report the VDF performance on startup, warning you if it is too low. Some viable CPU options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM. Some CPUs may require boosting to achieve the maximum VDF performance.\
+\
+You may have another machine compute VDF for you (e.g., you may set up a dedicated VDF node broadcasting VDF outputs to all your mining nodes.)\
+\
+Running a node fetching VDF states from a peer:
+
 ```
 ./bin/start vdf_server_trusted_peer IP-ADDRESS ...
 ```
