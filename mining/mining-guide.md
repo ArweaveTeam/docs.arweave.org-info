@@ -30,7 +30,7 @@ You can check the current limit by executing `ulimit -n`.
 On Linux, to set a bigger global limit, open `/etc/sysctl.conf` and add the following line:
 
 ```
-fs.file-max=100000000
+fs.file-max=10000000
 ```
 
 Execute `sysctl -p` to make the changes take effect.
@@ -38,7 +38,7 @@ Execute `sysctl -p` to make the changes take effect.
 You may also need to set a proper limit for the particular user. To set a user-level limit, open `/etc/security/limits.conf` and add the following line:
 
 ```
-<your OS user>         soft    nofile  10000000
+<your OS user>         soft    nofile  1000000
 ```
 
 Open a new terminal session. To make sure the changes took effect, and the limit was increased, type `ulimit -n`. You can also change the limit for the current session via `ulimit -n 10000000`
@@ -46,7 +46,7 @@ Open a new terminal session. To make sure the changes took effect, and the limit
 If the above does not work, set
 
 ```
-DefaultLimitNOFILE=10000000
+DefaultLimitNOFILE=1000000
 ```
 
 in both `/etc/systemd/user.conf`and `/etc/systemd/system.conf`
