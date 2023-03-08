@@ -146,10 +146,12 @@ Packing mostly consists of executing RandomX instructions so the [faster your CP
 
 The VDF controls the speed of mining with new mining "seeds" available at 1 second intervals. To keep up with the network your CPU must be able to maintain this 1 second cadence while calculating the VDF. For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel\_SHA\_extensions). Additional cores will not improve VDF performance as VDF hash calculations are sequential and therefore limited to a single thread on a single core.\
 \
-The node will report the VDF performance on startup, warning you if it is too low. Some viable CPU options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM. Some CPUs may require boosting to achieve the maximum VDF performance.\
-\
-You may have another machine compute VDF for you (e.g., you may set up a dedicated VDF node broadcasting VDF outputs to all your mining nodes.)\
-\
+The node will report the VDF performance on startup, warning you if it is too low. Some viable CPU options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM. Some CPUs may require boosting to achieve the maximum VDF performance.
+
+#### Using Remote VDF Server
+
+You may have another machine compute VDF for you. For instance, you may set up a dedicated VDF node broadcasting VDF outputs to all your mining nodes.
+
 Running a node fetching VDF states from a peer:
 
 ```
@@ -166,6 +168,10 @@ Make sure to specify \[IP-ADDRESS]:\[PORT] if your node is configured to listen 
 
 {% hint style="warning" %}
 Do not connect to an external peer you do not trust.&#x20;
+{% endhint %}
+
+{% hint style="info" %}
+Make sure every client node is reachable from its VDF servers - they are in the same network or the node has a public IP and the port (the default is 1984) is forwarded if there are firewalls. If the node is launched with the mine flag and showing no mining performance reports, it is likely no input comes from the VDF server(s).
 {% endhint %}
 
 {% hint style="info" %}
