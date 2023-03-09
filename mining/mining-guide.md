@@ -256,7 +256,7 @@ You do not immediately receive the block reward after mining a block. There is a
 {% endhint %}
 
 {% hint style="info" %}
-To see the total number of Winston (divide by 1000\_000\_000\_000 to get the AR value) reseved for you address, browse to http://188.166.200.45/wallet/\[your-mining-address]/reserved\_rewards\_total.
+To see the total number of Winston (divide by 1000\_000\_000\_000 to get the AR value) reseved for you address, browse to http://188.166.200.45:1984/wallet/\[your-mining-address]/reserved\_rewards\_total.
 {% endhint %}
 
 #### Staying in Sync
