@@ -235,6 +235,8 @@ Partition 3 avg: 0.34 MiB/s, current: 0.00 MiB/s.
 Partition 4 avg: 0.31 MiB/s, current: 0.00 MiB/s.
 ```
 
+#### Receiving Mining Rewards
+
 When you mine a block, the console shows:
 
 ```
@@ -248,6 +250,14 @@ Approximately 20 minutes later, you should see
 ```
 
 Note that occasionally your block won't be confirmed (the chain chooses a different fork).
+
+{% hint style="warning" %}
+You do not immediately receive the block reward after mining a block. There is a delay in the release of block rewards for miners by approximately thirty days or 30 \* 24 \* 30 blocks. Your node does **not** need to stay online in order to receive your reserved mining rewards. This mechanism is designed to discourage signing the same block several times and several competitive forks in general - the network detects these cases and may slash the reserved rewards and revoke the mining permission from the corresponding mining address. Also, the mechanism incentivizes miners to be aligned with the network for at least the medium-term.
+{% endhint %}
+
+{% hint style="info" %}
+To see the total number of Winston (divide by 1000\_000\_000\_000 to get the AR value) reseved for you address, browse to http://188.166.200.45/wallet/\[your-mining-address]/reserved\_rewards\_total.
+{% endhint %}
 
 #### Staying in Sync
 
