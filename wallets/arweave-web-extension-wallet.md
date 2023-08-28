@@ -7,6 +7,6 @@ description: >-
 
 The old Arweave Web Extension has been deprecated in favour of community provided wallet solutions.
 
-The new wallet documentation can be found here [Arweave.app Web Wallet](/wallets/arweave-wallet.md).
+Alternatives can be found at the [Wallet FAQ](./wallet-faq.md).
 
 ***Please update your bookmarks!***

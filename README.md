@@ -4,6 +4,6 @@
 [mining-guide.md](mining/mining-guide.md)
 {% endcontent-ref %}
 
-{% content-ref url="wallets/arweave-wallet.md" %}
-[arweave-wallet.md](wallets/arweave-wallet.md)
+{% content-ref url="wallets/wallet-faq.md" %}
+[wallet-faq.md](wallets/wallet-faq.md)
 {% endcontent-ref %}
