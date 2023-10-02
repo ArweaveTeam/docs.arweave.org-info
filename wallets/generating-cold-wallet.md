@@ -54,7 +54,7 @@ This procedure may seem long but we have broken each of its steps down into gran
 5. Once the wallet has generated, a button with the text "Download Keyfile" will appear. Click it to download the generated keyfile.
 ![ArConnect Download Wallet Button](<../.gitbook/assets/arconnect_download_keyfile.png>)
 6. As a safety measure, this file should be stored on different offline storage mediums, like how mentioned [above](#cold-wallet-generation-with-arweaveapp).
-7. Now go into your extensions settings by entering `chrome://extensions` on Chrome, `about:addons` on Firefox into your browser's address bar. There you'll have to identify the ArConnect extension/add-on an click on the "Remove" button to uninstall it.
+7. Now go into your extensions settings by entering `chrome://extensions` on Chrome, `about:addons` on Firefox into your browser's address bar. There you'll have to identify the ArConnect extension/add-on and click on the "Remove" button to uninstall it.
 <table>
   <tr>
     <td>
