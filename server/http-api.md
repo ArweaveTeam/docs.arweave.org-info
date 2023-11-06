@@ -406,7 +406,7 @@ Transaction and block identifiers and wallet addresses, among some other fields,
 {% hint style="info" %}
 **Base64URL is case-sensitive.**
 
-For example, `T414mkfW-EQWEwPtk__LMJAgawNdxZfdjxhGPQKMwDQ, t414mkfW-EQWEwPtk__LMJAgawNdxZfdjxhGPQKMwDQ, andt414mkfw-eqwewptk__lmjagawndxzfdjxhgpqkmwdq` are three different addresses. It is impossible to recover tokens sent to a different case of the same address.
+For example, `T414mkfW-EQWEwPtk__LMJAgawNdxZfdjxhGPQKMwDQ`, `t414mkfW-EQWEwPtk__LMJAgawNdxZfdjxhGPQKMwDQ`, and `t414mkfw-eqwewptk__lmjagawndxzfdjxhgpqkmwdq` are three different addresses. It is impossible to recover tokens sent to a different case of the same address.
 {% endhint %}
 
 A transaction may be used for uploading data, transferring tokens, or both.
@@ -593,3 +593,109 @@ The address for this wallet is `GRQ7swQO1AMyFgnuAPI7AvGQlW3lzuQuwlJbIpWV7xk`.
   "qi": "aDsPYxE-JBYsYhCYXSU7WsCrnFxNsRpFMcYXdmdryYIdQUpeemChDGzVJXLnJhE4cAS9TtLcNg82xZSKZvHrnkbFpRfSJxzEnvIXW4V0LHkxkxbmM0e9B7UrpYm6LKtvEY6I7L8wHFpHdOwV6NjY925oULEV156X0r55V7N0XF-jy3rbm71DCWRh6IDRghhCZQ3aNgJxE-OtnABqasaY6CQnTDRXLkGE0kq9GCx85-92fQLHMzvrMhr9m_2MHYJ_gZehL4j95CQzhD3Zh602D0YYYwRSsU4h5HGjlmN52pe-rfTLgwCJq5295s7qUP8TTMzbZAOM_hehksHpAaFghA"
 }
 ```
+
+## AR and Winston
+
+Winston is the smallest possible unit of AR, similar to a [satoshi](<https://en.bitcoin.it/wiki/Satoshi_(unit)>) in Bitcoin, or [wei](http://ethdocs.org/en/latest/ether.html#denominations) in Ethereum.
+
+**1 AR** = 1000000000000 Winston (12 zeros) and **1 Winston** = 0.000000000001 AR.
+
+The HTTP API will return all amounts as winston strings, this is to allow for easy interoperability between environments that do not accommodate arbitrary-precision arithmetic.
+
+JavaScript for example stores all numbers as double precision floating point values and as such cannot natively express the integer number of winston. Providing these values as strings allows them to be directly loaded into most 'bignum' libraries.
+
+## Transactions
+
+Endpoints for interacting with transactions and related resources.
+
+{% swagger method="get" path="/tx/{id}" baseUrl="https://arweave.net" summary="Get Transaction by ID" %}
+{% swagger-description %}
+Get a transaction by its ID.
+{% endswagger-description %}
+
+{% swagger-parameter in="path" name="id" type="String" required="true" %}
+Transaction ID
+{% endswagger-parameter %}
+
+{% swagger-parameter in="header" name="Accept" type="String"  %}
+application/json
+{% endswagger-parameter %}
+
+{% swagger-response status="200" %}
+
+```javascript
+{
+  "format": 2,
+  "id": "BNttzDav3jHVnNiV7nYbQv-GY0HQ-4XXsdkE5K9ylHQ",
+  "last_tx": "jUcuEDZQy2fC6T3fHnGfYsw0D0Zl4NfuaXfwBOLiQtA",
+  "owner": "posmE...psEok",
+  "tags": [],
+  "target": "",
+  "quantity": "0",
+  "data_root": "PGh0b...RtbD4",
+  "data_size": "123",
+  "reward": "124145681682",
+  "signature": "HZRG_...jRGB-M"
+}
+```
+
+{% endswagger-response %}
+
+{% swagger-response status="202" %}
+
+```bash
+pending
+```
+
+{% endswagger-response %}
+
+{% swagger-response status="400" %}
+
+```bash
+Invalid hash.
+```
+
+{% endswagger-response %}
+
+{% swagger-response status="404" %}
+
+```bash
+Not Found.
+```
+
+{% endswagger-response %}
+
+{% endswagger %}
+
+{% hint style="warning" %}
+The **quantity** and **reward** values are always represented as winston strings.
+{% endhint %}
+
+See the [Transaction Format](#transaction-format) section for details about transaction structure and contents, with examples.
+
+{% swagger method="get" path="/tx/{id}/status" baseUrl="https://arweave.net" summary="Get Transaction Status" %}
+{% swagger-description %}
+Gets the status of a transaction
+{% endswagger-description %}
+
+{% swagger-parameter in="path" name="id" type="String" required="true" %}
+Transaction ID
+{% endswagger-parameter %}
+
+{% swagger-parameter in="header" name="Accept" type="String"  %}
+application/json
+{% endswagger-parameter %}
+
+{% swagger-response status="200" %}
+
+```json
+{
+  "block_height": 641606,
+  "block_indep_hash": "akLaom7XAKYvIW7HPCtCqSCgYTGAa0zjer6FXvF8lX0pAPzcHMZj4XnQq0jaedT6",
+  "number_of_confirmations": 12
+}
+```
+
+{% endswagger-response %}
+
+{% endswagger %}
