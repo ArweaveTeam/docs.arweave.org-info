@@ -22,13 +22,10 @@
 
 - [Privacy Policy](policies/privacy-policy.md)
 
-## Tools
-
-- [Arkb](tools/textury-arkb.md)
-
 ## Libraries/SDKs
 
 - [JavaScript/TypeScript/NodeJS](https://github.com/ArweaveTeam/arweave-js)
 - [Go](https://github.com/everFinance/goar)
 - [PHP](https://github.com/ArweaveTeam/arweave-php)
 - [Scala](https://github.com/toknapp/arweave4s)
+- [Arkb Cookbook](https://cookbook.arweave.dev/guides/deployment/arkb.html)
