@@ -423,83 +423,173 @@ See the [sample transactions](#sample-transactions) below for full examples.
   <th>Value</th>
 </tr>
 <tr>
-  <td><b>format</b></td>
+  <td><code>format</code></td>
   <td>Yes</td>
   <td>integer</td>
   <td>Currently supported formats are `1` and `2` (often referred to as v1 and v2 respectively). The v1 format is deprecated.</td>
 </tr>
 <tr>
-  <td><b>id</b></td>
+  <td><code>id</code></td>
   <td>Yes</td>
-  <td></td>
-  <td></td>
+  <td>Base64URL string</td>
+  <td>A SHA-256 hash of the transaction signature.</td>
 </tr>
 <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><code>last_tx</code></td>
+  <td>Yes</td>
+  <td>Base64URL string</td>
+  <td>An anchor - a protection against replay attacks. It may be either a hash of one of the last 50 blocks or the last outgoing transaction ID from the sending wallet. If this is the first transaction from the wallet then an empty string may be used. The recommended way is to use the value returned by <code>GET /tx_anchor</code>. Two different transactions can have the same last_tx if a block hash is used.</td>
 </tr>
 <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><code>owner</code></td>
+  <td>Yes</td>
+  <td>Base64URL string</td>
+  <td>The full RSA modulus value of the sending wallet. The modulus is the n value from the JWK. The RSA public key.</td>
 </tr>
 <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><code>tags</code></td>
+  <td>No</td>
+  <td>array of objects</td>
+  <td>A list of name-value pairs, each pair is serialized as <code>{"name": "a BaseURL string", "value":" a Base64URL string"}</code>. If no tags are being used then use an empty array []. The total size of the names and values may not exceed 2048 bytes. Tags might be useful for attaching a message to a transaction sent to another wallet, for example a reference number or identifier to help account for the transaction.</td>
 </tr>
 <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><code>target</code></td>
+  <td>No</td>
+  <td>Base64URL string</td>
+  <td>The target address to send tokens to (if required). If no tokens are being transferred to another wallet then use an empty string. Note that sending tokens to the owner address is not supported. The address is the SHA-256 hash of the RSA public key.</td>
 </tr>
 <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><code>quantity</code></td>
+  <td>No</td>
+  <td>Numerical string (winstons)</td>
+  <td>The amount to transfer from the owner wallet to the target wallet address (if required).</td>
 </tr>
 <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><code>data_root</code></td>
+  <td>No</td>
+  <td>Base64URL string</td>
+  <td>Only use with <code>v2</code> transactions. The merkle root of the transaction data. If there is no data then use an empty string.</td>
 </tr>
 <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><code>data_size</code></td>
+  <td>No</td>
+  <td>Numerical string (bytes)</td>
+  <td>Only use with <code>v2</code> transactions. The size in bytes of the transactin data. Use "0" if there is no data. The string representation of the number must not exceed 21 bytes.</td>
 </tr>
 <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><code>data</code></td>
+  <td>No</td>
+  <td>Base64URL string</td>
+  <td>The data to be submitted. If no data is being submitted then use an empty string. For <code>v2</code> transactions there is no need, although it is possible, to use this field even if there is data (means, <code>data_size</code> > 0 and <code>data_root</code> is not empty). In <code>v1</code> transactions, data cannot be bigger than 10 MiB. In <code>v2</code> transactions, the limit is decided by the nodes. At the time this was written, all nodes in the network accept up to 12 MiB of data via this field.</td>
 </tr>
 <tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><code>reward</code></td>
+  <td>Yes</td>
+  <td>Numerical string (winstons)</td>
+  <td>The transaction fee. See the price endpoint docs for more info.</td>
+</tr>
+<tr>
+  <td><code>signature</code></td>
+  <td>Yes</td>
+  <td>Base64URL string</td>
+  <td>An RSA signature of a merkle root of the SHA-384 hashes of transaction fields (except for id, which is the hash of the signature). See Transaction Signing for more.</td>
 </tr>
 </table>
 
-| Name        | Required | Serialization Format | Value                                        |
-| ----------- | -------- | -------------------- | -------------------------------------------- |
-| `format`    | Yes      | integer              | `1` (deprecated) and `2`                     |
-| `id`        | Yes      | Base64URL string     | A SHA-256 hash of the transaction signature. |
-| `last_tx`   |          |                      |                                              |
-| `owner`     |          |                      |                                              |
-| `tags`      |          |                      |                                              |
-| `target`    |          |                      |                                              |
-| `quantity`  |          |                      |                                              |
-| `data_root` |          |                      |                                              |
-| `data_size` |          |                      |                                              |
-| `data`      |          |                      |                                              |
-| `reward`    |          |                      |                                              |
+## Sample Transactions
+
+{% tabs %}
+{% tab title="Data transaction" %}
+
+```json
+{
+  "format": 2,
+  "id": "BNttzDav3jHVnNiV7nYbQv-GY0HQ-4XXsdkE5K9ylHQ",
+  "last_tx": "jUcuEDZQy2fC6T3fHnGfYsw0D0Zl4NfuaXfwBOLiQtA",
+  "owner": "posmE...psEok",
+  "tags": [],
+  "target": "",
+  "quantity": "0",
+  "data_root": "PGh0b...RtbD4",
+  "data": "",
+  "data_size": "1234235",
+  "reward": "124145681682",
+  "signature": "HZRG_...jRGB-M"
+}
+```
+
+{% endtab %}
+{% tab title="Wallet to wallet AR Transfer" %}
+
+```json
+{
+  "format": 2,
+  "id": "UEVFNJVXSu7GodYbZoldRHGi_tjzNtNcYjeSkxKCpiE",
+  "last_tx": "knQ5gf4Z_3i-NQ6_jFT2a9zShUOHh4lDZoAUzsWMxMQ",
+  "owner": "1nPKv...LjJMc",
+  "tags": [{ "name": "BBBB", "value": "AAAA" }],
+  "target": "WxLW1MWiSWcuwxmvzokahENCbWurzvwcsukFTGrqwdw",
+  "quantity": "46598403314697200",
+  "data": "",
+  "data_root": "",
+  "data_size": "0",
+  "reward": "321179212",
+  "signature": "OYIJU...j9Mxc"
+}
+```
+
+{% endtab %}
+{% tab title="Wallet to wallet AR transfer with data" %}
+
+```json
+{
+  "format": 2,
+  "id": "3pXpj43Tk8QzDAoERjHE3ED7oEKLKephjnVakvkiHF8",
+  "last_tx": "NpeIbi93igKhE5lKUMhH5dFmyEsNGC0fb2Qysggd-kM",
+  "owner": "posmE...psEok",
+  "tags": [],
+  "target": "pEbU_SLfRzEseum0_hMB1Ie-hqvpeHWypRhZiPoioDI",
+  "quantity": "10000000000",
+  "data_root": "PGh0b...RtbD4",
+  "data_size": "234234",
+  "data": "VGVzdA",
+  "reward": "321579659",
+  "signature": "fjL0N...f2UMk"
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+## Transaction Signing
+
+Transaction signatures are generated by computing a merkle root of the SHA-384 hashes of transaction fields: `format`, `owner` , `target` , `data_root`, `data_size`, `quantity`, `reward`, `last_tx`, `tags`, then signing the hash.
+Signatures are **RSA-PSS** with **SHA-256** as the hashing function.
+
+## Key Format
+
+Arweave uses the JSON Web Key (JWK) format ([RFC 7517](https://tools.ietf.org/html/rfc7517)) with 4096 length RSA-PSS keys. This JWK format allows for cryptographic keys to be represented as a JSON object where each property represents a property of the underlying cryptographic key.
+It's widely supported with libraries for most popular languages. It's possible to convert a JWK to a PEM file or other crypto key file format, support for this this will vary from language to language.
+If you're generating your own keys manually the **public exponent (e) must be 65537**. If any other value is used the transactions signed by these keys will be invalid and rejected.
+
+### Addressing
+
+The `n` value is the public modulus and is used as the transaction owner field, and the address of a wallet is a Base64URL encoded SHA-256 hash of the `n` value from the JWK.
+
+### Sample JWK
+
+The address for this wallet is `GRQ7swQO1AMyFgnuAPI7AvGQlW3lzuQuwlJbIpWV7xk`.
+
+```json
+{
+  "kty": "RSA",
+  "e": "AQAB",
+  "n": "ovFF6EbOtXeg7VnojIgtChgxfU6GZ16JjVj5JFHh6NGHJnq4p059BnMphcDx1mqb3yxM73FxhEszSFLcJiPzway6eIDiXuYiT-Sf_0Wl6_wDLvEmlz43psp7WYJumwpaSyiI_1FWmOVQnTnoAIKaOYKVqzUlteiECQj7XjJl0MZH16RlEfVqVpJ_8Ier4_QXIJ8Y3pe2KF3Lg9UANFU97nuvEM94CSzX-0WIju6Lykt3DBb2YtFFg4bJjOFv3T38nCZmDh8lYjm25_1qILalsB0XRoDxQy9FLxWb4zd09JsDhL0EYAQ_hNfOnQFVOBtYEHVYMCHYH6GoTcNgxmUkZPk4AfpAqZmjDzKfVJrw4Fr68pPTEQOQEzBcIWp61P21BSkhqO4QuFinkQsSH6NdTB_3FpbhYf34Hjf-iH7hdpdWo4aoRLb8eZeZcqBRZoRmlhQnOD-PVxQR_vb9rjXSjGkCWwRbsurVLWdBh_FQn0S9Q6EHqiV8nbW-R0Rk2E76JwgMFkqGUtZj8DeEqXJ2jlAvuzp56fXeAViPEtvUj1HheO8O3LxdVYCiapWWKq4qQVoRzdiyvydYSmbztgFUhekvmjNkxLNKOh71i3hFtoXycegqZ6izrUGoF2oD24lsTKsV5lV5pwfmUjVvxtHZm54bJIMfUDYbOV6yeDjYBb8",
+  "d": "EePSrJeFn4f0a8rozPEwnMCeQmdKO3Q2PwYrSJES8Ch9IbzspDXqZThksTJHeya2WXD4O3vlnkRRa5npYOimnTeVO6DO-eNjlgkAhhsEBh5jzRYeChIDMzVdCK1Y7n3a_xCCxiGMk_nteW2_qrqsKy9KtoL90nSmdoV9b9CxvBPhFGyQykF7POkV0fdbaIpGtcayCNJ4ZgMyUpWi0ZwgUhxTUtGsmLlLN2Phg-vt_jZ96h5lS-E1NCUq4ORpj018fDp9DwTdamTyz5LTwaa8F1OCWDPVCW7Ztjs1o-NVXHvejYbhQZeFz9SP804PqLrb1ubDWXmFzKdHns4aRH4bWivh9L8HwSJUl5UEXprJUpYilT0tb3VauI7Cih2LBfhU3fUIDJFYm_j9etgNcPlqt64T7_TI8elgj7-sciXa1XEqIje9Mn8spxT6lpn4nhxJ9qelERCJwiWbuPnW2VsJHeqXZTly52KQEP_UBC4z8a0tDm7HIQw7WQ-OAuNUOu8ongOHaOexkqKYIcF3f812sOIVEJufoBXUUTIvJk-buH0ytgtTjkrO64zZeIvFHa1MFU-6UXh8jipSZ617znNR2Pc1-l3s7pACdbXvy2-5VWE3psRr1L5HM4KNwm6Rs5BXXqBSifzfiJ5qNGqKabfXvPXI8wYyl3mhUQtHW6sUUl0",
+  "p": "0q_DP_FzSi8JEd-NNXoIaeL5MOxmNiXmDHGNxP3noKPyr-N6h3CrK5G59Rj2vWAJMhKToz1eSQ1p0-X0Ku2DvdT5LQOGIXVPtojw0OcOI8G8SoqMGAGehaLsnV3vexwtwjLfIM99XccKAxWMA1SMuL48nuBpMUhO0MlagbrL5vfpKB9kL7XCQqspAnN_vBmQZGWYczQmBgfC6v6xGQV3xHJmL--dn-qF2XU9pKuqd0J-cKYcdLPrccdJtGLid4nrSOTDfEbr77IUI5VGWV8CFJ-n8Vki-GwUxUkJpIoRyp5DxnYtSJb7cV-xOf7kBTCEUFn5B8fb2q-d8011cgnp5Q",
+  "q": "xfzB-Yf4fa2y2q4ubJCJA5H-IG9-mr7fVRTUbj-gTqVL-I7MCDIImdAPbA-3EoIR5H70GVbAFGQJyYDq6eDeTbNs1zfnU0JPurASE3fKbOpoRdLwXwaSdRJRP9qnqUe-BzuloIzWc-dI-6TJxmHUSA1X9CtHvIdfNdKPCVFKUMrb1bv5arAI8tRbNRfy3tnbiw4wfKhYEQ1e6RPpxAR5F4We9RJ81-sIlfAy7WfliwmcGmgcPNdUinGR299CiVYKf5ktoqGFQ9n6K-v4gNZV23f33-tuD8pMVxyc3xG34j4frH57bsbm7v8Qz-92ZxHWzOUgxIVhGgSaa4E51d9m0w",
+  "dp": "yArepo4I230BbZkHKKlv56n81PkAq5UccuA2rb4u-ZXxThP9OTA_NiUtnYxQassOsB53U91m8pHr06hZR5ExL0NSO-1Go-oQ_83SaWeZQ1YmA9i83-ZZr6VcaKbSReAhimxm825PKIVd-kOxJ1BWNOtb_7Yv6v0u6IrmhproE6t8E_6KT8qSYl7Fl3A27lCPiuPz9h6jo8Imzp15ZbqNV1cPs6Ad18MDx8_L8diVCJt4FlmCV0Sl3uhMERx6zumDHzkma4-jYXmCKa8Ilr7g6NgWy8_Ipnto1VFd-H6oGexficaXhH7my2UCj4B23H6OgwSKsVqQY3mvzV3Uj6zeCQ",
+  "dq": "a0_ey6OZWnWFleYHH60PtrGw7l_AXZvLbVBG_CLcfwQ1M1oi2OZVpxkQ4t95uTxq-lCdegZ9QhAfBessaOwLUk5IVjbk2Un98RByG784JuS-8-mrg7YKOA5fn56idax_IWiBE46Cxnu8ITlmbHKmHw-sdpnm3hb50jB4evJmt3fcw_KI8_zKPORBM3vxljy7NJnSSh7s7QE0Sl0Svb427Drut6L3rAimtK5mzCseTcg9pkp707ZbClcYWfafF9VdB2A9TgMCOo6xfJEANsT18GkMH4B6PXDHBAhsNrRh2O0XOeWsfZStoyj5Mdt3b9JJfPFMW3h38yQ_lrmKYZQfJQ",
+  "qi": "aDsPYxE-JBYsYhCYXSU7WsCrnFxNsRpFMcYXdmdryYIdQUpeemChDGzVJXLnJhE4cAS9TtLcNg82xZSKZvHrnkbFpRfSJxzEnvIXW4V0LHkxkxbmM0e9B7UrpYm6LKtvEY6I7L8wHFpHdOwV6NjY925oULEV156X0r55V7N0XF-jy3rbm71DCWRh6IDRghhCZQ3aNgJxE-OtnABqasaY6CQnTDRXLkGE0kq9GCx85-92fQLHMzvrMhr9m_2MHYJ_gZehL4j95CQzhD3Zh602D0YYYwRSsU4h5HGjlmN52pe-rfTLgwCJq5295s7qUP8TTMzbZAOM_hehksHpAaFghA"
+}
+```
