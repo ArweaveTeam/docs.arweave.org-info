@@ -12,7 +12,7 @@ description: >-
 {% endhint %}
 
 {% hint style="warning" %}
-Miners are responsible for their own compliance with data protection laws (such as GDPR) and other applicable laws in their jurisdiction. Data storage laws vary country to country.  Failure to adhere to these laws may entail substantial legal risks for the miner. Please only participate in mining Arweave data if you have understood the legal implications of doing so and consider seeking legal advice.&#x20;
+Miners are responsible for their own compliance with data protection laws (such as GDPR) and other applicable laws in their jurisdiction. Data storage laws vary country to country. Failure to adhere to these laws may entail substantial legal risks for the miner. Please only participate in mining Arweave data if you have understood the legal implications of doing so and consider seeking legal advice.&#x20;
 {% endhint %}
 
 ## Install the Miner
@@ -63,7 +63,7 @@ In order to mine in 2.6, your mining key needs to be present on your machine. If
 
 To maximize your mining efficiency, store data on 4 TB hard drives capable of reading about 200 MiB/s. It is fine to use faster disks, but the extra cost won't be justified.
 
-The first step is to create a folder inside `[data_dir]/storage_modules/` for each of the 4 TB disks you intend to mine with. The Arweave dataset is logically partitioned into a collection of 3.6 TB  "mining partitions". Each 4 TB disk will store and mine one of these mining partitions. The partitions are indexed sequentially starting from 0, with 0 being the very first 3.6 TB worth of data stored on Arweave, and ranging to whatever the current mining partition count is. You can choose which mining partitions you store by indicating their index in the folder name. For example, to set up a storage module with the very first mining partition in the weave (packed with your mining address), create the folder \[data\_dir]/storage\_modules/storage\_module\_0\_\[your\_mining\_address].
+The first step is to create a folder inside `[data_dir]/storage_modules/` for each of the 4 TB disks you intend to mine with. The Arweave dataset is logically partitioned into a collection of 3.6 TB "mining partitions". Each 4 TB disk will store and mine one of these mining partitions. The partitions are indexed sequentially starting from 0, with 0 being the very first 3.6 TB worth of data stored on Arweave, and ranging to whatever the current mining partition count is. You can choose which mining partitions you store by indicating their index in the folder name. For example, to set up a storage module with the very first mining partition in the weave (packed with your mining address), create the folder \[data_dir]/storage_modules/storage_module_0\_\[your_mining_address].
 
 Mount your drives in the `[data_dir]/storage_modules` folder. E.g.,
 
@@ -71,7 +71,7 @@ Mount your drives in the `[data_dir]/storage_modules` folder. E.g.,
 sudo mount /dev/sda [data_dir]/storage_modules/storage_module_0_[your_mining_address]
 ```
 
-Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_dir]`  - with the absolute path to your data folder, and `[your_mining_address]` - with your mining address.\
+Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_dir]` - with the absolute path to your data folder, and `[your_mining_address]` - with your mining address.\
 \
 If you have a drive already mounted elsewhere, you may create a symbolic link instead:
 
@@ -83,13 +83,13 @@ If you have a RAID setup with a lot of space, you can create a symlink link from
 
 A few important notes about the storage modules:
 
-* Having two or more storage modules that store the same mining partition (say, the partition at index 0 more than once) with the same mining address does not increase your mining performance. Also, it is more profitable mine a complete replica (all mining partitions) of the weave packed with a single address than mine off an equal amount of data packed with different mining addresses. Currently, we only support one mining address per node.
-* If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter,  copy the data, and restart the node with the `storage_module` parameter again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module. Do NOT mine on several nodes with the same mining address simultaneously (see the warning below.)
-* Make sure the disks with the storage modules have sufficient available space. The `disk_space` parameter does NOT apply to the storage modules. If you want to create a storage module on a disk smaller than 4 TB, specify a custom size for this module:\
+- Having two or more storage modules that store the same mining partition (say, the partition at index 0 more than once) with the same mining address does not increase your mining performance. Also, it is more profitable mine a complete replica (all mining partitions) of the weave packed with a single address than mine off an equal amount of data packed with different mining addresses. Currently, we only support one mining address per node.
+- If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter, copy the data, and restart the node with the `storage_module` parameter again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module. Do NOT mine on several nodes with the same mining address simultaneously (see the warning below.)
+- Make sure the disks with the storage modules have sufficient available space. The `disk_space` parameter does NOT apply to the storage modules. If you want to create a storage module on a disk smaller than 4 TB, specify a custom size for this module:\
   `storage_module [number],[size],[mining_address]`\
   The module will sync data with the weave offsets between `number * size` (in bytes) and `(number + 1) * size`. You also need to give some space to the filesystem, the merkle proofs, and some other metadata stored inside each storage module - about 10% of the configured storage module size.
-* The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
-* If you do not mine off the full weave, the required disk read throughput is, on average, (100 + your weave share \* 100) MiB/s.
+- The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
+- If you do not mine off the full weave, the required disk read throughput is, on average, (100 + your weave share \* 100) MiB/s.
 
 {% hint style="danger" %}
 It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! We are currently working on the coordinated mining framework that would allow you to safely connect the nodes covering different sections of the weave with the same mining address.
@@ -120,7 +120,7 @@ If you want to repack a storage module, do not rename the existing one - renamin
 
 If you want to sync many replicas of the weave, it makes sense to first create an "unpacked" replica. Then, packing for each mining address will be two times faster compared to repacking a replica packed with another mining address. To configure a storage module for storing unpacked data, specify "unpacked" instead of the mining address.\
 \
-For example, to sync an unpacked partition 12, specify `storage_module 12,unpacked` on startup.  As with the other storage modules, make sure the `[data_dir]/storage_modules/storage_module_12_unpacked`folder resides on the desired disk (if you do not create the directory in advance, the node will create it for you so the data will end up on the disk `data_dir]/storage_modules`is mounted to.) After the replica is synced, you can copy it to the other machines where its contents would be copied and packed for the storage modules you configure there.
+For example, to sync an unpacked partition 12, specify `storage_module 12,unpacked` on startup. As with the other storage modules, make sure the `[data_dir]/storage_modules/storage_module_12_unpacked`folder resides on the desired disk (if you do not create the directory in advance, the node will create it for you so the data will end up on the disk `data_dir]/storage_modules`is mounted to.) After the replica is synced, you can copy it to the other machines where its contents would be copied and packed for the storage modules you configure there.
 
 ### Reusing Storage Modules from Testnet 2.6&#x20;
 
@@ -144,7 +144,7 @@ Packing mostly consists of executing RandomX instructions so the [faster your CP
 
 ### 2. VDF
 
-The VDF controls the speed of mining with new mining "seeds" available at 1 second intervals. To keep up with the network your CPU must be able to maintain this 1 second cadence while calculating the VDF. For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel\_SHA\_extensions). Additional cores will not improve VDF performance as VDF hash calculations are sequential and therefore limited to a single thread on a single core.\
+The VDF controls the speed of mining with new mining "seeds" available at 1 second intervals. To keep up with the network your CPU must be able to maintain this 1 second cadence while calculating the VDF. For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel_SHA_extensions). Additional cores will not improve VDF performance as VDF hash calculations are sequential and therefore limited to a single thread on a single core.\
 \
 The node will report the VDF performance on startup, warning you if it is too low. Some viable CPU options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM. Some CPUs may require boosting to achieve the maximum VDF performance.
 
@@ -188,7 +188,7 @@ The output of `cat /proc/meminfo | grep HugePages` should then look like this:\
 `AnonHugePages: 0 kB`\
 `ShmemHugePages: 0 kB HugePages_Total: 1000 HugePages_Free: 1000 HugePages_Rsvd: 0 HugePages_Surp: 0`
 
-If it does not or if there is a "erl\_drv\_rwlock\_destroy" error on startup, reboot the machine.
+If it does not or if there is a "erl_drv_rwlock_destroy" error on startup, reboot the machine.
 
 Finally, tell the miner it can use large pages by specifying `enable randomx_large_pages`on startup (you can find a complete startup example further in the guide).
 
@@ -256,7 +256,7 @@ You do not immediately receive the block reward after mining a block. There is a
 {% endhint %}
 
 {% hint style="info" %}
-To see the total number of Winston (divide by 1000\_000\_000\_000 to get the AR value) reseved for you address, browse to http://188.166.200.45:1984/wallet/\[your-mining-address]/reserved\_rewards\_total.
+To see the total number of Winston (divide by 1000_000_000_000 to get the AR value) reseved for you address, browse to http://188.166.200.45:1984/wallet/\[your-mining-address]/reserved\_rewards\_total.
 {% endhint %}
 
 #### Staying in Sync
@@ -264,9 +264,11 @@ To see the total number of Winston (divide by 1000\_000\_000\_000 to get the AR 
 Watch for the following warnings in your mining console:
 
 {% code overflow="wrap" %}
+
 ```
 WARNING: Peer 138.197.232.192 is 5 or more blocks ahead of us. Please, double-check if you are in sync with the network and make sure your CPU computes VDF fast enough or you are connected to a VDF server.
 ```
+
 {% endcode %}
 
 If you see them shortly after joining the network, see if they disappear in a few minutes - everything might be fine then. Otherwise, it is likely your processor cannot keep up with VDF computation or there are network connection issues. While VDF execution is done by a single core/thread, the validation of the VDF checkpoints in a block header can be done in parallel (with multiple threads). To speed up VDF validation, try restarting the node with a higher value for `max_vdf_validation_thread_count` (e.g., the number of CPU threads - 1).
@@ -277,7 +279,7 @@ To stop the node, run `./bin/stop` or kill the OS process (`kill -sigterm <pid>`
 
 #### Defragmenting Storage
 
-Due to Arweave node specifics (storing data in the sparse files), the read throughput during mining after the initial sync might be suboptimal on some disks. In the performance reports printed in the console you can see the estimated optimal performance in MiB/s, per configured storage module. The first number estimates the optimum on a small dataset, the second - on the dataset close in size to the weave size.  If the actual performance of a storage module is noticeably lower, consider running a defragmentation procedure to improve your mining performance on this module. (Re)start the miner with the following parameters (in this example, the storage module storing the partition 8 will be defragmented):
+Due to Arweave node specifics (storing data in the sparse files), the read throughput during mining after the initial sync might be suboptimal on some disks. In the performance reports printed in the console you can see the estimated optimal performance in MiB/s, per configured storage module. The first number estimates the optimum on a small dataset, the second - on the dataset close in size to the weave size. If the actual performance of a storage module is noticeably lower, consider running a defragmentation procedure to improve your mining performance on this module. (Re)start the miner with the following parameters (in this example, the storage module storing the partition 8 will be defragmented):
 
 ```
 ./bin/start run_defragmentation defragment_module 8,YOUR-MINING-ADDRESS defragmentation_trigger_threshold 500000000 ...
@@ -297,7 +299,7 @@ If the node is not accessible on the Internet, the miner functions but is signif
 
 ## Staying up to Date
 
-* Join our [Discord](https://discord.gg/GHB4fxVv8B) server
-* Join our mining [mailing list](https://mailchi.mp/fa68b561fd82/arweavemining)
+- Join our [Discord](https://discord.gg/GHB4fxVv8B) server
+- Join our mining [mailing list](https://mailchi.mp/fa68b561fd82/arweavemining)
 
 Once you are successfully mining on the Arweave, you will need to stay up to date with new releases. [Join the mailing list](https://mailchi.mp/fa68b561fd82/arweavemining) to receive emails informing you that a new update has been released, along with the steps you need to take to stay up to speed - particularly updates that require you to perform an action within a certain time period in order to stay in sync with the network. Keep an eye out for these messages, and if possible make sure that you add [team@arweave.org](mailto:team@arweave.org) to your email provider’s trusted senders list!

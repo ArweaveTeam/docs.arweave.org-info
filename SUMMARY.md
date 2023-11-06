@@ -24,8 +24,7 @@
 
 ## Tools
 
-- [Arkb User Guide](tools/textury-arkb.md)
-- [Weavemail](tools/weavemail.md)
+- [Arkb](tools/textury-arkb.md)
 
 ## Libraries/SDKs
 

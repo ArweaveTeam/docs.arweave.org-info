@@ -9,4 +9,4 @@ The old Arweave Web Extension has been deprecated in favour of community provide
 
 Alternatives can be found at the [Wallet FAQ](./wallet-faq.md).
 
-***Please update your bookmarks!***
+**_Please update your bookmarks!_**
