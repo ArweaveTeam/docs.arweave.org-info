@@ -1,7 +1,6 @@
 # Table of contents
 
 - [Getting Started](README.md)
-- [Developer Docs](https://docs.arweave.org/developers)
 
 ## Arweave Node Server
 
@@ -27,3 +26,10 @@
 
 - [Arkb User Guide](tools/textury-arkb.md)
 - [Weavemail](tools/weavemail.md)
+
+## Libraries/SDKs
+
+- [JavaScript/TypeScript/NodeJS](https://github.com/ArweaveTeam/arweave-js)
+- [Go](https://github.com/everFinance/goar)
+- [PHP](https://github.com/ArweaveTeam/arweave-php)
+- [Scala](https://github.com/toknapp/arweave4s)
