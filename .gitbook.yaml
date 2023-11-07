@@ -6,3 +6,4 @@ root: ./
 
 redirects:
   info: README.md
+  info/mining/mining-guide: mining/mining-guide.md
