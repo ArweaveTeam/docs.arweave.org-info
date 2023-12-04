@@ -12,6 +12,10 @@
 - [Mining FAQs](mining/mining-faqs.md)
 - [Mining Reward Factors](mining/optimisation-tips.md)
 
+## Mining/Node Ops
+
+- [TLS Guide](ops/tls.md)
+
 ## Wallets
 
 - [Wallet FAQ](wallets/wallet-faq.md)
