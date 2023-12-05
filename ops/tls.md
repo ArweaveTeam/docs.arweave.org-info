@@ -15,7 +15,7 @@ Using the certbot command line tool to generate certificates is a nice free way 
 
 Seen in the screenshot below, it's not necessary to use nginx as certbot can start a python http server to perform the verification procedure. But whatever works for you, please use.
 
- <img src="../.gitbook/assets/certbot_example.png" alt="Certbot example" />
+ <img src="../.gitbook/assets/certbot_example.png" alt="Certbot certificates example" />
 
 The cerbot on ubuntu systems (your operating system may vary) will generate a folder with pem file extensions in `/etc/letsencrypt/live/{your-domain-name}/`, two files will be important for us, `cert.pem` and `privkey.pem`.
 
