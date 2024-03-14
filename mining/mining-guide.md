@@ -197,7 +197,7 @@ Finally, tell the miner it can use large pages by specifying `enable randomx_lar
 Now you’re ready to start the mining process by running the following command from the Arweave directory. An example with one storage module (covering partition 0):
 
 ```
-./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable legacy_storage_repacking enable randomx_large_pages peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192 debug mine storage_module 0,YOUR-MINING-ADDRESS
+./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable legacy_storage_repacking enable randomx_large_pages peer ams-1.eu-central-1.arweave.net peer fra-1.eu-central-2.arweave.net peer sgp-1.ap-central-2.arweave.net peer blr-1.ap-central-1.arweave.net peer sfo-1.na-west-1.arweave.net debug mine storage_module 0,YOUR-MINING-ADDRESS
 ```
 
 {% hint style="warning" %}
@@ -207,7 +207,7 @@ Replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to
 An example with several storage modules (covering partitions 21, 22, 23):
 
 ```
-./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable legacy_storage_repacking enable randomx_large_pages peer 188.166.200.45 peer 188.166.192.169 peer 163.47.11.64 peer 139.59.51.59 peer 138.197.232.192 debug mine storage_module 21,YOUR-MINING-ADDRESS storage_module 22,YOUR-MINING-ADDRESS storage_module 23,YOUR-MINING-ADDRESS
+./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable legacy_storage_repacking enable randomx_large_pages peer ams-1.eu-central-1.arweave.net peer fra-1.eu-central-2.arweave.net peer sgp-1.ap-central-2.arweave.net peer blr-1.ap-central-1.arweave.net peer sfo-1.na-west-1.arweave.net debug mine storage_module 21,YOUR-MINING-ADDRESS storage_module 22,YOUR-MINING-ADDRESS storage_module 23,YOUR-MINING-ADDRESS
 ```
 
 {% hint style="info" %}
@@ -256,7 +256,7 @@ You do not immediately receive the block reward after mining a block. There is a
 {% endhint %}
 
 {% hint style="info" %}
-To see the total number of Winston (divide by 1000_000_000_000 to get the AR value) reseved for you address, browse to http://188.166.200.45:1984/wallet/\[your-mining-address]/reserved\_rewards\_total.
+To see the total number of Winston (divide by 1000_000_000_000 to get the AR value) reseved for you address, browse to https://arweave.net/wallet/\[your-mining-address]/reserved\_rewards\_total.
 {% endhint %}
 
 #### Staying in Sync
