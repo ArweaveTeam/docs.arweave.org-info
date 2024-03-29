@@ -41,10 +41,10 @@ There are 2 possible mining configurations:
     - For example: 
         - LSI SAS 9201-16i (SAS2)
         - Broadcom 9305-16e (SAS3)
-8. 4x Mini SAS to SATA breakout cables
-9. Mini SAS ports can be either SFF-8087 or SFF-8643
-10. 16x 4TB 7200rpm SATA HDDs
-11. 1x PSU with at least 16 SATA ports
+4. 4x Mini SAS to SATA breakout cables
+    - Mini SAS ports can be either SFF-8087 or SFF-8643
+5. 16x 4TB 7200rpm SATA HDDs
+6. 1x PSU with at least 16 SATA ports
 {% endhint %}
 
 You would then coordinate 3 or more of these nodes to cover the full weave.
