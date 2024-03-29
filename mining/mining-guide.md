@@ -139,7 +139,7 @@ We can broadly outline three tasks computing units solve in Arweave:
 3. Calculating storage proofs
 
 {% hint style="info" %}
-For more information on what hardware to use for your miner, please see the [Mining Hardware Guide](mining/mining-hardware.md).
+For more information on what hardware to use for your miner, please see the [Mining Hardware Guide](mining-hardware.md).
 {% endhint %}
 
 
