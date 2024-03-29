@@ -138,6 +138,11 @@ We can broadly outline three tasks computing units solve in Arweave:
 2. Executing the VDF
 3. Calculating storage proofs
 
+{% hint style="info" %}
+For more information on what hardware to use for your miner, please see the [Mining Hardware Guide](mining/mining-hardware.md).
+{% endhint %}
+
+
 ### 1. Packing
 
 Packing mostly consists of executing RandomX instructions so the [faster your CPU computes RandomX hashes](https://xmrig.com/benchmark), the faster you can pack. Note that packing a single 256 KiB chunk takes about 30 times longer than computing one RandomX hash. Once you have packed a dataset, you do not necessarily have to keep the powerful process around. You can control the maximum allowed packing rate with the `packing_rate` start command parameter. The default is 50 256 KiB chunks per second.
