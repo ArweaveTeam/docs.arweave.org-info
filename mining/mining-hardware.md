@@ -70,7 +70,7 @@ We'll now cover each component in a bit more depth.
 However, each miner's situation is different and miners may find it more profitable to mine different configurations, for example:
 
 1. Distribute 3 partitions across 4x 3TB HDDs
-2. Use 8TB HDDs, assign 1 partition to HDD, and use the extra space for infrequently accessed storage.
+2. Use 8TB HDDs, assign 1 partition to each HDD, and use the extra space for infrequently accessed storage.
 
 Similarly, both SATA and SAS HDDs will work fine, you will just need to ensure compatibility between the HDDs, cabling, and other components. 
 
