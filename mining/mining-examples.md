@@ -99,6 +99,7 @@ description: >-
     "sync_jobs": 200
 }
 ```
+</details>
 
 ## Repacking Packed Data In Place
 
