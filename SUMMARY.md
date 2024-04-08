@@ -11,6 +11,7 @@
 - [Mining Guide](mining/mining-guide.md)
 - [Mining Hardware Guide](mining/mining-hardware.md)
 - [Mining Examples](mining/mining-examples.md)
+- [Mining Metrics](mining/mining-metrics.md)
 - [Mining FAQs](mining/mining-faqs.md)
 - [Mining Reward Factors](mining/optimisation-tips.md)
 
