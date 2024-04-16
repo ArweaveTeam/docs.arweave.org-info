@@ -128,7 +128,10 @@ If you have been running some nodes in the 2.6 test network, you can reuse the s
 
 ## Preparation: RAM
 
-We recommend you have 8 GB + 400 MB per mining partition (4 TB drive) worth of RAM. The node determines the amount of chunks to read in memory while mining automatically. If your node runs out of memory anyway, try setting the `mining_server_chunk_cache_size_limit` option in the command line (specify the number of 256 KiB to cache).
+- **Minimum**: 8 GB + 1 GB per mining partition (4 TB drive)
+- **Recommended**: 8 GB + 2 GB per mining partition (4 TB drive)
+
+The node determines the amount of chunks to read in memory while mining automatically. If your node runs out of memory anyway, try setting the `mining_server_chunk_cache_size_limit` option in the command line (specify the number of 256 KiB to cache).
 
 ## Preparation: CPU
 

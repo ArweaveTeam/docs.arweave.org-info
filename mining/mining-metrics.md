@@ -6,9 +6,9 @@ description: >-
 # Mining Metrics
 
 The arweave node publishes a set of [Prometheus](https://prometheus.io/docs/introduction/overview/) metrics at the `/metrics` endpoint (i.e. 
-<IP>:<PORT>/metrics) - you can see an example at https://arweave.net/metrics. The `/metrics` endpoint also includes descriptions of each metric.
+`<IP>:<PORT>/metrics`) - you can see an example at https://arweave.net/metrics. The `/metrics` endpoint also includes descriptions of each metric.
 
-You can integrate Prometheus with a number of monitoring and visualization tools. Below we'll share a [Grafana](https://grafana.com/) [sample dashboard](grafana.json) and some guidance.
+You can integrate Prometheus with a number of monitoring and visualization tools. Below we'll share a [sample dashboard](grafana.json) in [Grafana](https://grafana.com/) and some guidance.
 
 ## Setup
 
