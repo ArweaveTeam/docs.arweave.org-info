@@ -260,3 +260,65 @@ mv /opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2
 
 ```
 </details>
+
+## Running a VDF Server
+
+### Situation
+- You'd like to run a dedicated node to compute and publish VDF
+- You've decided *not* to have your VDF server mine
+- You only want to provide VDF for the following nodes:
+  - `1.2.3.4`
+  - `5.6.7.8`
+  - `5.6.7.8:1985`
+  - `node.example.com`
+
+<details>
+<summary>Sample Directory Structure</summary>
+
+- `data_dir`: `/opt/data`
+- Store module symlinks: None
+- Wallets: no wallet.json needed since you will not be signing any blocks
+</details>
+
+<details>
+<summary>Sample Command-line Configuration</summary>
+
+```
+./bin/start \
+    peer ams-1.eu-central-1.arweave.net \
+    peer blr-1.ap-central-1.arweave.net \
+    peer fra-1.eu-central-2.arweave.net \
+    peer sfo-1.na-west-1.arweave.net \
+    peer sgp-1.ap-central-2.arweave.net \
+    data_dir /opt/data \
+    vdf_client_peer 1.2.3.4 \
+    vdf_client_peer 5.6.7.8 \
+    vdf_client_peer 5.6.7.8:1985 \
+    vdf_client_peer node.example.com
+```
+</details>
+
+<details>
+<summary>Sample Configuration File (config.json)</summary>
+
+```
+{
+    "peers": [
+      "ams-1.eu-central-1.arweave.net",
+      "blr-1.ap-central-1.arweave.net",
+      "fra-1.eu-central-2.arweave.net",
+      "sfo-1.na-west-1.arweave.net",
+      "sgp-1.ap-central-2.arweave.net"
+    ],
+
+    "data_dir": "/opt/data",
+
+    "vdf_client_peers": [
+        "1.2.3.4",
+        "5.6.7.8",
+        "5.6.7.8:1985",
+        "node.example.com"
+    ]
+}
+```
+</details>

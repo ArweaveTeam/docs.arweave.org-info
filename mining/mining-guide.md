@@ -21,9 +21,15 @@ Download the `.tar.gz` archive for your OS from the [releases page](https://gith
 
 If your OS/platform architecture is not in the list, check the source code repository [README](https://github.com/ArweaveTeam/arweave#building-from-source) for how to build the miner from source.
 
-## Preparation: File Descriptors Limit <a href="#preparation-file-descriptors-limit" id="preparation-file-descriptors-limit"></a>
+## Preparation
+
+### Preparation: File Descriptors Limit
 
 The number of available file descriptors affects the rate at which your node can process data. Most operating systems default to assigning a low limit for user processes, we recommend increasing it.
+
+{% hint style="info" %} 
+These File Descriptors Limit instructions apply to Linux. When running a VDF Server on MacOS, please refer to the VDF guide.
+{% endhint %}
 
 You can check the current limit by executing `ulimit -n`.
 
@@ -51,15 +57,29 @@ DefaultLimitNOFILE=1000000
 
 in both `/etc/systemd/user.conf`and `/etc/systemd/system.conf`
 
-## Preparation: Data Directory
+### Preparation: Configuring Large Memory Pages
+
+Mining involves computing 1 RandomX hash and several SHA2 hashes every second for every 3.6 TB mining partition. It is not a lot, but your CPU may nevertheless become a bottleneck when you configure a lot of mining partitions. To maximize your hashing performance, consider configuring huge memory pages in your OS.
+
+On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=1000`. To make the configuration survive reboots, create `/etc/sysctl.d/local.conf` and put `vm.nr_hugepages=1000` there.
+
+The output of `cat /proc/meminfo | grep HugePages` should then look like this:\
+`AnonHugePages: 0 kB`\
+`ShmemHugePages: 0 kB HugePages_Total: 1000 HugePages_Free: 1000 HugePages_Rsvd: 0 HugePages_Surp: 0`
+
+If it does not or if there is a "erl_drv_rwlock_destroy" error on startup, reboot the machine.
+
+Finally, tell the miner it can use large pages by specifying `enable randomx_large_pages`on startup (you can find a complete startup example further in the guide).
+
+### Preparation: Data Directory
 
 Create a directory somewhere in your system. We will refer to it as `[data_dir]` throughout this guide. We recommend having at least 200 GB available on the corresponding disk, although it is possible to configure the node for less space. For mining, you obviously need a lot more space, but the mining data should be stored on separate drives mounted in or symlinked to the folders inside `[data_dir].`More about it later in this guide.
 
-## Preparation: Mining Key
+### Preparation: Mining Key
 
 In order to mine in 2.6, your mining key needs to be present on your machine. If you want to create a new wallet, run `./bin/create-wallet.` The file is then created in `[data_dir]/wallets/.` Make sure you never share it with anyone! If you want to use an existing wallet, place it under the aforementioned path.
 
-## Preparation: Storage Setup
+### Preparation: Storage Setup
 
 To maximize your mining efficiency, store data on 4 TB hard drives capable of reading about 200 MiB/s. It is fine to use faster disks, but the extra cost won't be justified.
 
@@ -71,8 +91,8 @@ Mount your drives in the `[data_dir]/storage_modules` folder. E.g.,
 sudo mount /dev/sda [data_dir]/storage_modules/storage_module_0_[your_mining_address]
 ```
 
-Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_dir]` - with the absolute path to your data folder, and `[your_mining_address]` - with your mining address.\
-\
+Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_dir]` - with the absolute path to your data folder, and `[your_mining_address]` - with your mining address.
+
 If you have a drive already mounted elsewhere, you may create a symbolic link instead:
 
 ```
@@ -95,45 +115,28 @@ A few important notes about the storage modules:
 It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! We are currently working on the coordinated mining framework that would allow you to safely connect the nodes covering different sections of the weave with the same mining address.
 {% endhint %}
 
-\
 If you are upgrading a 2.5 miner, set `enable legacy_storage_repacking` to start a process that would repack your packed 2.5 data in place so that the default storage can be later used in 2.6 mining. In any case, the data will be copied from the 2.5 storage to the configured storage modules, if any.
 
-{% hint style="info" %}
-When the 2.6 fork activates, the node will also use the repacked data from the 2.5 storage for mining even if there are no storage modules (when run with `enable legacy_storage_repacking`).
-{% endhint %}
+#### Copying Data Across Storage Modules
 
-{% hint style="warning" %}
-When running with `enable legacy_storage_repacking`, your 2.5 mining performance before the fork drops as data is being repacked.
-{% endhint %}
+Starting from the release 2.6.1, when a node starts, it copies (and packs, if required) the data from one storage module to another, in the case when there are two or more intersecting storage modules. For example, if you specify `storage_module 11,unpacked storage_module 11,[mining_address]` and there is some data in the "unpacked" module that is absent from the "mining address" module, the data will be packed with this mining address and stored in `11,[mining_address]`.
 
-{% hint style="warning" %}
-The node will NOT sync new data into the 2.5 storage - if you want to sync more data, configure storage modules.
-{% endhint %}
-
-### Preparation: Copying Data Across Storage Modules
-
-Starting from the release 2.6.1, when a node starts, it copies (and packs, if required) the data from one storage module to another, in the case when there are two or more intersecting storage modules. For example, if you specify `storage_module 11,unpacked storage_module 11,[mining_address]` and there is some data in the "unpacked" module that is absent from the "mining address" module, the data will be packed with this mining address and stored in `11,[mining_address]`.\
-\
 If you want to repack a storage module, do not rename the existing one - renaming will not cause repacking, create a new storage module instead.
 
-### Preparation: Unpacked Storage Modules
+#### Unpacked Storage Modules
 
 If you want to sync many replicas of the weave, it makes sense to first create an "unpacked" replica. Then, packing for each mining address will be two times faster compared to repacking a replica packed with another mining address. To configure a storage module for storing unpacked data, specify "unpacked" instead of the mining address.\
 \
 For example, to sync an unpacked partition 12, specify `storage_module 12,unpacked` on startup. As with the other storage modules, make sure the `[data_dir]/storage_modules/storage_module_12_unpacked`folder resides on the desired disk (if you do not create the directory in advance, the node will create it for you so the data will end up on the disk `data_dir]/storage_modules`is mounted to.) After the replica is synced, you can copy it to the other machines where its contents would be copied and packed for the storage modules you configure there.
 
-### Reusing Storage Modules from Testnet 2.6&#x20;
-
-If you have been running some nodes in the 2.6 test network, you can reuse the storage modules synced there with data up to the weave offset `122635245363446` (the block [1072170](https://arweave.net/block/height/1072170)) in the mainnet. You can try to start the miner with all the storage modules you have - if any of them contain data which does not belong to the mainnet, the node will stop and offer you to restart with `enable remove_orphaned_storage_module_data`. If this flag is set, the node will erase the extra data from the corresponding storage modules before launching.
-
-## Preparation: RAM
+### Preparation: RAM
 
 - **Minimum**: 8 GB + 1 GB per mining partition (4 TB drive)
 - **Recommended**: 8 GB + 2 GB per mining partition (4 TB drive)
 
 The node determines the amount of chunks to read in memory while mining automatically. If your node runs out of memory anyway, try setting the `mining_server_chunk_cache_size_limit` option in the command line (specify the number of 256 KiB to cache).
 
-## Preparation: CPU
+### Preparation: CPU
 
 We can broadly outline three tasks computing units solve in Arweave:
 
@@ -146,59 +149,15 @@ For more information on what hardware to use for your miner, please see the [Min
 {% endhint %}
 
 
-### 1. Packing
+#### 1. Packing
 
 Packing mostly consists of executing RandomX instructions so the [faster your CPU computes RandomX hashes](https://xmrig.com/benchmark), the faster you can pack. Note that packing a single 256 KiB chunk takes about 30 times longer than computing one RandomX hash. Once you have packed a dataset, you do not necessarily have to keep the powerful process around. You can control the maximum allowed packing rate with the `packing_rate` start command parameter. The default is 50 256 KiB chunks per second.
 
-### 2. VDF
+#### 2. VDF
 
-The VDF controls the speed of mining with new mining "seeds" available at 1 second intervals. To keep up with the network your CPU must be able to maintain this 1 second cadence while calculating the VDF. For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel_SHA_extensions). Additional cores will not improve VDF performance as VDF hash calculations are sequential and therefore limited to a single thread on a single core.\
-\
-The node will report the VDF performance on startup, warning you if it is too low. Some viable CPU options are AMD Ryzen 9 or Intel 12th or 13th generation processors with the clock frequency close to 5 Ghz, ideally connected to DDR5 RAM. Some CPUs may require boosting to achieve the maximum VDF performance.
+The VDF controls the speed of mining with new mining "seeds" available at 1 second intervals. To keep up with the network your CPU must be able to maintain this 1 second cadence while calculating the VDF. For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel_SHA_extensions). Additional cores will not improve VDF performance as VDF hash calculations are sequential and therefore limited to a single thread on a single core.
 
-#### Using Remote VDF Server
-
-You may have another machine compute VDF for you. For instance, you may set up a dedicated VDF node broadcasting VDF outputs to all your mining nodes.
-
-Running a node fetching VDF states from a peer:
-
-```
-./bin/start vdf_server_trusted_peer IP-ADDRESS ...
-```
-
-Running a node pushing its VDF outputs to other peers:
-
-```
-./bin/start vdf_client_peer IP-ADDRESS-1 vdf_client_peer IP-ADDRESS-2 ...
-```
-
-Make sure to specify \[IP-ADDRESS]:\[PORT] if your node is configured to listen on a TCP port other than 1984.
-
-{% hint style="warning" %}
-Do not connect to an external peer you do not trust.&#x20;
-{% endhint %}
-
-{% hint style="info" %}
-Make sure every client node is reachable from its VDF servers - they are in the same network or the node has a public IP and the port (the default is 1984) is forwarded if there are firewalls. If the node is launched with the mine flag and showing no mining performance reports, it is likely no input comes from the VDF server(s).
-{% endhint %}
-
-{% hint style="info" %}
-Please, reach out to us via team@arweave.org if you would like to use our team's VDF servers.
-{% endhint %}
-
-### Configuring Large Memory Pages
-
-Mining involves computing 1 RandomX hash and several SHA2 hashes every second for every 3.6 TB mining partition. It is not a lot, but your CPU may nevertheless become a bottleneck when you configure a lot of mining partitions. To maximize your hashing performance, consider configuring huge memory pages in your OS.
-
-On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=1000`. To make the configuration survive reboots, create `/etc/sysctl.d/local.conf` and put `vm.nr_hugepages=1000` there.
-
-The output of `cat /proc/meminfo | grep HugePages` should then look like this:\
-`AnonHugePages: 0 kB`\
-`ShmemHugePages: 0 kB HugePages_Total: 1000 HugePages_Free: 1000 HugePages_Rsvd: 0 HugePages_Surp: 0`
-
-If it does not or if there is a "erl_drv_rwlock_destroy" error on startup, reboot the machine.
-
-Finally, tell the miner it can use large pages by specifying `enable randomx_large_pages`on startup (you can find a complete startup example further in the guide).
+For more information on VDF, including connecting to a VDF server or running your own VDF server, see [Mining VDF](mining-vdf.md).
 
 ## Running the Miner
 
