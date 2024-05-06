@@ -39,7 +39,7 @@ Make sure to specify \[IP-ADDRESS]:\[PORT] if your node is configured to listen 
 
 In all cases `IP-ADDRESS` can also be a resolvable domain name.
 
-For an example invocation see [Mining Examples](https://docs.arweave.org/developers/mining/mining-examples#running-a-vdf-server).
+For an example invocation see [Mining Examples](https://docs.arweave.org/developers/mining/examples#running-a-vdf-server).
 
 {% hint style="warning" %}
 Do not connect to an external peer you do not trust.&#x20;
