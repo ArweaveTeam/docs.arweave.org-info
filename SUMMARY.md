@@ -9,6 +9,7 @@
 ## Mining
 
 - [Mining Guide](mining/mining-guide.md)
+- [Syncing and Packing](mining/syncing-packing.md)
 - [VDF](mining/vdf.md)
 - [Hardware Guide](mining/hardware.md)
 - [Examples](mining/examples.md)
