@@ -10,23 +10,24 @@ One of the first things you'll do when mining is sync and pack some or all of th
 ## Syncing
 
 "Syncing" refers to the process of downloading data from network peers. When you launch your
-miner you'll configure a set of `storage_module`s that cover some or all of the weave. Your
-node will continuously check for any gaps in your configured data and then search out peers to
-download the missing data.
+miner you'll configure a set of storage modules that cover some or all of the weave. Your
+node will continuously check for any gaps in your configured data and then search out peers 
+from which to download the missing data.
 
 ## Packing
 
 Storage modules can be either "unpacked" (e.g. `storage_module 16,unpacked`) or "packed"
 (e.g. `storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`). Before you can mine
-data it must be packed to your mining address. There are actually two symetric operations that
+data it must be packed to your mining address. There are two symmetric operations that
 fall under the "packing" umbrella:
 
 1. `pack` - Symmetrically encrypt a chunk of data with your mining address.
 2. `unpack` - Decrypt a packed chunk of data.
 
-Both operations consume roughly the same amount of computational power. 
+Both operations consume roughly the same amount of computational power. See the
+[benchmarking guide](hardware.md#benchmarking-your-miner) for more details.
 
-**Note:** You will almost always have to **unpack** data when syncing it. Whatever
+**Note:** You will almost always have to **unpack** data when syncing it. Whichever
 peer you sync the data from will likely return it to you packed to its own address. Before
 you can do anything with it you will first need to unpack. You may then have to pack it to your
 own address. i.e. each chunk of data synced will usually need 1-2 packing operations.
@@ -44,7 +45,7 @@ file contains 8000 chunks stored as `<< Offset, ChunkData >>`.
   This is only relevant for unpacked data as packed chunks are always 256 KiB.
 - `ChunkData` is the 256 KiB (262,144 bytes) chunk data.
 
-The data may be packed or unpacked (both formats take up the same mount of space). The
+The data may be packed or unpacked (both formats take up the same amount of space). The
 maximum file size is 2,097,176,000 bytes. Each file is named with the starting offset of
 the chunks it contains (e.g. `chunk_storage` file `75702992896000` stores the 8000 chunks
 starting at weave offset 75,702,992,896,000).
@@ -53,17 +54,19 @@ A full partition will contain 3.6 TB (3,600,000,000,000 bytes) of chunk data. De
 on how you've configured your storage modules, your `chunk_storage` directory may only store
 a subset of a partition.
 
-For reasons [explained below](#partition-sizes) you will rarely be able to sync a full 3.6TB partition. However,
+For reasons [explained below](#partition-sizes) you will rarely be able to sync a full 3.6TB
+partition. However,
 your node will continue to search the network for missing chunks so while unlikely it is
 possible that a previously "dormant" `chunk_storage` directory to see some activity if
 previously missing chunk data comes online. In general, though, once you have "fully" synced
 a storage_module you would expect there to be no further writes to the `chunk_storage`
-directory. [Below](#partition-sizes) we provide an estimate of each partition's "full synced" size.
+directory. [Below](#partition-sizes) we provide an estimate of each partition's "full synced"
+size.
 
 ### `rocksdb`
 
-The `rocksdb` contains several [RocksDB](https://rocksdb.org/) databases used to store metadata
-related to chunk data (e.g. record keeping, indexing, proofs, etc..).
+The `rocksdb` directory contains several [RocksDB](https://rocksdb.org/) databases used to
+store metadata related to chunk data (e.g. record keeping, indexing, proofs, etc..).
 
 The exact size of the `rocksdb` directory will vary over time - unlike `chunk_storage` you
 should expect the `rocksdb` directory to continue to be written to as long as your node is
@@ -76,15 +79,15 @@ You will find as you sync data that you're never able to download a full 3.6TB p
 and in fact some partitions seem to stop syncing well short of the 3.6TB. There are 2 steps
 when adding data to the Arweave network:
 
-1. Submit a transaction with a hash of the data a transaction fee pay for and reserve space in
+1. Submit a transaction with a hash of the data and a fee to reserve space in
 the weave.
 2. Upload the data to the weave (aka seeding).
 
-The data that is missing from a "full synced" partition is either data that has been
+The data that is missing from a "fully synced" partition is either data that has been
 filtered out by your [content policies](https://arwiki.wiki/#/en/content-policies)
 (or the content policies of your peers), or it is data that was never seeded by the uploader.
 
-Typically ther 2 reasons why a user might not seed data after they've paid for it:
+Typically there are 2 reasons why a user might not seed data after they've paid for it:
 1. They're just testing / exploring the protocol
 2. They're a miner experimenting with sacrifice mining
 
@@ -113,26 +116,14 @@ partition sizes are materially smaller than the expected 3.6TB (partitions 0-8, 
 believe these correspond to periods when miners were experimenting with the strategy,
 ultimately abandoning it as they realized it was unprofitable.
 
-## Will Old Partitions Ever Be Written To?
-
-When a transaction is posted to the Arweave block chain it contains a hash of the data
-attached to it. However the data itself is typically seeded later and depending on the user
-and the amount of data it can take some time to be seeded. The data itself has already been
-"locked in" when the transaction is posted (i.e. the hash in the transaction guarantees that
-only a specific set of data will be accepted for that transaction) - so you will never see
-"new" data added to old partitions. However since there is no timeline on when the data can be
-uploaded you may see "old" data finally get seeded/uploaded to the network some time after the
-transaction is posted.
-
 ## Latest Estimated Partition Sizes
 
-[See table here](partition-sizes.md)
+[See table here](partition-sizes)
 
 **Note:** These numbers are *mostly* reliable, but there is always a chance that a previously
 "fully synced" partition grows in size (though never greater than 3.6TB). This can happen
 any time the original uploader decides to finally seed their previously unseeded data. In
 practice this gets less and less likely the older a partition is.
-
 
 # Performance Tips
 
@@ -144,10 +135,10 @@ There are 3 primary bottlenecks when syncing and packing:
 
 And to a lesser degree:
 
-4. RAM *(more heavily used in mining than in sync/packing, but can become a bottleneck under
+4. RAM *(more heavily used in mining than in syncing/packing, but can become a bottleneck under
   certain situations)*
 
-If any of the 3 primary resources are maxed out: congratulations your configuration is syncing
+If any of the 3 primary resources are maxed out: congratulations! Your configuration is syncing
 and packing as fast as it can!
 
 ## Increasing Bandwidth
@@ -211,7 +202,7 @@ volume of slow/hanging requests can cause a backup which eventually leads to an 
 error.
 
 Setting `sync_jobs` to `200` or even `400` is unlikely to cause any issues. But before you
-increase it further our recommendation is to first confirm:
+increase it even further our recommendation is to first confirm:
 1. Your CPU and network bandwidths are below capacity
 2. Your network connectivity is good (e.g. using tools like `mtr` to track packet loss)
 
@@ -230,7 +221,7 @@ to all your storage modules at once will maximize your available disk write band
 same applied to network bandwidth. Adding more storage modules when syncing increases the
 set of peers you can pull data from (as different peers share different parts of the weave
 data). This will help your node maximize its network bandwidth by pulling from the "best" set
-of peers available at a give time.
+of peers available at a given time.
 
 ### Repacking
 
@@ -258,7 +249,8 @@ you there fastest:
 2. Build each packed replica by [locally repacking](examples.md#packing-unpacked-data) from
   your `unpacked` storage modules
 3. You can either keep the `unpacked` data around for later, or, you can do a
-  [repack_in_place](examples.md#repacking-packed-data-in-place) when building your final packed replica.
+  [repack_in_place](examples.md#repacking-packed-data-in-place) when building your final
+  packed replica.
 
 This approach will reduce your download time (since you only have to download the data once)
 and reduce the number of packing operations (since you only have to unpack peer data once).

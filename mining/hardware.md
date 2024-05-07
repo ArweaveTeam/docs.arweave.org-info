@@ -199,10 +199,10 @@ time can be scaled up by the number of cores in your CPU. We don't yet have guid
 impact of hyperthreading/SMT, so for now best to only count the number of physical cores on
 your CPU rather than virtual cores.
 
-Some points to keep in mind:
-- For each VDF step your miner will compute **1 H0 hash for every partition**
-- For each VDF step your miner will compute **400 H1 hashes for every partition**
-- For each VDF step your miner will compute **0-400 H2 hashes for every partition**
+Some points to keep in mind. For each VDF step your miner will compute:
+- 1 H0 hash for every partition
+- 400 H1 hashes for every partition
+- 0-400 H2 hashes for every partition
   - *The specific number of H2 hashes is determined by how much of the weave you're mining.*
 
 For the following examples, please keep in mind that with all the benchmarks, these
@@ -248,7 +248,7 @@ The `benchmark-vdf` tool will report the speed in seconds to compute a VDF.
 network VDF difficulty is updated daily in order to target a network average VDF speed of
 1 second.
 
-As of May 6, 2024, block height 1419127, the current Arweave network VDF difficulty is 
+As of May 6, 2024, block height 1419127, the Arweave network VDF difficulty is 
 **685,016**. As VDF difficulty rises, VDF time increases (gets slower), as VDF difficulty
 drops, VDF time decreases (gets faster). So today if the `benchmark-vdf` tool reports a
 1 second VDF for your CPU, you can expect to achieve 1.14 seconds once connected to the
@@ -260,7 +260,7 @@ Data as of May 6, 2024. Collected from tiny sample sizes. May be inaccurate.
 
 | Processor | Cores | Packing (chunks per second) | H0 (ms) | H1/H2 (ms) | VDF (seconds) |
 | --------- | ----- | ------------------------- | ------ | --------- | ------------ |
-| AMD Ryzen 9 5900X | 12 | 233 | | | | 
+| AMD Ryzen 9 5900X | 12 | 233 | 1.60 | 0.13 | 1.16 | 
 | AMD Ryzen 9 7950X | 16 | 377 | 1.37 | 0.11 | 1 |
 | Intel Core i7-4770 | 8 | 48 |  1.58 | 0.56 |4.94 |
 | Mac Mini M2 | 8 | | 12.13 | 0.11 | 0.87 |
