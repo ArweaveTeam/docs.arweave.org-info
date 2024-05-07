@@ -118,7 +118,7 @@ ultimately abandoning it as they realized it was unprofitable.
 
 ## Latest Estimated Partition Sizes
 
-[See table here](partition-sizes)
+[See table here](partition-sizes) 
 
 **Note:** These numbers are *mostly* reliable, but there is always a chance that a previously
 "fully synced" partition grows in size (though never greater than 3.6TB). This can happen
