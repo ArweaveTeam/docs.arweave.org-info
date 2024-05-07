@@ -211,8 +211,7 @@ increase it even further our recommendation is to first confirm:
 In general you shouldn't need to change `packing_rate` - the default value is usually more
 than high enough. That said you can increase it with minimal risk of negative consequences.
 Consult our [benchmarking guide](hardware.md#benchmarking-your-miner) to determine your CPU's
-maximum packing rate and set `packing_rate` to something higher (e.g. 2x the maximum packing
-rate)
+maximum packing rate and set `packing_rate` to something slightly higher.
 
 ### storage_module
 
