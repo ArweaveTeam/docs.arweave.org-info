@@ -54,10 +54,10 @@ a static IP. However your miner will continue to poll, so the lag will be minima
 
 A slightly bigger issue is your "peer reputation". All peers in the network maintain a rating
 for all other peers based on past activity. It basically boils down to the amount of valid
-data exchanged - as your node exchanges valid data peers, your reputation increases. Reputation
+data exchanged. As your node sends valid data to peers, your reputation increases. Reputation
 is currently tracked by IP:PORT, so whenever your IP changes, your repuation will be reset.
 
-Reputation primarily comes into play when you mine a solution - peers will process the solutions
+Reputation primarily comes into play when you mine a solution, Peers will process the solutions
 of higher reputation peers first. So if you have a low reputation and mine a block at about
 the same time as a miner with a higher reputation, there's a greater chance that your block
 will be processed later and potentially orphaned.
