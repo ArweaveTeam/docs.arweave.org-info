@@ -16,6 +16,8 @@ Nope! You don’t have to store the whole weave to mine, there’s no set minimu
 
 When you run your miner it will periodically pring a Mining Performance Report to the console. You can read more about the Mining Performance Report [here](https://github.com/ArweaveTeam/arweave/releases/tag/N.2.7.2). If your node is syncing the weave it will display 0 h/s but will go up over time.
 
+You can also use Prometheus and Grafana as described in the [Metrics Guide](metrics.md).
+
 ## Can I use multiple hard drives/external auxiliary hard drives to provide more data storage on the network?
 
 Yes, this is possible. In order to build this kind of setup, you will need to set up a cross-disk file system and mount your Arweave directory. You will be able to find tutorials for how to achieve this with your specific OS online
@@ -40,4 +42,22 @@ We recommend starting the miner in a screen session, you can then safely disconn
 
 ## Can I mine on the Arweave network with a dynamic IP?
 
-Though it’s possible to do so with a dynamic IP, this is very inefficient, so we strongly recommend a static IP. However if you are using a dynamic IP, make sure you’re operating in ‘polling mode’
+Yes - but there are some caveats:
+
+Miners benefit by getting the latest set of blocks and transactions as fast as possible to
+limit the time wasted mining against a stale chain tip. Miners can get blocks 2 ways:
+  1. By polling their peers for new blocks and transactions
+  2. By being notified of new blocks and transactions by other miners
+
+If you have a dynamic IP you may not get notified by your peers as quickly as a miner with
+a static IP. However your miner will continue to poll, so the lag will be minimal.
+
+A slightly bigger issue is your "peer reputation". All peers in the network maintain a rating
+for all other peers based on past activity. It basically boils down to the amount of valid
+data exchanged - as your node exchanges valid data peers, your reputation increases. Reputation
+is currently tracked by IP:PORT, so whenever your IP changes, your repuation will be reset.
+
+Reputation primarily comes into play when you mine a solution - peers will process the solutions
+of higher reputation peers first. So if you have a low reputation and mine a block at about
+the same time as a miner with a higher reputation, there's a greater chance that your block
+will be processed later and potentially orphaned.

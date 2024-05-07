@@ -5,12 +5,18 @@ description: >-
 
 # Mining Hardware Guide
 
+This guide has 2 parts:
+1. [Building your miner](#building-your-miner)
+2. [Benchmarking your miner](#benchmarking-your-miner)
+
+# Building your miner
+
 There are 2 phases to Arweave mining:
 
 1. Syncing and Packing
 2. Mining
 
-This guide will focus on the mining phase.
+This build guide will focus on the mining phase.
 
 The Arweave dataset (called the "weave") is broken up into 3.6TB partitions (3,600,000,000,000 bytes). There are 50 partitions as of March, 2024, although that will grow over time as users upload more data. **The Arweave protocol provides a strong incentive to mine against the complete dataset or multiple copies of the complete dataset (called "full replicas").**
 
@@ -32,7 +38,7 @@ There are 2 possible mining configurations:
 **To date the dominant strategy has been to adopt a multi-node / coordinated mining approach.** As the weave continues to grow we believe this strategy will only increase in popularity.
 
 {% hint style="success" %}
-#### An example 16-partition node could include:
+### An example 16-partition node could include:
 
 1. 1x mid-tier Ryzen CPU (e.g. Ryzen 5/7/9)
 2. 1x motherboard with at least one PCIe 3.0 8x slot
@@ -158,3 +164,104 @@ This phase is heavily bottlenecked by available download bandwidth and CPU capac
 After you have downloaded some data you have to pack it. A 16-core Ryzen 9 7950x can pack about 90 MB per second - which means it would take about 22 days to pack the full data set using a single 16-core Ryzen 9 7950x. Since these two phases (syncing and packing) can happen in parallel, this example miner with 1Gbps download bandwidth and a 16-core Ryzen 9 7950x could sync and pack the full data set in 22 days.
 
 The saving grace to all this is that you only need to download and pack the data once per replica. Some miners will rent CPU time and access to bandwidth to reduce the time of this phase.
+
+# Benchmarking your miner
+
+The arweave node ships with 3 tools you can use to benchmark different elements of your
+miner's performance.
+- Packing: `./bin/benchmark-packing`
+- Hashing: `./bin/benchmark-hash` (*currently in `master`, will be released in v2.7.4*)
+- VDF: `./bin/benchmark-vdf`
+
+## Packing
+
+The `benchmark-packing` tool will report how many chunks per second you miner can expect
+to pack across all cores. In practice you will likely observe less than this number due
+other processes that need to run in a full node, taking resources away from packing. But it's
+a good metric.
+
+See the [Syncing and Packing guide](syncing-and-packing.md) for more information on how to
+interpret this number. Some points to keep in mind:
+- While syncing you should expect **1 to 2 packing operations for every chunk written.**
+- Each chunk is **256 KiB**
+
+For example, if the `benchmark-packing` tool reports **100 chunks per second** for your CPU,
+you can expect you node to sync at an **upper bound speed of 12.5 to 25 MiB/s.**
+
+## Hashing
+
+The `benchmark-hash` tool will report the speed in milliseconds to compute an H0 hash as well
+as an H1 or H2 hash. These metrics are primarily used while mining.
+
+The times reported are for a single thread (i.e. single core) of
+execution. The number of H0 or H1/H2 hashes your system can compute every second of wallclock
+time can be scaled up by the number of cores in your CPU. We don't yet have guidance on the
+impact of hyperthreading/SMT, so for now best to only count the number of physical cores on
+your CPU rather than virtual cores.
+
+Some points to keep in mind:
+- For each VDF step your miner will compute **1 H0 hash for every partition**
+- For each VDF step your miner will compute **400 H1 hashes for every partition**
+- For each VDF step your miner will compute **0-400 H2 hashes for every partition**
+  - *The specific number of H2 hashes is determined by how much of the weave you're mining.*
+
+For the following examples, please keep in mind that with all the benchmarks, these
+computations should be taken as guides. In practice your hashing speed will be impacted by a
+number of factors not captured by the benchmark (e.g. contention with other processes running,
+impact of hyperthreading/SMT, etc...). Also you should budget your CPU capacity to exceed these
+calculations in order to accomodate all the other work your miner is doing (both within the
+Arweave node and at the system level).
+
+### Example 1
+
+- The full weave is 50 partitions
+- You are mining all 50 partitions
+- Each VDF step you will compute
+  - 50 H0 hashes
+  - 20,000 H1 hashes *(50 * 400)*
+  - 20,000 H2 hashes *(50 * 400)*
+- `benchmark-hash` reports
+  - H0: **1.5 ms**
+  - H1/H2: **0.2 ms**
+- Each VDF step you will need **8,075 ms** of compute time (40,000 * 0.2 + 50 * 1.5)
+- Implication is that you will need **more than 8-cores** to mine a 1 second VDF.
+
+### Example 2
+
+- The full weave is 50 partitions
+- You are mining 20 partitions
+- Each VDF step you will compute
+  - 20 H0 hashes
+  - 8,000 H1 hashes *(20 * 400)*
+  - 3,200 H2 hashes *(20 * (20/50) * 400)*
+- `benchmark-hash` reports
+  - H0: **1 ms**
+  - H1/H2: **0.1 ms**
+- Each VDF step you will need **1,140 ms** of compute time (11,200 * 0.1 + 20 * 1)
+- Implication is that you will need **more than 1 core** to mine a 1 second VDF.
+
+## VDF Speed
+
+The `benchmark-vdf` tool will report the speed in seconds to compute a VDF.
+
+**Note:** The benchmark tool assumes a fixed **VDF difficulty of 600,000**. The Arweave
+network VDF difficulty is updated daily in order to target a network average VDF speed of
+1 second.
+
+As of May 6, 2024, block height 1419127, the current Arweave network VDF difficulty is 
+**685,016**. As VDF difficulty rises, VDF time increases (gets slower), as VDF difficulty
+drops, VDF time decreases (gets faster). So today if the `benchmark-vdf` tool reports a
+1 second VDF for your CPU, you can expect to achieve 1.14 seconds once connected to the
+network. `(685,016 / 600,000) * 1 second = 1.14 seconds`
+
+## Some Sample Data
+
+Data as of May 6, 2024. Collected from tiny sample sizes. May be inaccurate.
+
+| Processor | Cores | Packing (chunks per second) | H0 (ms) | H1/H2 (ms) | VDF (seconds) |
+| --------- | ----- | ------------------------- | ------ | --------- | ------------ |
+| AMD Ryzen 9 5900X | 12 | 233 | | | | 
+| AMD Ryzen 9 7950X | 16 | 377 | 1.37 | 0.11 | 1 |
+| Intel Core i7-4770 | 8 | 48 |  1.58 | 0.56 |4.94 |
+| Mac Mini M2 | 8 | | 12.13 | 0.11 | 0.87 |
+
