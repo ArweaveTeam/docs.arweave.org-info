@@ -266,14 +266,3 @@ and reduce the number of packing operations (since you only have to unpack peer 
 **Note:** This approach is not recommended if your goal is to have 1 or fewer packed replicas.
 It will work, but won't be any faster than just syncing straight to packed storage modules.
 
-# FAQs
-
-Faq about how to know when done
-Faq about unpacked still requires packing
-or once the weave moves on to the next partition, if the previous isnt full, it never will be backfilled ?
-How to estimate performance when packing
-How often are writez made to older partitions
-polling mode FAQ
-syncing/packing grafana sample dashboard and metrics
-what happens if I delete a chunk_storage file by mistake?
-what is the formate of chunk_storage files
