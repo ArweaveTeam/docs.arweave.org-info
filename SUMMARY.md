@@ -10,7 +10,7 @@
 
 - [Mining Guide](mining/mining-guide.md)
 - [Syncing and Packing](mining/syncing-packing.md)
-    - [Partition Sizes](mining/partitions-sizes.md)
+    - [Partition Sizes](mining/partition-sizes.md)
 - [VDF](mining/vdf.md)
 - [Hardware Guide](mining/hardware.md)
 - [Examples](mining/examples.md)
