@@ -3,12 +3,15 @@ description: >-
   A guide to monitoring your miner.
 ---
 
-# Mining Metrics
+# Metrics
 
 The arweave node publishes a set of [Prometheus](https://prometheus.io/docs/introduction/overview/) metrics at the `/metrics` endpoint (i.e. 
 `<IP>:<PORT>/metrics`) - you can see an example at https://arweave.net/metrics. The `/metrics` endpoint also includes descriptions of each metric.
 
-You can integrate Prometheus with a number of monitoring and visualization tools. Below we'll share a [sample dashboard](grafana.json) in [Grafana](https://grafana.com/) and some guidance.
+You can integrate Prometheus with a number of monitoring and visualization tools. Below we'll share some sample dashboards in [Grafana](https://grafana.com/) and some guidance:
+1. [Mining Metrics](#mining-metrics)
+2. [Syncing and Packing Metrics](#syncing-and-packing-metrics)
+3. [Debugging Metrics](#debugging-metrics)
 
 ## Setup
 
@@ -22,13 +25,13 @@ You can integrate Prometheus with a number of monitoring and visualization tools
 3. [Setup Grafana](https://grafana.com/docs/grafana/latest/datasources/prometheus/configure-prometheus-data-source/) to visualize the Prometheus data.
 4. [Import the sample dashboard](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/). Sample Dashboard JSON is available [here](grafana.json).
 
-## Interpreting the Metrics
+# Mining Metrics
 
-The sample dashboard should look something like this:
+[Sample mining dashboard in Grafana](grafana-mining.json)
 
-![Sample Dashboard](dashboard.png)
+![Sample Dashboard](dashboard-mining.png)
 
-### Read Rate
+## Read Rate
 
 **Metric**: `mining_rate{type="read"}`
 
@@ -39,7 +42,7 @@ The protocol allows for up to 800 chunks per partition per VDF step to be read. 
 **Alerting**:
 We recommend setting an alert at 0 MiB/s as that indicates the miner is no longer mining. You may also want to establish a baseline and set an alert if read rate falls some amount below that baseline
 
-### Read Rate vs. Ideal
+## Read Rate vs. Ideal
 
 **Metrics**: `mining_rate{type="read"}` and `mining_rate{type="ideal_read"}`
 
@@ -54,7 +57,7 @@ The result is a percentage where 100% indicates you are mining at the ideal rate
 **Alerting**:
 You may want to establish a baseline and set an alert if read rate falls some amount below that baseline
 
-### Hash Rate
+## Hash Rate
 
 **Metric**: `mining_rate{type="hash"}`
 
@@ -65,7 +68,7 @@ Note: hashes are generated after chunks are read, so if your Read Rate chart sho
 **Alerting**:
 Re recommend setting an alert on 0 as that indicates your miner is no longer mining. You may also want to establish a baseline and set an alert if hashrate falls some amount below that baseline
 
-### Hash Rate vs. Ideal
+## Hash Rate vs. Ideal
 
 **Metrics**: `mining_rate{type="hash"}` and `mining_rate{type="ideal_hash"}`
 
@@ -80,7 +83,7 @@ The result is a percentage where 100% indicates you are mining at the ideal rate
 **Alerting**:
 You may want to establish a baseline and set an alert if hashrate falls some amount below that baseline
 
-### VDF Step Number
+## VDF Step Number
 
 **Metric**: `vdf_step`
 
@@ -91,7 +94,7 @@ You expect this number to increase roughly every second.
 **Alerting**:
 We recommend starting with an alert that goes off if there are fewer than 200 steps in a 5-minute period.
 
-### Block Height
+## Block Height
 
 **Metric**: `arweave_block_height`
 
@@ -100,7 +103,7 @@ This metric tracks the height of the node's current tip block. We expect this nu
 **Alerting**:
 We recommend alerting if you don't see a new block in 15 minutes.
 
-### VDF Step Behind
+## VDF Step Behind
 
 **Metric**: `block_vdf_advance`
 
@@ -110,3 +113,187 @@ If this number grows too large it can indicate that the node's VDF or VDF server
 
 **Alerting**:
 We recommend setting an alert at 200, and adjusting as needed.
+
+# Syncing and Packing Metrics
+
+[Sample mining dashboard in Grafana](grafana-syncing-packing.json)
+
+![Sample Dashboard](dashboard-syncing-packing.png)
+
+## Sync Requests
+
+**Metric**: `http_client_get_chunk_duration_seconds_count`
+
+This metric tracks the the number of `GET /chunk2` requests that your node makes to peers.
+This is the primary method through which a node syncs chunks during the Syncing and Packing
+phase.
+
+**Debugging**: If you believe your sync rate is too slow, consulting this graph might explain
+why. Your node should pull data from several peers at once - if this isn't the case, your
+node could be in the process of searching for healthier peers.
+
+## Average Sync Latency
+
+**Metrics**: `http_client_get_chunk_duration_seconds_sum` and `http_client_get_chunk_duration_seconds_count`
+
+This panel tracks the average latency of `GET /chunk2` requests to peers. 
+
+**Debugging**: If you believe your sync rate is too slow, consulting this graph might explain
+why. The node should detect and adjust to high latencies by selecting different peers. But it
+can take some time to find new peers - during this period syncin/packing rate may dip.
+
+## Total Chunks Written
+
+**Metric**: `chunks_stored`
+
+This widget display the total number of chunks written (in bytes) over the current dashboard
+time period. This can provide a gauge of how much data you've synced and packed over
+a given time period.
+
+## Chunks Written
+
+**Metric**: `chunks_stored`
+
+This panel tracks the number of chunks written per second (in bytes).  Each chunk written is
+assumed to be 256 KiB. This may differ from your packing rate as each chunk written may need
+a different number of packing operations (0 to 2 depending on the format the chunk is received
+and the format it is written)
+
+**Debugging**: If your node is mining and packing at the same time you may see your hash
+rate drop. Consulting this panel can help you determine if an increase in packing activity
+corresponds with the drop in hash rate.
+
+## Packing Rate
+
+**Metric**: `packing_duration_milliseconds_count`
+
+This panel tracks the number of packing operations performed per second. 
+
+
+# Debugging Metrics
+
+[Sample debugging dashboard in Grafana](grafana-debug.json)
+
+The Debugging Dashboard provides some more detail information that can help with debugging
+performance issues. It is split into 3 sections:
+
+1. [Mining](#mining-debug-metrics)
+2. [HTTP Requests](#http-requests-debug-metrics)
+3. [Debug Mode](#debug-mode-debug-metrics)
+
+## Mining Debug Metrics
+
+![Sample Dashboard](dashboard-debug-mining.png)
+
+### Raw Read Rate
+
+**Metric**: `mining_rate{type="raw_read"}`
+
+This panel tracks the time it takes to read a 100MiB recall range per partition. This differs
+from the [Mining Read Rate](#read-rate) which tracks the number of chunks read per second. In
+particular the Raw Read Rate is not impacted by other bottlenecks in the mining pipeline and
+should give you a good indication of the disk speed actually observed by the node.
+
+For example if your disk is capable of reading at 200MiB/s the Raw Read Rate should reflect
+this. However if, for example, you have a slow VDF speed, your Mining Read Rate might show
+a much lower number.
+
+**Debugging**: If you're not getting the hashrate you expect from your miner, this chart can
+help you pinpoint the bottleneck. If this chart is showing lower read rates than you'd expect
+you might want to check your hardware or system-level configuration. If this chart is showing
+expected read rates, then you'll have to look elsewhere in the pipeline (e.g. VDF Speed,
+CPU utilization, RAM utilization, etc.)
+
+### Chunk Cache Size
+
+**Metric**: `mining_server_chunk_cache_size`
+
+This panel tracks the size of your mining chunk cache (in 256 KiB chunks). While mining
+your node will need to temporarily cache chunks of data after reading them, this metric
+tracks how many of those chunks are currently cached. The cache has a size limit which 
+is printed periodically by your node (to the console and to the logs), and can be set
+using the `mining_server_chunk_cache_size_limit` launch parameter.
+
+**Debugging**: If your chunk cache size is sonsistently at or above the limit, your miner
+is not able to keep up with its optimal mining rate. This can be for a number of reason,
+however one thing you can try is increasing the `mining_server_chunk_cache_size_limit`. If
+your miner is only temporarily falling behind (e.g. due to other processes running and
+stealing CPU or disk bandwidth), an increased cache can allow your miner to "catch up".
+
+Note: increaseing the cache size limit may increase your node's memory usage which can
+negatively impact performance if you are running near your system's memory limit.
+
+## HTTP Requests Debug Metrics
+
+![Sample Dashboard](dashboard-debug-http.png)
+
+### Total Inbound Requests
+
+**Metrics**: `cowboy_requests_total`, `cowboy_request_duration_seconds_sum`, and `cowboy_request_duration_seconds_count`
+
+These panels track the requests that your node is receiving from peers on the network. They
+track number of requests per second, total latency by request type, and average latency per
+request per type.
+
+**Debugging**: These charts can help you identify activity that could be impacting your
+performance (e.g. mining, syncing, packing). For example a spike in `POST /tx2` or `GET /tx`
+might correspond to a period of high Arweave nework activity. Or a high total latency servicing
+`GET /chunk2` might indicate that your node is serving a lot of chunks to peers. Depending
+on the type of activity and how strongly it is impacting your node performance, you can
+take different actions.
+
+For example if you believe your node is serving too much chunk data and it is negatively
+impacting performance you can set the `get_chunk` `semaphore` (see the help for a brief
+description of how to set it - it's only usable via config.json). This will control how many
+concurrent `get_chunk` requests your node will handle. Default is 100.
+
+Note: restricting `get_chunk` too much may negatively impact your node's reputation, which
+can in turn negatively impact sync rate or block orphan rate.
+
+### Total Outbound Requests
+
+**Metrics**: `cowboy_requests_total`, `cowboy_request_duration_seconds_sum`, and `cowboy_request_duration_seconds_count`
+
+These panels track the requests that your node is making to peers on the network. They
+track number of requests per second, total latency by request type, and average latency per
+request per type.
+
+**Debugging**: Similar to the [Total Inbound Requests](#total-inbound-requests) chart, you can
+use these charts to identify activity that could be impacting your node's performance.
+
+## Debug Mode Metrics
+
+These charts are only populated if you run your node with the `debug` launch parameter.
+
+![Sample Dashboard](dashboard-debug-debug.png)
+
+### CPU Load / # Cores
+
+**Metric**: `process_cpu_seconds_total`
+
+Total CPU across all *virtual* cores. If you have a 16-core CPU with Hyperthreading/SMT
+enabled, you will likely have 32 virtual cores. Set the dashboard variable appropriately to
+get a sense of your overall CPU load.
+
+### Memory
+
+**Metric**: `process_info{type=~"memory}`
+
+This panel tracks the memory used per Erlang process.
+
+### Message Queue
+
+**Metric**: `proces_info{type="message_queue"}`
+
+This panel tracks the number of messages stored in each erlang process's message queue.
+Erlang processes can be thought of as threads without shared memory. They send messages to
+communicate with each other. Before being processed a message is stored in a message queue.
+If a process's message queue is growing it means that process is receiving more messages than
+it can process.
+
+### Reductions
+
+**Metric**: `process_info{type="reductions"}`
+
+This panel tracks Erlang reductions. Reductions are a measure of Eerlang process activity. 
+the more reductions performed by a process, the more CPU cycles it has consumed.
