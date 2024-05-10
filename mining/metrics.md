@@ -27,7 +27,7 @@ You can integrate Prometheus with a number of monitoring and visualization tools
 
 # Mining Metrics
 
-[Sample mining dashboard in Grafana](grafana-mining.json)
+[Sample dashboard in Grafana](grafana-mining.json)
 
 ![Sample Dashboard](dashboard-mining.png)
 
@@ -116,7 +116,7 @@ We recommend setting an alert at 200, and adjusting as needed.
 
 # Syncing and Packing Metrics
 
-[Sample mining dashboard in Grafana](grafana-syncing-packing.json)
+[Sample dashboard in Grafana](grafana-syncing-packing.json)
 
 ![Sample Dashboard](dashboard-syncing-packing.png)
 
@@ -172,7 +172,7 @@ This panel tracks the number of packing operations performed per second.
 
 # Debugging Metrics
 
-[Sample debugging dashboard in Grafana](grafana-debug.json)
+[Sample dashboard in Grafana](grafana-debug.json)
 
 The Debugging Dashboard provides some more detail information that can help with debugging
 performance issues. It is split into 3 sections:
