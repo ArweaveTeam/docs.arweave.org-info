@@ -50,5 +50,11 @@ Make sure every client node is reachable from its VDF servers - they are in the 
 {% endhint %}
 
 {% hint style="info" %}
-Please, reach out to us via team@arweave.org if you would like to use our team's VDF servers.
+The team operates 2 VDF servers that can be used by any miner that wants to:
+- `vdf-server-3.arwave.xyz`
+- `vdf-server-4.arweave.xyz`
+
+To configure your miner to use the team VDF servers:
+1. Add this to your launch config: `enable vdf_server_pull`
+2. Add the team VDF servers to your list of `vdf_server_trusted_peer`s
 {% endhint %}
