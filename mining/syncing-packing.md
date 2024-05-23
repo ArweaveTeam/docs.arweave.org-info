@@ -164,14 +164,16 @@ ultimately abandoning it as they realized it was unprofitable.
 
 [See tables here](partition-sizes) 
 
-{% hint style="info" %}
-You'll see a table for unpacked as well as packed data. Typically these should be pretty
-close (technically they should match exactly, but since this data is pull from public network
-nodes we do expect slight discrepancies), but due to changes in partial chunk handling
-over time, you may see some partitions with materialy different sizes. For example the 
-estimated data size for partition 0 varies by about 400GB depdneing on whether it is stored
-unpacked vs. packed.
-{% endhint %}
+You'll see a table for unpacked as well as packed data. Technically these sizes should match
+exactly however
+
+1. The data is pulled from public network nodes so we expect some slight discrepancies based
+on which specific data each node has synced
+2. Due to changes in partial chunk handling over time, you may see some partitions with
+materially different sizes.
+
+For example the  estimated data size for partition 0 varies by about 400GB depending on whether
+it is stored unpacked vs. packed.
 
 {% hint style="warning" %}
 These numbers are *mostly* reliable, but there is always a chance that a previously
