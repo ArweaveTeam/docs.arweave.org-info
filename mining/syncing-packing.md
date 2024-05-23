@@ -45,8 +45,7 @@ file contains 8000 chunks stored as `<< Offset, ChunkData >>`.
   This is only relevant for unpacked data as packed chunks are always 256 KiB.
 - `ChunkData` is the 256 KiB (262,144 bytes) chunk data.
 
-The data may be packed or unpacked (both formats take up the same amount of space). The
-maximum file size is 2,097,176,000 bytes. Each file is named with the starting offset of
+The maximum file size is 2,097,176,000 bytes. Each file is named with the starting offset of
 the chunks it contains (e.g. `chunk_storage` file `75702992896000` stores the 8000 chunks
 starting at weave offset 75,702,992,896,000).
 
@@ -54,8 +53,14 @@ A full partition will contain 3.6 TB (3,600,000,000,000 bytes) of chunk data. De
 on how you've configured your storage modules, your `chunk_storage` directory may only store
 a subset of a partition.
 
-For reasons [explained below](#partition-sizes) you will rarely be able to sync a full 3.6TB
-partition. However,
+The data stored may be packed or unpacked - and the two formats will often take up
+**different** amount of space. For this reason we suggest you rely on the
+`v2_index_data_size_by_packing` metric in order to track the amount of data that you have
+synced. Diskspace measuring tools (e.g. `du`, `ls -l`) will not be able to give an accurate
+measurment of the amount of weave data synced.
+
+For reasons [explained below](#partitions-are-rarely-full) you will rarely be able to sync a
+full 3.6TB partition. However,
 your node will continue to search the network for missing chunks so while unlikely it is
 possible that a previously "dormant" `chunk_storage` directory to see some activity if
 previously missing chunk data comes online. In general, though, once you have "fully" synced
@@ -74,6 +79,45 @@ running. The current rough size of a `rocksdb` directory is ~100 GB (although it
 from partition to partition and node to node).
 
 # Partition Sizes
+
+## Measuring
+
+As mentioned [above](#chunk_storage) the amount of space your data takes up on disk may
+not exactly match the amount of weave data that you have synced. This is due to several
+factors:
+1. `chunk_storage` files are sparse
+2. Users can upload partial chunk data (data that is not exactly a multiple of 256 KiB in size)
+3. Unpacked data will be stored as it was uploaded with partial chunks stored sparsely at
+   256 KiB boundaries
+4. Packed data will always be packed to multiples of 256 KiB in size
+5. The handling of partial chunks has changed a couple times during Arweave's history
+
+For these reasons we recommend you don't rely on diskspace measuring tools (e.g. `du`,
+`ls -l`) to measure the amount of weave data synced. Instead we suggest you rely on the
+`v2_index_data_size_by_packing` metric, or the "Performance Mining Report" that is printed
+to your console.
+
+Sample metric data:
+```
+v2_index_data_size_by_packing{store_id="storage_module_19_1",packing="spora_2_6_1",partition_number="19",storage_module_size="3600000000000",storage_module_index="19"} 3110370541568
+v2_index_data_size_by_packing{store_id="storage_module_1200000000000_115_1",packing="spora_2_6_1",partition_number="38",storage_module_size="1200000000000",storage_module_index="115"} 1025578106880
+v2_index_data_size_by_packing{store_id="storage_module_1200000000000_114_1",packing="spora_2_6_1",partition_number="38",storage_module_size="1200000000000",storage_module_index="114"} 1195550703616
+v2_index_data_size_by_packing{store_id="storage_module_1200000000000_116_1",packing="spora_2_6_1",partition_number="38",storage_module_size="1200000000000",storage_module_index="116"} 1195550703616
+v2_index_data_size_by_packing{store_id="storage_module_8_unpacked",packing="unpacked",partition_number="8",storage_module_size="3600000000000",storage_module_index="8"} 2571878652607
+v2_index_data_size_by_packing{store_id="default",packing="unpacked",partition_number="undefined",storage_module_size="undefined",storage_module_index="undefined"} 262144
+```
+
+This indicates that the node has:
+- **3,110,370,541,568 bytes (3.1TB, 2.8TiB)** of weave synced for partition 19 
+  - it is stored **packed** on disk and may take up **more** than 3.1TB of disk space
+- **3,416,679,514,112 bytes (3.4TB, 3.1TiB)** synced for partition 38
+  - 3,416,679,514,112 = **102,557,810,6880 + 119,555,070,3616 + 119,555,070,3616**
+  - it is stored **packed** on disk and may take up **more** than 3.1TB of disk space
+- **2,571,878,652,607 bytes (2.6TB, 2.3TiB)** of weave synced for partiion 8
+  - it is stored **unpacked** on disk and may take up **more or less** than 2.5TB of disk space
+- The `default` partition is a temporary staging partition and can be ignored
+
+## Partitions are rarely full
 
 You will find as you sync data that you're never able to download a full 3.6TB partition -
 and in fact some partitions seem to stop syncing well short of the 3.6TB. There are 2 steps
@@ -118,12 +162,23 @@ ultimately abandoning it as they realized it was unprofitable.
 
 ## Latest Estimated Partition Sizes
 
-[See table here](partition-sizes) 
+[See tables here](partition-sizes) 
 
-**Note:** These numbers are *mostly* reliable, but there is always a chance that a previously
+{% hint style="info" %}
+You'll see a table for unpacked as well as packed data. Typically these should be pretty
+close (technically they should match exactly, but since this data is pull from public network
+nodes we do expect slight discrepancies), but due to changes in partial chunk handling
+over time, you may see some partitions with materialy different sizes. For example the 
+estimated data size for partition 0 varies by about 400GB depdneing on whether it is stored
+unpacked vs. packed.
+{% endhint %}
+
+{% hint style="warning" %}
+These numbers are *mostly* reliable, but there is always a chance that a previously
 "fully synced" partition grows in size (though never greater than 3.6TB). This can happen
 any time the original uploader decides to finally seed their previously unseeded data. In
 practice this gets less and less likely the older a partition is.
+{% endhint %}
 
 # Performance Tips
 
