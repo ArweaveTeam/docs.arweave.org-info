@@ -162,7 +162,7 @@ ultimately abandoning it as they realized it was unprofitable.
 
 ## Latest Estimated Partition Sizes
 
-[See tables here](partition-sizes) 
+[See tables here](https://docs.arweave.org/developers/mining/syncing-packing/partition-sizes) 
 
 You'll see a table for unpacked as well as packed data. Technically these sizes should match
 exactly however
