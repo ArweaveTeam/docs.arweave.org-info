@@ -13,8 +13,7 @@ The following are wallets (developed by the Arweave community)  which are capabl
     <tr>
       <th> </th>
       <th data-type="checkbox"><a href="https://arweave.app/">arweave.app</a></th>
-      <th data-type="checkbox"><a href="https://www.arconnect.io/ArConnect">ArweaveConnect</a></th>
-      <th data-type="checkbox"><a href="https://chromewebstore.google.com/detail/finnie/cjmkndjhnagcfbpiemnkdpomccnjblmj">Finnie</a></th>
+      <th data-type="checkbox"><a href="https://www.arconnect.io/">ArweaveConnect</a></th>
     </tr>
   </thead>
   <tbody>
@@ -22,11 +21,9 @@ The following are wallets (developed by the Arweave community)  which are capabl
       <td>AR tokens</td>
       <td>true</td>
       <td>true</td>
-      <td>true</td>
     </tr>
     <tr>
       <td>dApp permissions</td>
-      <td>true</td>
       <td>true</td>
       <td>true</td>
     </tr>
@@ -34,37 +31,31 @@ The following are wallets (developed by the Arweave community)  which are capabl
       <td>Open Source</td>
       <td>true</td>
       <td>true</td>
-      <td>false</td>
     </tr>
     <tr>
       <td>No Install</td>
       <td>true</td>
-      <td>false</td>
       <td>false</td>
     </tr>
     <tr>
       <td>NFTs</td>
       <td>false</td>
       <td>true</td>
-      <td>true</td>
     </tr>
     <tr>
       <td>PSTs</td>
       <td>false</td>
       <td>true</td>
-      <td>false</td>
     </tr>
     <tr>
       <td>Page Archiving</td>
       <td>false</td>
-      <td>true</td>
       <td>true</td>
     </tr>
     <tr>
       <td>Guide</td>
       <td><a href="https://docs.arweave.org/info/wallets/arweave-web-extension-wallet">Link</a></td>
       <td><a href="https://docs.arweave.org/info/wallets/arconnect">Link</a></td>
-      <td> </td>
     </tr>
   </tbody>
 </table>
@@ -76,10 +67,6 @@ The following are wallets (developed by the Arweave community)  which are capabl
 ### ArConnect or ArweaveConnect
 
 [ArConnect](https://www.arconnect.io/) is a Chrome-like Browsers addon available from the [Chrome Webstore](https://chrome.google.com/webstore/detail/arconnect/einnioafmpimabjcddiinlhmijaionap). More information are available from [ArConnect Documentation](https://docs.arconnect.io/).
-
-### Finnie
-
-Finnie Wallet has been developped by the [Koii Network](https://www.koii.network/) foundation and is supported Arweave. This wallet can be installed on Chrome-like browsers and is available from the [Chrome Webstore](https://chromewebstore.google.com/detail/finnie/cjmkndjhnagcfbpiemnkdpomccnjblmj) More information is available in their [official documentation](https://www.koii.network/docs/concepts/finnie-wallet/introduction).
 
 ## **Why is it recommended to use an Arweave wallet?**
 
