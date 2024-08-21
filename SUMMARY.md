@@ -10,6 +10,7 @@
 
 - [Quickstart Guide](mining/mining-quickstart.md)
 - [Mining Guide](mining/mining-guide.md)
+- [Coordinated Mining](mining/coordinated-mining.md)
 - [Syncing and Packing](mining/syncing-packing.md)
     - [Estimated Partition Sizes](mining/estimated-partition-sizes.md)
 - [VDF](mining/vdf.md)

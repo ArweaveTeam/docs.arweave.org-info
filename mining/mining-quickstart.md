@@ -233,9 +233,7 @@ You are now ready to run an Arweave node and commence packing partitions. After 
 
 ### Coordinated Mining (CM) & Exit Node
 
-Coordinated mining is the method of having multiple servers use the same mining address to find solutions and mine blocks. In previous versions of Arweave, a single server would mine a single address, however the weave is now large enough that it often requires multiple servers to work together. The exit node is the gateway from which your mining solutions will be broadcast to the network. Each CM cluster has as many regular server nodes as required, but only one exit node. The exit node may or may not also be mining storage modules. For more information see:
-
-[Arweave 2.7.2 Coordinated Mining Details](https://github.com/ArweaveTeam/arweave/releases/tag/N.2.7.2)
+Coordinated mining is the method of having multiple servers use the same mining address to find solutions and mine blocks. In previous versions of Arweave, a single server would mine a single address, however the weave is now large enough that it often requires multiple servers to work together. The exit node is the gateway from which your mining solutions will be broadcast to the network. Each CM cluster has as many regular server nodes as required, but only one exit node. The exit node may or may not also be mining storage modules. For more information see the [Coordinated Mining Guide](coordinated-mining.md).
 
 We've included some example `start` commands below for further examples see the [Examples Guide](examples.md).
 

@@ -112,7 +112,7 @@ A few important notes about the storage modules:
 - If you do not mine off the full weave, the required disk read throughput is, on average, (100 + your weave share \* 100) MiB/s.
 
 {% hint style="danger" %}
-It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! We are currently working on the coordinated mining framework that would allow you to safely connect the nodes covering different sections of the weave with the same mining address.
+It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! In order to have multipler nodes use the same mining address they must be configured to use coordinated mining. See the [Coordinated Mining Guide](coordinated-mining.md) for more information.
 {% endhint %}
 
 If you are upgrading a 2.5 miner, set `enable legacy_storage_repacking` to start a process that would repack your packed 2.5 data in place so that the default storage can be later used in 2.6 mining. In any case, the data will be copied from the 2.5 storage to the configured storage modules, if any.
