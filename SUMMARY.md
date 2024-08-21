@@ -8,6 +8,7 @@
 
 ## Mining
 
+- [Quickstart Guide](mining/mining-quickstart.md)
 - [Mining Guide](mining/mining-guide.md)
 - [Syncing and Packing](mining/syncing-packing.md)
     - [Estimated Partition Sizes](mining/estimated-partition-sizes.md)
