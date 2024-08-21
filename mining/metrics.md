@@ -29,7 +29,7 @@ You can integrate Prometheus with a number of monitoring and visualization tools
 
 [Sample dashboard in Grafana](grafana-mining.json)
 
-![Sample Dashboard](dashboard-mining.png)
+![Sample Dashboard](images/dashboard-mining.png)
 
 ## Read Rate
 
@@ -118,7 +118,7 @@ We recommend setting an alert at 200, and adjusting as needed.
 
 [Sample dashboard in Grafana](grafana-syncing-packing.json)
 
-![Sample Dashboard](dashboard-syncing-packing.png)
+![Sample Dashboard](images/dashboard-syncing-packing.png)
 
 ## Sync Requests
 
@@ -183,7 +183,7 @@ performance issues. It is split into 3 sections:
 
 ## Mining Debug Metrics
 
-![Sample Dashboard](dashboard-debug-mining.png)
+![Sample Dashboard](images/dashboard-debug-mining.png)
 
 ### Raw Read Rate
 
@@ -225,7 +225,7 @@ negatively impact performance if you are running near your system's memory limit
 
 ## HTTP Requests Debug Metrics
 
-![Sample Dashboard](dashboard-debug-http.png)
+![Sample Dashboard](images/dashboard-debug-http.png)
 
 ### Total Inbound Requests
 
@@ -265,7 +265,7 @@ use these charts to identify activity that could be impacting your node's perfor
 
 These charts are only populated if you run your node with the `debug` launch parameter.
 
-![Sample Dashboard](dashboard-debug-debug.png)
+![Sample Dashboard](images/dashboard-debug-debug.png)
 
 ### CPU Load / # Cores
 
