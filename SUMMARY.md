@@ -15,9 +15,9 @@
     - [Estimated Partition Sizes](mining/estimated-partition-sizes.md)
 - [VDF](mining/vdf.md)
 - [Hardware Guide](mining/hardware.md)
+- [Understanding Hashrate](mining/hashrate.md)
 - [Examples](mining/examples.md)
 - [Metrics](mining/metrics.md)
-- [Reward Factors](mining/optimisation-tips.md)
 - [FAQs](mining/faqs.md)
 
 ## Mining/Node Ops

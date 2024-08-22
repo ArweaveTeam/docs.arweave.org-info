@@ -1,6 +1,6 @@
 # Arweave Quickstart Mining Guide
 
-**Author: @Thaseus**
+**Original Author: @Thaseus**
 
 ## Introduction
 
