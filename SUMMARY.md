@@ -17,7 +17,9 @@
 - [Hardware Guide](mining/hardware.md)
 - [Understanding Hashrate](mining/hashrate.md)
 - [Examples](mining/examples.md)
-- [Metrics](mining/metrics.md)
+- Advanced Topics
+    - [Metrics](mining/metrics.md)
+    - [Running Multiple Nodes](mining/multiple-nodes.md)
 - [FAQs](mining/faqs.md)
 
 ## Mining/Node Ops

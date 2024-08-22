@@ -124,5 +124,5 @@ Below are some common complaints/scenarios from newer miners in regards to their
 
 ### My hashrate fluctuates wildly on the mining screen
 
-Yes it does, but do not worry about the “Current” fields, only review the “Averages”, and please note, the averages take several hours to stabilize
+- Yes it does, but do not worry about the “Current” fields, only review the “Averages”, and please note, the averages take several hours to stabilize
 
