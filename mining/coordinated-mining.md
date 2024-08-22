@@ -1,6 +1,6 @@
 # Coordinated Mining
 
-**Author: @Thaseus**
+**Original Author: @Thaseus**
 
 A guide to operating a coordinated mining cluster
 
@@ -118,7 +118,7 @@ Coordinated mining cluster stats:
 
 For more information see:
 
-[Arweave 2.7.2 Coordinated Mining Details](https://github.com/ArweaveTeam/arweave/releases/tag/N.2.7.2)
-[Arweave 2.7.3 Coordinated Mining Details](https://github.com/ArweaveTeam/arweave/releases/tag/N.2.7.3)
+- [Arweave 2.7.2 Coordinated Mining Details](https://github.com/ArweaveTeam/arweave/releases/tag/N.2.7.2)
+- [Arweave 2.7.3 Coordinated Mining Details](https://github.com/ArweaveTeam/arweave/releases/tag/N.2.7.3)
 
 
