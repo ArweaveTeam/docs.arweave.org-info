@@ -50,8 +50,7 @@ Selecting the appropriate hard drives for your system hinges on factors such as 
 
 There are numerous options when it comes to SAS controllers. For a straightforward solution, we recommend the LSI SAS-9300-16 HBA. You can opt for either the internal connector version (“16-i”) or the external connector version (“16-e”). These controllers are affordable and readily available on platforms like eBay and other outlets. Ensure you select the IT version, as it will enable your server to recognize each connected drive individually. In IT mode, the disks are presented as JBOD (Just a Bunch Of Disks) rather than through RAID. You will also need to pair it with the appropriate SAS cables for your setup. Selecting the right SAS cables can be complex, as it depends on several factors. We recommend researching the suitable cables for your specific HBA and drive configuration.
 
-Brief Overview of the Arweave Mining Core Concepts
-
+## Brief Overview of the Arweave Mining Core Concepts
 
 ### Syncing & Packing
 

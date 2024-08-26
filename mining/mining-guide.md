@@ -177,7 +177,7 @@ An example with several storage modules (covering partitions 21, 22, 23):
 ./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable legacy_storage_repacking enable randomx_large_pages peer ams-1.eu-central-1.arweave.net peer fra-1.eu-central-2.arweave.net peer sgp-1.ap-central-2.arweave.net peer blr-1.ap-central-1.arweave.net peer sfo-1.na-west-1.arweave.net debug mine storage_module 21,YOUR-MINING-ADDRESS storage_module 22,YOUR-MINING-ADDRESS storage_module 23,YOUR-MINING-ADDRESS
 ```
 
-For more examples see: [Mining Examples](mining/examples.md)
+For more examples see: [Mining Examples](examples.md)
 
 {% hint style="info" %}
 Make sure each disk holding a storage module has at least 4 TB of available space.

@@ -121,7 +121,7 @@ Yes, you can read your metrics manually by going to localhost:port/metrics
 
 You can also (and should), set up Grafana and Prometheus to give you a very nice interface. See the [Metrics Guide](metrics.md) for more information.
 
-### What should my VDF speed be
+### What should my VDF speed be?
 
 It should be as low as possible. The network targets an average VDF speed of 1 second and you wnat to be as close to that as possible (or lower).
 
@@ -143,7 +143,7 @@ Assuming you are using the Team’s VDF server, it is normal. VDF servers can on
 
 If your VDF changes often, and also shows Undefined frequently, you may have a network congestion issue.
 
-### I won a block, and received a reward, why can I not use my AR
+### I won a block, and received a reward, why can I not use my AR?
 
 They are held for 30 days in reserve. After 30 days they are unlocked to your account. You can check the amount of reserved rewards on one of your nodes by going to…
  localhost:PORT/wallet/<wallet>/reserved_rewards_total
