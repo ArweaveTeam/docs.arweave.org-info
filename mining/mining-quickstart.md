@@ -242,11 +242,11 @@ With this command you will be able to start packing Partitions 0 through 4 assum
 
 ```
 ./arweave/bin/start \
-peer sfo-1.na-west-1.arweave.net \
-peer fra-1.eu-central-2.arweave.net \
-peer sgp-1.ap-central-2.arweave.net \
-peer ams-1.eu-central-1.arweave.net \
-peer blr-1.ap-central-1.arweave.net \
+peer sfo-1.na-west-1.arweave.xyz \
+peer fra-1.eu-central-2.arweave.xyz \
+peer sgp-1.ap-central-2.arweave.xyz \
+peer ams-1.eu-central-1.arweave.xyz \
+peer blr-1.ap-central-1.arweave.xyz \
 vdf_server_trusted_peer vdf-server-3.arweave.xyz \
 vdf_server_trusted_peer vdf-server-4.arweave.xyz \
 data_dir /opt/data_dir \
@@ -271,11 +271,11 @@ storage_module 4,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
 
 ```
 ./arweave/bin/start \
-peer sfo-1.na-west-1.arweave.net \
-peer fra-1.eu-central-2.arweave.net \
-peer sgp-1.ap-central-2.arweave.net \
-peer ams-1.eu-central-1.arweave.net \
-peer blr-1.ap-central-1.arweave.net \
+peer sfo-1.na-west-1.arweave.xyz \
+peer fra-1.eu-central-2.arweave.xyz \
+peer sgp-1.ap-central-2.arweave.xyz \
+peer ams-1.eu-central-1.arweave.xyz \
+peer blr-1.ap-central-1.arweave.xyz \
 local_peer 10.0.0.4:1984 \
 local_peer 10.0.0.3:1983 \
 local_peer 10.0.0.2:1982 \

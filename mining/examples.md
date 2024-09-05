@@ -49,11 +49,11 @@ description: >-
 
 ```
 ./bin/start \
-    peer ams-1.eu-central-1.arweave.net \
-    peer blr-1.ap-central-1.arweave.net \
-    peer fra-1.eu-central-2.arweave.net
-    peer sfo-1.na-west-1.arweave.net \
-    peer sgp-1.ap-central-2.arweave.net \
+    peer ams-1.eu-central-1.arweave.xyz \
+    peer blr-1.ap-central-1.arweave.xyz \
+    peer fra-1.eu-central-2.arweave.xyz
+    peer sfo-1.na-west-1.arweave.xyz \
+    peer sgp-1.ap-central-2.arweave.xyz \
     data_dir /opt/data \
     sync_jobs 200 \
     mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
@@ -74,11 +74,11 @@ description: >-
 ```
 {
     "peers": [
-      "ams-1.eu-central-1.arweave.net",
-      "blr-1.ap-central-1.arweave.net",
-      "fra-1.eu-central-2.arweave.net",
-      "sfo-1.na-west-1.arweave.net",
-      "sgp-1.ap-central-2.arweave.net"
+      "ams-1.eu-central-1.arweave.xyz",
+      "blr-1.ap-central-1.arweave.xyz",
+      "fra-1.eu-central-2.arweave.xyz",
+      "sfo-1.na-west-1.arweave.xyz",
+      "sgp-1.ap-central-2.arweave.xyz"
     ],
 
     "data_dir": "/opt/data",
@@ -133,11 +133,11 @@ description: >-
 
 ```
 ./bin/start \
-    peer ams-1.eu-central-1.arweave.net \
-    peer blr-1.ap-central-1.arweave.net \
-    peer fra-1.eu-central-2.arweave.net \
-    peer sfo-1.na-west-1.arweave.net \
-    peer sgp-1.ap-central-2.arweave.net \
+    peer ams-1.eu-central-1.arweave.xyz \
+    peer blr-1.ap-central-1.arweave.xyz \
+    peer fra-1.eu-central-2.arweave.xyz \
+    peer sfo-1.na-west-1.arweave.xyz \
+    peer sgp-1.ap-central-2.arweave.xyz \
     data_dir /opt/data \
     sync_jobs 200 \
     mining_addr Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY \
@@ -154,11 +154,11 @@ description: >-
 ```
 {
     "peers": [
-      "ams-1.eu-central-1.arweave.net",
-      "blr-1.ap-central-1.arweave.net",
-      "fra-1.eu-central-2.arweave.net",
-      "sfo-1.na-west-1.arweave.net",
-      "sgp-1.ap-central-2.arweave.net"
+      "ams-1.eu-central-1.arweave.xyz",
+      "blr-1.ap-central-1.arweave.xyz",
+      "fra-1.eu-central-2.arweave.xyz",
+      "sfo-1.na-west-1.arweave.xyz",
+      "sgp-1.ap-central-2.arweave.xyz"
     ],
 
     "data_dir": "/opt/data",
@@ -217,11 +217,11 @@ mv /opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2
 
 ```
 ./bin/start \
-    peer ams-1.eu-central-1.arweave.net \
-    peer blr-1.ap-central-1.arweave.net \
-    peer fra-1.eu-central-2.arweave.net \
-    peer sfo-1.na-west-1.arweave.net \
-    peer sgp-1.ap-central-2.arweave.net \
+    peer ams-1.eu-central-1.arweave.xyz \
+    peer blr-1.ap-central-1.arweave.xyz \
+    peer fra-1.eu-central-2.arweave.xyz \
+    peer sfo-1.na-west-1.arweave.xyz \
+    peer sgp-1.ap-central-2.arweave.xyz \
     data_dir /opt/data \
     sync_jobs 200 \
     mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
@@ -236,11 +236,11 @@ mv /opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2
 ```
 {
     "peers": [
-      "ams-1.eu-central-1.arweave.net",
-      "blr-1.ap-central-1.arweave.net",
-      "fra-1.eu-central-2.arweave.net",
-      "sfo-1.na-west-1.arweave.net",
-      "sgp-1.ap-central-2.arweave.net"
+      "ams-1.eu-central-1.arweave.xyz",
+      "blr-1.ap-central-1.arweave.xyz",
+      "fra-1.eu-central-2.arweave.xyz",
+      "sfo-1.na-west-1.arweave.xyz",
+      "sgp-1.ap-central-2.arweave.xyz"
     ],
 
     "data_dir": "/opt/data",
@@ -285,11 +285,11 @@ mv /opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2
 
 ```
 ./bin/start \
-    peer ams-1.eu-central-1.arweave.net \
-    peer blr-1.ap-central-1.arweave.net \
-    peer fra-1.eu-central-2.arweave.net \
-    peer sfo-1.na-west-1.arweave.net \
-    peer sgp-1.ap-central-2.arweave.net \
+    peer ams-1.eu-central-1.arweave.xyz \
+    peer blr-1.ap-central-1.arweave.xyz \
+    peer fra-1.eu-central-2.arweave.xyz \
+    peer sfo-1.na-west-1.arweave.xyz \
+    peer sgp-1.ap-central-2.arweave.xyz \
     data_dir /opt/data \
     vdf_client_peer 1.2.3.4 \
     vdf_client_peer 5.6.7.8 \
@@ -304,11 +304,11 @@ mv /opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2
 ```
 {
     "peers": [
-      "ams-1.eu-central-1.arweave.net",
-      "blr-1.ap-central-1.arweave.net",
-      "fra-1.eu-central-2.arweave.net",
-      "sfo-1.na-west-1.arweave.net",
-      "sgp-1.ap-central-2.arweave.net"
+      "ams-1.eu-central-1.arweave.xyz",
+      "blr-1.ap-central-1.arweave.xyz",
+      "fra-1.eu-central-2.arweave.xyz",
+      "sfo-1.na-west-1.arweave.xyz",
+      "sgp-1.ap-central-2.arweave.xyz"
     ],
 
     "data_dir": "/opt/data",

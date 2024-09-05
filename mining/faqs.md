@@ -146,7 +146,7 @@ If your VDF changes often, and also shows Undefined frequently, you may have a n
 ### I won a block, and received a reward, why can I not use my AR?
 
 They are held for 30 days in reserve. After 30 days they are unlocked to your account. You can check the amount of reserved rewards on one of your nodes by going to…
- localhost:PORT/wallet/<wallet>/reserved_rewards_total
+ localhost:PORT/wallet/\[your-wallet-address\]/reserved_rewards_total
 
 ### I am using a SAS expander and am having performance bottlenecks
 
