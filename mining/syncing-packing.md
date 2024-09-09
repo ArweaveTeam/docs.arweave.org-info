@@ -184,6 +184,8 @@ practice this gets less and less likely the older a partition is.
 
 # Performance Tips
 
+**Most important performance tip:** Do not mine while you pack. The two processes are both resource intensive and will slow each other down. (i.e. omit the `mine` flag from your configuration) If you've already removed the `mine` flag, contineu on below for more optimization tips.
+
 There are 3 primary bottlenecks when syncing and packing:
 
 1. Your network bandwidth *(used to download chunks from peers)*
