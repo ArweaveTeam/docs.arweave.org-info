@@ -230,6 +230,10 @@ You are now ready to run an Arweave node and commence packing partitions. After 
 **Tip:** You must **never** mine using the same mining address on two or more servers simultaneously without a proper CM Exit node. Failing to adhere to this guideline may result in slashed rewards and potentially block your address from mining on the network if both servers win a block at the same height.
 {% endhint %}
 
+{% hint style="warning" %}
+**Tip:** Avoid killing the arweave process if at all possible. I.e. **don't** do `kill -9 arweave` or `kill -9 beam` or `kill -9 erl`. To stop the arweave process, use `./bin/stop` and then wait for as long as you can for the node to shutdown gracefully. Sometimes if can take a while for the node to shutdown, which we realize is frustrating, but if you kill the node abruptly it can cause `rocksdb` corruption that can be difficult to recover from. In the worst case you may need to resync and repack a partition.
+{% endhint %}
+
 ### Coordinated Mining (CM) & Exit Node
 
 Coordinated mining is the method of having multiple servers use the same mining address to find solutions and mine blocks. In previous versions of Arweave, a single server would mine a single address, however the weave is now large enough that it often requires multiple servers to work together. The exit node is the gateway from which your mining solutions will be broadcast to the network. Each CM cluster has as many regular server nodes as required, but only one exit node. The exit node may or may not also be mining storage modules. For more information see the [Coordinated Mining Guide](coordinated-mining.md).

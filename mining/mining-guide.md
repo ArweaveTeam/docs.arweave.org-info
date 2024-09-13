@@ -171,6 +171,10 @@ Now you’re ready to start the mining process by running the following command 
 Replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to credit when you find a block!
 {% endhint %}
 
+{% hint style="warning" %}
+**Tip:** Avoid killing the arweave process if at all possible. I.e. **don't** do `kill -9 arweave` or `kill -9 beam` or `kill -9 erl`. To stop the arweave process, use `./bin/stop` and then wait for as long as you can for the node to shutdown gracefully. Sometimes if can take a while for the node to shutdown, which we realize is frustrating, but if you kill the node abruptly it can cause `rocksdb` corruption that can be difficult to recover from. In the worst case you may need to resync and repack a partition.
+{% endhint %}
+
 An example with several storage modules (covering partitions 21, 22, 23):
 
 ```
