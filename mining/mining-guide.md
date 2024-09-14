@@ -89,7 +89,7 @@ For example, to set up a storage module with the very first mining partition in 
 After creating the relevant folders for your chosen partitions, mount your drives onto them. E.g.,
 ```
 sudo mount /dev/sda [data_dir]/storage_modules/storage_module_0_[your_mining_address]
-sudo mount /dev/sda [data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address] // custom 2 tb partition size
+sudo mount /dev/sda [data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address]
 ```
 
 Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_dir]` - with the absolute path to your data folder, and `[your_mining_address]` - with your mining address.
