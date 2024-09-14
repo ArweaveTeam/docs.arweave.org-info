@@ -83,12 +83,13 @@ In order to mine in 2.6, your mining key needs to be present on your machine. If
 
 To maximize your mining efficiency, store data on 4 TB hard drives capable of reading about 200 MiB/s. It is fine to use faster disks, but the extra cost won't be justified.
 
-The first step is to create a folder inside `[data_dir]/storage_modules/` for each of the 4 TB disks you intend to mine with. The Arweave dataset is logically partitioned into a collection of 3.6 TB "mining partitions". Each 4 TB disk will store and mine one of these mining partitions. The partitions are indexed sequentially starting from 0, with 0 being the very first 3.6 TB worth of data stored on Arweave, and ranging to whatever the current mining partition count is. You can choose which mining partitions you store by indicating their index in the folder name. For example, to set up a storage module with the very first mining partition in the weave (packed with your mining address), create the folder \[data_dir]/storage_modules/storage_module_0\_\[your_mining_address].
+The first step is to create a folder inside `[data_dir]/storage_modules/` for each of the partisions that you intend to mine with. Partition folder names should use the following pattern: `storage_module[_partition_size]_[partition_index]_[your_mining_address]`. As you will see further, specifying `partition_size` is optional. The default partition size is 3.6 TB, as Arweave dataset is logically partitioned into collections of 3.6 TB "mining partitions". For any given `partition_size`, you should take into account around 10% metadata overhead (such as merkle proofs). Hence, for the default 3.6 TB `partition_size`, we recommend a 4 TB disk. The partitions are indexed sequentially starting from 0, with 0 being the very first 3.6 TB (or `partition_size`) worth of data stored on Arweave, and ranging to whatever the current mining partition count is. You can choose which mining partitions you store by indicating their `partition_index` in the folder name. 
+For example, to set up a storage module with the very first mining partition in the weave with the default 3.6 TB `partition_size` (packed with your mining address), create the folder such as `[data_dir]/storage_modules/storage_module_0_[your_mining_address]`. If you were to store 2 TB Partitions, create the folder such as: `[data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address]`.
 
-Mount your drives in the `[data_dir]/storage_modules` folder. E.g.,
-
+After creating the relevant folders for your chosen partitions, mount your drives onto them. E.g.,
 ```
 sudo mount /dev/sda [data_dir]/storage_modules/storage_module_0_[your_mining_address]
+sudo mount /dev/sda [data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address] // custom 2 tb partition size
 ```
 
 Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_dir]` - with the absolute path to your data folder, and `[your_mining_address]` - with your mining address.
@@ -96,7 +97,7 @@ Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_d
 If you have a drive already mounted elsewhere, you may create a symbolic link instead:
 
 ```
-ln -s [path/to/disk/folder] [data_dir]/storage_modules/storage_module_0_[your_mining_address]
+ln -s [path/to/disk/mountpoint] [data_dir]/storage_modules/storage_module_0_[your_mining_address]
 ```
 
 If you have a RAID setup with a lot of space, you can create a symlink link from the `[data_dir]/storage_modules` folder.
@@ -105,9 +106,10 @@ A few important notes about the storage modules:
 
 - Having two or more storage modules that store the same mining partition (say, the partition at index 0 more than once) with the same mining address does not increase your mining performance. Also, it is more profitable mine a complete replica (all mining partitions) of the weave packed with a single address than mine off an equal amount of data packed with different mining addresses. Currently, we only support one mining address per node.
 - If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter, copy the data, and restart the node with the `storage_module` parameter again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module. Do NOT mine on several nodes with the same mining address simultaneously (see the warning below.)
-- Make sure the disks with the storage modules have sufficient available space. The `disk_space` parameter does NOT apply to the storage modules. If you want to create a storage module on a disk smaller than 4 TB, specify a custom size for this module:\
-  `storage_module [number],[size],[mining_address]`\
-  The module will sync data with the weave offsets between `number * size` (in bytes) and `(number + 1) * size`. You also need to give some space to the filesystem, the merkle proofs, and some other metadata stored inside each storage module - about 10% of the configured storage module size.
+- Make sure the disks with the storage modules have sufficient available space for both the data iteself and metadata (10% of the size of the data). Note that `disk_space` command line parameter does NOT apply to the storage modules.
+- If you created storage modules with custom `partition_size` as mentioned above, make sure to specify the `partition_size` in your command line invocation as follow:\
+  `storage_module [partition_index],[partition_size],[your_mining_address]`\
+  The module will sync data with the weave offsets between `partition_index * partition_size` (in bytes) and `(partition_index + 1) * partition_size` at folder `[data_dir]/storage_modules/storage_module[_partition_size]_[partition_index]_[your_mining_address]`.
 - The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
 - If you do not mine off the full weave, the required disk read throughput is, on average, (100 + your weave share \* 100) MiB/s.
 
