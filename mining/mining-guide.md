@@ -113,7 +113,7 @@ A few important notes about the storage modules:
 - Make sure the disks with the storage modules have sufficient available space for both the data iteself and metadata (10% of the size of the data). Note that `disk_space` command line parameter does NOT apply to the storage modules.
 - If you created storage modules with custom `storage_module_size` as mentioned above, make sure to specify the `storage_module_size` in your command line invocation as follows:
   `storage_module [storage_module_index],[storage_module_size],[your_mining_address]`\
-  The module will sync data with the weave offsets between `partition_index * partition_size` (in bytes) and `(partition_index + 1) * partition_size` at folder `[data_dir]/storage_modules/storage_module[_partition_size]_[partition_index]_[your_mining_address]`.
+  The module will sync data with the weave offsets between `storage_module_index * storage_module_size` (in bytes) and `(storage_module_index + 1) * storage_module_size` at folder `[data_dir]/storage_modules/storage_module[_storage_module_size]_[storage_module_index]_[your_mining_address]`.
 - The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
 - If you do not mine off the full weave, the required disk read throughput is, on average, (100 + your weave share \* 100) MiB/s.
 
