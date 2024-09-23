@@ -50,49 +50,49 @@ On the client servers, you would use the `vdf_server_trusted_peer <Exit Node IP>
 
 ## Example CM Cluster
 
-- `10.0.0.100:1985`: CM Exit Node / VDF Forwarder
-- `10.0.0.101:1984`: CM Miner 1
-- `10.0.0.102:1983`: CM Miner 2
+- `10.0.0.100:1984`: CM Exit Node / VDF Forwarder
+- `10.0.0.101:1985`: CM Miner 1
+- `10.0.0.102:1986`: CM Miner 2
 
 ### CM Miner 1
 ```
 mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
 coordinated_mining \
-local_peer 10.0.0.100:1985 \
-local_peer 10.0.0.102:1983 \
-cm_peer 10.0.0.100:1985 \
-cm_peer 10.0.0.102:1983 \
+local_peer 10.0.0.100:1984 \
+local_peer 10.0.0.102:1986 \
+cm_peer 10.0.0.100:1984 \
+cm_peer 10.0.0.102:1986 \
 cm_api_secret arweave_is_great_right \
-cm_exit_peer 10.0.0.100:1985  \
-vdf_server_trusted_peer 10.0.0.100:1985
+cm_exit_peer 10.0.0.100:1984  \
+vdf_server_trusted_peer 10.0.0.100:1984
 ```
 
 ### CM Miner 2
 ```
 mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
 coordinated_mining \
-local_peer 10.0.0.100:1985 \
-local_peer 10.0.0.101:1984 \
-cm_peer 10.0.0.100:1985 \
-cm_peer 10.0.0.101:1984 \
+local_peer 10.0.0.100:1984 \
+local_peer 10.0.0.101:1985 \
+cm_peer 10.0.0.100:1984 \
+cm_peer 10.0.0.101:1985 \
 cm_api_secret arweave_is_great_right \
-cm_exit_peer 10.0.0.100:1985  \
-vdf_server_trusted_peer 10.0.0.100:1985
+cm_exit_peer 10.0.0.100:1984  \
+vdf_server_trusted_peer 10.0.0.100:1984
 ```
 
 ### CM Exit Node
 ```
 mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
 coordinated_mining \
-local_peer 10.0.0.100:1983 \
-local_peer 10.0.0.101:1984 \
-cm_peer 10.0.0.100:1983 \
-cm_peer 10.0.0.101:1984 \
+local_peer 10.0.0.100:1984 \
+local_peer 10.0.0.101:1985 \
+cm_peer 10.0.0.100:1984 \
+cm_peer 10.0.0.101:1985 \
 cm_api_secret arweave_is_great_right \
 vdf_server_trusted_peer vdf-server-3.arweave.xyz \
 vdf_server_trusted_peer vdf-server-4.arweave.xyz \
-vdf_client_peer 10.0.0.101:1984
-vdf_client_peer 10.0.0.102:1983
+vdf_client_peer 10.0.0.101:1985
+vdf_client_peer 10.0.0.102:1986
 ```
 
 ## Troubleshooting
@@ -109,9 +109,8 @@ Coordinated mining cluster stats:
 |      Peer       | H1 Out (Cur) | H1 Out (Avg) |  H1 In (Cur) | H1 In (Avg) | H2 Out | H2 In | 
 +-----------------+--------------+--------------+--------------+-------------+--------+-------+
 |             All | 	3714 h/s | 	   3733 h/s |	  3419 h/s |    3390 h/s |      0 |  	0 |
-| 10.0.0.100:1985 |      602 h/s |  	611 h/s | 	   559 h/s |     489 h/s |      0 |  	0 |
-| 10.0.0.101:1984 | 	1375 h/s | 	   1516 h/s |	  1336 h/s |    1397 h/s |      0 |  	0 |
-| 10.0.0.102:1983 | 	1736 h/s | 	   1606 h/s |	  1523 h/s |    1503 h/s |      0 |  	0 |
+| 10.0.0.100:1984 |      602 h/s |  	611 h/s | 	   559 h/s |     489 h/s |      0 |  	0 |
+| 10.0.0.102:1986 | 	1736 h/s | 	   1606 h/s |	  1523 h/s |    1503 h/s |      0 |  	0 |
 +-----------------+--------------+--------------+--------------+-------------+--------+-------+
 ```
 

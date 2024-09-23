@@ -274,6 +274,13 @@ mv /opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2
 - When launching your node you get an error that mentions a specific RocksDB database (e.g. `ar_data_sync_chunk_db`)
 - One solution is to attempt to repair the RocksDB
 
+Some context:
+- The RocksDB database are stored in 2 main locations:
+  - `/opt/data/storage_modules/<storage_module_name>/rocksdb/<db_name>`
+  - `/opt/data/rocksdb/<db_name>`
+- If you want to repair a different RocksDB, replace the RocksDB location in the exmaples below with the full path to the RocksDB you want to repair. For example:
+  - **ar_data_sync_db**: `/opt/data/storage_modules/storage_module_0_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI/rocksdb/ar_data_sync_db`
+  - **block_index_db**: `/opt/data/rocksdb/block_index_db`
 
 <details>
 <summary>Sample Directory Structure</summary>
@@ -282,7 +289,7 @@ mv /opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2
 - data_dir: /opt/data
 - Store module symlinks:
   - `/opt/data/storage_modules/storage_module_0_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI` ->  `/mnt/packed0`
-- RocksDB location:
+- `ar_data_sync_chunk_db` RocksDB location:
   - `/opt/data/storage_modules/storage_module_0_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI/rocksdb/ar_data_sync_chunk_db`
 
 </details>
