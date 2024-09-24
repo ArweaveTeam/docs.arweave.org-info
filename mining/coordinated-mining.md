@@ -55,7 +55,7 @@ On the client servers, you would use the `vdf_server_trusted_peer <Exit Node IP>
 - `10.0.0.102:1986`: CM Miner 2
 
 
-### CM Exit Node / CM Miner 0
+### CM Exit Node / VDF Forwarder / CM Miner 0
 ```
 mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
 coordinated_mining \
