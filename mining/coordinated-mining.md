@@ -84,10 +84,10 @@ vdf_server_trusted_peer 10.0.0.100:1984
 ```
 mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
 coordinated_mining \
-local_peer 10.0.0.100:1984 \
 local_peer 10.0.0.101:1985 \
-cm_peer 10.0.0.100:1984 \
+local_peer 10.0.0.102:1986 \
 cm_peer 10.0.0.101:1985 \
+cm_peer 10.0.0.102:1986 \
 cm_api_secret arweave_is_great_right \
 vdf_server_trusted_peer vdf-server-3.arweave.xyz \
 vdf_server_trusted_peer vdf-server-4.arweave.xyz \
