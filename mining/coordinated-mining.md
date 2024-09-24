@@ -50,9 +50,25 @@ On the client servers, you would use the `vdf_server_trusted_peer <Exit Node IP>
 
 ## Example CM Cluster
 
-- `10.0.0.100:1984`: CM Exit Node / VDF Forwarder
+- `10.0.0.100:1984`: CM Exit Node / VDF Forwarder / CM Miner 0
 - `10.0.0.101:1985`: CM Miner 1
 - `10.0.0.102:1986`: CM Miner 2
+
+
+### CM Exit Node / CM Miner 0
+```
+mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
+coordinated_mining \
+local_peer 10.0.0.101:1985 \
+local_peer 10.0.0.102:1986 \
+cm_peer 10.0.0.101:1985 \
+cm_peer 10.0.0.102:1986 \
+cm_api_secret arweave_is_great_right \
+vdf_server_trusted_peer vdf-server-3.arweave.xyz \
+vdf_server_trusted_peer vdf-server-4.arweave.xyz \
+vdf_client_peer 10.0.0.101:1985 \
+vdf_client_peer 10.0.0.102:1986
+```
 
 ### CM Miner 1
 ```
@@ -78,21 +94,6 @@ cm_peer 10.0.0.101:1985 \
 cm_api_secret arweave_is_great_right \
 cm_exit_peer 10.0.0.100:1984  \
 vdf_server_trusted_peer 10.0.0.100:1984
-```
-
-### CM Exit Node
-```
-mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
-coordinated_mining \
-local_peer 10.0.0.101:1985 \
-local_peer 10.0.0.102:1986 \
-cm_peer 10.0.0.101:1985 \
-cm_peer 10.0.0.102:1986 \
-cm_api_secret arweave_is_great_right \
-vdf_server_trusted_peer vdf-server-3.arweave.xyz \
-vdf_server_trusted_peer vdf-server-4.arweave.xyz \
-vdf_client_peer 10.0.0.101:1985
-vdf_client_peer 10.0.0.102:1986
 ```
 
 ## Troubleshooting
