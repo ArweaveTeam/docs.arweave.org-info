@@ -91,17 +91,21 @@ No, Arweave uses Randomx for packing and mining. RandomX is an ASIC and GPU resi
 
 ### What’s the best hard drive to use?
 
-Any enterprise level hard drive that reads at least an average of 200 MiB/s is sufficient, but do not use an SSD as it will not be cost effective.
+Any enterprise level hard drive that can sustain the read rates required for your configuration. See [this table](mining-guide.md#Preparation-Packing-Format) for the read speeds required per partition of packed data. Storing more partitionson a single disk will require a higher sustained read rate.In general an SSD will not be cost effective.
 
 See the [Hardware Guide](hardware.md) and the [Quickstart Guide](mining-quickstart.md) for more information.
-
-### What size of drive should I use?
-
-Your drive should have at least 4TB in size, but you can use a larger drive if you wish. This may be done to increase your read speed, but please note, you currently may not have more than one storage module mining from a single hard drive due to read performance requirements.
 
 ### Is one storage module worth more than another?
 
 Not at this time, but some contain more data than others, so if you have a limited amount of hard drives available, pack the fullest storage modules first. For more information on storage module sizes, see the [Syncing and Packing Guide](syncing-packing.md)
+
+### I see there are several packing formats available, what are the trade-offs?
+
+As of Arweave 2.8 there are two main packing formats available, `spora_2_6` and `composite`. The `composite` format is further specified by a packing difficulty. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for more information.
+
+All packing formats provide the same maximum hashrate. A miner who has packed a full replica to `spora_2_6` will have the same hashrate as a miner who has packed a full replica to `composite.1` or `composite.32` - provided both miners are able to read the packed data and peform all hashes at the required rate.
+
+`spora_2_6` is deprecated and will stop being usable toward the end of 2028. For all new packs we recommend using the `composite` format. The lower read rates that a `composite` packing allows will reduce the hardware resources used during mining (larger disks, lower disk read rate, lower CPU and RAM utilization).
 
 ### How much space should I allocate to my `data_dir`?
 

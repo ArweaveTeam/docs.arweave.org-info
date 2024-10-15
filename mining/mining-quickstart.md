@@ -2,6 +2,11 @@
 
 **Original Author: @Thaseus**
 
+{% hint style="warning" %}
+The following guide assumes all data is packed using the deprecated `spora_2_6` format, which requires a read rate of 200 MiB/s per partition. For all new packs we recommend using the `composite` format which allows a lower read rate per partition (see [Packing Format](mining-guide.md#Preparation-Packing-Format) for more information). 
+
+This guide should be updated in the future to provide guidance for `composite` format packs.
+{% endhint %}
 ## Introduction
 
 Welcome to the Arweave Quickstart Mining Guide.This guide will give you a solid base to start packing and mining on Arweave, along with basic hardware selection. This guide assumes you are familiar with Ubuntu, Linux basics, and the general hardware required. More in-depth details to follow as we add new sections to the Official mining guide.

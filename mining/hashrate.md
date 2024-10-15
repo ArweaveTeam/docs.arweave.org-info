@@ -4,6 +4,12 @@
 
 A guide to understanding the fundamentals of AR hashrate and its many variables
 
+{% hint style="warning" %}
+The following guide assumes all data is packed using the deprecated `spora_2_6` format, which requires a read rate of 200 MiB/s per partition. For all new packs we recommend using the `composite` format which allows a lower read rate per partition (see [Packing Format](mining-guide.md#Preparation-Packing-Format) for more information). 
+
+This guide should be updated in the future to provide guidance for `composite` format packs.
+{% endhint %}
+
 ## Preface
 
 This guide provides general information regarding hashrate estimations and discusses the various factors that influence these hashrates. The details presented here are accurate for version 2.7.4 (August 2024). As AR mining evolves, fundamentals may change; every effort will be made to keep this document current.

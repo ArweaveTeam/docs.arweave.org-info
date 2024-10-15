@@ -18,9 +18,9 @@ There are 2 phases to Arweave mining:
 
 This build guide will focus on the mining phase.
 
-The Arweave dataset (called the "weave") is broken up into 3.6TB partitions (3,600,000,000,000 bytes). There are 50 partitions as of March, 2024, although that will grow over time as users upload more data. **The Arweave protocol provides a strong incentive to mine against the complete dataset or multiple copies of the complete dataset (called "full replicas").**
+The Arweave dataset (called the "weave") is broken up into 3.6TB partitions (3,600,000,000,000 bytes). There are 61 partitions as of October, 2024, although that will grow over time as users upload more data. **The Arweave protocol provides a strong incentive to mine against the complete dataset or multiple copies of the complete dataset (called "full replicas").**
 
-A full replica miner can opt for a single node that reads from all 50 partitions, or they can operate several nodes that each read from a subset of the data and coordinate with each other to assemble a full replica. This is called "coordinated mining". In all cases the primary bottleneck is typically disk read bandwidth: you will need to maintain an average read throughput of at least 200 MB/s for each 3.6TB partition.
+A full replica miner can opt for a single node that reads from all 61 partitions, or they can operate several nodes that each read from a subset of the data and coordinate with each other to assemble a full replica. This is called "coordinated mining". In all cases the primary bottleneck is typically disk read bandwidth. You will need to retain the average read throughput required by your chosen packing format for each partition stored. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for information about the read rate required per partition for each of the different packing formats.
 
 Below we'll outline the main considerations when building your miner, and provide an example configuration. 
 
@@ -29,6 +29,12 @@ Mining configurations vary tremendously from miner to miner, and we're not yet a
 {% endhint %}
 
 ## Mining Platform
+
+{% hint style="warning" %}
+The following guide assumes all data is packed using the deprecated `spora_2_6` format. For all new packs we recommend using the `composite` format. The lower read rates that a `composite` packing allows will reduce the hardware resources used during mining (larger disks, lower disk read rate, lower CPU and RAM utilization). 
+
+This guide should be updated in the future to provide guidance for `composite` format packs.
+{% endhint %}
 
 There are 2 possible mining configurations:
 
