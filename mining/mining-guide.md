@@ -95,7 +95,7 @@ Before you can configure your storage you'll have to decide on a packing format.
 
 If we assume that a good quality enterprised hard disk drive can sustain 200 MiB/s read rate, then with `spora_2_6` you could only store a single 4TB partition per 4TB HDD. However with `composite.1` you could conceivably store and mine 4x 4TB partitions on a single 16TB HDD. Or, if you find that your configuration can't sustain a 200 MiB/s read rate for each drive, you could pack to a higher difficulty level to lower the required read rate.
 
-Note: the effective hashrate for all packing formats is the same. A miner who has packed a full replica to spora_2_6 or composite.1 or composite.32 can expect to find the same number of blocks on average.
+Note: The effective hashrate for a full replica packed to any of the supported packing formats is the same. A miner who has packed a full replica to `spora_2_6` or `composite.1` or `composite.32` can expect to find the same number of blocks on average, but with the higher difficulty miner reading fewer chunks from their storage per second. This allows the miner to use larger hard drives in their setup, without increasing the necessary bandwidth between disk and CPU.
 
 Also note: When mining, all storage modules within the same replica must be packed to the same packing format and difficulty level. For example, a single miner will not be able to build a solution involving chunks from `storage_module_1_addr.1` and `storage_module_2_addr.2` even if the packing address is the same.
 
