@@ -17,7 +17,7 @@ from which to download the missing data.
 ## Packing
 
 Storage modules can be either "unpacked" (e.g. `storage_module 16,unpacked`) or "packed"
-(e.g. `storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`). Before you can mine
+(e.g. `storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.1`). Before you can mine
 data it must be packed to your mining address. There are two symmetric operations that
 fall under the "packing" umbrella:
 
@@ -26,6 +26,8 @@ fall under the "packing" umbrella:
 
 Both operations consume roughly the same amount of computational power. See the
 [benchmarking guide](hardware.md#benchmarking-your-miner) for more details.
+
+As of Arweave 2.8 there are two main packing formats available, `spora_2_6` and `composite`. The `composite` format is further specified by a packing difficulty. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for more information. For new packs we recommend using the `composite` format.
 
 **Note:** You will almost always have to **unpack** data when syncing it. Whichever
 peer you sync the data from will likely return it to you packed to its own address. Before
@@ -292,8 +294,8 @@ it begins searching for peers to download more data from. If you'd rather focus 
 just make sure to configure your node without any repacking. Two examples of configurations
 that will cause local repacking:
 
-1. `storage_module 9,unpacked storage_module 9,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
-2. `storage_module 16,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
+1. `storage_module 9,unpacked storage_module 9,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.1`
+2. `storage_module 16,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY.1 storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.1`
 
 **Note:** [as mentioned earlier](#packing), whenever you sync data - even if you are syncing to
 `unpacked` - you will likely have to perform at least one packing operation. 
