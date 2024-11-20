@@ -11,7 +11,7 @@ description: >-
 - Your mining address is **not** a private key - it is a public address
 - When mining, only nodes that will sign blocks need to have a private key / wallet.json stored locally
 - If your node will be part of a coordinated mining cluster (and is not the exit node) or is mining as part of a pool, it will never need your private key stored locally
-- For the following examples we will alway use `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI` and `Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY` as mining addresses. **Replace them with your own address(es) before running the sample commands.**
+- For the following examples we will always use `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI` and `Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY` as mining addresses. **Replace them with your own address(es) before running the sample commands.**
 {% endhint %}
 
 ## Syncing and Packing
@@ -104,7 +104,7 @@ description: >-
 ### Situation
 - You've downloaded 4 partitions of unpacked data
 - You want to pack it so you can mine against it
-- You've downloaded the unpacked partitiona to an 18TB disk
+- You've downloaded the unpacked partition to an 18TB disk
 - You'll pack the data to 4TB disks using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
 - You'll use the `composite` packing format with a packing difficulty of `1`
 - **NOTE** It's best **not** to mine while you pack. The two processes are both resource intensive and will slow each other down. (i.e. omit the `mine` flag from your configuration)

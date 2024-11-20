@@ -14,7 +14,7 @@ It is important that *only* the exit node broadcast solutions from your CM clust
 
 ## CM Basics
 
-All nodes in the cluster share the same mining address and packing format (e.g. all nodes use `spora_2_6` packing or `composite` packing with the same packing difficulty). Each Miner generates H1 hashes for the partitions they store. Occasionally they will need an H2 for a packed partition they don't store. In this case, they can find another miner in the coordinated mining cluster who does store the required partition packed with the required address, send them the H1 and ask them to calculate the H2. When a valid solution is found (either one- or two-chunk) the solution is sent to the Exit Node. Since the Exit Node is the sole node in the coordinated mining cluster which publishes blocks, there's no risk of "double signing" causing you address to be banned and your pending rewards slashed. Every node in the coordinated mining cluster will still peer with any other nodes on the network as normal.
+All nodes in the cluster share the same mining address and packing format (e.g. all nodes use `spora_2_6` packing or `composite` packing with the same packing difficulty). Each Miner generates H1 hashes for the partitions they store. Occasionally they will need an H2 for a packed partition they don't store. In this case, they can find another miner in the coordinated mining cluster who does store the required partition packed with the required address, send them the H1 and ask them to calculate the H2. When a valid solution is found (either one- or two-chunk) the solution is sent to the Exit Node. Since the Exit Node is the sole node in the coordinated mining cluster which publishes blocks, there's no risk of "double signing" causing your address to be banned and your pending rewards slashed. Every node in the coordinated mining cluster will still peer with any other nodes on the network as normal.
 
 ## VDF Forwarding
 
@@ -27,8 +27,8 @@ On the client servers, you would use the `vdf_server_trusted_peer <Exit Node IP>
 
 - `coordinated_mining`:  Enables coordinated mining mode
 - `local_peer IP:Port`: Registers a node as a local peer which disables rate limiting
-  - While this is not specifically a CM command, it corrects an edge case which may cause rate limiting between CM cluster membe. This is useful for all nodes you operate
-- `cm_peer IP:Port`:  Registers a node as a CM peer and allow sharing H1 and H2 hashes between them
+  - While this is not specifically a CM command, it corrects an edge case which may cause rate limiting between CM cluster members. This is useful for all nodes you operate
+- `cm_peer IP:Port`:  Registers a node as a CM peer and allows sharing H1 and H2 hashes between them
   - Each peer will have to include this flag for each other node in the cluster
 - `cm_api_secret your_secret_12_char_string`: This is the password for your CM cluster, each node must have the same password
 - `cm_exit_peer IP:Port`: This flag must be included on all nodes except for the exit peer
