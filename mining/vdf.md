@@ -51,7 +51,7 @@ Make sure every client node is reachable from its VDF servers - they are in the 
 
 {% hint style="info" %}
 The team operates 2 VDF servers that can be used by any miner that wants to:
-- `vdf-server-3.arwave.xyz`
+- `vdf-server-3.arweave.xyz`
 - `vdf-server-4.arweave.xyz`
 
 To configure your miner to use the team VDF servers:

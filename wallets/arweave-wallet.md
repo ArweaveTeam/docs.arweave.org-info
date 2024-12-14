@@ -56,7 +56,7 @@ _\*\*\*\*_
 
 ## **New Users: Managing your key pairs**
 
-In addition to downloading the key file to your computer/hard drive, a copy of the file will also exist in local storage for the arwave.app page. Don’t worry though, your browser storage is secure and there are lots of mechanisms to stop malicious content (like websites and other extensions) from accessing it. However this doesn't stop someone with physical access to your machine from using your wallets. Once you've stored the passphrase and/or key file for your wallet key pair you can safely delete them from the arwave.app wallet app, knowing you can re-add them later. It's a good idea not to keep wallet key pairs with a lot of AR tokens in the arweave.app wallet for this reason.
+In addition to downloading the key file to your computer/hard drive, a copy of the file will also exist in local storage for the arweave.app page. Don’t worry though, your browser storage is secure and there are lots of mechanisms to stop malicious content (like websites and other extensions) from accessing it. However this doesn't stop someone with physical access to your machine from using your wallets. Once you've stored the passphrase and/or key file for your wallet key pair you can safely delete them from the arweave.app wallet app, knowing you can re-add them later. It's a good idea not to keep wallet key pairs with a lot of AR tokens in the arweave.app wallet for this reason.
 
 ## **Existing Users: Loading Your Wallet**
 
