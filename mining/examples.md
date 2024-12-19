@@ -52,6 +52,11 @@ description: >-
     peer fra-1.eu-central-2.arweave.xyz
     peer sfo-1.na-west-1.arweave.xyz \
     peer sgp-1.ap-central-2.arweave.xyz \
+    peer vin-1.east.us.north-america.arweave.xyz \
+    peer sin-1.sg.asia.arweave.xyz \
+    peer hil-1.west.us.north-america.arweave.xyz \
+    peer lim-1.de.europe.arweave.xyz \
+    peer fsn-1.de.europe.arweave.xyz \
     data_dir /opt/data \
     sync_jobs 200 \
     mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
@@ -76,7 +81,12 @@ description: >-
       "blr-1.ap-central-1.arweave.xyz",
       "fra-1.eu-central-2.arweave.xyz",
       "sfo-1.na-west-1.arweave.xyz",
-      "sgp-1.ap-central-2.arweave.xyz"
+      "sgp-1.ap-central-2.arweave.xyz",
+      "vin-1.east.us.north-america.arweave.xyz",
+      "sin-1.sg.asia.arweave.xyz",
+      "hil-1.west.us.north-america.arweave.xyz",
+      "lim-1.de.europe.arweave.xyz",
+      "fsn-1.de.europe.arweave.xyz"
     ],
 
     "data_dir": "/opt/data",
@@ -141,6 +151,11 @@ description: >-
     peer fra-1.eu-central-2.arweave.xyz
     peer sfo-1.na-west-1.arweave.xyz \
     peer sgp-1.ap-central-2.arweave.xyz \
+    peer vin-1.east.us.north-america.arweave.xyz \
+    peer sin-1.sg.asia.arweave.xyz \
+    peer hil-1.west.us.north-america.arweave.xyz \
+    peer lim-1.de.europe.arweave.xyz \
+    peer fsn-1.de.europe.arweave.xyz \
     data_dir /opt/data \
     sync_jobs 200 \
     mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
@@ -165,7 +180,12 @@ description: >-
       "blr-1.ap-central-1.arweave.xyz",
       "fra-1.eu-central-2.arweave.xyz",
       "sfo-1.na-west-1.arweave.xyz",
-      "sgp-1.ap-central-2.arweave.xyz"
+      "sgp-1.ap-central-2.arweave.xyz",
+      "vin-1.east.us.north-america.arweave.xyz",
+      "sin-1.sg.asia.arweave.xyz",
+      "hil-1.west.us.north-america.arweave.xyz",
+      "lim-1.de.europe.arweave.xyz",
+      "fsn-1.de.europe.arweave.xyz"
     ],
 
     "data_dir": "/opt/data",
@@ -225,6 +245,11 @@ description: >-
     peer fra-1.eu-central-2.arweave.xyz \
     peer sfo-1.na-west-1.arweave.xyz \
     peer sgp-1.ap-central-2.arweave.xyz \
+    peer vin-1.east.us.north-america.arweave.xyz \
+    peer sin-1.sg.asia.arweave.xyz \
+    peer hil-1.west.us.north-america.arweave.xyz \
+    peer lim-1.de.europe.arweave.xyz \
+    peer fsn-1.de.europe.arweave.xyz \
     data_dir /opt/data \
     sync_jobs 200 \
     mining_addr Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY \
@@ -245,7 +270,12 @@ description: >-
       "blr-1.ap-central-1.arweave.xyz",
       "fra-1.eu-central-2.arweave.xyz",
       "sfo-1.na-west-1.arweave.xyz",
-      "sgp-1.ap-central-2.arweave.xyz"
+      "sgp-1.ap-central-2.arweave.xyz",
+      "vin-1.east.us.north-america.arweave.xyz",
+      "sin-1.sg.asia.arweave.xyz",
+      "hil-1.west.us.north-america.arweave.xyz",
+      "lim-1.de.europe.arweave.xyz",
+      "fsn-1.de.europe.arweave.xyz"
     ],
 
     "data_dir": "/opt/data",
@@ -308,6 +338,11 @@ mv /opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2
     peer fra-1.eu-central-2.arweave.xyz \
     peer sfo-1.na-west-1.arweave.xyz \
     peer sgp-1.ap-central-2.arweave.xyz \
+    peer vin-1.east.us.north-america.arweave.xyz \
+    peer sin-1.sg.asia.arweave.xyz \
+    peer hil-1.west.us.north-america.arweave.xyz \
+    peer lim-1.de.europe.arweave.xyz \
+    peer fsn-1.de.europe.arweave.xyz \
     data_dir /opt/data \
     vdf_client_peer 1.2.3.4 \
     vdf_client_peer 5.6.7.8 \
@@ -326,7 +361,12 @@ mv /opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2
       "blr-1.ap-central-1.arweave.xyz",
       "fra-1.eu-central-2.arweave.xyz",
       "sfo-1.na-west-1.arweave.xyz",
-      "sgp-1.ap-central-2.arweave.xyz"
+      "sgp-1.ap-central-2.arweave.xyz",
+      "vin-1.east.us.north-america.arweave.xyz",
+      "sin-1.sg.asia.arweave.xyz",
+      "hil-1.west.us.north-america.arweave.xyz",
+      "lim-1.de.europe.arweave.xyz",
+      "fsn-1.de.europe.arweave.xyz"
     ],
     "data_dir": "/opt/data",
     "vdf_client_peers": [

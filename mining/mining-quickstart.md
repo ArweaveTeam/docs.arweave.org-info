@@ -256,6 +256,11 @@ peer fra-1.eu-central-2.arweave.xyz \
 peer sgp-1.ap-central-2.arweave.xyz \
 peer ams-1.eu-central-1.arweave.xyz \
 peer blr-1.ap-central-1.arweave.xyz \
+peer vin-1.east.us.north-america.arweave.xyz \
+peer sin-1.sg.asia.arweave.xyz \
+peer hil-1.west.us.north-america.arweave.xyz \
+peer lim-1.de.europe.arweave.xyz \
+peer fsn-1.de.europe.arweave.xyz \
 vdf_server_trusted_peer vdf-server-3.arweave.xyz \
 vdf_server_trusted_peer vdf-server-4.arweave.xyz \
 data_dir /opt/data_dir \
@@ -285,6 +290,11 @@ peer fra-1.eu-central-2.arweave.xyz \
 peer sgp-1.ap-central-2.arweave.xyz \
 peer ams-1.eu-central-1.arweave.xyz \
 peer blr-1.ap-central-1.arweave.xyz \
+peer vin-1.east.us.north-america.arweave.xyz \
+peer sin-1.sg.asia.arweave.xyz \
+peer hil-1.west.us.north-america.arweave.xyz \
+peer lim-1.de.europe.arweave.xyz \
+peer fsn-1.de.europe.arweave.xyz \
 local_peer 10.0.0.4:1984 \
 local_peer 10.0.0.3:1983 \
 local_peer 10.0.0.2:1982 \

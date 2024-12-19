@@ -188,8 +188,26 @@ For more information on VDF, including connecting to a VDF server or running you
 Now you’re ready to start the mining process by running the following command from the Arweave directory. An example with one storage module (covering partition 0):
 
 ```
-./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable randomx_large_pages peer ams-1.eu-central-1.arweave.xyz peer fra-1.eu-central-2.arweave.xyz peer sgp-1.ap-central-2.arweave.xyz peer blr-1.ap-central-1.arweave.xyz peer sfo-1.na-west-1.arweave.xyz debug mine storage_module 0,YOUR-MINING-ADDRESS.1
+./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable randomx_large_pages peer ams-1.eu-central-1.arweave.xyz peer fra-1.eu-central-2.arweave.xyz peer sgp-1.ap-central-2.arweave.xyz peer blr-1.ap-central-1.arweave.xyz peer sfo-1.na-west-1.arweave.xyz peer vin-1.east.us.north-america.arweave.xyz peer sin-1.sg.asia.arweave.xyz peer hil-1.west.us.north-america.arweave.xyz peer lim-1.de.europe.arweave.xyz peer fsn-1.de.europe.arweave.xyz debug mine storage_module 0,YOUR-MINING-ADDRESS.1
 ```
+
+### Trusted peers
+
+When your node first connects to the network it does so through a set of "trusted peers". These are nodes that you specify using the `peer` flag. Your node queries its trusted peers for the recent blockchain data. It's important to only specify nodes you trust, but since your node will validate the data it receives from these peers the potential for abuse is minimal.
+
+If you operate multiple nodes yourself you can have your own nodes specify each other as trusted peers. Although it's important to also include some external nodes as well in case all of your nodes go offline at once.
+
+The Digital History Association operates a set of nodes that can be used as trusted peers:
+- `ams-1.eu-central-1.arweave.xyz`
+- `blr-1.ap-central-1.arweave.xyz`
+- `fra-1.eu-central-2.arweave.xyz`
+- `sfo-1.na-west-1.arweave.xyz`
+- `sgp-1.ap-central-2.arweave.xyz`
+- `vin-1.east.us.north-america.arweave.xyz`
+- `sin-1.sg.asia.arweave.xyz`
+- `hil-1.west.us.north-america.arweave.xyz`
+- `lim-1.de.europe.arweave.xyz`
+- `fsn-1.de.europe.arweave.xyz`
 
 {% hint style="warning" %}
 Replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to credit when you find a block!
@@ -202,7 +220,7 @@ Replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to
 An example with several storage modules (covering partitions 21, 22, 23):
 
 ```
-./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable randomx_large_pages peer ams-1.eu-central-1.arweave.xyz peer fra-1.eu-central-2.arweave.xyz peer sgp-1.ap-central-2.arweave.xyz peer blr-1.ap-central-1.arweave.xyz peer sfo-1.na-west-1.arweave.xyz debug mine storage_module 21,YOUR-MINING-ADDRESS.1 storage_module 22,YOUR-MINING-ADDRESS.1 storage_module 23,YOUR-MINING-ADDRESS.1
+./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable randomx_large_pages peer ams-1.eu-central-1.arweave.xyz peer fra-1.eu-central-2.arweave.xyz peer sgp-1.ap-central-2.arweave.xyz peer blr-1.ap-central-1.arweave.xyz peer sfo-1.na-west-1.arweave.xyz peer vin-1.east.us.north-america.arweave.xyz peer sin-1.sg.asia.arweave.xyz peer hil-1.west.us.north-america.arweave.xyz peer lim-1.de.europe.arweave.xyz peer fsn-1.de.europe.arweave.xyz debug mine storage_module 21,YOUR-MINING-ADDRESS.1 storage_module 22,YOUR-MINING-ADDRESS.1 storage_module 23,YOUR-MINING-ADDRESS.1
 ```
 
 For more examples see: [Mining Examples](examples.md)
