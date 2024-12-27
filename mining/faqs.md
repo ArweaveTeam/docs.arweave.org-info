@@ -25,7 +25,7 @@ However, if you choose to not store a full weave, I would suggest using [Vird’
 
 ### How do I see my mining performance?
 
-When you run your miner it will periodically bring a Mining Performance Report to the console. You can read more about the Mining Performance Report [here](mining-quickstart.md#mining-screen-metrics). If your node is syncing the weave it will display 0 h/s but will go up over time.
+When you run your miner it will periodically print a Mining Performance Report to the console. You can read more about the Mining Performance Report [here](mining-quickstart.md#mining-screen-metrics). If your node is syncing the weave it will display 0 h/s but will go up over time.
 
 You can also use Prometheus and Grafana as described in the [Metrics Guide](metrics.md).
 
