@@ -1,7 +1,7 @@
 # Operating a node with TLS enabled
 
 {% hint style="info" %}
-Troughout this article the terms miner and node are used interchangably. Traditionally when refering to a node, it means an arweave-server that isn't mining but has joined the arweave network. All miners are nodes but not all nodes are miners. In the context of TLS support, a miner vs node differences are irrelevant.
+Throughout this article the terms miner and node are used interchangeably. Traditionally when referring to a node, it means an arweave-server that isn't mining but has joined the arweave network. All miners are nodes but not all nodes are miners. In the context of TLS support, a miner vs node differences are irrelevant.
 {% endhint %}
 
 Using TLS/HTTPS protocol is not necessary to have when operating a miner/node, in fact most miners don't use it.
@@ -11,7 +11,7 @@ This article handles the limited (but usable) support that arweave-server itself
 
 ## Generating TLS certificates using certbot
 
-Using the certbot command line tool to generate certificates is a nice free way to get browser compatable certificates. Self-signed TLS certificates via `openssl` or `mkcert` are also viable options.
+Using the certbot command line tool to generate certificates is a nice free way to get browser compatible certificates. Self-signed TLS certificates via `openssl` or `mkcert` are also viable options.
 
 Seen in the screenshot below, it's not necessary to use nginx as certbot can start a python http server to perform the verification procedure. But whatever works for you, please use.
 

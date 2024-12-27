@@ -27,7 +27,7 @@ On the client servers, you would use the `vdf_server_trusted_peer <Exit Node IP>
 
 - `coordinated_mining`:  Enables coordinated mining mode
 - `local_peer IP:Port`: Registers a node as a local peer which disables rate limiting
-  - While this is not specifically a CM command, it corrects an edge case which may cause rate limiting between CM cluster membe. This is useful for all nodes you operate
+  - While this is not specifically a CM command, it corrects an edge case which may cause rate limiting between CM cluster member. This is useful for all nodes you operate
 - `cm_peer IP:Port`:  Registers a node as a CM peer and allow sharing H1 and H2 hashes between them
   - Each peer will have to include this flag for each other node in the cluster
 - `cm_api_secret your_secret_12_char_string`: This is the password for your CM cluster, each node must have the same password

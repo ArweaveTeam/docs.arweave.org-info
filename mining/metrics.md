@@ -140,7 +140,7 @@ This panel tracks the average latency of `GET /chunk2` requests to peers.
 
 **Debugging**: If you believe your sync rate is too slow, consulting this graph might explain
 why. The node should detect and adjust to high latencies by selecting different peers. But it
-can take some time to find new peers - during this period syncin/packing rate may dip.
+can take some time to find new peers - during this period syncing/packing rate may dip.
 
 ## Total Chunks Written
 
@@ -214,13 +214,13 @@ tracks how many of those chunks are currently cached. The cache has a size limit
 is printed periodically by your node (to the console and to the logs), and can be set
 using the `mining_server_chunk_cache_size_limit` launch parameter.
 
-**Debugging**: If your chunk cache size is sonsistently at or above the limit, your miner
+**Debugging**: If your chunk cache size is consistently at or above the limit, your miner
 is not able to keep up with its optimal mining rate. This can be for a number of reason,
 however one thing you can try is increasing the `mining_server_chunk_cache_size_limit`. If
 your miner is only temporarily falling behind (e.g. due to other processes running and
 stealing CPU or disk bandwidth), an increased cache can allow your miner to "catch up".
 
-Note: increaseing the cache size limit may increase your node's memory usage which can
+Note: increasing the cache size limit may increase your node's memory usage which can
 negatively impact performance if you are running near your system's memory limit.
 
 ## HTTP Requests Debug Metrics
@@ -237,7 +237,7 @@ request per type.
 
 **Debugging**: These charts can help you identify activity that could be impacting your
 performance (e.g. mining, syncing, packing). For example a spike in `POST /tx2` or `GET /tx`
-might correspond to a period of high Arweave nework activity. Or a high total latency servicing
+might correspond to a period of high Arweave network activity. Or a high total latency servicing
 `GET /chunk2` might indicate that your node is serving a lot of chunks to peers. Depending
 on the type of activity and how strongly it is impacting your node performance, you can
 take different actions.
@@ -283,7 +283,7 @@ This panel tracks the memory used per Erlang process.
 
 ### Message Queue
 
-**Metric**: `proces_info{type="message_queue"}`
+**Metric**: `process_info{type="message_queue"}`
 
 This panel tracks the number of messages stored in each erlang process's message queue.
 Erlang processes can be thought of as threads without shared memory. They send messages to

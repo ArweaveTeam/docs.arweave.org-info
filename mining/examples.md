@@ -114,7 +114,7 @@ description: >-
 ### Situation
 - You've downloaded 4 partitions of unpacked data
 - You want to pack it so you can mine against it
-- You've downloaded the unpacked partitiona to an 18TB disk
+- You've downloaded the unpacked partitions to an 18TB disk
 - You'll pack the data to 4TB disks using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
 - You'll use the `composite` packing format with a packing difficulty of `1`
 - **NOTE** It's best **not** to mine while you pack. The two processes are both resource intensive and will slow each other down. (i.e. omit the `mine` flag from your configuration)
