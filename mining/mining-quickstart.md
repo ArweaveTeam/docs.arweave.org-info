@@ -79,7 +79,7 @@ The VDF (Verifiable Delay Function) releases new mining "seeds" roughly every se
 
 For simplicity, we will refer to the computers used for mining as "servers" or "miners." It is worth noting that success has been achieved using both consumer/PC and enterprise/server components.
 
-Unlike a Bitcoin ASIC, there are many server variations capable of packing and mining Arweave. Many miners need at least 3 to 4 servers to mine the full weave (58 partitions as of Auguest 2024). However it is possible to mine the full weave on a single server. 
+Unlike a Bitcoin ASIC, there are many server variations capable of packing and mining Arweave. Many miners need at least 3 to 4 servers to mine the full weave (58 partitions as of August 2024). However it is possible to mine the full weave on a single server. 
 
 Unfortunately, the optimal number of partitions that can be efficiently mined with a given CPU is not yet fully established for all CPU’s. For instance, an AMD 3900x can easily mine 16 partitions, while a 7900x can mine at least 24, possibly more. CPU cores are critical; the more cores, the faster you can pack data and **typically** the more partitions you can mine on a single PC. Ongoing testing aims to determine the maximum capacities for various reference systems. Several factors influence the maximum number of partitions that can be mined optimally from a single system. Attempting to mine with too many hard drives on a single server will reduce your hashrate due to various limitations. You will likely need to test and optimize your configuration.
 

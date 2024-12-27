@@ -1,6 +1,6 @@
 ---
 description: >-
-  This is a steb-by-step guide about setting up the ArConnect webextension wallet for Arweave.
+  This is a step-by-step guide about setting up the ArConnect webextension wallet for Arweave.
 ---
 
 # ArConnect
@@ -29,7 +29,7 @@ As a webextension, ArConnect needs to be installed in your browser in order to w
   </tr>
 </table>
 
-2. Once you're in the setup, you're going to see something simular to the picture below. Here you'll need to create a password. Fill out the password inputs and click "Create".
+2. Once you're in the setup, you're going to see something similar to the picture below. Here you'll need to create a password. Fill out the password inputs and click "Create".
    ![ArConnect Welcome Screen](../.gitbook/assets/arconnect_welcome_screen.png)
 
 3. On the next screen, click the "New Wallet" button to generate an empty wallet. If you already have an Arweave wallet seedphrase or keyfile, you can also click "Load Wallet" and follow the instructions there.

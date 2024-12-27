@@ -59,7 +59,7 @@ The data stored may be packed or unpacked - and the two formats will often take 
 **different** amount of space. For this reason we suggest you rely on the
 `v2_index_data_size_by_packing` metric in order to track the amount of data that you have
 synced. Diskspace measuring tools (e.g. `du`, `ls -l`) will not be able to give an accurate
-measurment of the amount of weave data synced.
+measurement of the amount of weave data synced.
 
 For reasons [explained below](#partitions-are-rarely-full) you will rarely be able to sync a
 full 3.6TB partition. However,
@@ -115,7 +115,7 @@ This indicates that the node has:
 - **3,416,679,514,112 bytes (3.4TB, 3.1TiB)** synced for partition 38
   - 3,416,679,514,112 = **102,557,810,6880 + 119,555,070,3616 + 119,555,070,3616**
   - it is stored **packed** on disk and may take up **more** than 3.1TB of disk space
-- **2,571,878,652,607 bytes (2.6TB, 2.3TiB)** of weave synced for partiion 8
+- **2,571,878,652,607 bytes (2.6TB, 2.3TiB)** of weave synced for partition 8
   - it is stored **unpacked** on disk and may take up **more or less** than 2.5TB of disk space
 - The `default` partition is a temporary staging partition and can be ignored
 
@@ -152,7 +152,7 @@ The important bits:
 1. Both in practice and based on economic models: sacrifice mining is not profitable. The cost
 to reserve space on the weave exceeds the incremental revenue a miner can hope to get from the
 additional hashrate. The payback period for the initial investment is long and gets longer
-as the weave grows - in practice it is likely that a miner is never able to recoupe their
+as the weave grows - in practice it is likely that a miner is never able to recoup their
 initial investment.
 2. Putting aside the profitability of sacrifice mining, it is ultimately good for the network
 as a whole. Sam breaks down why this is in his [thread](https://twitter.com/samecwilliams/status/1374062282817290247).
@@ -186,7 +186,7 @@ practice this gets less and less likely the older a partition is.
 
 # Performance Tips
 
-**Most important performance tip:** Do not mine while you pack. The two processes are both resource intensive and will slow each other down. (i.e. omit the `mine` flag from your configuration) If you've already removed the `mine` flag, contineu on below for more optimization tips.
+**Most important performance tip:** Do not mine while you pack. The two processes are both resource intensive and will slow each other down. (i.e. omit the `mine` flag from your configuration) If you've already removed the `mine` flag, continue on below for more optimization tips.
 
 There are 3 primary bottlenecks when syncing and packing:
 

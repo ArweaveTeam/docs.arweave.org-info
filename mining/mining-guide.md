@@ -131,14 +131,14 @@ A few important notes about the storage modules:
 
 - Having two or more storage modules that store the same mining partition (say, the partition at index 0 more than once) with the same mining address does not increase your mining performance. Also, it is more profitable mine a complete replica (all mining partitions) of the weave packed with a single address than mine off an equal amount of data packed with different mining addresses. Currently, we only support one mining address per node.
 - If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter, copy the data, and restart the node with the `storage_module` parameter again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module. Do NOT mine on several nodes with the same mining address simultaneously (see the warning below.)
-- Make sure the disks with the storage modules have sufficient available space for both the data iteself and metadata (10% of the size of the data). Note that `disk_space` command line parameter does NOT apply to the storage modules.
+- Make sure the disks with the storage modules have sufficient available space for both the data itself and metadata (10% of the size of the data). Note that `disk_space` command line parameter does NOT apply to the storage modules.
 - If you created storage modules with custom `storage_module_size` as mentioned above, make sure to specify the `storage_module_size` in your command line invocation as follows:
   `storage_module [storage_module_index],[storage_module_size],[your_mining_address].1`\
   The module will sync data with the weave offsets between `storage_module_index * storage_module_size` (in bytes) and `(storage_module_index + 1) * storage_module_size` at folder `[data_dir]/storage_modules/storage_module[_storage_module_size]_[storage_module_index]_[your_mining_address].1`.
 - The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
 
 {% hint style="danger" %}
-It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! In order to have multipler nodes use the same mining address they must be configured to use coordinated mining. See the [Coordinated Mining Guide](coordinated-mining.md) for more information.
+It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! In order to have multiple nodes use the same mining address they must be configured to use coordinated mining. See the [Coordinated Mining Guide](coordinated-mining.md) for more information.
 {% endhint %}
 
 #### Copying Data Across Storage Modules
@@ -268,7 +268,7 @@ You do not immediately receive the block reward after mining a block. There is a
 {% endhint %}
 
 {% hint style="info" %}
-To see the total number of Winston (divide by 1000_000_000_000 to get the AR value) reseved for you address, browse to https://arweave.net/wallet/\[your-mining-address]/reserved\_rewards\_total.
+To see the total number of Winston (divide by 1000_000_000_000 to get the AR value) reserved for you address, browse to https://arweave.net/wallet/\[your-mining-address]/reserved\_rewards\_total.
 {% endhint %}
 
 #### Staying in Sync
@@ -297,7 +297,7 @@ Due to Arweave node specifics (storing data in the sparse files), the read throu
 ./bin/start run_defragmentation defragment_module 8,YOUR-MINING-ADDRESS.1 defragmentation_trigger_threshold 500000000 ...
 ```
 
-The defragmentation is performed before startup. Only chunk files larger than `defragmentation_trigger_threshold` bytes and those which have grown by more than 10% since the last defragmenation of this module will be updated. Note the defragmentation may take a lot of time.
+The defragmentation is performed before startup. Only chunk files larger than `defragmentation_trigger_threshold` bytes and those which have grown by more than 10% since the last defragmentation of this module will be updated. Note the defragmentation may take a lot of time.
 
 ## Troubleshooting
 

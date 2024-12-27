@@ -25,7 +25,7 @@ However, if you choose to not store a full weave, I would suggest using [Vird’
 
 ### How do I see my mining performance?
 
-When you run your miner it will periodically pring a Mining Performance Report to the console. You can read more about the Mining Performance Report [here](mining-quickstart.md#mining-screen-metrics). If your node is syncing the weave it will display 0 h/s but will go up over time.
+When you run your miner it will periodically print a Mining Performance Report to the console. You can read more about the Mining Performance Report [here](mining-quickstart.md#mining-screen-metrics). If your node is syncing the weave it will display 0 h/s but will go up over time.
 
 You can also use Prometheus and Grafana as described in the [Metrics Guide](metrics.md).
 
@@ -74,7 +74,7 @@ a static IP. However your miner will continue to poll, so the lag will be minima
 A slightly bigger issue is your "peer reputation". All peers in the network maintain a rating
 for all other peers based on past activity. It basically boils down to the amount of valid
 data exchanged. As your node sends valid data to peers, your reputation increases. Reputation
-is currently tracked by IP:PORT, so whenever your IP changes, your repuation will be reset.
+is currently tracked by IP:PORT, so whenever your IP changes, your reputation will be reset.
 
 Reputation primarily comes into play when you mine a solution, Peers will process the solutions
 of higher reputation peers first. So if you have a low reputation and mine a block at about
@@ -91,7 +91,7 @@ No, Arweave uses Randomx for packing and mining. RandomX is an ASIC and GPU resi
 
 ### What’s the best hard drive to use?
 
-Any enterprise level hard drive that can sustain the read rates required for your configuration. See [this table](mining-guide.md#Preparation-Packing-Format) for the read speeds required per partition of packed data. Storing more partitionson a single disk will require a higher sustained read rate.In general an SSD will not be cost effective.
+Any enterprise level hard drive that can sustain the read rates required for your configuration. See [this table](mining-guide.md#Preparation-Packing-Format) for the read speeds required per partition of packed data. Storing more partitions on a single disk will require a higher sustained read rate.In general an SSD will not be cost effective.
 
 See the [Hardware Guide](hardware.md) and the [Quickstart Guide](mining-quickstart.md) for more information.
 
@@ -103,7 +103,7 @@ Not at this time, but some contain more data than others, so if you have a limit
 
 As of Arweave 2.8 there are two main packing formats available, `spora_2_6` and `composite`. The `composite` format is further specified by a packing difficulty. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for more information.
 
-All packing formats provide the same maximum hashrate. A miner who has packed a full replica to `spora_2_6` will have the same hashrate as a miner who has packed a full replica to `composite.1` or `composite.32` - provided both miners are able to read the packed data and peform all hashes at the required rate.
+All packing formats provide the same maximum hashrate. A miner who has packed a full replica to `spora_2_6` will have the same hashrate as a miner who has packed a full replica to `composite.1` or `composite.32` - provided both miners are able to read the packed data and perform all hashes at the required rate.
 
 `spora_2_6` is deprecated and will stop being usable toward the end of 2028. For all new packs we recommend using the `composite` format. The lower read rates that a `composite` packing allows will reduce the hardware resources used during mining (larger disks, lower disk read rate, lower CPU and RAM utilization).
 
@@ -127,7 +127,7 @@ You can also (and should), set up Grafana and Prometheus to give you a very nice
 
 ### What should my VDF speed be?
 
-It should be as low as possible. The network targets an average VDF speed of 1 second and you wnat to be as close to that as possible (or lower).
+It should be as low as possible. The network targets an average VDF speed of 1 second and you want to be as close to that as possible (or lower).
 
 See the [VDF Guide](vdf.md) for more information.
 
