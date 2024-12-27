@@ -192,7 +192,7 @@ interpret this number. Some points to keep in mind:
 - Each chunk is **256 KiB**
 
 For example, if the `benchmark-packing` tool reports **100 chunks per second** for your CPU,
-you can expect you node to sync at an **upper bound speed of 12.5 to 25 MiB/s.**
+you can expect your node to sync at an **upper bound speed of 12.5 to 25 MiB/s.**
 
 ## Hashing
 
@@ -215,7 +215,7 @@ For the following examples, please keep in mind that with all the benchmarks, th
 computations should be taken as guides. In practice your hashing speed will be impacted by a
 number of factors not captured by the benchmark (e.g. contention with other processes running,
 impact of hyperthreading/SMT, etc...). Also you should budget your CPU capacity to exceed these
-calculations in order to accomodate all the other work your miner is doing (both within the
+calculations in order to accommodate all the other work your miner is doing (both within the
 Arweave node and at the system level).
 
 ### Example 1

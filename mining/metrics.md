@@ -61,12 +61,12 @@ You may want to establish a baseline and set an alert if read rate falls some am
 
 **Metric**: `mining_rate{type="hash"}`
 
-This metric tracks the miner hashrate. The protocol allows for up to 400 H1 hashes and 400 H2 hashes per partition per VDF step. The metric also consider that an H1 hash is 100x less likely to result in a solution and scales the H1 hash count down accordingly. You can roughly interpret that as the protocol allowing 404 solution attempts (combination of H1 and H2 hashes) per partition per VDF step.
+This metric tracks the miner hashrate. The protocol allows for up to 400 H1 hashes and 400 H2 hashes per partition per VDF step. The metric also considers that an H1 hash is 100x less likely to result in a solution and scales the H1 hash count down accordingly. You can roughly interpret that as the protocol allowing 404 solution attempts (combination of H1 and H2 hashes) per partition per VDF step.
 
 Note: hashes are generated after chunks are read, so if your Read Rate chart shows a low read rate, your Hash Rate chart will also be lower.
 
 **Alerting**:
-Re recommend setting an alert on 0 as that indicates your miner is no longer mining. You may also want to establish a baseline and set an alert if hashrate falls some amount below that baseline
+We recommend setting an alert on 0 as that indicates your miner is no longer mining. You may also want to establish a baseline and set an alert if hashrate falls some amount below that baseline
 
 ## Hash Rate vs. Ideal
 
@@ -124,7 +124,7 @@ We recommend setting an alert at 200, and adjusting as needed.
 
 **Metric**: `http_client_get_chunk_duration_seconds_count`
 
-This metric tracks the the number of `GET /chunk2` requests that your node makes to peers.
+This metric tracks the number of `GET /chunk2` requests that your node makes to peers.
 This is the primary method through which a node syncs chunks during the Syncing and Packing
 phase.
 
@@ -140,7 +140,7 @@ This panel tracks the average latency of `GET /chunk2` requests to peers.
 
 **Debugging**: If you believe your sync rate is too slow, consulting this graph might explain
 why. The node should detect and adjust to high latencies by selecting different peers. But it
-can take some time to find new peers - during this period syncin/packing rate may dip.
+can take some time to find new peers - during this period syncing/packing rate may dip.
 
 ## Total Chunks Written
 
@@ -214,13 +214,13 @@ tracks how many of those chunks are currently cached. The cache has a size limit
 is printed periodically by your node (to the console and to the logs), and can be set
 using the `mining_server_chunk_cache_size_limit` launch parameter.
 
-**Debugging**: If your chunk cache size is sonsistently at or above the limit, your miner
-is not able to keep up with its optimal mining rate. This can be for a number of reason,
+**Debugging**: If your chunk cache size is consistently at or above the limit, your miner
+is not able to keep up with its optimal mining rate. This can be for a number of reasons,
 however one thing you can try is increasing the `mining_server_chunk_cache_size_limit`. If
 your miner is only temporarily falling behind (e.g. due to other processes running and
 stealing CPU or disk bandwidth), an increased cache can allow your miner to "catch up".
 
-Note: increaseing the cache size limit may increase your node's memory usage which can
+Note: increasing the cache size limit may increase your node's memory usage which can
 negatively impact performance if you are running near your system's memory limit.
 
 ## HTTP Requests Debug Metrics
@@ -237,7 +237,7 @@ request per type.
 
 **Debugging**: These charts can help you identify activity that could be impacting your
 performance (e.g. mining, syncing, packing). For example a spike in `POST /tx2` or `GET /tx`
-might correspond to a period of high Arweave nework activity. Or a high total latency servicing
+might correspond to a period of high Arweave network activity. Or a high total latency servicing
 `GET /chunk2` might indicate that your node is serving a lot of chunks to peers. Depending
 on the type of activity and how strongly it is impacting your node performance, you can
 take different actions.
