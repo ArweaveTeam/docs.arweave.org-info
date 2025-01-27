@@ -5,9 +5,9 @@
 A guide to understanding the fundamentals of AR hashrate and its many variables
 
 {% hint style="warning" %}
-The following guide assumes all data is packed using the deprecated `spora_2_6` format, which requires a read rate of 200 MiB/s per partition. For all new packs we recommend using the `composite` format which allows a lower read rate per partition (see [Packing Format](mining-guide.md#Preparation-Packing-Format) for more information). 
+The following guide assumes all data is packed using the deprecated `spora_2_6` format, which requires a read rate of 200 MiB/s per partition. For all new packs we recommend using the `replica_2_9` format which allows a lower read rate per partition (see [Packing Format](mining-guide.md#Preparation-Packing-Format) for more information). 
 
-This guide should be updated in the future to provide guidance for `composite` format packs.
+This guide should be updated in the future to provide guidance for `replica_2_9` format packs.
 {% endhint %}
 
 ## Preface

@@ -31,9 +31,9 @@ Mining configurations vary tremendously from miner to miner, and we're not yet a
 ## Mining Platform
 
 {% hint style="warning" %}
-The following guide assumes all data is packed using the deprecated `spora_2_6` format. For all new packs we recommend using the `composite` format. The lower read rates that a `composite` packing allows will reduce the hardware resources used during mining (larger disks, lower disk read rate, lower CPU and RAM utilization). 
+The following guide assumes all data is packed using the deprecated `spora_2_6` format. For all new packs we recommend using the `replica_2_9` format. The lower read rates that a `replica_2_9` packing allows will reduce the hardware resources used during mining (larger disks, lower disk read rate, lower CPU and RAM utilization). 
 
-This guide should be updated in the future to provide guidance for `composite` format packs.
+This guide should be updated in the future to provide guidance for `replica_2_9` format packs.
 {% endhint %}
 
 There are 2 possible mining configurations:

@@ -17,7 +17,7 @@ from which to download the missing data.
 ## Packing
 
 Storage modules can be either "unpacked" (e.g. `storage_module 16,unpacked`) or "packed"
-(e.g. `storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.1`). Before you can mine
+(e.g. `storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`). Before you can mine
 data it must be packed to your mining address. There are two symmetric operations that
 fall under the "packing" umbrella:
 
@@ -27,12 +27,45 @@ fall under the "packing" umbrella:
 Both operations consume roughly the same amount of computational power. See the
 [benchmarking guide](hardware.md#benchmarking-your-miner) for more details.
 
-As of Arweave 2.8 there are two main packing formats available, `spora_2_6` and `composite`. The `composite` format is further specified by a packing difficulty. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for more information. For new packs we recommend using the `composite` format.
+As of Arweave 2.9 there are two main packing formats available, `spora_2_6` and `replica_2_9`. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for more information. For new packs we recommend using the `replica_2_9` format.
 
 **Note:** You will almost always have to **unpack** data when syncing it. Whichever
 peer you sync the data from will likely return it to you packed to its own address. Before
 you can do anything with it you will first need to unpack. You may then have to pack it to your
 own address. i.e. each chunk of data synced will usually need 1-2 packing operations.
+
+## Packing Processes
+
+There are 3 ways to get packed data:
+
+1. **Sync and Pack**: Used when you don't have any data locally. Your node will query chunk
+data from peers, unpack it from the peer's address, pack it to your address, and then store it
+in your storage module.
+    - See the [Mining Examples](examples.md#syncing-and-packing) guide for
+an example configuration.
+2. **Cross Module Repack**: Used when you have data locally but want to repack it to a
+different format or address. Your node will read data from one storage module, repack it, and
+then write it to a different storage module.
+    - See the
+[Mining Examples](examples.md#cross-module-repack) guide for an example configuration.
+3. **Repack In Place**: Used when you have data locally and want to repack it to a different
+format or address and then store it back in the same storage module. Your node will iterate
+through your storage module, read chunks, repack them, and then write them back to the same
+storage module.
+    - See the [Mining Examples](examples.md#repacking-in-place) guide for an example configuration.
+
+## Replica 2.9 Entropy Generation
+
+Starting with the `replica_2_9` format introduced in Arweave 2.9, the packing process is
+broken into 2 steps:
+
+1. **Entropy Generation**: Generate a random entropy value for each chunk.
+2. **Packing**: Encrypt the chunk data using the entropy value.
+
+Currently (as of 2.9.1) the recommended approach when using "Sync and Pack" or
+"Cross Module Repack" is to first generate entropy for an entire partition, and then pack data
+for it. This is not possible with "Repack In Place" so no special handling is needed for it.
+See the [Mining Examples](examples.md) guide for guidance on how to do this.
 
 ## Storage Module Format
 
@@ -267,13 +300,6 @@ increase it even further our recommendation is to first confirm:
 1. Your CPU and network bandwidths are below capacity
 2. Your network connectivity is good (e.g. using tools like `mtr` to track packet loss)
 
-### packing_rate
-
-In general you shouldn't need to change `packing_rate` - the default value is usually more
-than high enough. That said you can increase it with minimal risk of negative consequences.
-Consult our [benchmarking guide](hardware.md#benchmarking-your-miner) to determine your CPU's
-maximum packing rate and set `packing_rate` to something slightly higher.
-
 ### storage_module
 
 As mentioned above under [Increasing Disk Write Speed](#increasing-disk-write-speed) syncing
@@ -294,8 +320,8 @@ it begins searching for peers to download more data from. If you'd rather focus 
 just make sure to configure your node without any repacking. Two examples of configurations
 that will cause local repacking:
 
-1. `storage_module 9,unpacked storage_module 9,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.1`
-2. `storage_module 16,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY.1 storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.1`
+1. `storage_module 9,unpacked storage_module 9,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
+2. `storage_module 16,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
 
 **Note:** [as mentioned earlier](#packing), whenever you sync data - even if you are syncing to
 `unpacked` - you will likely have to perform at least one packing operation. 

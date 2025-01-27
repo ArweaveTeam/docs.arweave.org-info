@@ -61,11 +61,11 @@ in both `/etc/systemd/user.conf`and `/etc/systemd/system.conf`
 
 Mining involves computing 1 RandomX hash and several SHA2 hashes every second for every 3.6 TB mining partition. It is not a lot, but your CPU may nevertheless become a bottleneck when you configure a lot of mining partitions. To maximize your hashing performance, consider configuring huge memory pages in your OS.
 
-On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=3500`. To make the configuration survive reboots, create `/etc/sysctl.d/local.conf` and put `vm.nr_hugepages=3500` there.
+On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=5000`. To make the configuration survive reboots, create `/etc/sysctl.d/local.conf` and put `vm.nr_hugepages=5000` there.
 
 The output of `cat /proc/meminfo | grep HugePages` should then look like this:\
 `AnonHugePages: 0 kB`\
-`ShmemHugePages: 0 kB HugePages_Total: 3500 HugePages_Free: 3500 HugePages_Rsvd: 0 HugePages_Surp: 0`
+`ShmemHugePages: 0 kB HugePages_Total: 5000 HugePages_Free: 5000 HugePages_Rsvd: 0 HugePages_Surp: 0`
 
 If it does not or if there is a "erl_drv_rwlock_destroy" error on startup, reboot the machine.
 
@@ -81,23 +81,20 @@ In order to produce and sign a block your mining key needs to be present on your
 
 ### Preparation: Packing Format
 
-Before you can configure your storage you'll have to decide on a packing format. The legacy packing format, `spora_2_6`, is still supported, but for new packs we recommend using the new `composite` format. The `composite` format includes a packing difficulty option that allows miners to spend more time while packing data in returns for lower disk read rates while mining. When you see `composite.1` that's short-hand for "composite packing format with a packing difficulty of 1". This table summarizes the differences:
+Before you can configure your storage you'll have to decide on a packing format. The legacy packing format, `spora_2_6`, is still supported, but for new packs we recommend using the new `replica_2_9` format. The `replica_2_9` can be packed more quickly and with lower CPU requirements. Additonally while mining data packed to `replica_2_9` your optimal read rate is just 5 MiB/s per partition vs. 200 MiB/s for `spora_2_6`. This table summarizes the differences:
 
 | Packing Format | Time to pack (benchmarked to spora_2_6) | Disk read rate per partition when mining against a full replica |
 |----------------|-----------------------------------------|--------------------------------------------------------|
 | `spora_2_6`    | 1x                                      | 200 MiB/s                                              |
-| `composite.1`  | 1x                                      | 50 MiB/s                                               |
-| `composite.2`  | 2x                                      | 25 MiB/s                                               |
-| `composite.3`  | 3x                                      | 16.6667 MiB/s                                          |
-| `composite.4`  | 4x                                      | 12.5 MiB/s                                             |
-| ...            | ...                                     | ...                                                    |
-| `composite.32` | 32x                                     | 1.5625 MiB/s                                           |
+| `replica_2_9`  | TBD (but more quickly)                  | 5 MiB/s                                                |
 
-If we assume that a good quality enterprised hard disk drive can sustain 200 MiB/s read rate, then with `spora_2_6` you could only store a single 4TB partition per 4TB HDD. However with `composite.1` you could conceivably store and mine 4x 4TB partitions on a single 16TB HDD. Or, if you find that your configuration can't sustain a 200 MiB/s read rate for each drive, you could pack to a higher difficulty level to lower the required read rate.
+If we assume that a good quality enterprise hard disk drive can sustain 200 MiB/s read rate, then with `spora_2_6` you could only store a single 4TB partition per 4TB HDD. However with `replica_2_9` you could conceivably store and mine 40x 4TB partitions (or 160 TB) on a single  HDD - well beyond the capacity of today's HDDs. 
 
-Note: The effective hashrate for a full replica packed to any of the supported packing formats is the same. A miner who has packed a full replica to `spora_2_6` or `composite.1` or `composite.32` can expect to find the same number of blocks on average, but with the higher difficulty miner reading fewer chunks from their storage per second. This allows the miner to use larger hard drives in their setup, without increasing the necessary bandwidth between disk and CPU.
+Note: The effective hashrate for a full replica packed to any of the supported packing formats is the same. A miner who has packed a full replica to `spora_2_6` or `replica_2_9` can expect to find the same number of blocks on average, but with the `replica_2_9` miner reading fewer chunks from their storage per second. This allows the miner to use larger hard drives in their setup, without increasing the necessary bandwidth between disk and CPU.
 
-Also note: When mining, all storage modules within the same replica must be packed to the same packing format and difficulty level. For example, a single miner will not be able to build a solution involving chunks from `storage_module_1_addr.1` and `storage_module_2_addr.2` even if the packing address is the same.
+Also note: When mining, all storage modules within the same replica must be packed to the same packing format. For example, a single miner will not be able to build a solution involving chunks from `storage_module_1_addr` and `storage_module_2_addr.replica.2.9` even if the packing address is the same.
+
+For guidance on how to pack your data see the example configurations in the [Mining Examples](examples.md) guide.
 
 The packing format you select will influence what hardware configuration provides the best return. For more information on mining hardware see the [Mining Hardware Guide](hardware.md).
 
@@ -109,12 +106,12 @@ To setup your storage modules, the first step is to create a folder inside `[dat
 
 For any given `storage_module_size`, you should allow for an additional 10% metadata overhead (such as merkle proofs). This is why, for the default 3.6 TB `storage_module_size`, we recommend reserving 4 TB of space. The storage modules are indexed sequentially starting from 0, with 0 being the very first 3.6 TB (or `storage_module_size`) worth of data stored on Arweave, and ranging up to or beyond the current Arweave dataset size (`weave_size`). You can choose which mining partitions you store by indicating their `storage_module_index` in the folder name. 
 
-For example, to set up a storage module with the very first mining partition in the weave with the default 3.6 TB `storage_module_size` (packed with your mining address), create the folder such as `[data_dir]/storage_modules/storage_module_0_[your_mining_address].1`. If you were to store 2 TB storage modules, create the folder such as: `[data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address].1`.
+For example, to set up a storage module with the very first mining partition in the weave with the default 3.6 TB `storage_module_size` (packed with your mining address), create the folder such as `[data_dir]/storage_modules/storage_module_0_[your_mining_address].replica.2.9`. If you were to store 2 TB storage modules, create the folder such as: `[data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address].replica.2.9`.
 
 After creating the relevant folders for your chosen partitions, mount your drives onto them. E.g.,
 ```
-sudo mount /dev/sda [data_dir]/storage_modules/storage_module_0_[your_mining_address].1
-sudo mount /dev/sda [data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address].1
+sudo mount /dev/sda [data_dir]/storage_modules/storage_module_0_[your_mining_address].replica.2.9
+sudo mount /dev/sda [data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address].replica.2.9
 ```
 
 Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_dir]` - with the absolute path to your data folder, and `[your_mining_address]` - with your mining address.
@@ -122,7 +119,7 @@ Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_d
 If you have a drive already mounted elsewhere, you may create a symbolic link instead:
 
 ```
-ln -s [path/to/disk/mountpoint] [data_dir]/storage_modules/storage_module_0_[your_mining_address].1
+ln -s [path/to/disk/mountpoint] [data_dir]/storage_modules/storage_module_0_[your_mining_address].replica.2.9
 ```
 
 If you have a RAID setup with a lot of space, you can create a symlink link from the `[data_dir]/storage_modules` folder.
@@ -133,8 +130,8 @@ A few important notes about the storage modules:
 - If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter, copy the data, and restart the node with the `storage_module` parameter again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module. Do NOT mine on several nodes with the same mining address simultaneously (see the warning below.)
 - Make sure the disks with the storage modules have sufficient available space for both the data itself and metadata (10% of the size of the data). Note that `disk_space` command line parameter does NOT apply to the storage modules.
 - If you created storage modules with custom `storage_module_size` as mentioned above, make sure to specify the `storage_module_size` in your command line invocation as follows:
-  `storage_module [storage_module_index],[storage_module_size],[your_mining_address].1`\
-  The module will sync data with the weave offsets between `storage_module_index * storage_module_size` (in bytes) and `(storage_module_index + 1) * storage_module_size` at folder `[data_dir]/storage_modules/storage_module[_storage_module_size]_[storage_module_index]_[your_mining_address].1`.
+  `storage_module [storage_module_index],[storage_module_size],[your_mining_address].replica.2.9`\
+  The module will sync data with the weave offsets between `storage_module_index * storage_module_size` (in bytes) and `(storage_module_index + 1) * storage_module_size` at folder `[data_dir]/storage_modules/storage_module[_storage_module_size]_[storage_module_index]_[your_mining_address].replica.2.9`.
 - The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
 
 {% hint style="danger" %}
@@ -143,7 +140,7 @@ It is very dangerous to have two or more nodes mine independently using the same
 
 #### Copying Data Across Storage Modules
 
-When a node starts, it copies (and packs, if required) the data from one storage module to another, in the case when there are two or more intersecting storage modules. For example, if you specify `storage_module 11,unpacked storage_module 11,[mining_address].1` and there is some data in the "unpacked" module that is absent from the "mining address" module, the data will be packed with this mining address and stored in `11,[mining_address].1`.
+When a node starts, it copies (and packs, if required) the data from one storage module to another, in the case when there are two or more intersecting storage modules. For example, if you specify `storage_module 11,unpacked storage_module 11,[mining_address].replica.2.9` and there is some data in the "unpacked" module that is absent from the "mining address" module, the data will be packed with this mining address and stored in `11,[mining_address].replica.2.9`.
 
 If you want to repack a storage module, do not rename the existing one - renaming will not cause repacking, create a new storage module instead.
 
@@ -175,7 +172,7 @@ For more information on what hardware to use for your miner, please see the [Min
 
 #### 1. Packing
 
-Packing mostly consists of executing RandomX instructions so the [faster your CPU computes RandomX hashes](https://xmrig.com/benchmark), the faster you can pack. Note that packing a single 256 KiB chunk using the `spora_2_6` or `composite.1` format takes about 30 times longer than computing one RandomX hash. Once you have packed a dataset, you do not necessarily have to keep the powerful process around. You can control the maximum allowed packing rate with the `packing_rate` start command parameter. 
+Packing mostly consists of executing RandomX instructions so the [faster your CPU computes RandomX hashes](https://xmrig.com/benchmark), the faster you can pack. Note that packing a single 256 KiB chunk using the `spora_2_6` format takes about 30 times longer than computing one RandomX hash. Once you have packed a dataset, you do not necessarily have to keep the powerful process around. You can control the maximum allowed packing rate with the `packing_workers` start command parameter. 
 
 #### 2. VDF
 
@@ -188,7 +185,7 @@ For more information on VDF, including connecting to a VDF server or running you
 Now you’re ready to start the mining process by running the following command from the Arweave directory. An example with one storage module (covering partition 0):
 
 ```
-./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable randomx_large_pages peer ams-1.eu-central-1.arweave.xyz peer fra-1.eu-central-2.arweave.xyz peer sgp-1.ap-central-2.arweave.xyz peer blr-1.ap-central-1.arweave.xyz peer sfo-1.na-west-1.arweave.xyz peer vin-1.east.us.north-america.arweave.xyz peer sin-1.sg.asia.arweave.xyz peer hil-1.west.us.north-america.arweave.xyz peer lim-1.de.europe.arweave.xyz peer fsn-1.de.europe.arweave.xyz debug mine storage_module 0,YOUR-MINING-ADDRESS.1
+./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable randomx_large_pages peer ams-1.eu-central-1.arweave.xyz peer fra-1.eu-central-2.arweave.xyz peer sgp-1.ap-central-2.arweave.xyz peer blr-1.ap-central-1.arweave.xyz peer sfo-1.na-west-1.arweave.xyz peer vin-1.east.us.north-america.arweave.xyz peer sin-1.sg.asia.arweave.xyz peer hil-1.west.us.north-america.arweave.xyz peer lim-1.de.europe.arweave.xyz peer fsn-1.de.europe.arweave.xyz debug mine storage_module 0,YOUR-MINING-ADDRESS.replica.2.9
 ```
 
 ### Trusted peers
@@ -220,7 +217,7 @@ Replace **YOUR-MINING-ADDRESS** with the address of the wallet you would like to
 An example with several storage modules (covering partitions 21, 22, 23):
 
 ```
-./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable randomx_large_pages peer ams-1.eu-central-1.arweave.xyz peer fra-1.eu-central-2.arweave.xyz peer sgp-1.ap-central-2.arweave.xyz peer blr-1.ap-central-1.arweave.xyz peer sfo-1.na-west-1.arweave.xyz peer vin-1.east.us.north-america.arweave.xyz peer sin-1.sg.asia.arweave.xyz peer hil-1.west.us.north-america.arweave.xyz peer lim-1.de.europe.arweave.xyz peer fsn-1.de.europe.arweave.xyz debug mine storage_module 21,YOUR-MINING-ADDRESS.1 storage_module 22,YOUR-MINING-ADDRESS.1 storage_module 23,YOUR-MINING-ADDRESS.1
+./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable randomx_large_pages peer ams-1.eu-central-1.arweave.xyz peer fra-1.eu-central-2.arweave.xyz peer sgp-1.ap-central-2.arweave.xyz peer blr-1.ap-central-1.arweave.xyz peer sfo-1.na-west-1.arweave.xyz peer vin-1.east.us.north-america.arweave.xyz peer sin-1.sg.asia.arweave.xyz peer hil-1.west.us.north-america.arweave.xyz peer lim-1.de.europe.arweave.xyz peer fsn-1.de.europe.arweave.xyz debug mine storage_module 21,YOUR-MINING-ADDRESS.replica.2.9 storage_module 22,YOUR-MINING-ADDRESS.replica.2.9 storage_module 23,YOUR-MINING-ADDRESS.replica.2.9
 ```
 
 For more examples see: [Mining Examples](examples.md)
@@ -294,7 +291,7 @@ To stop the node, run `./bin/stop` or kill the OS process (`kill -sigterm <pid>`
 Due to Arweave node specifics (storing data in the sparse files), the read throughput during mining after the initial sync might be suboptimal on some disks. In the performance reports printed in the console you can see the estimated optimal performance in MiB/s, per configured storage module. The first number estimates the optimum on a small dataset, the second - on the dataset close in size to the weave size. If the actual performance of a storage module is noticeably lower, consider running a defragmentation procedure to improve your mining performance on this module. (Re)start the miner with the following parameters (in this example, the storage module storing the partition 8 will be defragmented):
 
 ```
-./bin/start run_defragmentation defragment_module 8,YOUR-MINING-ADDRESS.1 defragmentation_trigger_threshold 500000000 ...
+./bin/start run_defragmentation defragment_module 8,YOUR-MINING-ADDRESS.replica.2.9 defragmentation_trigger_threshold 500000000 ...
 ```
 
 The defragmentation is performed before startup. Only chunk files larger than `defragmentation_trigger_threshold` bytes and those which have grown by more than 10% since the last defragmentation of this module will be updated. Note the defragmentation may take a lot of time.

@@ -3,9 +3,9 @@
 **Original Author: @Thaseus**
 
 {% hint style="warning" %}
-The following guide assumes all data is packed using the deprecated `spora_2_6` format, which requires a read rate of 200 MiB/s per partition. For all new packs we recommend using the `composite` format which allows a lower read rate per partition (see [Packing Format](mining-guide.md#Preparation-Packing-Format) for more information). 
+The following guide assumes all data is packed using the deprecated `spora_2_6` format, which requires a read rate of 200 MiB/s per partition. For all new packs we recommend using the `replica_2_9` format which allows a lower read rate per partition (see [Packing Format](mining-guide.md#Preparation-Packing-Format) for more information). 
 
-This guide should be updated in the future to provide guidance for `composite` format packs.
+This guide should be updated in the future to provide guidance for `replica_2_9` format packs.
 {% endhint %}
 ## Introduction
 
@@ -278,9 +278,6 @@ storage_module 3,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
 storage_module 4,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
 ```
 
-**Note:** When starting up the Arweave miner, you will see a notification about the maximum chunks your server can pack based on your server’s CPU cores. Typically the default is fine, but there are times when you may need to override the default, if you believe it is too low. This is entirely dependent on each system, so no single value is accurate. The command (which you would include in the above script) is `packing_rate xxx \`
-**Example:** `packing_rate 700 \`
-
 ### Example Coordinated Mining Start Command
 
 ```
@@ -302,7 +299,6 @@ vdf_server_trusted_peer vdf-server-3.arweave.xyz \
 vdf_server_trusted_peer vdf-server-4.arweave.xyz \
 data_dir /opt/data_dir \
 sync_jobs 400 \
-packing_rate 700 \
 port 1985 \
 polling 1 \
 mine \
@@ -324,7 +320,7 @@ storage_module 4,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
 ```
 
 {% hint style="info" %}
-**Tip:** If your miner is crashing due to ram usage while mining, set `sync_jobs` and `packing_rate` to 0
+**Tip:** If your miner is crashing due to ram usage while mining, set `sync_jobs` and `packing_workers` to 0
 {% endhint %}
 
 For more information on the available `start` command arguments you can run `./bin/start help` or see:

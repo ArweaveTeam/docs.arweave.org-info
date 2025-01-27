@@ -101,11 +101,11 @@ Not at this time, but some contain more data than others, so if you have a limit
 
 ### I see there are several packing formats available, what are the trade-offs?
 
-As of Arweave 2.8 there are two main packing formats available, `spora_2_6` and `composite`. The `composite` format is further specified by a packing difficulty. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for more information.
+As of Arweave 2.9 there are two main packing formats available, `spora_2_6` and `replica_2_9`. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for more information.
 
-All packing formats provide the same maximum hashrate. A miner who has packed a full replica to `spora_2_6` will have the same hashrate as a miner who has packed a full replica to `composite.1` or `composite.32` - provided both miners are able to read the packed data and perform all hashes at the required rate.
+All packing formats provide the same maximum hashrate. A miner who has packed a full replica to `spora_2_6` will have the same hashrate as a miner who has packed a full replica to `replica_2_9` - provided both miners are able to read the packed data and perform all hashes at the required rate.
 
-`spora_2_6` is deprecated and will stop being usable toward the end of 2028. For all new packs we recommend using the `composite` format. The lower read rates that a `composite` packing allows will reduce the hardware resources used during mining (larger disks, lower disk read rate, lower CPU and RAM utilization).
+`spora_2_6` is deprecated and will stop being usable toward the end of 2028. For all new packs we recommend using the `replica_2_9` format. The lower read rates that a `replica_2_9` packing allows will reduce the hardware resources used during mining (larger disks, lower disk read rate, lower CPU and RAM utilization).
 
 ### How much space should I allocate to my `data_dir`?
 
