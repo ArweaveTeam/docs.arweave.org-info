@@ -118,7 +118,41 @@ We recommend setting an alert at 200, and adjusting as needed.
 
 [Sample dashboard in Grafana](grafana-syncing-packing.json)
 
-![Sample Dashboard](images/dashboard-syncing-packing.png)
+## Partition Sizes
+
+**Metric**: `v2_index_data_size_by_packing`
+
+This metric tracks the size of the data synced for each partition and packing format. The
+packing format is indicated by the `packing` label, and the partition number is indicated
+by the `partition_number` label.
+
+## Entropy Written
+
+**Metric**: `replica_2_9_entropy_stored`
+
+This metric tracks the amount of entropy generated and written to each storage module. The
+storage module is indicated by the `store_id` label.
+
+## Total Chunks Written
+
+**Metric**: `chunks_stored`
+
+This widget display the total number of chunks written (in bytes) over the current dashboard
+time period. This can provide a gauge of how much data you've synced and packed over
+a given time period.
+
+## Chunks Written
+
+**Metric**: `chunks_stored`
+
+This panel tracks the number of chunks written per second (in bytes).  Each chunk written is
+assumed to be 256 KiB. This may differ from your packing rate as each chunk written may need
+a different number of packing operations (0 to 2 depending on the format the chunk is received
+and the format it is written)
+
+**Debugging**: If your node is mining and packing at the same time you may see your hash
+rate drop. Consulting this panel can help you determine if an increase in packing activity
+corresponds with the drop in hash rate.
 
 ## Sync Requests
 
@@ -142,26 +176,7 @@ This panel tracks the average latency of `GET /chunk2` requests to peers.
 why. The node should detect and adjust to high latencies by selecting different peers. But it
 can take some time to find new peers - during this period syncing/packing rate may dip.
 
-## Total Chunks Written
 
-**Metric**: `chunks_stored`
-
-This widget display the total number of chunks written (in bytes) over the current dashboard
-time period. This can provide a gauge of how much data you've synced and packed over
-a given time period.
-
-## Chunks Written
-
-**Metric**: `chunks_stored`
-
-This panel tracks the number of chunks written per second (in bytes).  Each chunk written is
-assumed to be 256 KiB. This may differ from your packing rate as each chunk written may need
-a different number of packing operations (0 to 2 depending on the format the chunk is received
-and the format it is written)
-
-**Debugging**: If your node is mining and packing at the same time you may see your hash
-rate drop. Consulting this panel can help you determine if an increase in packing activity
-corresponds with the drop in hash rate.
 
 ## Packing Rate
 
