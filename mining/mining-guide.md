@@ -223,11 +223,11 @@ An example with several storage modules (covering partitions 21, 22, 23):
 For more examples see: [Mining Examples](examples.md)
 
 {% hint style="info" %}
-In order to protect your machine from material that may be illegal in your country, you should use a content policy when mining Arweave. Content policies can be generated using the [Shepherd tool](https://github.com/shepherd-media-classifier/shepherd). Shepherd allows you to create your own content policies for the content that you would like to store on your Arweave node, abiding by your moral and legal requirements.
+In order to protect your machine from material that may be illegal in your country, you should use a content policy when mining Arweave. Content policies can be generated using the [Shepherd tool](https://shepherd.arweave.net). Shepherd allows you to create your own content policies for the content that you would like to store on your Arweave node, abiding by your moral and legal requirements.
 
 In order to help you get started quickly, @ArweaveTeam provides an NSFW content filter which you can load by adding the following to your Arweave start command:
 
-`transaction_blacklist_url http://shepherd-v.com/nsfw.txt`
+`transaction_blacklist_url https://public_shepherd.arweave.net`
 {% endhint %}
 
 If you would like to see a log of your miner’s activity, you can run `./bin/logs -f` in the Arweave directory in a different terminal. Sometimes it is helpful to look at the debug logs which are written if the node is started with the `debug` flag in the command line - `./bin/debug-logs -f`
