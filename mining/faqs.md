@@ -35,6 +35,66 @@ At the moment we have a Linux client available, but we will be making mining mor
 
 We have not validated mining or packing on MacOS, but as of May, 2024 the M2 provides the fastest known VDF implementation and so makes a good candidate for VDF Servers. See the [VDF Guide](vdf.md) for instructions on setting up a VDF Server.
 
+### How to build Arweave on MacOS?
+
+Arweave is using OpenSSL 1.1+ for its SHA2 implementation. This version has been deprecated by the OpenSSL team on [September 7, 2023](https://openssl-library.org/source/old/1.1.1/index.html). On MacOS, the Homebrew team deprecated OpenSSL 1.1.1w on October 24, 2023,  and disabled its full support on [October 24, 2024](https://github.com/Homebrew/homebrew-core/commit/8f4ebbe08bb6ef86601b553012f31296914777ec). This last commit will generate this error when trying to install this OpenSSL version on MacOS:
+
+```sh
+% brew install openssl@1.1
+```
+
+```
+Error: openssl@1.1 has been disabled because it is not supported upstream! It was disabled on 2024-10-24.
+```
+
+It is still possible to force the installation:
+
+```sh
+brew install -f openssl@1.1
+```
+
+Arweave also requires Erlang R24. Homebrew always define by default the latest version of Erlang, not compatible at this time with Arweave. To fix this issue, a version must be pinned:
+
+```sh
+brew install erlang@24
+```
+
+When installing a custom version, some additional configuration are required:
+
+```
+Man pages can be found in:
+  /opt/homebrew/opt/erlang@24/lib/erlang/man
+
+Access them with `erl -man`, or add this directory to MANPATH.
+
+erlang@26 is keg-only, which means it was not symlinked into /opt/homebrew,                                                                                                                                        because this is an alternate version of another formula.
+If you need to have erlang@24 first in your PATH, run:
+  echo 'export PATH="/opt/homebrew/opt/erlang@26/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find erlang@24 you may need to set:
+  export LDFLAGS="-L/opt/homebrew/opt/erlang@24/lib"
+```
+
+Few directories need to be added into the default path.
+
+```sh
+echo 'export PATH="/opt/homebrew/opt/erlang@24/bin:$PATH"' >> ~/.zshrc
+```
+
+In some situation, `LDFLAGS`, `CFLAGS` and `CCFLAGS` environment variables need to be modified. This is not a mandatory requirement, but it can help to fix a failing build.
+
+```sh
+echo 'export LDFLAGS="-L/opt/homebrew/opt/erlang@24/lib"' >> ~/.zshrc
+echo 'export CFLAGS="-H /opt/homebrew/opt/erlang@24/lib/erlang/usr/include"' >> ~/.zshrc
+echo 'export CCFLAGS="-H /opt/homebrew/opt/erlang@24/lib/erlang/usr/include"' >> ~/.zshrc
+```
+
+Don't forget to `pin` the version on homebrew. 
+
+```sh
+brew pin erlang@24
+```
+
 ### Is there a specific recommendation for Ubuntu version?
 
 We recommend [Ubuntu version 22.04+ ](http://releases.ubuntu.com/22.04/)
@@ -45,7 +105,7 @@ We recommend [Ubuntu version 22.04+ ](http://releases.ubuntu.com/22.04/)
 
 ### Can I use RAID?
 
-Yes, but it will add a lot of complexity and overhead for potentially small gains. 
+Yes, but it will add a lot of complexity and overhead for potentially small gains.
 
 ### How do I speed up the packing process?
 
@@ -321,4 +381,3 @@ See the [Hardware Guide](hardware.md#sas-version) for more information.
 Stop your node, navigate to your `data_dir` folder and rename the following folder `rocksdb/block_index_db`
 
 It will rebuild the folder during the next restart
-
