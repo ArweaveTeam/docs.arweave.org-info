@@ -78,6 +78,84 @@ EOF
 sudo sysctl -p /etc/sysctl.d/99-arweave-custom.conf
 ```
 
+| Parameter | Default | High Latency Network | Comment |
+|-----------|---------|----------------------|---------|
+| `net.ipv4.tcp_abort_on_overflow` | 0 | - | should not be modified
+| `net.ipv4.tcp_adv_win_scale` | 1 | - |
+| `net.ipv4.tcp_app_win` | 31 | - |
+| `net.ipv4.tcp_autocorking` | 1 | - |
+| `net.ipv4.tcp_base_mss` | 1024 | - |
+| `net.ipv4.tcp_challenge_ack_limit` | 1000 | - |
+| `net.ipv4.tcp_comp_sack_delay_ns` | 1000000 | - |
+| `net.ipv4.tcp_comp_sack_nr` | 44 | - |
+| `net.ipv4.tcp_comp_sack_slack_ns` | 100000 | - |
+| `net.ipv4.tcp_congestion_control` | `cubic` | `bbr`
+| `net.ipv4.tcp_dsack` | 1 | - |
+| `net.ipv4.tcp_early_demux` | 1 | - |
+| `net.ipv4.tcp_early_retrans` | 3 | - |
+| `net.ipv4.tcp_ecn` | 2 | - |
+| `net.ipv4.tcp_ecn_fallback` | 1 | - |
+| `net.ipv4.tcp_fack` | 0 | - |
+| `net.ipv4.tcp_fastopen` | 1 | - |
+| `net.ipv4.tcp_fastopen_blackhole_timeout_sec` | 0
+| `net.ipv4.tcp_fastopen_key` | - | - |
+| `net.ipv4.tcp_fin_timeout` | 60 | - |
+| `net.ipv4.tcp_frto` | 2 | - |
+| `net.ipv4.tcp_fwmark_accept` | 0 | - |
+| `net.ipv4.tcp_invalid_ratelimit` | 500 | - |
+| `net.ipv4.tcp_keepalive_intvl` | 75 | - |
+| `net.ipv4.tcp_keepalive_probes` | 9 | - |
+| `net.ipv4.tcp_keepalive_time` | 7200 | - |
+| `net.ipv4.tcp_l3mdev_accept` | 0 | - |
+| `net.ipv4.tcp_limit_output_bytes` | 1048576 | - |
+| `net.ipv4.tcp_low_latency` | 0 | - |
+| `net.ipv4.tcp_max_orphans` | 131072 | - |
+| `net.ipv4.tcp_max_reordering` | 300 | - |
+| `net.ipv4.tcp_max_syn_backlog` | 2048 | - |
+| `net.ipv4.tcp_max_tw_buckets` | 131072 | - |
+| `net.ipv4.tcp_mem` | `373137 497517 746274` | - |
+| `net.ipv4.tcp_migrate_req` | 0 | - |
+| `net.ipv4.tcp_min_rtt_wlen` | 300 | - |
+| `net.ipv4.tcp_min_snd_mss` | 48 | - |
+| `net.ipv4.tcp_min_tso_segs` | 2 | - |
+| `net.ipv4.tcp_moderate_rcvbuf` | 1 | - |
+| `net.ipv4.tcp_mtu_probe_floor` | 48 | - |
+| `net.ipv4.tcp_mtu_probing` | 0 | - |
+| `net.ipv4.tcp_no_metrics_save` | 0 | - |
+| `net.ipv4.tcp_no_ssthresh_metrics_save` | 1 | - |
+| `net.ipv4.tcp_notsent_lowat` | 4294967295 | - |
+| `net.ipv4.tcp_orphan_retries` | 0 | - |
+| `net.ipv4.tcp_pacing_ca_ratio` | 120 | - |
+| `net.ipv4.tcp_pacing_ss_ratio` | 200 | - |
+| `net.ipv4.tcp_probe_interval` | 600 | - |
+| `net.ipv4.tcp_probe_threshold` | 8 | - |
+| `net.ipv4.tcp_recovery` | 1 | - |
+| `net.ipv4.tcp_reflect_tos` | 0 | - |
+| `net.ipv4.tcp_reordering` | 3 | - |
+| `net.ipv4.tcp_retrans_collapse` | 1 | - |
+| `net.ipv4.tcp_retries1` | 3 | - |
+| `net.ipv4.tcp_retries2` | 15 | - |
+| `net.ipv4.tcp_rfc1337` | 0 | - |
+| `net.ipv4.tcp_rmem` | `4096 131072  6291456` | - |
+| `net.ipv4.tcp_rx_skb_cache` | 0 | - |
+| `net.ipv4.tcp_sack` | 1 | - |
+| `net.ipv4.tcp_slow_start_after_idle` | 1 | - |
+| `net.ipv4.tcp_stdurg` | 0 | - |
+| `net.ipv4.tcp_syn_retries` | 6 | - |
+| `net.ipv4.tcp_synack_retries` | 5 | 6 |
+| `net.ipv4.tcp_syncookies` | 1 | - |
+| `net.ipv4.tcp_thin_linear_timeouts` | 0 | - |
+| `net.ipv4.tcp_timestamps` | 1 | - |
+| `net.ipv4.tcp_tso_win_divisor` | 3 | - |
+| `net.ipv4.tcp_tw_reuse` | 2 | - |
+| `net.ipv4.tcp_tx_skb_cache` | 0 | - |
+| `net.ipv4.tcp_window_scaling` | 1 | - |
+| `net.ipv4.tcp_wmem` | `4096 16384 4194304` | - |
+| `net.ipv4.tcp_workaround_signed_windows` | 0 | - |
+
+
+https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt
+	
 https://www.kernel.org/doc/html/latest/networking/ip-sysctl.html
 
 https://www.cadc-ccda.hia-iha.nrc-cnrc.gc.ca/netperf/tuning-tcp.shtml
@@ -109,8 +187,128 @@ https://netdevconf.org/1.2/slides/oct5/04_Making_Linux_TCP_Fast_netdev_1.2_final
 ```sh
 ```
 
-```
-```
+| Parameter | Default | High Latency Network | Comment |
+|-----------|---------|----------------------|---------|
+| `net.inet.tcp.acc_iaj_react_limit` | 200 |
+| `net.inet.tcp.accurate_ecn` | 0 |
+| `net.inet.tcp.ack_compression_rate` | 5 |
+| `net.inet.tcp.ack_strategy` | 1 |
+| `net.inet.tcp.aggressive_rcvwnd_inc` | 1 |
+| `net.inet.tcp.always_keepalive` | 0 |
+| `net.inet.tcp.autorcvbufmax` | 4194304 |
+| `net.inet.tcp.autosndbufinc` | 8192 |
+| `net.inet.tcp.autosndbufmax` | 4194304 |
+| `net.inet.tcp.autotunereorder` | 1 |
+| `net.inet.tcp.awdl_rtobase` | 100 |
+| `net.inet.tcp.background_sockets` | 0 |
+| `net.inet.tcp.backoff_maximum` | 65536 |
+| `net.inet.tcp.bg_allowed_increase` | 8 |
+| `net.inet.tcp.bg_ss_fltsz` | 2 |
+| `net.inet.tcp.bg_target_qdelay` | 40 |
+| `net.inet.tcp.bg_tether_shift` | 1 |
+| `net.inet.tcp.blackhole` | 0 |
+| `net.inet.tcp.broken_peer_syn_rexmit_thres` | 10 |
+| `net.inet.tcp.cc_debug` | 0 |
+| `net.inet.tcp.challengeack_limit` | 10 |
+| `net.inet.tcp.clear_tfocache` | 0 |
+| `net.inet.tcp.cubic_fast_convergence` | 0 |
+| `net.inet.tcp.cubic_minor_fixes` | 1 |
+| `net.inet.tcp.cubic_rfc_compliant` | 1 |
+| `net.inet.tcp.cubic_sockets` | 643 |
+| `net.inet.tcp.cubic_tcp_friendliness` | 0 |
+| `net.inet.tcp.cubic_use_minrtt` | 0 |
+| `net.inet.tcp.delayed_ack` | 3 |
+| `net.inet.tcp.disable_access_to_stats` | 1 |
+| `net.inet.tcp.disable_tcp_heuristics` | 0 |
+| `net.inet.tcp.do_ack_compression` | 1 |
+| `net.inet.tcp.do_better_lr` | 1 |
+| `net.inet.tcp.do_rfc5961` | 1 |
+| `net.inet.tcp.doautorcvbuf` | 1 |
+| `net.inet.tcp.drop_synfin` | 1 |
+| `net.inet.tcp.ecn_initiate_out` | 2 |
+| `net.inet.tcp.ecn_negotiate_in` | 2 |
+| `net.inet.tcp.ecn_setup_percentage` | 100 |
+| `net.inet.tcp.ecn_timeout` | 60 |
+| `net.inet.tcp.enable_tlp` | 1 |
+| `net.inet.tcp.fastopen_backlog` | 10 |
+| `net.inet.tcp.fastopen_key` |  |
+| `net.inet.tcp.fastopen` | 3 |
+| `net.inet.tcp.fin_timeout` | 60000 |
+| `net.inet.tcp.flow_control_response` | 1 |
+| `net.inet.tcp.icmp_may_rst` | 1 |
+| `net.inet.tcp.init_rtt_from_cache` | 1 |
+| `net.inet.tcp.keepcnt` | 8 |
+| `net.inet.tcp.keepidle` | 7200000 |
+| `net.inet.tcp.keepinit` | 75000 |
+| `net.inet.tcp.keepintvl` | 75000 |
+| `net.inet.tcp.l4s_developer` | 0 |
+| `net.inet.tcp.l4s` | 0 |
+| `net.inet.tcp.ledbat_plus_plus` | 1 |
+| `net.inet.tcp.link_heuristics_flags` | 63 |
+| `net.inet.tcp.link_heuristics_rto_min` | 3000 |
+| `net.inet.tcp.local_slowstart_flightsize` | 8 |
+| `net.inet.tcp.log_in_vain` | 0 |
+| `net.inet.tcp.log.enable` | 0 |
+| `net.inet.tcp.log.rate_current` | 0 |
+| `net.inet.tcp.log.rate_duration` | 60 |
+| `net.inet.tcp.log.rate_exceeded_total` | 0 |
+| `net.inet.tcp.log.rate_limit` | 1000 |
+| `net.inet.tcp.log.rate_max` | 0 |
+| `net.inet.tcp.log.rtt_port` | 0 |
+| `net.inet.tcp.log.thflags_if_family` | 0 |
+| `net.inet.tcp.max_persist_timeout` | 0 |
+| `net.inet.tcp.maxseg_unacked` | 8 |
+| `net.inet.tcp.microuptime_init` | 4268444 |
+| `net.inet.tcp.min_iaj_win` | 16 |
+| `net.inet.tcp.minmss` | 216 |
+| `net.inet.tcp.mptcp_preferred_version` | 1 |
+| `net.inet.tcp.mptcp_version_timeout` | 1440 |
+| `net.inet.tcp.msl` | 15000 |
+| `net.inet.tcp.mssdflt` | 512 |
+| `net.inet.tcp.newreno_sockets` | 0 |
+| `net.inet.tcp.now_init` | 34697612 |
+| `net.inet.tcp.packetchain` | 50 |
+| `net.inet.tcp.path_mtu_discovery` | 1 |
+| `net.inet.tcp.pcbcount` | 644 |
+| `net.inet.tcp.pmtud_blackhole_detection` | 1 |
+| `net.inet.tcp.pmtud_blackhole_mss` | 1200 |
+| `net.inet.tcp.rack` | 1 |
+| `net.inet.tcp.randomize_ports` | 0 |
+| `net.inet.tcp.randomize_timestamps` | 1 |
+| `net.inet.tcp.rcvsspktcnt` | 512 |
+| `net.inet.tcp.reass.overflows` | 0 |
+| `net.inet.tcp.reass.qlen` | 0 |
+| `net.inet.tcp.recv_allowed_iaj` | 5 |
+| `net.inet.tcp.recv_throttle_minwin` | 16384 |
+| `net.inet.tcp.recvbg` | 0 |
+| `net.inet.tcp.recvspace` | 131072 |
+| `net.inet.tcp.rexmt_slop` | 200 |
+| `net.inet.tcp.rexmt_thresh` | 3 |
+| `net.inet.tcp.rfc3465_lim2` | 1 |
+| `net.inet.tcp.rfc3465` | 1 |
+| `net.inet.tcp.rledbat` | 1 |
+| `net.inet.tcp.rtt_min` | 100 |
+| `net.inet.tcp.rtt_recvbg` | 1 |
+| `net.inet.tcp.rxt_seg_drop` | 0 |
+| `net.inet.tcp.rxt_seg_max` | 1024 |
+| `net.inet.tcp.sack_globalholes` | 0 |
+| `net.inet.tcp.sack_globalmaxholes` | 65536 |
+| `net.inet.tcp.sack_maxholes` | 128 |
+| `net.inet.tcp.sack` | 1 |
+| `net.inet.tcp.sendspace` | 131072 |
+| `net.inet.tcp.slowlink_wsize` | 8192 |
+| `net.inet.tcp.socket_unlocked_on_output` | 1 |
+| `net.inet.tcp.tcbhashsize` | 4096 |
+| `net.inet.tcp.tcp_resched_timerlist` | 17295926 |
+| `net.inet.tcp.tcp_timer_advanced` | 30633 |
+| `net.inet.tcp.timer_fastmode_idlemax` | 10 |
+| `net.inet.tcp.tso_debug` | 0 |
+| `net.inet.tcp.tso` | 1 |
+| `net.inet.tcp.use_ledbat` | 0 |
+| `net.inet.tcp.use_min_curr_rtt` | 1 |
+| `net.inet.tcp.use_newreno` | 0 |
+| `net.inet.tcp.v6mssdflt` | 1024 |
+| `net.inet.tcp.win_scale_factor` | 3 |
 
 https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/sysctl.3.html
 
@@ -122,7 +320,9 @@ https://www.nas.nasa.gov/hecc/support/kb/TCP-Performance-Tuning-for-WAN-Transfer
 
 https://github.com/apple-oss-distributions/xnu/blob/e3723e1f17661b24996789d8afc084c0c3303b26/bsd/netinet/tcp_output.c#L287
 
-## Arweave Network Optimization
+## Erlang TCP/IP Stack Optimization
+
+## Arweave TCP/IP Stack Optimization
 
 Arweave is using an HTTP client (Gun) and an HTTP server
 (Cowboy). Those Erlang applications can have different behaviors based
