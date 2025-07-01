@@ -1,12 +1,19 @@
 {
   "__inputs": [
     {
-      "name": "DS_GRAFANACLOUD-ARWEAVE-PROM",
-      "label": "grafanacloud-arweave-prom",
+      "name": "DS_PROMETHEUS",
+      "label": "prometheus",
       "description": "",
       "type": "datasource",
       "pluginId": "prometheus",
       "pluginName": "Prometheus"
+    },
+    {
+      "name": "VAR_JOBNAME",
+      "type": "constant",
+      "label": "job_name",
+      "value": "arweave",
+      "description": ""
     }
   ],
   "__elements": {},
@@ -15,7 +22,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "11.1.0-69950"
+      "version": "12.0.2"
     },
     {
       "type": "datasource",
@@ -65,7 +72,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "The read rate for each partition as measured by the time it takes to read each 100MiB recall range. This value should not be impacted by any other bottlenecks in the mining pipeline and should pretty closely represent the observed read rate per partition.",
           "fieldConfig": {
@@ -146,7 +153,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "code",
@@ -163,7 +170,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "code",
@@ -184,7 +191,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "This panel shows how much of your configured chunk cache is being used (measured in 256 KiB chunks). You can change the chunk cache size limit using the `mining_server_chunk_cache_size_limit` launch parameter. The current limit is printed during node launch. \n\nIncreasing the chunk cache size limit can increase the memory used by your node while mining, but can also improve hashrate. The cache allows the miner to \"catch up\" if it falls behind temporarily due to other processes competing for resources. If your miner is consistently unable to keep up with new VDF steps, increasing the cache is unlikely to help (and my in fact hurt if it causes your node to exhaust available memory and go into swap).\n\nNote: you may see your actual chunk cache size exceed the limit occasionally. This is expected due to how the increments are recorded (increments of 800 per partition).",
           "fieldConfig": {
@@ -264,7 +271,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -280,7 +287,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -315,7 +322,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "HTTP requests your node receives per second.",
           "fieldConfig": {
@@ -397,7 +404,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
               "expr": "sum by(http_method, route) (rate(cowboy_requests_total{instance=\"$node\"}[5m]))",
@@ -412,7 +419,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "Total number of HTTP requests your node makes to peers",
           "fieldConfig": {
@@ -495,7 +502,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
               "expr": "sum by(route, http_method) (rate(ar_http_request_duration_seconds_count{instance=\"$node\"}[5m]))",
@@ -510,7 +517,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "Total latency of the HTTP requests your node receives",
           "fieldConfig": {
@@ -595,7 +602,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "sum by(http_method, route) (rate(cowboy_request_duration_seconds_sum{instance=\"$node\"}[5m]))",
@@ -610,7 +617,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "Total latency of the HTTP requests your node makes to peers",
           "fieldConfig": {
@@ -693,7 +700,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "sum by(route, http_method) (rate(ar_http_request_duration_seconds_sum{instance=\"$node\"}[5m]))",
@@ -708,7 +715,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "Average latency of the HTTP requests your node receives",
           "fieldConfig": {
@@ -793,7 +800,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "(sum by(http_method, route) (rate(cowboy_request_duration_seconds_sum{instance=\"$node\"}[5m]))) /\n(sum by(http_method, route) (rate(cowboy_request_duration_seconds_count{instance=\"$node\"}[5m])))",
@@ -808,7 +815,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "Average latency of the HTTP requests your node makes to peers",
           "fieldConfig": {
@@ -891,7 +898,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "sum by(route, http_method) (rate(ar_http_request_duration_seconds_sum{instance=\"$node\"}[5m])) / sum by(route, http_method) (rate(ar_http_request_duration_seconds_count{instance=\"$node\"}[5m]))",
@@ -923,7 +930,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "CPU load is measured per *virtual* core. If you have a 16-core CPU with Hyperthreading/SMT enabled, you will likely have 32 virtual cores. Set the dashboard variable appropriately to get a sense of your overall CPU load.",
       "fieldConfig": {
@@ -940,6 +947,7 @@
             "axisSoftMax": 100,
             "axisSoftMin": 0,
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -970,8 +978,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1030,17 +1037,18 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "9.5.0-cloud.5.a016665c",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "(sum(rate(process_cpu_seconds_total{instance=~\"$node\"}[5m])) without (kind) * 100) / $cores",
@@ -1056,7 +1064,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Tracks the memory used by each erlang process.",
       "fieldConfig": {
@@ -1071,6 +1079,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 100,
             "gradientMode": "none",
@@ -1101,8 +1110,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1692,16 +1700,18 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1716,7 +1726,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "process_virtual_memory_bytes{instance=~\"$node\"}",
@@ -1729,7 +1739,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "process_resident_memory_bytes{instance=~\"$node\"}",
@@ -1742,7 +1752,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "process_max_resident_memory_bytes{instance=~\"$node\"}",
@@ -1755,7 +1765,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1775,7 +1785,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Number of messages stored in each erlang process's message queue. Erlang processes can be though of as threads without shared memory. They send messages to communicate with each other. Before being processed a message is stored in a message queue. If a process's message queue is growing it means that process is receiving more messages than it can process and can help pinpoint the root cause of performance issues.",
       "fieldConfig": {
@@ -1790,6 +1800,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1820,8 +1831,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1851,16 +1861,18 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "sum by(process) (process_info{instance=\"$node\", type=\"message_queue\"})",
@@ -1875,7 +1887,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Reductions are a measure of erlang process activity. The more reductions performed by a process, the more CPU cycles it has consumed.",
       "fieldConfig": {
@@ -1890,6 +1902,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1920,8 +1933,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1951,16 +1963,18 @@
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-ARWEAVE-PROM}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1978,37 +1992,35 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "YOUR-PROMETHEUS-INSTANCE",
-          "value": "YOUR-PROMETHEUS-INSTANCE"
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
         },
-        "hide": 0,
+        "definition": "label_values({job=\"$JOBNAME\"}, instance)",
+        "includeAll": false,
+        "label": "Node",
         "name": "node",
-        "options": [
-          {
-            "selected": true,
-            "text": "YOUR-PROMETHEUS-INSTANCE",
-            "value": "YOUR-PROMETHEUS-INSTANCE"
-          }
-        ],
-        "query": "YOUR-PROMETHEUS-INSTANCE",
-        "skipUrlSync": false,
-        "type": "textbox"
+        "options": [],
+        "query": {
+          "query": "label_values({job=\"$JOBNAME\"}, instance)",
+          "refId": "Prometheus-nodename-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "",
+        "sort": 1,
+        "type": "query"
       },
       {
         "current": {
-          "selected": false,
           "text": "1",
           "value": "1"
         },
-        "hide": 0,
-        "label": "",
         "name": "cores",
         "options": [
           {
@@ -2018,8 +2030,28 @@
           }
         ],
         "query": "1",
-        "skipUrlSync": false,
         "type": "textbox"
+      },
+      {
+        "description": "Enter the job_name as specified in prometheus.yml",
+        "hide": 2,
+        "label": "job_name",
+        "name": "JOBNAME",
+        "query": "${VAR_JOBNAME}",
+        "skipUrlSync": true,
+        "type": "constant",
+        "current": {
+          "value": "${VAR_JOBNAME}",
+          "text": "${VAR_JOBNAME}",
+          "selected": false
+        },
+        "options": [
+          {
+            "value": "${VAR_JOBNAME}",
+            "text": "${VAR_JOBNAME}",
+            "selected": false
+          }
+        ]
       }
     ]
   },
@@ -2027,11 +2059,10 @@
     "from": "now-30m",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
-  "title": "Sample Debugging  Dashboard",
-  "uid": "debugging",
-  "version": 25,
+  "title": "Arweave Debugging",
+  "uid": "arweave-debugging",
+  "version": 26,
   "weekStart": ""
 }
