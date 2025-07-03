@@ -18,10 +18,15 @@ You can integrate Prometheus with a number of monitoring and visualization tools
 1. [Setup Prometheus](https://prometheus.io/docs/prometheus/latest/getting_started/) to scrape the `/metrics` endpoint of your arweave node.
 2. When you get to the point of defining Prometheus targets to monitor, add an `instance` label for each target that provides a name for your node (can just be your IP if you want). This isn't required in general, but it will make using the sample dashboard easier. e.g.
 ```
-- targets: ['111.222.333.444:1984']
-  labels:
-    instance: 'my-miner'
+  - job_name: arweave
+
+    static_configs:
+      - targets: ['111.222.333.444:1984']
+      labels:
+        instance: 'my-miner'
 ```
+Note:  If you have previously set up your job_name with a value other than the default 'arweave', you will get a chance to override that default during the dashboard import in step 4 below.
+
 3. [Setup Grafana](https://grafana.com/docs/grafana/latest/datasources/prometheus/configure-prometheus-data-source/) to visualize the Prometheus data.
 4. [Import the sample dashboard](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/). Sample Dashboard JSON is available [here](grafana.json).
 
