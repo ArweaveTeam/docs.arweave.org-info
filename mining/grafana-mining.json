@@ -854,7 +854,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "arweave_block_height{instance=\"$node\"}",
+          "expr": "arweave_block_height{instance=\"$node\"} > 0",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
