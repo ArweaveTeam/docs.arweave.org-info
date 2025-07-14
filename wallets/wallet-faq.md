@@ -13,7 +13,7 @@ The following are wallets (developed by the Arweave community)  which are capabl
     <tr>
       <th> </th>
       <th data-type="checkbox"><a href="https://arweave.app/">arweave.app</a></th>
-      <th data-type="checkbox"><a href="https://www.arconnect.io/">ArweaveConnect</a></th>
+      <th data-type="checkbox"><a href="https://www.wander.app/">Wander</a></th>
     </tr>
   </thead>
   <tbody>
@@ -64,9 +64,9 @@ The following are wallets (developed by the Arweave community)  which are capabl
 
 [Arweave.app](https://arweave.app/) is an open-source web application, also available as an addon for [Chrome-like](https://chrome.google.com/webstore/detail/arweaveapp/hloekinecmafifaghekdjepphlabepkl) and [Firefox](https://addons.mozilla.org/firefox/addon/arweave-app) browsers. The source code is available on [Github](https://github.com/jfbeats/ArweaveWebWallet).
 
-### ArConnect or ArweaveConnect
+### Wander
 
-[ArConnect](https://www.arconnect.io/) is a Chrome-like Browsers addon available from the [Chrome Webstore](https://chrome.google.com/webstore/detail/arconnect/einnioafmpimabjcddiinlhmijaionap). More information are available from [ArConnect Documentation](https://docs.arconnect.io/).
+[Wander](https://www.wander.app/) is a mobile wallet and browser extension available for Chromium-based browsers. More information is available in the [Wander documentation](https://docs.wander.app).
 
 ## **Why is it recommended to use an Arweave wallet?**
 
