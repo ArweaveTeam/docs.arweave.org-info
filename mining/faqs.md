@@ -381,3 +381,25 @@ See the [Hardware Guide](hardware.md#sas-version) for more information.
 Stop your node, navigate to your `data_dir` folder and rename the following folder `rocksdb/block_index_db`
 
 It will rebuild the folder during the next restart
+
+
+### My solution fails with this error `step_checkpoints_not_found`
+
+Full error message is something like `ar_mining_server:log_prepare_solution_failure2/5:142 event: failed_to_prepare_block_from_mining_solution, reason: step_checkpoints_not_found`
+
+This is a rare edge case that can happen when your VDF server and VDF client are briefly on different branches of a fork.
+
+More specifically:
+
+1. There's a fork at a block that opens a new VDF session.
+2. VDF server applies one block
+3. VDF client attempts to mine a block at the same height
+
+Since the VDF server has already applied a block and opened a new session, the miner is unable to get all the VDF steps it needs for its solution and the solution fails.
+
+This is a fairly rare occurrence, and as soon as both your VDF server and client are once again on the same chain (usually happens naturally within a few minutes), the miner should resume mining valid solutions.
+
+To reduce the likelihood of this happening you'll want to:
+1. Make sure your VDF server and VDF clients are close to each other (to reduce the chance that server and client land on different branches of a fork)
+2. You can try setting the `block_gossip_peer` option on both VDF server and clients (and specify each others' IP:PORT). This will ensure that VDF servers and clients forward any blocks they receive to each other without relying on network gossip. This should limit the likelihood that VDF Server and Peer land on different branches of a fork.
+
