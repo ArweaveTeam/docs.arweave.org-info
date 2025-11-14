@@ -9,31 +9,6 @@ This document includes some of the common issues mentioned in the Arweave Miners
 
 ## FAQs
 
-### Are AR wallets/addresses created automatically for miners, and if so, how do I access them?
-
-Yes, if you do not provide a wallet address on the command line when starting the miner, a new wallet will be created for you and stored in the ‘wallets’ directory. When you run the miner again, you will want to pass the generated wallet address on the command line. Any valid Arweave wallet address will work for mining. For example, you can use a wallet that was generated in the Arweave web extension for mining purposes -- you just need the wallet address. If you want to install the web extension you can do that here: [Chrome](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/arweave/), or [Brave](https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc).
-
-### Is my mining address a private key?
-
-Your mining address is **not** a private key - it is a public address. But it is paired with a private key (stored in your `wallets` directory with a name like `arweave_keyfile_MININGADDRESS.json`) which you will need to sign any blocks you mine. When mining, only nodes that will sign blocks need to have a private key / wallet.json stored locally
-
-### Do I have to download & store the whole blockweave to begin mining?
-
-Yes, and no. It is certainly best, as the more data you store, the higher your hashrate. The increase in hashrate is not linear, and rises faster with the more data you have stored. For more information on this, see the [Hashrate Guide](hashrate.md).
-
-However, if you choose to not store a full weave, I would suggest using [Vird’s Pool](https://ar.virdpool.com/) ([Discord](https://discord.gg/hTCmhGWPEp)). It is the only Arweave pool which uses the standard client at this time and will help you earn AR faster than solo mining.
-
-### How do I see my mining performance?
-
-When you run your miner it will periodically print a Mining Performance Report to the console. You can read more about the Mining Performance Report [here](mining-quickstart.md#mining-screen-metrics). If your node is syncing the weave it will display 0 h/s but will go up over time.
-
-You can also use Prometheus and Grafana as described in the [Metrics Guide](metrics.md).
-
-### Can I mine on Windows/MacOS?
-
-At the moment we have a Linux client available, but we will be making mining more accessible on other operating systems in the future. Windows WSL may be possible but is not recommended.
-
-We have not validated mining or packing on MacOS, but as of May, 2024 the M2 provides the fastest known VDF implementation and so makes a good candidate for VDF Servers. See the [VDF Guide](vdf.md) for instructions on setting up a VDF Server.
 
 ### How to build Arweave on MacOS?
 

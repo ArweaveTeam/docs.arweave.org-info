@@ -20,11 +20,20 @@
 - Advanced Topics
     - [Metrics](mining/metrics.md)
     - [Running Multiple Nodes](mining/multiple-nodes.md)
+    - [TLS Guide](mining/tls.md)
 - [FAQs](mining/faqs.md)
 
-## Mining/Node Ops
+## Development
 
-- [TLS Guide](ops/tls.md)
+- [Motivation](development/motivation.md)
+- [The Arweave Protocol](development/protocol.md)
+- [The Arweave Node Software Architecture](development/architecture.md)
+- [Getting Started](development/getting-started.md)
+    - [Automated Tests](development/automated-tests.md)
+    - [Debugging](development/debugging.md)
+- Advanced Topics
+    - [Running You Own Localnet](development/localnet.md)
+
 
 ## Wallets
 
