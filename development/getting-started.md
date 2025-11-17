@@ -1,8 +1,6 @@
 # Requirements
 
-The full arweave node functionality is only supported on Linux, but it is possible to run a
-VDF Server on MacOS. Refer to the [mining VDF guide](/mining/vdf.md)
-for more information on running your own VDF server.
+For any questions not answered in these documents please visit our [Github Discussions](https://github.com/ArweaveTeam/arweave/discussions)
 
 ## Linux Dependencies
 - Ubuntu 22 or 24 is recommended

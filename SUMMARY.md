@@ -1,11 +1,5 @@
 # Table of contents
 
-- [Getting Started](README.md)
-
-## Arweave Node Server
-
-- [HTTP API](server/http-api.md)
-
 ## Mining
 
 - [Quickstart Guide](mining/mining-quickstart.md)
@@ -34,6 +28,9 @@
 - Advanced Topics
     - [Running You Own Localnet](development/localnet.md)
 
+## Arweave Node Server
+
+- [HTTP API](server/http-api.md)
 
 ## Wallets
 

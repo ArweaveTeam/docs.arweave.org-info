@@ -8,7 +8,7 @@ description: >-
 # Mining Guide
 
 {% hint style="info" %}
-**For any questions and support queries regarding mining on Arweave, we strongly recommend that you join our** [**Discord server**](https://discord.gg/GHB4fxVv8B) **as this is the hub of our mining and developer communities. Here you will find plenty of community members and Arweave team members available to help you out** 🤖
+For any questions and support queries regarding mining on Arweave, we strongly recommend that you join our [**Discord server**](https://discord.gg/GHB4fxVv8B) and visit our [Github Discussions](https://github.com/ArweaveTeam/arweave/discussions) as these are the hubs of our mining and developer communities. There you will find plenty of community members and Arweave team members available to help you out 🤖
 {% endhint %}
 
 {% hint style="warning" %}
@@ -317,6 +317,162 @@ Due to Arweave node specifics (storing data in the sparse files), the read throu
 
 The defragmentation is performed before startup. Only chunk files larger than `defragmentation_trigger_threshold` bytes and those which have grown by more than 10% since the last defragmentation of this module will be updated. Note the defragmentation may take a lot of time.
 
+
+### How to use the new Arweave entry-point?
+
+The new Arweave entry-point located in `bin/arweave` is an updated
+version of the old one, integrating all required functions in one
+place. To print the help page, simple execute the script:
+
+```sh
+./bin/arweave
+```
+
+It is also possible to have a more detailed help of one particular
+	subcommand by passing it after the `help` one.
+
+```sh
+./bin/arweave help ${subcommand}
+```
+
+### How to start Arweave?
+
+Arweave can be started in many different ways depending of the needs
+and all these methods can be used with `./bin/arweave`
+entry-point. Most of the users are using `./bin/start` to start an
+arweave node, this script is equivalent to:
+
+```sh
+./bin/arweave start ${parameters}
+```
+
+To have access to Arweave output directly from the terminal (without
+the Erlang console) the following command can be used. It could be
+used with any process manager like `systemd`, because the VM will not
+fork.
+
+```sh
+./bin/arweave foreground ${parameters}
+```
+
+To have access to Arweave output directly from the terminal with an
+Erlang console:
+
+```sh
+./bin/arweave console ${parameters}
+```
+
+Arweave can also be started as an Unix daemon (in background) by
+executing the following command:
+
+```sh
+./bin/arweave daemon ${parameters}
+```
+
+To reattach a daemon (and having access to the Erlang console), one
+can execute the subcommand `daemon_attach`.
+
+```sh
+./bin/arweave daemon_attach
+```
+
+### How to know if my Arweave node is correctly started?
+
+To ensure a node is correctly running, one can ping it using
+`./bin/arweave` entry-point. The script will return the string `pong`
+if the node is up.
+
+```sh
+./bin/arweave ping
+```
+
+The same information can be available by using the subcommand
+`status`, except nothing will be printed. The command will return `0`
+if the node is up and `1` if the node is down. Useful for monitoring
+scripts.
+
+```sh
+./bin/arweave status
+```
+
+Finally, to see if the node is reachable, it is also possible to use
+external software like `curl`:
+
+```sh
+curl http://localhost:1984/
+```
+
+### How to have access to a remote console?
+
+An Erlang shell can be invoked to control the Erlang VM where Arweave
+is running. The `./bin/console` script can be used and it is
+equivalent to execute this command:
+
+```sh
+./bin/arweave remote_console
+```
+
+The shell can be ended by pressing `Ctrl` + `C`.
+
+### How to stop an arweave node?
+
+An Arweave node can be stopped by using the script `./bin/stop` or by
+executing the following command:
+
+```
+./bin/arweave stop
+```
+
+### How to run multiple nodes on one machine?
+
+An arweave node is identified by its ip address and a TCP port
+(default to 1984). So, more than one node can be started in parallel,
+listening to another TCP port. The first step is to create a new
+arweave configuratoin with an isolated `data_dir` parameter and set a
+new value for `port` parameter. It can be configured from a JSON
+configuration file or directly from the command line. Then, two
+environment variables need to be set, `ARNODE` defining the Erlang
+node name and `ARCOOKIE`, defining the cookie used for this node.
+
+```sh
+export ARNODE='my_new_node@127.0.0.1'
+export ARCOOKIE='my_cookie'
+./bin/start port 1985 data_dir /my/new/data_dir
+```
+
+To control the default node, unset `ARNODE` and `ARCOOKIE`.
+
+```sh
+unset ARNODE
+unset ARCOOKIE
+```
+
+### How to pass custom Erlang VM arguments?
+
+The first - and easiest - method is to pass the new argument directly
+from the command line, all arguments before `--` will be used to
+overwrite the default VM parameters of the Erlang VM. All arguments
+after `--` will be used for Arweave.
+
+```sh
+./bin/start +MMscs 131072 +S 16:16 -- config_file config.json
+```
+
+The second method is to modify
+`rel/arweave/releases/${arweave_release}/vm.args.src` file. This file
+contains all default parameters used by Arweave with some links to the
+official documentation to help anyone wanting to optimize the Erlang
+VM.
+
+### How to use developer mode?
+
+The developer mode can be used by setting the environment variable
+`ARWEAVE_DEV` to any kind of value or (when using the sources from
+git) by executing the script `bin/arweave-dev`. The developer mode
+will automatically recompile a release and required file everytime the
+script is executed.
+
+
 ## Troubleshooting
 
 ### Make sure your node is accessible on the Internet
@@ -330,5 +486,6 @@ If the node is not accessible on the Internet, the miner functions but is signif
 ## Staying up to Date
 
 - Join our [Discord](https://discord.gg/GHB4fxVv8B) server
+- Visit our [Github Discussions](https://github.com/ArweaveTeam/arweave/discussions)
 
 Once you are successfully mining on the Arweave, you will need to stay up to date with new releases. Check the #announcements channel on the Arweave Miners discord server to learn about new releases. We will announce any steps you need to take to stay up to speed - particularly updates that require you to perform an action within a certain time period in order to stay in sync with the network.
