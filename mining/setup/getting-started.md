@@ -5,7 +5,7 @@ title: Getting Started
 This guide walks you through planning, installing, and bringing an Arweave miner online for the first time.
 
 {% hint style="info" %}
-For any questions and support queries regarding mining on Arweave, we strongly recommend that you join our [**Discord server**](https://discord.gg/GHB4fxVv8B) and visit our [Github Discussions](https://github.com/ArweaveTeam/arweave/discussions) as these are the hubs of our mining and developer communities. There you will find plenty of community members and Arweave team members available to help you out 🤖
+For any questions and support queries regarding mining on Arweave, we strongly recommend that you join our [**Discord server**](https://discord.gg/GHB4fxVv8B) and visit our [Discussions Board](https://github.com/ArweaveTeam/arweave/discussions) as these are the hubs of our mining and developer communities. There you will find plenty of community members and Arweave team members available to help you out 🤖
 {% endhint %}
 
 {% hint style="warning" %}
@@ -28,25 +28,20 @@ Configure your operating system for Arweave workloads.
 
 Install the node software either from pre-built binaries or by building from source, and verify the installation.  
 
-## 5. [Setup your Directory Structure](sdirectory-structure.md)
+## 5. [Setup Your Directory Structure](sdirectory-structure.md)
 
 Create the directories and links for your `data_dir` and storage modules.
 
-## 6. [Create your Node Wallet](wallet.md)
+## 6. [Create Your Node Wallet](wallet.md)
 
 All nodes need a configured wallet (aka mining key), if you don't specify one it will be created for you. If you're not mining, this default wallet is probably fine. For miners:
 
-## 7. [Sync and Pack Data](../overview/syncing-and-packing.md)
+## 7. [Configure and Run Your Node](configuration.md)
 
-Before a miner can start generating hashrate, they need to sync and pack weave data. If you're not running a miner, you can skip this step. 
+Depending on your node type, operating phase, and different elements of your hardware and system configuration you will want to run your node with a different set of configuration options. We've provided a few examples in the [Node Configuration Guide](configuration.md) to get you started.
 
-## Step 7 – Run the First-Run Checklist
+## 8. Learn, Iterate, and Optimize
 
-Verify that your miner is healthy by checking sync progress, storage usage, hashrate, and basic monitoring.  
-See: [First-Run Checklist](setup/first-run-checklist.md)
+After you get your node running, we recommend familiarizing yourself with the rest of the Mining Guide, joining the [Discord Server](https://discord.gg/GHB4fxVv8B), and reviewing the [Discussions Board](https://github.com/ArweaveTeam/arweave/discussions). There is a lot to learn and you will likely hit issues as you ramp up and tune your Arweave node - hopefully these resources will help you through it. 
 
-## Step 8 – Move On to Operations and Tuning
-
-Once your miner is stable, start learning how to operate, monitor, troubleshoot, and tune it for better performance and efficiency.  
-See: [Operations & Monitoring](operations/operations-monitoring.md), [Troubleshooting](operations/troubleshooting.md), and [Tuning & Optimization](operations/tuning-optimization.md).
-
+Thank you for supporting the Permaweb!

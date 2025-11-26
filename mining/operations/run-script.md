@@ -1,8 +1,6 @@
 ---
-title: Mining Operations – Running Arweave
+title: Arweave Run Script
 ---
-
-# Mining Operations – Running Arweave
 
 ## 1. Arweave Entry-point
 

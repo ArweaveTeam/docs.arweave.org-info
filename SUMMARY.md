@@ -14,7 +14,7 @@
     - [How Mining Works](mining/overview/mining.md)
     - [Hashrate](mining/overview/hashrate.md)
 - Operations
-    - [Operations Overview](mining/operations/README.md)
+    - [Arweave Run Script](mining/operations/run-script.md)
     - [Operations & Monitoring Guide](mining/operations/operations-monitoring.md)
     - [Troubleshooting Guide](mining/operations/troubleshooting.md)
     - [Tuning & Optimization Guide](mining/operations/tuning-optimization.md)
