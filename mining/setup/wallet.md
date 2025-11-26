@@ -9,7 +9,7 @@ The node wallet (aka mining key) provides a miner with their:
 
 For more information on how mining works see: [How Mining Works](../overview/mining.md)
 
-{% hint style="warning" %}
+{% hint style="danger" %}
 If you lose your node wallet you will not be able to access your mining rewards or sign new blocks. We strongly recommend you backup your node wallet.
 {% endhint %}
 
@@ -23,10 +23,10 @@ You can create a wallet with the provided `wallet` tool:
 
 This script will create the wallet and place it in the `[data_dir]/wallets` directory. See [Directory Structure](directory-structure.md) for more information on setting your `data_dir`.
 
-If you want to use an existing wallet, place it in `[data_dir]/wallets`. Imported wallets must in .json format and be named `arweave_keyfile_ADDRESS.json` where `ADDRESS` is the address associated with the wallet.
+If you want to use an existing wallet, place it in `[data_dir]/wallets`. Imported wallets must bin in `.json` format and be named `arweave_keyfile_ADDRESS.json` where `ADDRESS` is the address associated with the wallet.
 
-Note: when using [coordinated mining](coordinated-mining.md), the wallet only needs to be present on the exit node.
+Note: when using [coordinated mining](../overview/coordinated-mining.md), the wallet only needs to be present on the exit node.
 
-{% hint style="warning" %}
+{% hint style="danger" %}
 Make sure to never share you wallet with anyone.
 {% endhint %}
