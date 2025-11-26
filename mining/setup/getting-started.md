@@ -1,8 +1,8 @@
 ---
-title: Mining – Getting Started
+title: Getting Started
 ---
 
-# Mining – Getting Started
+# Getting Started
 
 This guide walks you through planning, installing, and bringing an Arweave miner online for the first time.
 
@@ -33,6 +33,11 @@ See: [Operating System Configuration](setup/os.md)
 
 Install the node software either from pre-built binaries or by building from source, and verify the installation.  
 See: [Installing Arweave](setup/install.md)
+
+## 5. Setup your Directory Structure
+
+Create the directories and links for your `data_dir` and storage modules.
+See: [Directory Structure](setup/directory-structure.md)
 
 ## Step 5 – Configure the Node and Wallet
 

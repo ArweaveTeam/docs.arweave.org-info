@@ -17,6 +17,27 @@ Miners are responsible for their own compliance with data protection laws (such 
 
 
 ## Preparation
+
+
+### Preparation: Packing Format
+
+Before you can configure your storage you'll have to decide on a packing format. The legacy packing format, `spora_2_6`, is still supported, but for new packs we recommend using the new `replica_2_9` format. The `replica_2_9` can be packed more quickly and with lower CPU requirements. Additonally while mining data packed to `replica_2_9` your optimal read rate is just 5 MiB/s per partition vs. 200 MiB/s for `spora_2_6`. This table summarizes the differences:
+
+| Packing Format | Time to pack (benchmarked to spora_2_6) | Disk read rate per partition when mining against a full replica |
+|----------------|-----------------------------------------|--------------------------------------------------------|
+| `spora_2_6`    | 1x                                      | 200 MiB/s                                              |
+| `replica_2_9`  | TBD (but more quickly)                  | 5 MiB/s                                                |
+
+If we assume that a good quality enterprise hard disk drive can sustain 200 MiB/s read rate, then with `spora_2_6` you could only store a single 4TB partition per 4TB HDD. However with `replica_2_9` you could conceivably store and mine 40x 4TB partitions (or 160 TB) on a single  HDD - well beyond the capacity of today's HDDs. 
+
+Note: The effective hashrate for a full replica packed to any of the supported packing formats is the same. A miner who has packed a full replica to `spora_2_6` or `replica_2_9` can expect to find the same number of blocks on average, but with the `replica_2_9` miner reading fewer chunks from their storage per second. This allows the miner to use larger hard drives in their setup, without increasing the necessary bandwidth between disk and CPU.
+
+Also note: When mining, all storage modules within the same replica must be packed to the same packing format. For example, a single miner will not be able to build a solution involving chunks from `storage_module_1_addr` and `storage_module_2_addr.replica.2.9` even if the packing address is the same.
+
+For guidance on how to pack your data see the example configurations in the [Examples](examples.md) guide.
+
+The packing format you select will influence what hardware configuration provides the best return. For more information on mining hardware see the [Hardware Guide](setup/hardware.md).
+
 #### Copying Data Across Storage Modules
 
 When a node starts, it copies (and packs, if required) the data from one storage module to another, in the case when there are two or more intersecting storage modules. For example, if you specify `storage_module 11,unpacked storage_module 11,[mining_address].replica.2.9` and there is some data in the "unpacked" module that is absent from the "mining address" module, the data will be packed with this mining address and stored in `11,[mining_address].replica.2.9`.

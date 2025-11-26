@@ -2,11 +2,11 @@
 
 ## Mining
 
-- [Setup](mining/getting-started.md)
-    - [Getting Started](mining/getting-started.md)
+- [Getting Started](mining/setup/getting-started.md)
     - [Hardware Planning](mining/setup/hardware.md)
     - [Installing Arweave](mining/setup/install.md)
     - [System Configuration](mining/setup/os.md)
+    - [Directory Structure](mining/setup/directory-structure.md)
 - Overview
     - [Node Types](mining/overview/node-types.md)
     - [Syncing and Packing](mining/overview/syncing-and-packing.md)
