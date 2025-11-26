@@ -22,14 +22,14 @@ See: [Node Types](overview/node-types.md)
 ## 2. Plan Your Hardware
 
 Size CPU, memory, storage, and network based on your chosen role.  
-See: [Hardware Planning](setup/hardware.md)
+See: [Hardware Guid](setup/hardware.md)
 
 ## 3. Configure the Operating System
 
 Configure your operating system for Arweave workloads.  
 See: [Operating System Configuration](setup/os.md)
 
-## Step 3 – Install the Arweave Node
+## 4. Install the Arweave Node
 
 Install the node software either from pre-built binaries or by building from source, and verify the installation.  
 See: [Installing Arweave](setup/install.md)

@@ -2,17 +2,15 @@
 
 ## Mining
 
-- [Docs Overview](mining/README.md)
-- Getting Started
-    - [Getting Started Roadmap](mining/getting-started.md)
+- [Setup](mining/getting-started.md)
+    - [Getting Started](mining/getting-started.md)
+    - [Hardware Planning](mining/setup/hardware.md)
+    - [Installing Arweave](mining/setup/install.md)
+    - [System Configuration](mining/setup/os.md)
 - Overview
     - [Node Types](mining/overview/node-types.md)
     - [Syncing and Packing](mining/overview/syncing-and-packing.md)
     - [Hashrate](mining/overview/hashrate.md)
-- Setup
-    - [Hardware Planning](mining/setup/hardware.md)
-    - [Installing Arweave](mining/setup/install.md)
-    - [Initial Configuration & Startup Phases](mining/setup/initial-config.md)
 - Operations
     - [Operations Overview](mining/operations/README.md)
     - [Operations & Monitoring Guide](mining/operations/operations-monitoring.md)
