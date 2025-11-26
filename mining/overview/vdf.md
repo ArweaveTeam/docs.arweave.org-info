@@ -39,7 +39,7 @@ Make sure to specify \[IP-ADDRESS]:\[PORT] if your node is configured to listen 
 
 In all cases `IP-ADDRESS` can also be a resolvable domain name.
 
-For an example invocation see [Mining Examples](https://docs.arweave.org/developers/mining/examples#running-a-vdf-server).
+For an example invocation see [Examples](https://docs.arweave.org/developers/mining/examples#running-a-vdf-server).
 
 {% hint style="warning" %}
 Do not connect to an external peer you do not trust.&#x20;
@@ -58,3 +58,10 @@ To configure your miner to use the team VDF servers:
 1. Add this to your launch config: `enable vdf_server_pull`
 2. Add the team VDF servers to your list of `vdf_server_trusted_peer`s
 {% endhint %}
+
+
+
+
+
+The number of SHA256 iterations (aka VDF difficulty) required to compute a single VDF step is continually adjusted by the Arweave network in order to target a 1-second step time. You can query the current VDF difficulty by looking at the `nonce_limiter_info.vdf_difficuly` field of the latest Arweave block (i.e. https://arweave.net/block/current). As of block height 1798684 the `vdf_difficulty` is 1,107,523 - meaning each VDF step requires 1,107,523 recursive SHA256 hashes.
+

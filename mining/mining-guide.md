@@ -15,129 +15,8 @@ For any questions and support queries regarding mining on Arweave, we strongly r
 Miners are responsible for their own compliance with data protection laws (such as GDPR) and other applicable laws in their jurisdiction. Data storage laws vary country to country. Failure to adhere to these laws may entail substantial legal risks for the miner. Please only participate in mining Arweave data if you have understood the legal implications of doing so and consider seeking legal advice.&#x20;
 {% endhint %}
 
-## Install the Miner
-
-Download the `.tar.gz` archive for your OS from the [releases page](https://github.com/ArweaveTeam/arweave/releases). Extract the contents of the archive - `tar -xzf [release_file]`.
-
-If your OS/platform architecture is not in the list, check the source code repository [README](https://github.com/ArweaveTeam/arweave#building-from-source) for how to build the miner from source.
 
 ## Preparation
-
-### Preparation: File Descriptors Limit
-
-The number of available file descriptors affects the rate at which your node can process data. Most operating systems default to assigning a low limit for user processes, we recommend increasing it.
-
-{% hint style="info" %} 
-These File Descriptors Limit instructions apply to Linux. When running a VDF Server on MacOS, please refer to the VDF guide.
-{% endhint %}
-
-You can check the current limit by executing `ulimit -n`.
-
-On Linux, to set a bigger global limit, open `/etc/sysctl.conf` and add the following line:
-
-```
-fs.file-max=10000000
-```
-
-Execute `sysctl -p` to make the changes take effect.
-
-You may also need to set a proper limit for the particular user. To set a user-level limit, open `/etc/security/limits.conf` and add the following line:
-
-```
-<your OS user>         soft    nofile  1000000
-```
-
-Open a new terminal session. To make sure the changes took effect, and the limit was increased, type `ulimit -n`. You can also change the limit for the current session via `ulimit -n 10000000`
-
-If the above does not work, set
-
-```
-DefaultLimitNOFILE=1000000
-```
-
-in both `/etc/systemd/user.conf`and `/etc/systemd/system.conf`
-
-### Preparation: Configuring Large Memory Pages
-
-Mining involves computing 1 RandomX hash and several SHA2 hashes every second for every 3.6 TB mining partition. It is not a lot, but your CPU may nevertheless become a bottleneck when you configure a lot of mining partitions. To maximize your hashing performance, consider configuring huge memory pages in your OS.
-
-On Ubuntu, to see the current values, execute:`cat /proc/meminfo | grep HugePages`. To set a value, run `sudo sysctl -w vm.nr_hugepages=5000`. To make the configuration survive reboots, create `/etc/sysctl.d/local.conf` and put `vm.nr_hugepages=5000` there.
-
-The output of `cat /proc/meminfo | grep HugePages` should then look like this:\
-`AnonHugePages: 0 kB`\
-`ShmemHugePages: 0 kB HugePages_Total: 5000 HugePages_Free: 5000 HugePages_Rsvd: 0 HugePages_Surp: 0`
-
-If it does not or if there is a "erl_drv_rwlock_destroy" error on startup, reboot the machine.
-
-Finally, tell the miner it can use large pages by specifying `enable randomx_large_pages`on startup (you can find a complete startup example further in the guide).
-
-### Preparation: Data Directory
-
-Create a directory somewhere in your system. We will refer to it as `[data_dir]` throughout this guide. We recommend having at least 200 GB available on the corresponding disk, although it is possible to configure the node for less space. For mining, you obviously need a lot more space, but the mining data should be stored on separate drives mounted in or symlinked to the folders inside `[data_dir].`More about it later in this guide.
-
-### Preparation: Mining Key
-
-In order to produce and sign a block your mining key needs to be present on your machine. If you want to create a new wallet, run `./bin/create-wallet.` The file is then created in `[data_dir]/wallets/.` Make sure you never share it with anyone! If you want to use an existing wallet, place it under the aforementioned path. Note: when using [coordinated mining](coordinated-mining.md), the wallet only needs to be present on the exit node.
-
-### Preparation: Packing Format
-
-Before you can configure your storage you'll have to decide on a packing format. The legacy packing format, `spora_2_6`, is still supported, but for new packs we recommend using the new `replica_2_9` format. The `replica_2_9` can be packed more quickly and with lower CPU requirements. Additonally while mining data packed to `replica_2_9` your optimal read rate is just 5 MiB/s per partition vs. 200 MiB/s for `spora_2_6`. This table summarizes the differences:
-
-| Packing Format | Time to pack (benchmarked to spora_2_6) | Disk read rate per partition when mining against a full replica |
-|----------------|-----------------------------------------|--------------------------------------------------------|
-| `spora_2_6`    | 1x                                      | 200 MiB/s                                              |
-| `replica_2_9`  | TBD (but more quickly)                  | 5 MiB/s                                                |
-
-If we assume that a good quality enterprise hard disk drive can sustain 200 MiB/s read rate, then with `spora_2_6` you could only store a single 4TB partition per 4TB HDD. However with `replica_2_9` you could conceivably store and mine 40x 4TB partitions (or 160 TB) on a single  HDD - well beyond the capacity of today's HDDs. 
-
-Note: The effective hashrate for a full replica packed to any of the supported packing formats is the same. A miner who has packed a full replica to `spora_2_6` or `replica_2_9` can expect to find the same number of blocks on average, but with the `replica_2_9` miner reading fewer chunks from their storage per second. This allows the miner to use larger hard drives in their setup, without increasing the necessary bandwidth between disk and CPU.
-
-Also note: When mining, all storage modules within the same replica must be packed to the same packing format. For example, a single miner will not be able to build a solution involving chunks from `storage_module_1_addr` and `storage_module_2_addr.replica.2.9` even if the packing address is the same.
-
-For guidance on how to pack your data see the example configurations in the [Mining Examples](examples.md) guide.
-
-The packing format you select will influence what hardware configuration provides the best return. For more information on mining hardware see the [Mining Hardware Guide](hardware.md).
-
-### Preparation: Storage Setup
-
-The Arweave dataset is logically partitioned into collections of 3.6 TB "mining partitions". You will store some or all of those mining partitions on your miner in "storage modules". Storage modules can be any size (smaller or larger than the default 3.6TB mining partition size), but many miners opt to align their storage modules with the Arweave partitions.
-
-To setup your storage modules, the first step is to create a folder inside `[data_dir]/storage_modules/` for each of the storage modules that you intend to mine with. Storage module folder names should use the following pattern: `storage_module[_storage_module_size]_[storage_module_index]_[packing]` where `packing` is either `{mining address}.{packing difficulty}` (where `packing difficulty` is an integer), or `unpacked`. The default storage module size is 3.6TB - in that case specifying `storage_module_size` is optional.
-
-For any given `storage_module_size`, you should allow for an additional 10% metadata overhead (such as merkle proofs). This is why, for the default 3.6 TB `storage_module_size`, we recommend reserving 4 TB of space. The storage modules are indexed sequentially starting from 0, with 0 being the very first 3.6 TB (or `storage_module_size`) worth of data stored on Arweave, and ranging up to or beyond the current Arweave dataset size (`weave_size`). You can choose which mining partitions you store by indicating their `storage_module_index` in the folder name. 
-
-For example, to set up a storage module with the very first mining partition in the weave with the default 3.6 TB `storage_module_size` (packed with your mining address), create the folder such as `[data_dir]/storage_modules/storage_module_0_[your_mining_address].replica.2.9`. If you were to store 2 TB storage modules, create the folder such as: `[data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address].replica.2.9`.
-
-After creating the relevant folders for your chosen partitions, mount your drives onto them. E.g.,
-```
-sudo mount /dev/sda [data_dir]/storage_modules/storage_module_0_[your_mining_address].replica.2.9
-sudo mount /dev/sda [data_dir]/storage_modules/storage_module_2000000000000_0_[your_mining_address].replica.2.9
-```
-
-Make sure you replace `/dev/sda` with the name of your drive (`lsblk`), `[data_dir]` - with the absolute path to your data folder, and `[your_mining_address]` - with your mining address.
-
-If you have a drive already mounted elsewhere, you may create a symbolic link instead:
-
-```
-ln -s [path/to/disk/mountpoint] [data_dir]/storage_modules/storage_module_0_[your_mining_address].replica.2.9
-```
-
-If you have a RAID setup with a lot of space, you can create a symlink link from the `[data_dir]/storage_modules` folder.
-
-A few important notes about the storage modules:
-
-- Having two or more storage modules that store the same mining partition (say, the partition at index 0 more than once) with the same mining address does not increase your mining performance. Also, it is more profitable mine a complete replica (all mining partitions) of the weave packed with a single address than mine off an equal amount of data packed with different mining addresses. Currently, we only support one mining address per node.
-- If you want to copy the contents of a storage module elsewhere, restart the node without the corresponding `storage_module` command line parameter, copy the data, and restart the node with the `storage_module` parameter again. You can attach the copied data as a storage module to another node. Just make sure to not copy while the node is interacting with this storage module. Do NOT mine on several nodes with the same mining address simultaneously (see the warning below.)
-- Make sure the disks with the storage modules have sufficient available space for both the data itself and metadata (10% of the size of the data). Note that `disk_space` command line parameter does NOT apply to the storage modules.
-- If you created storage modules with custom `storage_module_size` as mentioned above, make sure to specify the `storage_module_size` in your command line invocation as follows:
-  `storage_module [storage_module_index],[storage_module_size],[your_mining_address].replica.2.9`\
-  The module will sync data with the weave offsets between `storage_module_index * storage_module_size` (in bytes) and `(storage_module_index + 1) * storage_module_size` at folder `[data_dir]/storage_modules/storage_module[_storage_module_size]_[storage_module_index]_[your_mining_address].replica.2.9`.
-- The specified mining partition index does not have to be under the current weave size. This makes it possible to configure storage modules in advance. Once the weave data grows sufficiently large to start filling the mining partition at the specified index, the node will begin placing the new data in the already configured storage module.
-
-{% hint style="danger" %}
-It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! In order to have multiple nodes use the same mining address they must be configured to use coordinated mining. See the [Coordinated Mining Guide](coordinated-mining.md) for more information.
-{% endhint %}
-
 #### Copying Data Across Storage Modules
 
 When a node starts, it copies (and packs, if required) the data from one storage module to another, in the case when there are two or more intersecting storage modules. For example, if you specify `storage_module 11,unpacked storage_module 11,[mining_address].replica.2.9` and there is some data in the "unpacked" module that is absent from the "mining address" module, the data will be packed with this mining address and stored in `11,[mining_address].replica.2.9`.
@@ -166,7 +45,7 @@ We can broadly outline three tasks computing units solve in Arweave:
 3. Calculating storage proofs
 
 {% hint style="info" %}
-For more information on what hardware to use for your miner, please see the [Mining Hardware Guide](hardware.md).
+For more information on what hardware to use for your miner, please see the [Hardware Guide](setup/hardware.md).
 {% endhint %}
 
 
@@ -178,7 +57,7 @@ Packing mostly consists of executing RandomX instructions so the [faster your CP
 
 The VDF controls the speed of mining with new mining "seeds" available at 1 second intervals. To keep up with the network your CPU must be able to maintain this 1 second cadence while calculating the VDF. For that the CPU needs to support [hardware SHA2 acceleration](https://en.wikipedia.org/wiki/Intel_SHA_extensions). Additional cores will not improve VDF performance as VDF hash calculations are sequential and therefore limited to a single thread on a single core.
 
-For more information on VDF, including connecting to a VDF server or running your own VDF server, see [Mining VDF](vdf.md).
+For more information on VDF, including connecting to a VDF server or running your own VDF server, see the [VDF Guide](vdf.md).
 
 ## Running the Miner
 
@@ -241,7 +120,7 @@ An example with several storage modules (covering partitions 21, 22, 23):
 ./bin/start data_dir YOUR-DATA-DIR mining_addr YOUR-MINING-ADDRESS enable randomx_large_pages peer ams-1.eu-central-1.arweave.xyz peer fra-1.eu-central-2.arweave.xyz peer sgp-1.ap-central-2.arweave.xyz peer blr-1.ap-central-1.arweave.xyz peer sfo-1.na-west-1.arweave.xyz peer vin-1.east.us.north-america.arweave.xyz peer sin-1.sg.asia.arweave.xyz peer hil-1.west.us.north-america.arweave.xyz peer lim-1.de.europe.arweave.xyz peer fsn-1.de.europe.arweave.xyz debug mine storage_module 21,YOUR-MINING-ADDRESS.replica.2.9 storage_module 22,YOUR-MINING-ADDRESS.replica.2.9 storage_module 23,YOUR-MINING-ADDRESS.replica.2.9
 ```
 
-For more examples see: [Mining Examples](examples.md)
+For more examples see: [Examples](examples.md)
 
 {% hint style="info" %}
 In order to protect your machine from material that may be illegal in your country, you should use a content policy when mining Arweave. Content policies can be generated using the [Shepherd tool](https://shepherd.arweave.net). Shepherd allows you to create your own content policies for the content that you would like to store on your Arweave node, abiding by your moral and legal requirements.
@@ -303,10 +182,6 @@ WARNING: Peer 138.197.232.192 is 5 or more blocks ahead of us. Please, double-ch
 
 If you see them shortly after joining the network, see if they disappear in a few minutes - everything might be fine then. Otherwise, it is likely your processor cannot keep up with VDF computation or there are network connection issues. While VDF execution is done by a single core/thread, the validation of the VDF checkpoints in a block header can be done in parallel (with multiple threads). To speed up VDF validation, try restarting the node with a higher value for `max_vdf_validation_thread_count` (e.g., the number of CPU threads - 1).
 
-#### Stopping the Miner
-
-To stop the node, run `./bin/stop` or kill the OS process (`kill -sigterm <pid>` or `pkill <name>`). Sending a SIGKILL (`kill -9`) is **not** recommended.
-
 #### Defragmenting Storage
 
 Due to Arweave node specifics (storing data in the sparse files), the read throughput during mining after the initial sync might be suboptimal on some disks. In the performance reports printed in the console you can see the estimated optimal performance in MiB/s, per configured storage module. The first number estimates the optimum on a small dataset, the second - on the dataset close in size to the weave size. If the actual performance of a storage module is noticeably lower, consider running a defragmentation procedure to improve your mining performance on this module. (Re)start the miner with the following parameters (in this example, the storage module storing the partition 8 will be defragmented):
@@ -317,160 +192,6 @@ Due to Arweave node specifics (storing data in the sparse files), the read throu
 
 The defragmentation is performed before startup. Only chunk files larger than `defragmentation_trigger_threshold` bytes and those which have grown by more than 10% since the last defragmentation of this module will be updated. Note the defragmentation may take a lot of time.
 
-
-### How to use the new Arweave entry-point?
-
-The new Arweave entry-point located in `bin/arweave` is an updated
-version of the old one, integrating all required functions in one
-place. To print the help page, simple execute the script:
-
-```sh
-./bin/arweave
-```
-
-It is also possible to have a more detailed help of one particular
-	subcommand by passing it after the `help` one.
-
-```sh
-./bin/arweave help ${subcommand}
-```
-
-### How to start Arweave?
-
-Arweave can be started in many different ways depending of the needs
-and all these methods can be used with `./bin/arweave`
-entry-point. Most of the users are using `./bin/start` to start an
-arweave node, this script is equivalent to:
-
-```sh
-./bin/arweave start ${parameters}
-```
-
-To have access to Arweave output directly from the terminal (without
-the Erlang console) the following command can be used. It could be
-used with any process manager like `systemd`, because the VM will not
-fork.
-
-```sh
-./bin/arweave foreground ${parameters}
-```
-
-To have access to Arweave output directly from the terminal with an
-Erlang console:
-
-```sh
-./bin/arweave console ${parameters}
-```
-
-Arweave can also be started as an Unix daemon (in background) by
-executing the following command:
-
-```sh
-./bin/arweave daemon ${parameters}
-```
-
-To reattach a daemon (and having access to the Erlang console), one
-can execute the subcommand `daemon_attach`.
-
-```sh
-./bin/arweave daemon_attach
-```
-
-### How to know if my Arweave node is correctly started?
-
-To ensure a node is correctly running, one can ping it using
-`./bin/arweave` entry-point. The script will return the string `pong`
-if the node is up.
-
-```sh
-./bin/arweave ping
-```
-
-The same information can be available by using the subcommand
-`status`, except nothing will be printed. The command will return `0`
-if the node is up and `1` if the node is down. Useful for monitoring
-scripts.
-
-```sh
-./bin/arweave status
-```
-
-Finally, to see if the node is reachable, it is also possible to use
-external software like `curl`:
-
-```sh
-curl http://localhost:1984/
-```
-
-### How to have access to a remote console?
-
-An Erlang shell can be invoked to control the Erlang VM where Arweave
-is running. The `./bin/console` script can be used and it is
-equivalent to execute this command:
-
-```sh
-./bin/arweave remote_console
-```
-
-The shell can be ended by pressing `Ctrl` + `C`.
-
-### How to stop an arweave node?
-
-An Arweave node can be stopped by using the script `./bin/stop` or by
-executing the following command:
-
-```
-./bin/arweave stop
-```
-
-### How to run multiple nodes on one machine?
-
-An arweave node is identified by its ip address and a TCP port
-(default to 1984). So, more than one node can be started in parallel,
-listening to another TCP port. The first step is to create a new
-arweave configuratoin with an isolated `data_dir` parameter and set a
-new value for `port` parameter. It can be configured from a JSON
-configuration file or directly from the command line. Then, two
-environment variables need to be set, `ARNODE` defining the Erlang
-node name and `ARCOOKIE`, defining the cookie used for this node.
-
-```sh
-export ARNODE='my_new_node@127.0.0.1'
-export ARCOOKIE='my_cookie'
-./bin/start port 1985 data_dir /my/new/data_dir
-```
-
-To control the default node, unset `ARNODE` and `ARCOOKIE`.
-
-```sh
-unset ARNODE
-unset ARCOOKIE
-```
-
-### How to pass custom Erlang VM arguments?
-
-The first - and easiest - method is to pass the new argument directly
-from the command line, all arguments before `--` will be used to
-overwrite the default VM parameters of the Erlang VM. All arguments
-after `--` will be used for Arweave.
-
-```sh
-./bin/start +MMscs 131072 +S 16:16 -- config_file config.json
-```
-
-The second method is to modify
-`rel/arweave/releases/${arweave_release}/vm.args.src` file. This file
-contains all default parameters used by Arweave with some links to the
-official documentation to help anyone wanting to optimize the Erlang
-VM.
-
-### How to use developer mode?
-
-The developer mode can be used by setting the environment variable
-`ARWEAVE_DEV` to any kind of value or (when using the sources from
-git) by executing the script `bin/arweave-dev`. The developer mode
-will automatically recompile a release and required file everytime the
-script is executed.
 
 
 ## Troubleshooting

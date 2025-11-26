@@ -1,3 +1,11 @@
+---
+title: Mining Operations – Running Multiple Nodes
+---
+
+# Mining Operations – Running Multiple Nodes
+
+
+
 # Running Multiple Nodes on a Single Server
 
 **Original Author: @Thaseus**
@@ -22,3 +30,28 @@ The primary consideration when running more than one node on a single server is 
     2. Have each script source the appropriate `arweave.env` file, for example `source $SCRIPT_DIR/arweave2.env`
 3. Update your start command flags as necessary (e.g. to have each node use a different port)
 
+
+
+### How to run multiple nodes on one machine?
+
+An arweave node is identified by its ip address and a TCP port
+(default to 1984). So, more than one node can be started in parallel,
+listening to another TCP port. The first step is to create a new
+arweave configuratoin with an isolated `data_dir` parameter and set a
+new value for `port` parameter. It can be configured from a JSON
+configuration file or directly from the command line. Then, two
+environment variables need to be set, `ARNODE` defining the Erlang
+node name and `ARCOOKIE`, defining the cookie used for this node.
+
+```sh
+export ARNODE='my_new_node@127.0.0.1'
+export ARCOOKIE='my_cookie'
+./bin/start port 1985 data_dir /my/new/data_dir
+```
+
+To control the default node, unset `ARNODE` and `ARCOOKIE`.
+
+```sh
+unset ARNODE
+unset ARCOOKIE
+```

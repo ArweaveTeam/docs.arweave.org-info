@@ -51,7 +51,7 @@ For context, an older 4TB drive rated at 226 MB/s represents some of the highest
 
 While there is an official formula for calculating the absolute maximum hashrate possible, it does not accurately account for the read speed of your hard drives and the missing data from the storage modules in the chain. At the protocol level, assuming perfect read speed, all partitions packed, and a fully utilized weave, you would ideally generate 404 h/s per storage module.
 
-However, this ideal scenario is unattainable as the weave currently has gaps where storage space has been purchased but not yet filled (for more information on this see the [Syncing and Packing Guide](syncing-packing.md#partitions-are-rarely-full)). Presently, the network is 86% full. As new storage modules (partitions) are filled, this percentage will likely increase, gradually raising the overall maximum hashrate possible per storage module.
+However, this ideal scenario is unattainable as the weave currently has gaps where storage space has been purchased but not yet filled (for more information on this see the [Syncing and Packing Guide](syncing-and-packing.md#partitions-are-rarely-full)). Presently, the network is 86% full. As new storage modules (partitions) are filled, this percentage will likely increase, gradually raising the overall maximum hashrate possible per storage module.
 
 Below, you will find a custom hashrate formula that considers all relevant variables to provide a highly accurate hashrate estimate. It is crucial not to overestimate the read speed you can achieve, as doing so will result in inaccurate values.
 

@@ -25,7 +25,7 @@ fall under the "packing" umbrella:
 2. `unpack` - Decrypt a packed chunk of data.
 
 Both operations consume roughly the same amount of computational power. See the
-[benchmarking guide](hardware.md#benchmarking-your-miner) for more details.
+[benchmarking guide](../setup/hardware.md#benchmarking-your-miner) for more details.
 
 As of Arweave 2.9 there are two main packing formats available, `spora_2_6` and `replica_2_9`. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for more information. For new packs we recommend using the `replica_2_9` format.
 
@@ -41,18 +41,18 @@ There are 3 ways to get packed data:
 1. **Sync and Pack**: Used when you don't have any data locally. Your node will query chunk
 data from peers, unpack it from the peer's address, pack it to your address, and then store it
 in your storage module.
-    - See the [Mining Examples](examples.md#syncing-and-packing) guide for
+    - See the [Examples](examples.md#syncing-and-packing) guide for
 an example configuration.
 2. **Cross Module Repack**: Used when you have data locally but want to repack it to a
 different format or address. Your node will read data from one storage module, repack it, and
 then write it to a different storage module.
     - See the
-[Mining Examples](examples.md#cross-module-repack) guide for an example configuration.
+[Examples](examples.md#cross-module-repack) guide for an example configuration.
 3. **Repack In Place**: Used when you have data locally and want to repack it to a different
 format or address and then store it back in the same storage module. Your node will iterate
 through your storage module, read chunks, repack them, and then write them back to the same
 storage module.
-    - See the [Mining Examples](examples.md#repacking-in-place) guide for an example configuration.
+    - See the [Examples](examples.md#repacking-in-place) guide for an example configuration.
 
 ## Replica 2.9 Entropy Generation
 
@@ -65,7 +65,7 @@ broken into 2 steps:
 Currently (as of 2.9.1) the recommended approach when using "Sync and Pack" or
 "Cross Module Repack" is to first generate entropy for an entire partition, and then pack data
 for it. This is not possible with "Repack In Place" so no special handling is needed for it.
-See the [Mining Examples](examples.md) guide for guidance on how to do this.
+See the [Examples](examples.md) guide for guidance on how to do this.
 
 ## Storage Module Format
 
@@ -243,7 +243,7 @@ Not much to do here other than negotiate a faster internet connection, or find a
 
 Packing and unpacking can be parallelized across chunks, so you can add more cores or increase
 the clock speed to increase your packing speed. See the
-[hardware guide](hardware.md#benchmarking-your-miner) for guidance on evaluating CPU pack
+[hardware guide](../setup/hardware.md#benchmarking-your-miner) for guidance on evaluating CPU pack
 speed.
 
 ## Increasing Disk Write Speed
@@ -269,7 +269,7 @@ start mining. Including it here for completeness.
 
 ## Increasing RAM
 
-The RAM guidelines mentioned in the [Mining Guide](mining-guide.md#preparation-ram) are
+The RAM guidelines mentioned in the [Guide](mining-guide.md#preparation-ram) are
 focused on mining. Often RAM is not a primary bottleneck during syncing and packing. If you
 are maxing out your RAM: review the guidelines below. It's possible you can optimize your node
 configuration.

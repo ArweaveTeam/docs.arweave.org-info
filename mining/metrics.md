@@ -9,7 +9,7 @@ The arweave node publishes a set of [Prometheus](https://prometheus.io/docs/intr
 `<IP>:<PORT>/metrics`) - you can see an example at https://arweave.net/metrics. The `/metrics` endpoint also includes descriptions of each metric.
 
 You can integrate Prometheus with a number of monitoring and visualization tools. Below we'll share some sample dashboards in [Grafana](https://grafana.com/) and some guidance:
-1. [Mining Metrics](#mining-metrics)
+1. [Metrics](#mining-metrics)
 2. [Syncing and Packing Metrics](#syncing-and-packing-metrics)
 3. [Debugging Metrics](#debugging-metrics)
 
@@ -210,7 +210,7 @@ performance issues. It is split into 3 sections:
 **Metric**: `mining_rate{type="raw_read"}`
 
 This panel tracks the time it takes to read a 100MiB recall range per partition. This differs
-from the [Mining Read Rate](#read-rate) which tracks the number of chunks read per second. In
+from the [Read Rate](#read-rate) which tracks the number of chunks read per second. In
 particular the Raw Read Rate is not impacted by other bottlenecks in the mining pipeline and
 should give you a good indication of the disk speed actually observed by the node.
 

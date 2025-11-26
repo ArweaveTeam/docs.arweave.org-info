@@ -2,20 +2,41 @@
 
 ## Mining
 
-- [Quickstart Guide](mining/mining-quickstart.md)
-- [Mining Guide](mining/mining-guide.md)
-- [Coordinated Mining](mining/coordinated-mining.md)
-- [Syncing and Packing](mining/syncing-packing.md)
-    - [Estimated Partition Sizes](mining/estimated-partition-sizes.md)
-- [VDF](mining/vdf.md)
-- [Hardware Guide](mining/hardware.md)
-- [Understanding Hashrate](mining/hashrate.md)
-- [Examples](mining/examples.md)
+- [Docs Overview](mining/README.md)
+- Getting Started
+    - [Getting Started Roadmap](mining/getting-started.md)
+- Overview
+    - [Node Types](mining/overview/node-types.md)
+    - [Syncing and Packing](mining/overview/syncing-and-packing.md)
+    - [Hashrate](mining/overview/hashrate.md)
+- Setup
+    - [Hardware Planning](mining/setup/hardware.md)
+    - [Installing Arweave](mining/setup/install.md)
+    - [Initial Configuration & Startup Phases](mining/setup/initial-config.md)
+- Operations
+    - [Operations Overview](mining/operations/README.md)
+    - [Operations & Monitoring Guide](mining/operations/operations-monitoring.md)
+    - [Troubleshooting Guide](mining/operations/troubleshooting.md)
+    - [Tuning & Optimization Guide](mining/operations/tuning-optimization.md)
+    - [Metrics Reference](mining/metrics.md)
+    - [Grafana – Mining Dashboard JSON](mining/grafana-mining.json)
+    - [Grafana – Debug Dashboard JSON](mining/grafana-debug.json)
+    - [Grafana – Syncing/Packing Dashboard JSON](mining/grafana-syncing-packing.json)
 - Advanced Topics
-    - [Metrics](mining/metrics.md)
+    - [Advanced Topics Overview](mining/advanced-topics.md)
+    - [Coordinated Mining](mining/coordinated-mining.md)
     - [Running Multiple Nodes](mining/multiple-nodes.md)
     - [TLS Guide](mining/tls.md)
-- [FAQs](mining/faqs.md)
+    - [VDF](mining/vdf.md)
+- Legacy Guides & References
+    - [Legacy Quickstart Guide](mining/mining-quickstart.md)
+    - [Legacy Mining Guide](mining/mining-guide.md)
+    - [Syncing and Packing](mining/overview/syncing-and-packing.md)
+    - [Estimated Partition Sizes](mining/estimated-partition-sizes.md)
+    - [Hardware Guide](mining/setup/hardware.md)
+    - [Examples](mining/examples.md)
+    - [FAQs](mining/faqs.md)
+    - [Legacy Guides Index](mining/legacy-guides.md)
 
 ## Development
 

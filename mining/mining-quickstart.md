@@ -61,11 +61,11 @@ There are numerous options when it comes to SAS controllers. For a straightforwa
 
 Syncing is the process of downloading data from network peers. Your node will continuously check for any gaps in the data you have already packed and then search out peers from which to download the missing data.
 
-Packing is the process of encrypting the synced data with your public Arweave key in order to mine against it. Syncing and packing are typically done at the same time. For more information see the [Syncing and Packing Guide](syncing-packing.md)
+Packing is the process of encrypting the synced data with your public Arweave key in order to mine against it. Syncing and packing are typically done at the same time. For more information see the [Syncing and Packing Guide](overview/syncing-and-packing.md)
 
 ### Mining
 
-Once you have fully packed all of your data and configured your storage modules, you can mine against them. This is a relatively straightforward process, but requires monitoring of your systems periodically. For more information see the [Mining Guide](mining-guide.md)
+Once you have fully packed all of your data and configured your storage modules, you can mine against them. This is a relatively straightforward process, but requires monitoring of your systems periodically. For more information see the [Guide](mining-guide.md)
 
 ### data_dir
 
@@ -108,7 +108,7 @@ Currently, my full weave consumes approximately 1.3 kW per hour, excluding the p
 
 #### Hardware Summary
 
-For the purposes of this Quickstart guide, we have suggested a simple and high-end system that utilizes easily purchasable used equipment from eBay, Facebook, and other sources. While there are many other variations (including used servers), this setup will provide you with a solid starting point. For more information see the [Hardware Guide](hardware.md)
+For the purposes of this Quickstart guide, we have suggested a simple and high-end system that utilizes easily purchasable used equipment from eBay, Facebook, and other sources. While there are many other variations (including used servers), this setup will provide you with a solid starting point. For more information see the [Hardware Guide](setup/hardware.md)
 
 ##### Minimum Suggested
 |||
@@ -140,7 +140,7 @@ Note you may need a power supply splitter if you plan to connect 2 power supplie
 
 ### Configure Ubuntu 
 
-Install Ubuntu 22.04, then Configure Ubuntu for our requirements. For more information see the [Mining Guide](mining-guide.md)
+Install Ubuntu 22.04, then Configure Ubuntu for our requirements. For more information see the [Guide](mining-guide.md)
 
 1. **Install Ubuntu 22.04, and update it**
 2. **Increase file descriptor limit - Run command (a), add the line to the file (i), SAVE**
@@ -209,7 +209,7 @@ You must create your first AR wallet in order to prepare your hard drives to be 
 
 ### Prepping your hard drives to be storage modules
 
-The Arweave data set (sometimes called "the weave") is divided up into 3.6TB partitions. As mentioned earlier miners typically store each partition on its own 4TB disk - the extra 0.4TB of space is needed for extra metadata. Before you can start mining you need to configure "storage modules" that cover the data you plan to mine. Often miners will have 1 storage module for each partition - but this is not required. We'll describe how to configure this basic case below, but for more information please see the [Mining Guide](mining-guide.md#preparation-storage-setup) 
+The Arweave data set (sometimes called "the weave") is divided up into 3.6TB partitions. As mentioned earlier miners typically store each partition on its own 4TB disk - the extra 0.4TB of space is needed for extra metadata. Before you can start mining you need to configure "storage modules" that cover the data you plan to mine. Often miners will have 1 storage module for each partition - but this is not required. We'll describe how to configure this basic case below, but for more information please see the [Guide](mining-guide.md#preparation-storage-setup) 
 
 You will need to mount your drives into subdirectories within `/opt/data_dir/storage_modules.` There are various methods for achieving this, such as direct mounting or using symbolic links (symlinks). For the purposes of this Quickstart guide, we will employ the direct mounting method. Ensure that you create only one instance of each storage module, as there is no advantage to duplicating the same storage module. To maximize efficiency, pack as many drives as possible concurrently to fully utilize your CPU. It is advisable not to mine while packing.
 
