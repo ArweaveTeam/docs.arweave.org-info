@@ -2,8 +2,6 @@
 title: Hardware Guide
 ---
 
-# Hardware Guide
-
 ## 1. Overview
 
 This guide will outline the main considerations when building your miner and provide an example configuration.

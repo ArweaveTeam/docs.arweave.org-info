@@ -3,13 +3,15 @@
 ## Mining
 
 - [Getting Started](mining/setup/getting-started.md)
-    - [Hardware Planning](mining/setup/hardware.md)
+    - [Hardware Guide](mining/setup/hardware.md)
     - [Installing Arweave](mining/setup/install.md)
     - [System Configuration](mining/setup/os.md)
     - [Directory Structure](mining/setup/directory-structure.md)
+    - [Node Wallet](mining/setup/wallet.md)
 - Overview
     - [Node Types](mining/overview/node-types.md)
     - [Syncing and Packing](mining/overview/syncing-and-packing.md)
+    - [How Mining Works](mining/overview/mining.md)
     - [Hashrate](mining/overview/hashrate.md)
 - Operations
     - [Operations Overview](mining/operations/README.md)
@@ -26,15 +28,6 @@
     - [Running Multiple Nodes](mining/multiple-nodes.md)
     - [TLS Guide](mining/tls.md)
     - [VDF](mining/vdf.md)
-- Legacy Guides & References
-    - [Legacy Quickstart Guide](mining/mining-quickstart.md)
-    - [Legacy Mining Guide](mining/mining-guide.md)
-    - [Syncing and Packing](mining/overview/syncing-and-packing.md)
-    - [Estimated Partition Sizes](mining/estimated-partition-sizes.md)
-    - [Hardware Guide](mining/setup/hardware.md)
-    - [Examples](mining/examples.md)
-    - [FAQs](mining/faqs.md)
-    - [Legacy Guides Index](mining/legacy-guides.md)
 
 ## Development
 

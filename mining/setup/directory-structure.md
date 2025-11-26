@@ -2,8 +2,6 @@
 title: Arweave Directory Structure
 ---
 
-# Arweave Directory Structure
-
 ## 1. Overview
 
 There are 3 main directories to plan for:

@@ -2,8 +2,6 @@
 title: Getting Started
 ---
 
-# Getting Started
-
 This guide walks you through planning, installing, and bringing an Arweave miner online for the first time.
 
 {% hint style="info" %}
@@ -39,10 +37,10 @@ See: [Installing Arweave](setup/install.md)
 Create the directories and links for your `data_dir` and storage modules.
 See: [Directory Structure](setup/directory-structure.md)
 
-## Step 5 – Configure the Node and Wallet
+## 6. Create your Node Wallet
 
-Create or import a wallet, configure node settings (data directories, logging, flags), and set up the node as a service.  
-See: [Node and Wallet Configuration](setup/node-and-wallet.md)
+All nodes need a configured wallet (aka mining key), if you don't specify one it will be created for you. If you're not mining, this default wallet is probably fine. For miners:
+See: [Node Wallet](setup/wallet.md)
 
 ## Step 6 – Understand Startup Phases
 
