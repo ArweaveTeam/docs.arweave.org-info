@@ -3,16 +3,42 @@ description: >-
   A guide to configuring and running your node for different purposes
 ---
 
+# 0. Overview
+
 Arweave provides a number of configuration options to control, customize, and tune its operation. This guide will describe the main operating phases for different [node types](../overview/node-types.md) and provide example configurations you can adapt as needed.
+
+# 0.1 Run-script
+
+We recommend using the `./bin/start` wrapper script to run your node. This script wraps the core [Arweave entrypoint](../operations/entrypoint.md) with naive auto-restart functionality. If your node crashes, `./bin/start` will wait 15 seconds and then restart it with the same configuration.
+
+# 0.2 Keeping the Miner Running
+
+Linux provides many way to run an application in the background or as a daemon so that it will keep running even after you've exited your shell or closed your remote connection. You can likely use any approach your comfortable with. Many miners use the `screen` session manager, e.g.:
+
+```sh
+screen -dmSL arweave ./bin/start config_file config.json
+```
+
+This will start your node in the background, piping console output to a file named `screenlog.0` and keep your node running after you exit your shell.
+
+In order to bring your node to the foreground:
+
+```sh
+screen -r
+```
+
+You can read more about `screen` [here](https://www.gnu.org/software/screen/manual/screen.html).
+
+# 0.3 Command-line vs. Configuration File
 
 When running your node you can configure it via command-line arguments as well as via a json file. To load configuration from a json file you specify the `config_file YOURFILE.json` command-line argument. You can use both command-line arguments and a config.json but in general we recommend against mixing as it can be confusing if there are conflicts between the two.
 
-# 0. Required Options
+# 0.4 Required Options
 
 All node types and operating phases require at least the following options
 
 - `data_dir`: indicates where the node should store indices and metadata. See [Directory Structure](directory-structure.md)
-- `peer`: lists the node's [Trusted Peers](trusted-peers.md). Your node will use these peers when it initially joins the network so it is important that you trust them to behave honestly.
+- `peer`: specifies the node's [Trusted Peers](../overview/trusted-peers.md). Your node will use these peers when it initially joins the network so it is important that you trust them to behave honestly.
 
 # 1. Mining
 

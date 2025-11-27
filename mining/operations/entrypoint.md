@@ -1,9 +1,15 @@
 ---
 description: >-
-  How to use the Arweave launch script
+  How to use the Arweave entrypoint script
 ---
 
-# 1. Arweave Entry-point
+# 0. `./bin/start` vs. `./bin/arweave`
+
+This guide covers the core Arweave entrypoint: `./bin/arweave`. That entrypoint provides a lot of useful functionality. However when launching your node it is recommended that you use `./bin/start`.
+
+`./bin/start` wraps `./bin/arweave foreground` and includes a naive auto-restart functionality. If your node crashes, `./bin/start` will wait 15 seconds and then start it again.
+
+# 1. Arweave Entrypoint
 
 The Arweave entry-point located in `bin/arweave` integrates all required
 subcommands in one place. To print the help page, execute the script:
@@ -122,7 +128,7 @@ after `--` will be used for Arweave.
 
 Example:
 ```sh
-./bin/arweave foreground +MMscs 131072 +S 16:16 -- config_file config.json
+./bin/start +MMscs 131072 +S 16:16 -- config_file config.json
 ```
 
 The second method is to modify the

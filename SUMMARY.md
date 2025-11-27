@@ -3,21 +3,22 @@
 ## Mining
 
 - [Getting Started](mining/setup/getting-started.md)
+    - [Getting Started](mining/setup/getting-started.md)
     - [Hardware Guide](mining/setup/hardware.md)
-    - [Installing Arweave](mining/setup/install.md)
     - [System Configuration](mining/setup/os.md)
+    - [Installing Arweave](mining/setup/install.md)
     - [Directory Structure](mining/setup/directory-structure.md)
     - [Node Wallet](mining/setup/wallet.md)
     - [Running Your Node](mining/setup/configuration.md)
-    - [Trusted Peers](mining/setup/trusted-peers.md)
-    - [Running a VDF Server](mining/setup/vdf.md)
 - Overview
     - [Node Types](mining/overview/node-types.md)
+    - [Trusted Peers](mining/setup/trusted-peers.md)
     - [Syncing and Packing](mining/overview/syncing-and-packing.md)
     - [How Mining Works](mining/overview/mining.md)
     - [Hashrate](mining/overview/hashrate.md)
+    - [VDF](mining/overview/vdf.md)
 - Operations
-    - [Arweave Run Script](mining/operations/run-script.md)
+    - [Arweave Entrypoint](mining/operations/entrypoint.md)
     - [Benchmarking](mining/operations/benchmarking.md)
     - [Multiple Nodes, One Server](mining/operations/multiple-nodes.md)
     - [Metrics Reference](mining/metrics.md)
