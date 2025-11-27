@@ -8,6 +8,7 @@
     - [System Configuration](mining/setup/os.md)
     - [Directory Structure](mining/setup/directory-structure.md)
     - [Node Wallet](mining/setup/wallet.md)
+    - [Node Configuration](mining/setup/configuration.md)
 - Overview
     - [Node Types](mining/overview/node-types.md)
     - [Syncing and Packing](mining/overview/syncing-and-packing.md)
@@ -15,9 +16,8 @@
     - [Hashrate](mining/overview/hashrate.md)
 - Operations
     - [Arweave Run Script](mining/operations/run-script.md)
-    - [Operations & Monitoring Guide](mining/operations/operations-monitoring.md)
-    - [Troubleshooting Guide](mining/operations/troubleshooting.md)
-    - [Tuning & Optimization Guide](mining/operations/tuning-optimization.md)
+    - [Benchmarking](mining/operations/benchmarking.md)
+    - [Multiple Nodes, One Server](mining/operations/multiple-nodes.md)
     - [Metrics Reference](mining/metrics.md)
     - [Grafana – Mining Dashboard JSON](mining/grafana-mining.json)
     - [Grafana – Debug Dashboard JSON](mining/grafana-debug.json)
@@ -25,7 +25,7 @@
 - Advanced Topics
     - [Advanced Topics Overview](mining/advanced-topics.md)
     - [Coordinated Mining](mining/coordinated-mining.md)
-    - [Running Multiple Nodes](mining/multiple-nodes.md)
+
     - [TLS Guide](mining/tls.md)
     - [VDF](mining/vdf.md)
 
@@ -35,7 +35,7 @@
 - [The Arweave Protocol](development/protocol.md)
 - [The Arweave Node Software Architecture](development/architecture.md)
 - [Getting Started](development/getting-started.md)
-    - [Automated Tests](development/automated-tests.md)
+- [Automated Tests](development/automated-tests.md)
     - [Debugging](development/debugging.md)
 - Advanced Topics
     - [Running You Own Localnet](development/localnet.md)

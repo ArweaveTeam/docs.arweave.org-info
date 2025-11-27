@@ -3,8 +3,6 @@ description: >-
   A guide to benchmarking your miner's performance
 ---
 
-# Operations - Benchmarking
-
 The arweave node ships with 2 tools you can use to benchmark different elements of your
 miner's performance.
 - Hashing: `./bin/arweave benchmark hash`

@@ -2,12 +2,6 @@
 title: Mining Operations – Running Multiple Nodes
 ---
 
-# Mining Operations – Running Multiple Nodes
-
-
-
-# Running Multiple Nodes on a Single Server
-
 **Original Author: @Thaseus**
 
 A guide to running more than one Arweave node on the same server

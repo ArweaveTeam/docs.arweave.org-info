@@ -1,5 +1,5 @@
 ---
-title: Node Wallet
+title: BLAH BLAH
 ---
 
 The node wallet (aka mining key) provides a miner with their:

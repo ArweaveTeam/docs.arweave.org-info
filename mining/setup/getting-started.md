@@ -28,7 +28,7 @@ Configure your operating system for Arweave workloads.
 
 Install the node software either from pre-built binaries or by building from source, and verify the installation.  
 
-## 5. [Setup Your Directory Structure](sdirectory-structure.md)
+## 5. [Setup Your Directory Structure](directory-structure.md)
 
 Create the directories and links for your `data_dir` and storage modules.
 
