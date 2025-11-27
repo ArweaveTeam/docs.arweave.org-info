@@ -9,6 +9,7 @@
     - [Directory Structure](mining/setup/directory-structure.md)
     - [Node Wallet](mining/setup/wallet.md)
     - [Node Configuration](mining/setup/configuration.md)
+    - [Running a VDF Server](mining/setup/vdf.md)
 - Overview
     - [Node Types](mining/overview/node-types.md)
     - [Syncing and Packing](mining/overview/syncing-and-packing.md)

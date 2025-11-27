@@ -1,4 +1,7 @@
-# Understanding Hashrate
+---
+description: >-
+  Understanding your miner's hashrate
+---
 
 **Original Author: @Thaseus**
 

@@ -1,8 +1,8 @@
-# Coordinated Mining
-
+---
+description: >-
+  A guide to operating a coordinated mining cluster
+---
 **Original Author: @Thaseus**
-
-A guide to operating a coordinated mining cluster
 
 ## What is coordinated mining?
 

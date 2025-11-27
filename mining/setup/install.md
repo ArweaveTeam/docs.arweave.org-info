@@ -1,9 +1,3 @@
----
-title: Installing Arweave
----
-
-# Installing Arweave
-
 Download the `.tar.gz` archive for your OS from the [releases page](https://github.com/ArweaveTeam/arweave/releases). Extract the contents of the archive - `tar -xzf [release_file]`.
 
 {% hint style="info" %}

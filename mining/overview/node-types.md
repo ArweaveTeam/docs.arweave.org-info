@@ -1,5 +1,6 @@
 ---
-title: Node Types
+description: >-
+  Understanding the different Arweave node types
 ---
 
 This pages describes the different roles your node can play. Each role can be launched from the same `arweave` application found on the main [github repository](https://github.com/ArweaveTeam/arweave). 

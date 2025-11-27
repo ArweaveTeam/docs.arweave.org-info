@@ -1,6 +1,6 @@
 ---
 description: >-
-  A guide to running a VDF Server.
+  A guide to running a VDF Server
 ---
 
 # What is VDF?

@@ -1,5 +1,6 @@
 ---
-title: Arweave Directory Structure
+description: >-
+  How to setup your node's directory structure
 ---
 
 ## 1. Overview

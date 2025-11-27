@@ -1,5 +1,6 @@
 ---
-title: Getting Started
+description: >-
+  Setup and run your first Arweave miner
 ---
 
 This guide walks you through planning, installing, and bringing an Arweave miner online for the first time.

@@ -1,0 +1,4 @@
+---
+description: >-
+  Understanding Arweave mining
+---

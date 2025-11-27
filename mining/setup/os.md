@@ -1,8 +1,7 @@
 ---
-title: Operating System Configuration
+description: >-
+  How to configure your operating system to run Arweave
 ---
-
-# Operating System Configuration
 
 In order to run an Arweave miner efficiently, several operating system defaults should be updated.
 

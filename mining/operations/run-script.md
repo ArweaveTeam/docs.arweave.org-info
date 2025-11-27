@@ -1,5 +1,6 @@
 ---
-title: Arweave Run Script
+description: >-
+  How to use the Arweave launch script
 ---
 
 ## 1. Arweave Entry-point

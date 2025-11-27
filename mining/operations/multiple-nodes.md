@@ -1,10 +1,9 @@
 ---
-title: Mining Operations – Running Multiple Nodes
+description: >-
+  A guide to running more than one Arweave node on the same server
 ---
 
 **Original Author: @Thaseus**
-
-A guide to running more than one Arweave node on the same server
 
 ## Why would you need to run more than one node?
 

@@ -1,5 +1,6 @@
 ---
-title: Hardware Guide
+description: >-
+  Planning your miner's hardware configuration
 ---
 
 ## 1. Overview
