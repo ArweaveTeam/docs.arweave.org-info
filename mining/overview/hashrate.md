@@ -13,17 +13,17 @@ The following guide assumes all data is packed using the deprecated `spora_2_6` 
 This guide should be updated in the future to provide guidance for `replica_2_9` format packs.
 {% endhint %}
 
-## Preface
+# Preface
 
 This guide provides general information regarding hashrate estimations and discusses the various factors that influence these hashrates. The details presented here are accurate for version 2.7.4 (August 2024). As AR mining evolves, fundamentals may change; every effort will be made to keep this document current.
 
 It is important to note that this document does not guarantee specific hashrates. Each system and its underlying hardware are unique, resulting in different potential hashrates for every miner. Therefore, variances in the values and details provided throughout this document should be expected.
 
-## Hashrate Variables Under Your Control
+# Hashrate Variables Under Your Control
 
 Several variables contribute to your final hashrate. The key variables you can control are hard drive read speed and the number of fully packed storage modules. The ultimate goal is to achieve the best possible read speed and ensure all storage modules are fully packed, thereby maximizing your hashrate. For the purposes of this section, assume the values discussed are intended to provide optimal hashrate. Lower values may still be acceptable depending on your specific requirements.
 
-### Number of fully packed storage modules
+## Number of fully packed storage modules
 
 The number one priority is to pack the entire weave into storage modules. This can be accomplished either individually (solo or through [Vird’s Pool](https://ar.virdpool.com/) | [Discord](https://discord.gg/hTCmhGWPEp)) or by sharing a weave with others (e.g. on [Vird’s Pool](https://ar.virdpool.com/) | [Discord](https://discord.gg/hTCmhGWPEp)).
 
@@ -31,7 +31,7 @@ Consider the following example to understand the importance of having all partit
 
 This example is based on the current requirement of 58 partitions and will change over time. However, the underlying principle remains the same: without most or all partitions packed, your hashrate will be significantly lower than those who have them fully packed.
 
-### Read speed of your hard drive
+## Read speed of your hard drive
 
 Following the packing of the entire weave, the next critical metric is the read speed of your hard drive. Without delving into excessive detail (further research may be beneficial), it is important to note that hard drives do not sustain their rated read speed across their entire capacity. For example, if a drive is rated at 226MB/s, its actual range is likely closer to...
        
@@ -50,7 +50,7 @@ Achieving a consistent read speed of 200 MiB/s can be challenging with an older 
 Not achieving maximal hashrate is OK, as long as it’s close enough and within your budget to implement. Instead, focus on finding drives within your budget that provide the minimum acceptable performance. It is strongly recommended to select drives rated at or above 215 MB/s (older drives were rated in MB/s).
 For context, an older 4TB drive rated at 226 MB/s represents some of the highest speed drives from the 2017-2018 era. These drives can range from 183 MB/s for older, slower models to the 290 MB/s range for top-of-the-line new drives available this year. Purchase the best drives that meet your budget to achieve optimal results.
 
-## Hashrate Formula?
+# Hashrate Formula?
 
 While there is an official formula for calculating the absolute maximum hashrate possible, it does not accurately account for the read speed of your hard drives and the missing data from the storage modules in the chain. At the protocol level, assuming perfect read speed, all partitions packed, and a fully utilized weave, you would ideally generate 404 h/s per storage module.
 
@@ -58,7 +58,7 @@ However, this ideal scenario is unattainable as the weave currently has gaps whe
 
 Below, you will find a custom hashrate formula that considers all relevant variables to provide a highly accurate hashrate estimate. It is crucial not to overestimate the read speed you can achieve, as doing so will result in inaccurate values.
 
-### Formula
+## Formula
 
 For a 100% perfect hashrate as of mid August 2024, it would be…
 
@@ -98,20 +98,20 @@ For estimation purposes, if you are not entirely certain, use an average read sp
 
 Disclaimer: This formula is simplified to a single formula of the H2 Solutions, and not an H1 / 100 + H2 formula. This simplified formula gives you an accurate representation down to less than 1% deviation and makes it easier to understand.
 
-## Troubleshooting Your Hashrate / Common Questions
+# Troubleshooting Your Hashrate / Common Questions
 
 Below are some common complaints/scenarios from newer miners in regards to their hashrate. While this list is not exhaustive, it will likely point you in the right direction of a solution.
 
-### A new miner is impatient and they are trying to mine while packing
+## A new miner is impatient and they are trying to mine while packing
 
 - It is always better to pack all of your partitions before starting to mine
 - Mining while packing will take many times longer than simply packing, then mining
 
-### “I packed all of my partitions onto my one server, but my hashrate is very low”
+## “I packed all of my partitions onto my one server, but my hashrate is very low”
 
 - Most miners will need several servers in order to mine via Coordinated Mining as the CPU capabilities of traditional PC’s, or basic used servers are not powerful enough to handle 50+ partitions
 
-### “I have a bottleneck in my system affecting my read speed”
+## “I have a bottleneck in my system affecting my read speed”
 
 - Slow hard drives
 - PCIe bandwidth issues
@@ -121,17 +121,17 @@ Below are some common complaints/scenarios from newer miners in regards to their
 - Thermal throttling of HBA, CPU, etc
 - You have not packed all of your partitions
 
-### “I have coordinated mining nodes, all partitions are packed, but my hashrate is low”
+## “I have coordinated mining nodes, all partitions are packed, but my hashrate is low”
 - Confirm network settings / connectivity with your CM nodes
 - Make sure you are seeing stats appear in the CM section of the miner screen
 - Check your configuration
 
-### “My hashrate is very low”
+## “My hashrate is very low”
 
 - Have you packed ALL partitions? If no, then do that first.
 - Have you reviewed the hashrate formula above to identify expected hashrate?
 
-### My hashrate fluctuates wildly on the mining screen
+## My hashrate fluctuates wildly on the mining screen
 
 - Yes it does, but do not worry about the “Current” fields, only review the “Averages”, and please note, the averages take several hours to stabilize
 

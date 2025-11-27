@@ -5,11 +5,11 @@ description: >-
 
 In order to run an Arweave miner efficiently, several operating system defaults should be updated.
 
-## 0. Recommonded OS: Ubuntu Linux
+# 0. Recommonded OS: Ubuntu Linux
 
 We recommend running Arweave on Ubuntu Linux 22.04 or 24.04. 
 
-## 1. File Descriptors Limit
+# 1. File Descriptors Limit
 
 The number of available file descriptors affects the rate at which your node can process data. Most operating systems default to assigning a low limit for user processes, we recommend increasing it.
 
@@ -43,7 +43,7 @@ DefaultLimitNOFILE=1000000
 
 in both `/etc/systemd/user.conf`and `/etc/systemd/system.conf`
 
-## 2. Configuring Large Memory Pages
+# 2. Configuring Large Memory Pages
 
 Mining involves computing 1 RandomX hash and several SHA2 hashes every second for every 3.6 TB mining partition. It is not a lot, but your CPU may nevertheless become a bottleneck when you configure a lot of mining partitions. To maximize your hashing performance, consider configuring huge memory pages in your OS.
 

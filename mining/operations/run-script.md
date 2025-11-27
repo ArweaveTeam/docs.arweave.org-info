@@ -3,7 +3,7 @@ description: >-
   How to use the Arweave launch script
 ---
 
-## 1. Arweave Entry-point
+# 1. Arweave Entry-point
 
 The Arweave entry-point located in `bin/arweave` integrates all required
 subcommands in one place. To print the help page, execute the script:
@@ -19,7 +19,7 @@ It is also possible to have a more detailed help of one particular
 ./bin/arweave help ${subcommand}
 ```
 
-## 2. Start Arweave
+# 2. Start Arweave
 
 Arweave can be started in many different ways depending of the needs
 and all these methods can be used with `./bin/arweave`
@@ -60,7 +60,7 @@ can execute the subcommand `daemon_attach`.
 ./bin/arweave daemon_attach
 ```
 
-## 3. Arweave Status
+# 3. Arweave Status
 
 To ensure a node is correctly running, one can ping it using
 `./bin/arweave` entry-point. The script will return the string `pong`
@@ -86,7 +86,7 @@ external software like `curl`:
 curl http://localhost:1984/
 ```
 
-## 4. Remote Console
+# 4. Remote Console
 
 An Erlang shell can be invoked to control the Erlang VM where Arweave
 is running. The `./bin/console` script can be used and it is
@@ -98,7 +98,7 @@ equivalent to execute this command:
 
 The shell can be ended by pressing `Ctrl` + `C`.
 
-## 5. Stop Arweave
+# 5. Stop Arweave
 
 An Arweave node can be stopped by using the script `./bin/stop` or by
 executing the following command:
@@ -113,7 +113,7 @@ It can take some time for the node to shutdown. If you can, it is best to wait f
 Sending a SIGKILL (`kill -9`) is **not** recommended as it can cause data corruption.
 {% endhint %}
 
-## 6. Custom Erlang VM Arguments
+# 6. Custom Erlang VM Arguments
 
 The first - and easiest - method is to pass the new argument directly
 from the command line, all arguments before `--` will be used to

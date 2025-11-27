@@ -12,7 +12,7 @@ miner's performance.
 There are 2 other benchmarking tools (`2.9` and `packing`) that need to be rewritten and can't be relied on to benchmark packing speed.
 {% endhint %}
 
-## 1. Hashing
+# 1. Hashing
 
 The `hash` benchmark will report the speed in milliseconds to compute an H0 hash as well
 as an H1 or H2 hash. These metrics are primarily used while mining.
@@ -38,9 +38,9 @@ Arweave node and at the system level).
 
 For more information about how hashrate is calculated, please see [Overview - Hashrate](../overview/hashrate.md).
 
-### 1.1 Examples
+## 1.1 Examples
 
-#### 1.1.1 Example 1
+### 1.1.1 Example 1
 
 - The full weave is 50 partitions
 - You are mining all 50 partitions
@@ -54,7 +54,7 @@ For more information about how hashrate is calculated, please see [Overview - Ha
 - Each VDF step you will need **8,075 ms** of compute time (40,000 * 0.2 + 50 * 1.5)
 - Implication is that you will need **more than 8-cores** to mine a 1 second VDF.
 
-#### 1.1.2 Example 2
+### 1.1.2 Example 2
 
 - The full weave is 50 partitions
 - You are mining 20 partitions
@@ -68,7 +68,7 @@ For more information about how hashrate is calculated, please see [Overview - Ha
 - Each VDF step you will need **1,140 ms** of compute time (11,200 * 0.1 + 20 * 1)
 - Implication is that you will need **more than 1 core** to mine a 1 second VDF.
 
-### 1.2 Options
+## 1.2 Options
 
 Usage: `./bin/arweave benchmark hash [options]`
 Options:
@@ -79,7 +79,7 @@ Options:
 
 In general the defaults are fine unless you have a really old CPU. If the benchmark runs without crashing, then you can stick to the defaults.
 
-## 2. VDF Speed
+# 2. VDF Speed
 
 The `vdf` benchmar will report the speed in seconds to compute a VDF.
 
@@ -96,7 +96,7 @@ network. `(1,106,177 / 600,000) * 1 second = 1.84 seconds`
 
 To make this less confusing we recommend specifying the current network difficulty rate when running the benchmark. See below for options.
 
-### 2.1 Options
+## 2.1 Options
 
 Usage: `./bin/arweave benchmark vdf [options]`
 Options:
@@ -104,19 +104,19 @@ Options:
 - `difficulty <vdf_difficulty>` (default: 600,000)
 - `verify <true|false> (default: false)`
 
-#### 2.1.1 `mode`
+### 2.1.1 `mode`
 
 This mimics the `vdf` option when running your node and instructs the benchmark tool to use the specifid VDF algorithm. 
 
-#### 2.1.2 `difficulty`
+### 2.1.2 `difficulty`
 
 Specify the VDF difficulty to use when running the tool. You can check the current network VDF difficulty at https://arweave.net/block/current - search for `vdf_difficulty`
 
-#### 2.1.3 `verify`
+### 2.1.3 `verify`
 
 If `true` then the benchmark tool will verify the VDF output against a slower "debug" VDF algorithm. This is primarily only useful when you're modifying one of the included VDF algorithms.
 
 
-## 3. Deprecated Tools
+# 3. Deprecated Tools
 
 There are 2 other benchmarking tools (`2.9` and `packing`) that need to be rewritten and can't be relied on to benchmark packing speed.

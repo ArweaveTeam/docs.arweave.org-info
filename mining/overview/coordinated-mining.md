@@ -4,7 +4,7 @@ description: >-
 ---
 **Original Author: @Thaseus**
 
-## What is coordinated mining?
+# What is coordinated mining?
 
 Coordinated mining involves multiple servers utilizing the same mining address to discover solutions and mine blocks. In previous versions of Arweave, mining operations were typically conducted by a single server per address. However, as the weave has grown significantly, it often necessitates the collaboration of multiple servers. While powerful high-core Epyc processor-based systems may still operate effectively as a single node, most consumer-level hardware requires a coordinated mining (CM) cluster.
 
@@ -12,18 +12,18 @@ A CM cluster consists of multiple mining nodes and a single exit node. The exit 
 
 It is important that *only* the exit node broadcast solutions from your CM cluster (also referred to as "publishing blocks"). If the same mining address publishes 2 blocks at the same height, the protocol will ban that mining address and slash its rewards (this is known as "double signing"). Having a single exit node through which all of your cluster's solutions are broadcast avoids this problem. Additionally, as an extra safeguard, we recommend that the exit node be the only node with your wallet file in the `<data_dir>/wallets` directory. As it is the only node that is able to sign and publish blocks, this can avoid having one of the CM miners accidentally publish a block due to a configuration error.
 
-## CM Basics
+# CM Basics
 
 All nodes in the cluster share the same mining address and packing format (e.g. all nodes use `spora_2_6` packing or `replica_2_9` packing with the same packing difficulty). Each Miner generates H1 hashes for the partitions they store. Occasionally they will need an H2 for a packed partition they don't store. In this case, they can find another miner in the coordinated mining cluster who does store the required partition packed with the required address, send them the H1 and ask them to calculate the H2. When a valid solution is found (either one- or two-chunk) the solution is sent to the Exit Node. Since the Exit Node is the sole node in the coordinated mining cluster which publishes blocks, there's no risk of "double signing" causing you address to be banned and your pending rewards slashed. Every node in the coordinated mining cluster will still peer with any other nodes on the network as normal.
 
-## VDF Forwarding
+# VDF Forwarding
 
 When using Coordinated Mining (CM), it is beneficial to keep your VDF steps relatively synchronized. To achieve this, there is an optional VDF forwarder function that can be utilized. On the CM exit node, you should set the flag `vdf_server_trusted_peer IP:Port` to designate the Team Arweave VDF server or your own server.
 
 In addition to this flag, you must specify each peer to which you wish to send VDF steps by using the `vdf_client_peer IP:Port` flag for each client server. While employing this feature is not strictly required, it significantly enhances the stability of your systems.
 On the client servers, you would use the `vdf_server_trusted_peer <Exit Node IP>:<port>` flag to specify the IP:Port of your VDF forwarder.
 
-## Coordinated Mining Start Flags
+# Coordinated Mining Start Flags
 
 - `coordinated_mining`:  Enables coordinated mining mode
 - `local_peer IP:Port`: Registers a node as a local peer which disables rate limiting
@@ -48,14 +48,14 @@ On the client servers, you would use the `vdf_server_trusted_peer <Exit Node IP>
   - This flag must only be included on the exit node or a designated internal VDF server
   - This flag tells the exit node / VDF forwarder to send the VDF steps that it received (or generated) to the clients listed by IP:Port
 
-## Example CM Cluster
+# Example CM Cluster
 
 - `10.0.0.100:1984`: CM Exit Node / VDF Forwarder / CM Miner 0
 - `10.0.0.101:1985`: CM Miner 1
 - `10.0.0.102:1986`: CM Miner 2
 
 
-### CM Exit Node / VDF Forwarder / CM Miner 0
+## CM Exit Node / VDF Forwarder / CM Miner 0
 ```
 mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
 coordinated_mining \
@@ -70,7 +70,7 @@ vdf_client_peer 10.0.0.101:1985 \
 vdf_client_peer 10.0.0.102:1986
 ```
 
-### CM Miner 1
+## CM Miner 1
 ```
 mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
 coordinated_mining \
@@ -83,7 +83,7 @@ cm_exit_peer 10.0.0.100:1984  \
 vdf_server_trusted_peer 10.0.0.100:1984
 ```
 
-### CM Miner 2
+## CM Miner 2
 ```
 mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
 coordinated_mining \
@@ -96,7 +96,7 @@ cm_exit_peer 10.0.0.100:1984  \
 vdf_server_trusted_peer 10.0.0.100:1984
 ```
 
-## Troubleshooting
+# Troubleshooting
 
 Coordinated mining operates effectively when all suggested flags above are used. This ensures your nodes remain synchronized and operational. Typically, the only reported errors are connectivity issues and discrepancies in the "Hash (Ideal)" values on the mining screens.
 
