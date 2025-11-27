@@ -4,7 +4,6 @@ description: >-
 ---
 
 {% hint style="info" %}
-### Note on wallets (aka private keys)
 - When syncing & packing you do not need a private key - you will only need a mining address (aka packing address)
 - Your mining address is **not** a private key - it is a public address
 - For the following examples we will alway use `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI` and `Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY` as mining addresses. **Replace them with your own address(es) before running the sample commands.**
@@ -17,6 +16,7 @@ description: >-
 - You'll pack the data to 16TB disks using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
 - You'll use the `replica_2_9` packing format and will pack 4 partitions per disk
 - Run your miner with `sync_jobs` greater than 0 (default is fine)
+- See [Running Your Node](../configuration.md) for more information
 
 # 2. Sample Directory Structure
 
@@ -38,6 +38,7 @@ description: >-
 
 ```
 ./bin/start \
+    enable randomx_large_pages \
     peer peers.arweave.xyz \
     data_dir /opt/data \
     sync_jobs 200 \
@@ -56,6 +57,8 @@ description: >-
 
 ```
 {
+    "enable": [ "randomx_large_pages" ],
+
     "peers": [ "peers.arweave.xyz" ],
 
     "data_dir": "/opt/data",

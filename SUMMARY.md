@@ -34,6 +34,7 @@
 - Sample Node Configurations
     - [Entropy Generation](mining/setup/sample-configs/entropy-generation.md)
     - [Syncing & Packing](mining/setup/sample-configs/syncing-packing.md)
+    - [Solo Mining](mining/setup/sample-configs/solo-mining.md)
 
 ## Development
 

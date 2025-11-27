@@ -80,6 +80,19 @@ Syncing & Packing is often the most expensive and time consuming part of miner s
 
 **[Example Syncing & Packing Configuration](sample-configs/syncing-packing.md)**
 
+## 1.3 Mining
+
+Once you have your data packed, you can start mining it. See [How Mining Works](../overview/mining.md) for more information about the mining process.
+
+There are 3 different mining node configurations (described in [Node Types](../overview/node-types.md)):
+- Solo Mining
+- Coordinated Mining
+- Pool Mining
+
+[Coordinated Mining](../overview/coordinated-mining.md) and [Pool Mining](../overview/pool-mining.md) involve some additional setup. For more information please refer to their dedicated guides.
+
+- **[Example Solo Mining Configuration](sample-configs/solo-mining.md)**
+
 # 2. Repacking
 
 When first starting out most miners will need to sync their data from peers and pack it. However if you already have some data locally that you want to repack to a new packing address or format (e.g. `unpacked` to `replica.2.9`), there are 2 other options (described below). For more information on the packing and repacking process see [Syncing & Packing](../overview/syncing-and-packing.md)
