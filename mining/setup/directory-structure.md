@@ -71,3 +71,29 @@ ln -s [path/to/disk/mountpoint] [data_dir]/storage_modules/storage_module_0_[you
 {% hint style="danger" %}
 It is very dangerous to have two or more nodes mine independently using the same mining address. If they find and publish blocks simultaneously, the network will slash your rewards and revoke the mining permission of the mining address! In order to have multiple nodes use the same mining address they must be configured to use coordinated mining. See the [Coordinated Mining Guide](../overview/coordinated-mining.md) for more information.
 {% endhint %}
+
+# 5. Additional Directories and Files
+
+## 5.1 Logs
+
+You can find your node's log files in the `[Install Dir]/logs` directory. You will always have `info` logs, and if you've run your node with the `debug` option you'll also have `debug` logs. The file name format is:
+
+Info logs:
+```
+arweave-arweave@127.0.0.1-info.log
+arweave-arweave@127.0.0.1-info.log.0
+arweave-arweave@127.0.0.1-info.log.1
+...
+arweave-arweave@127.0.0.1-info.log.9
+```
+
+Debug logs
+```
+arweave-arweave@127.0.0.1-debug.log
+arweave-arweave@127.0.0.1-debug.log.0
+arweave-arweave@127.0.0.1-debug.log.1
+...
+arweave-arweave@127.0.0.1-debug.log.19
+```
+
+Higher numbers are older, and the log files rotate.

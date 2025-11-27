@@ -9,6 +9,7 @@
     - [Directory Structure](mining/setup/directory-structure.md)
     - [Node Wallet](mining/setup/wallet.md)
     - [Running Your Node](mining/setup/configuration.md)
+    - [Trusted Peers](mining/setup/trusted-peers.md)
     - [Running a VDF Server](mining/setup/vdf.md)
 - Overview
     - [Node Types](mining/overview/node-types.md)
@@ -29,14 +30,14 @@
 
     - [TLS Guide](mining/tls.md)
     - [VDF](mining/vdf.md)
-- Example Node Configurations
-    - [Entropy Generation](mining/setup/example-configs/entropy-generation.md)
+- Sample Node Configurations
+    - [Entropy Generation](mining/setup/sample-configs/entropy-generation.md)
 
 ## Development
 
 - [Motivation](development/motivation.md)
 - [The Arweave Protocol](development/protocol.md)
-- [The Arweave Node Software Architecture](development/architecture.md)
+- [Software Architecture](development/architecture.md)
 - [Getting Started](development/getting-started.md)
 - [Automated Tests](development/automated-tests.md)
     - [Debugging](development/debugging.md)

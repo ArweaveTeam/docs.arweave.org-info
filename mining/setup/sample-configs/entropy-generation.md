@@ -1,39 +1,21 @@
 ---
 description: >-
-  Example arweave configurations for common situations.
+  Example arweave configurations for entropy generation.
 ---
 
-# Example Arweave Configurations
-
 {% hint style="info" %}
-### Note on wallets (aka private keys)
-- When packing or repacking you do not need a private key - you will only need a mining address (aka packing address)
-- Your mining address is **not** a private key - it is a public address
-- When mining, only nodes that will sign blocks need to have a private key / wallet.json stored locally
-- If your node will be part of a coordinated mining cluster (and is not the exit node) or is mining as part of a pool, it will never need your private key stored locally
-- For the following examples we will alway use `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI` and `Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY` as mining addresses. **Replace them with your own address(es) before running the sample commands.**
+- For the following examples we will alway use `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI` or `Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY` as mining addresses. **Replace them with your own address(es) before running the sample commands.**
 {% endhint %}
 
-## Syncing and Packing
-
-### Situation
-- You're just getting started and need to download and pack data
-- You'll sync the data from network peers and pack it as you store it to disk
+# 1. Overview
+- You're just getting started and want to generate entropy before you sync and pack your dat
 - You'll pack the data to 16TB disks using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
-- You'll use the `replica_2_9` packing format and will pack 4 partitions per disk
-- **NOTE** It's best **not** to mine while you pack. The two processes are both resource intensive and will slow each other down. (i.e. omit the `mine` flag from your configuration)
+- Run your miner with `sync_jobs 0` and `replica_2_9_workers` greater than 0 (default is fine)
+- Wait until you see a message like the following for each storage module:
+    - Console: `The storage module X is prepared for 2.9 replication.`
+    - Log: `event: storage_module_entropy_preparation_complete, store_id: X`
 
-### Process
-1. Generate entropy for all your data
-    - Run your miner with `sync_jobs 0` and `replica_2_9_workers` greater than 0 (default is fine)
-    - Wait until you see a message like the following for each storage module:
-      - Console: `The storage module X is prepared for 2.9 replication.`
-      - Log: `event: storage_module_entropy_preparation_complete, store_id: X`
-2. Restart your node to sync and pack the data
-    - Run your miner with `sync_jobs` greater than 0 (default is fine)
-
-<details>
-<summary>Sample Directory Structure</summary>
+# 2. Sample Directory Structure
 
 - Mount points for 16TB disks that will store the packed data:
     - `/mnt/a`
@@ -48,10 +30,8 @@ description: >-
     - `/opt/data/storage_modules/storage_module_5_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9` ->  `/mnt/b/storage_module_5_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
     - `/opt/data/storage_modules/storage_module_6_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 ` ->  `/mnt/b/storage_module_6_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
     - `/opt/data/storage_modules/storage_module_7_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9` ->  `/mnt/b/storage_module_7_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
-- Wallets: no wallet.json needed since you are only packing
-</details>
 
-#### 1. Generate Entropy
+# 3. Command-line Configuration
 
 <details>
 <summary>Sample Command-line Configuration</summary>
