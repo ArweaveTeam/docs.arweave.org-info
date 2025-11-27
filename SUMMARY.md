@@ -33,6 +33,7 @@
     - [VDF](mining/vdf.md)
 - Sample Node Configurations
     - [Entropy Generation](mining/setup/sample-configs/entropy-generation.md)
+    - [Syncing & Packing](mining/setup/sample-configs/syncing-packing.md)
 
 ## Development
 

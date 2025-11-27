@@ -52,6 +52,8 @@ Refer to the [Syncing & Packing](../overview/syncing-and-packing.md) and [How Mi
 
 As you complete each phase you'll want to shutdown your node, update its configuration, and restart it.
 
+**Note:** It is possible to run all 3 phasees concurrently (e.g. generate entropy while you sync and pack new data and mine any packed data). Prior to Arweave 2.9.5 this was discouraged as it reduced performance and often caused out-of-memory issues. However since the release of 2.9.5 many of the memory issues have been addressed so you **may** have more luck running the different phases concurrently. We still recommend generating entropy first as it should allow everything to complete more quickly, but you may be able to mine efficiently while syncing & packing. As with many things, it will likely depend on your specific node, system, and hardware configuration.
+
 ## 1.1 Entropy Generation
 
 While it is possible to generate entropy while you sync and pack, the current guidance is that separating the two phases provides better performance. During entropy generation you node will generate and write to disk the entropy needed to pack all of your configured storage modules. 
@@ -71,3 +73,22 @@ and in your logs:
 Entropy generation is complete when you see that message printed for **each** configured storage module. 
 
 **[Example Entropy Generation Configuration](sample-configs/entropy-generation.md)**
+
+## 1.2 Syncing & Packing
+
+Syncing & Packing is often the most expensive and time consuming part of miner setup. We provide a sample configuration file below, but you may want to tweak the options to optimize your performance. For guidance on this refer to [Syncing & Packing](../overview/syncing-and-packing.md).
+
+**[Example Syncing & Packing Configuration](sample-configs/syncing-packing.md)**
+
+# 2. Repacking
+
+When first starting out most miners will need to sync their data from peers and pack it. However if you already have some data locally that you want to repack to a new packing address or format (e.g. `unpacked` to `replica.2.9`), there are 2 other options (described below). For more information on the packing and repacking process see [Syncing & Packing](../overview/syncing-and-packing.md)
+
+## 2.1 Cross-module Repack
+
+xxx
+
+## 2.2 Repack-in-Place
+
+xxx
+
