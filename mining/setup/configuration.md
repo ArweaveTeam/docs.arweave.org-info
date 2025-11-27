@@ -26,9 +26,9 @@ As noted in the [Syncing & Packing](../overview/syncing-and-packing.md) guide so
 
 When the node has finished generating entropy for a partition it will print a message like:
 
-```
+`
 The storage module storage_module_26_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 is prepared for 2.9 replication.
-```
+`
 
 Entropy generation is complete when you see that message printed for **each** configured storage module. 
 

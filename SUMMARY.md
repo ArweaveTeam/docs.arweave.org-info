@@ -29,6 +29,8 @@
 
     - [TLS Guide](mining/tls.md)
     - [VDF](mining/vdf.md)
+- Example Node Configurations
+    - [Entropy Generation](mining/setup/example-configs/entropy-generation.md)
 
 ## Development
 
