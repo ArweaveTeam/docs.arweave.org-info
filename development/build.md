@@ -1,8 +1,8 @@
 ---
-title: Development - Building Arwaeave
+title: Building Arwaeave
 ---
 
-# Development - Building Arweave
+# Building Arweave
 
 ## 1. Clone the Repo
 

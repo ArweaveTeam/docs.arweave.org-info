@@ -44,7 +44,7 @@ The script launches 5 test nodes including the one the shell is attached to - th
 
 You can run individual tests:
 
-```
+```sh
 eunit:test(ar_fork_recovery_tests:height_plus_one_fork_recovery_test_()).
 ```
 
@@ -56,7 +56,7 @@ Below we walk you through a number of common scenarios and interfaces.
 
 Note that at launch, test nodes do not have a fully initialized Arweave state. The simplest way to start an Arweave node is to run `ar_test_node:start/0`.
 
-```
+```sh
 (main-localtest@127.0.0.1)1> ar_test_node:start().
 ok
 ```
@@ -68,7 +68,7 @@ Under the hood, it creates a new account and a genesis block with a single trans
 
 The shell is attached to the main node. To execute code on other nodes, we need to make Erlang RPC calls - `ar_test_node:remote_call/4` is a convenient wrapper for this. Let's launch Arweave on `peer1`:
 
-```
+```sh
 (main-localtest@127.0.0.1)4> ar_test_node:remote_call(peer1, ar_test_node, start, []).
 ok
 ```
@@ -78,14 +78,15 @@ ok
 Note that we have initialized two nodes on two different genesis blocks. This is not a very interesting setup.
 
 The node is configured with a new TCP port every time, use `ar_test_node:peer_port/1` to learn it.
-```
+
+```sh
 (main-localtest@127.0.0.1)5> ar_test_node:peer_port(main).
 65494
 (main-localtest@127.0.0.1)6> ar_test_node:peer_port(peer1).
 65498
 ```
 
-```
+```sh
 $ curl localhost:65494
 {"version":5,"release":89,"queue_length":0,"peers":0,"node_state_latency":2,"network":"arweave.localtest","height":0,"current":"DE2MpboqbBWRiRH4wj2_afFE71YHToXeVJzs40ONzUwLX4Pkp0Uhdlo2WyXe08h7","blocks":1}
 
@@ -99,14 +100,14 @@ The `"current"` field stores the hash of the tip block - we can see the nodes ar
 
 Instead, we want them to be in the same network. We can use `ar_test_node:join_on/1` to make one node join the network from the other. This is what usually happens on mainnet when we run `./bin/start peer ...`
 
-```
+```sh
 (main-localtest@127.0.0.1)10> ar_test_node:join_on(#{ node => peer1, join_on => main }).
 <32196.12327.0>
 ```
 
 We can use `ar_node:get_current_block()` to fetch the tip now.
 
-```
+```sh
 (main-localtest@127.0.0.1)8> B0_main = ar_node:get_current_block().
 #block{nonce = 0,previous_block = <<>>,
        ...}
@@ -132,14 +133,14 @@ Note we called `rr(ar).` to be able to use records defined in `ar.hrl` in the sh
 
 Test nodes do not start mining when launched. To mine a block, run:
 
-```
+```sh
 (main-localtest@127.0.0.1)3> ar_test_node:mine().
 ok
 ```
 
 It may be convenient to use the `ar_http_iface_client` module to query the HTTP API from the shell. Usually its methods accept a `Peer` argument which is a `{IP0, IP1, IP2, IP3, Port}` tuple - you can learn via `ar_test_node:peer_ip/1`:
 
-```
+```sh
 (main-localtest@127.0.0.1)13> Peer = ar_test_node:peer_ip(main).
 {127,0,0,1,65494}
 (main-localtest@127.0.0.1)14> ar_http_iface_client:get_info(Peer).
@@ -157,7 +158,8 @@ We can see the height has advanced by one because the node has mined a block.
 #### Downloading Blocks by Hash
 
 Let's take the current tip and download the block:
-```
+
+```sh
 H = ar_util:decode(<<"z9353ReVppPAWplYmoZyQNaPbdbVcpgBp9CO2nBKpk3HYv3HtuZJUrdpXKeDk0k0">>).
 <<207,221,249,221,23,149,166,147,192,90,153,88,154,134,
   114,64,214,143,109,214,213,114,152,1,167,208,142,218,
@@ -167,7 +169,8 @@ H = ar_util:decode(<<"z9353ReVppPAWplYmoZyQNaPbdbVcpgBp9CO2nBKpk3HYv3HtuZJUrdpXK
 `ar_util:decode` converts Base64Url to the raw binary representation Arweave uses internally.
 
 Now let's retrieve the block:
-```
+
+```sh
 (main-localtest@127.0.0.1)18> {Peer, B, _, _} = ar_http_iface_client:get_block_shadow([Peer], H).
 {{127,0,0,1,65494},
  #block{nonce = 3,
@@ -183,7 +186,7 @@ The function may search several peers. It returns the peer it downloaded the blo
 
 Let's get the node's configuration.
 
-```
+```sh
 (main-localtest@127.0.0.1)27> {ok, Config} = arweave_config:get_env().
 {ok,#config{...}}
 ```
@@ -192,7 +195,7 @@ Let's get the node's configuration.
 
 Let's see which storage modules are configured:
 
-```
+```sh
 (main-localtest@127.0.0.1)28> Config#config.storage_modules.
 [{20000000,0,
   {replica_2_9,<<117,193,95,178,157,29,21,233,22,64,184,
@@ -209,7 +212,7 @@ Each storage module is assigned a dedicated folder. For every configured storage
 
 Storage module identifiers (`StoreID`s) are used to refer to a particular storage module:
 
-```
+```sh
 (main-localtest@127.0.0.1)29> StoreID = ar_storage_module:id(hd(Config#config.storage_modules)).
 "storage_module_20000000_0_dcFfsp0dFekWQLhUWx88-ugFmpSBc27uYPzr-NM014w.replica.2.9"
 ```
@@ -218,7 +221,7 @@ Storage module identifiers (`StoreID`s) are used to refer to a particular storag
 
 For example, we can query the data intervals stored by the module. We call these intervals "sync records".
 
-```
+```sh
 (main-localtest@127.0.0.1)32> ar_sync_record:get(ar_data_sync, StoreID).
 {1,{{786432,0},nil,nil}}
 ```
@@ -233,7 +236,7 @@ Another way to get an insight into the data stored on the node is to look at the
 
 One of the most informative metrics is `v2_index_data_size_by_packing`:
 
-```
+```sh
 v2_index_data_size_by_packing{store_id="storage_module_0_replica_2_9_1",packing="replica_2_9_1",partition_number="0",storage_module_size="2000000",storage_module_index="0",packing_difficulty="2"} 786432
 ```
 
@@ -247,7 +250,7 @@ Instead of using the default genesis block, let's create our own with a custom w
 
 First, create an ECDSA wallet:
 
-```
+```sh
 (main-localtest@127.0.0.1)33> {Priv, Pub} = ar_wallet:new_newkeyfile({ecdsa, secp256k1}).
 {{{ecdsa,secp256k1},
   <<216,42,124,81,110,157,100,144,194,61,212,34,181,250,119,
@@ -263,7 +266,7 @@ Note that we use `ar_wallet:new_keyfile/1` and not `ar_wallet:new/1` because the
 
 Get the wallet address:
 
-```
+```sh
 (main-localtest@127.0.0.1)34> Addr = ar_wallet:to_address(Pub).
 <<168,91,62,65,253,161,125,236,107,245,195,213,227,180,
   107,100,182,59,242,8,138,225,96,222,22,23,102,188,231,
@@ -276,7 +279,7 @@ Get the wallet address:
 
 Now initialize a genesis block with our wallet funded with 1 million AR:
 
-```
+```sh
 (main-localtest@127.0.0.1)36>[B0] = ar_weave:init([{Addr, 100_000_000_000_000_000_000, <<>>}]).
 [#block{nonce = 0,previous_block = <<>>, ...]
 ```
@@ -287,7 +290,7 @@ Note: in the test environment, transaction fees are typically very large. This i
 
 Now let's configure a storage module for bytes 0 to `4_000_000` with `replica_2_9` packing:
 
-```
+```sh
 (main-localtest@127.0.0.1)38> StorageModule = {4_000_000, 0, {replica_2_9, Addr}}.
 {4000000,0,
  {replica_2_9,<<168,91,62,65,253,161,125,236,107,245,195,
@@ -297,12 +300,12 @@ Now let's configure a storage module for bytes 0 to `4_000_000` with `replica_2_
 
 Start the node with our custom genesis block and storage module:
 
-```
+```sh
 (main-localtest@127.0.0.1)26> ar_test_node:start(#{ b0 => B0, addr => Addr, storage_modules => [StorageModule] }).
 ok
 ```
 
-```
+```sh
 (main-localtest@127.0.0.1)52> f(Config), {ok, Config} = arweave_config:get_env().
 ...
 (main-localtest@127.0.0.1)53> Config#config.storage_modules.
@@ -312,28 +315,28 @@ ok
                  138,225,96,...>>}}]
 ```
 
-```
+```sh
 (main-localtest@127.0.0.1)54> Config#config.mining_addr == Addr.
 true
 ```
 
 Let's also bring `peer1` into this new network:
 
-```
+```sh
 (main-localtest@127.0.0.1)72> ar_test_node:join_on(#{ node => peer1, join_on => main }).
 <32196.405860.0>
 ```
 
 #### Checking Account Balance
 
-```
+```sh
 (main-localtest@127.0.0.1)55> ar_node:get_balance(Addr).
 100000000000000000
 ```
 
 Via HTTP API:
 
-```
+```sh
 $ curl localhost:65494/wallet/qFs-Qf2hfexr9cPV47RrZLY78giK4WDeFhdmvOcg4bk/balance
 ```
 
@@ -341,7 +344,7 @@ $ curl localhost:65494/wallet/qFs-Qf2hfexr9cPV47RrZLY78giK4WDeFhdmvOcg4bk/balanc
 
 Let's use our account now. We'll send 1 Winston to a random address:
 
-```
+```sh
 (main-localtest@127.0.0.1)27> RandomAddr = crypto:strong_rand_bytes(32).
 <<...>>
 (main-localtest@127.0.0.1)28> TX = ar_test_node:sign_tx({Priv, Pub}, #{ target => RandomAddr, quantity => 1 }).
@@ -356,7 +359,7 @@ The `ar_test_node:sign_tx/2` function is a convenient helper that:
 
 Now let's post the transaction:
 
-```
+```sh
 (main-localtest@127.0.0.1)74> ar_test_node:assert_post_tx_to_peer(main, TX).
 {ok,{{<<"200">>,<<"OK">>},
      [{<<"access-control-allow-origin">>,<<"*">>},
@@ -370,7 +373,7 @@ Now let's post the transaction:
 
 Check the mempool:
 
-```
+```sh
 (main-localtest@127.0.0.1)79> {{ok, TXIDs}, Peer} = ar_http_iface_client:get_mempool(Peer).
 {{ok,[<<5,101,215,33,72,80,41,200,124,225,226,92,152,
         189,41,77,92,128,24,125,234,8,120,146,134,...>>]},
@@ -379,7 +382,7 @@ Check the mempool:
 
 `peer1` has learned about the transaction as well:
 
-```
+```sh
 (main-localtest@127.0.0.1)85> Peer1 = ar_test_node:peer_ip(peer1).
 {127,0,0,1,65498}
 (main-localtest@127.0.0.1)86> {{ok, TXIDs}, Peer1} = ar_http_iface_client:get_mempool(Peer1).
@@ -390,19 +393,19 @@ Check the mempool:
 
 In the API:
 
-```
+```sh
 $ curl localhost:65494/tx/pending
 ["BWXXIUhQKch84eJcmL0pTVyAGH3qCHiShmCj-XmKiXg"]
 ```
 
-```
+```sh
 $ curl localhost:65494/tx/BWXXIUhQKch84eJcmL0pTVyAGH3qCHiShmCj-XmKiXg
 Pending
 ```
 
 Check the balances before mining:
 
-```
+```sh
 (main-localtest@127.0.0.1)88> ar_node:get_balance(Addr).
 100000000000000000
 (main-localtest@127.0.0.1)89> ar_node:get_balance(RandomAddr).
@@ -411,21 +414,21 @@ Check the balances before mining:
 
 Mine a block:
 
-```
+```sh
 (main-localtest@127.0.0.1)34> ar_test_node:mine().
 ok
 ```
 
 Check the mempool again - it should be empty:
 
-```
+```sh
 (main-localtest@127.0.0.1)35> ar_http_iface_client:get_pending_txs(Peer).
 {{ok,[]},...}
 ```
 
 Check the balances after mining:
 
-```
+```sh
 (main-localtest@127.0.0.1)36> ar_node:get_balance(Addr).
 99999999984017435209
 (main-localtest@127.0.0.1)37> ar_node:get_balance(RandomAddr).
@@ -434,7 +437,7 @@ Check the balances after mining:
 
 The sending address balance decreased by 1 Winston plus the transaction fee, and the receiving address now has 1 Winston.
 
-```
+```sh
 (main-localtest@127.0.0.1)15> TX#tx.reward + 1 + 99999999984017435209 == 100_000_000_000_000_000_000.
 true
 ```
@@ -443,7 +446,7 @@ true
 
 Before we upload some data, let's look at the chunks already stored in the weave with the genesis block.
 
-```
+```sh
 (main-localtest@127.0.0.1)20> ar_data_sync:get_chunk(1, #{ packing => {replica_2_9, Addr}, pack => false }).
 {ok,#{chunk_size => 262144,
       chunk =>
@@ -464,7 +467,7 @@ Before we upload some data, let's look at the chunks already stored in the weave
 The first argument `ar_data_sync:get_chunk/2` accepts is an offset. This offset is strictly greater than the chunk's start offset (where it begins in the weave)
 and less than or equal to the chunk's end offset. Therefore, the following call fetches the same chunk:
 
-```
+```sh
 (main-localtest@127.0.0.1)20> ar_data_sync:get_chunk(262144, #{ packing => {replica_2_9, Addr}, pack => false }).
 {ok,#{chunk_size => 262144,
       chunk =>
@@ -484,7 +487,7 @@ and less than or equal to the chunk's end offset. Therefore, the following call 
 
 Add 1 to the offset, and we get a new chunk:
 
-```
+```sh
 (main-localtest@127.0.0.1)22> ar_data_sync:get_chunk(262144 + 1, #{ packing => {replica_2_9, Addr}, pack => false }).
 {ok,#{chunk_size => 262144,
       chunk =>
@@ -504,14 +507,14 @@ Add 1 to the offset, and we get a new chunk:
 
 `pack => false` tells the function not to repack the chunk in case it is not stored in the desired packing.
 
-```
+```sh
 (main-localtest@127.0.0.1)23> ar_data_sync:get_chunk(262144 + 1, #{ packing => unpacked, pack => false }).
 {error,chunk_not_found}
 ```
 
 However, we can ask to pack it for us:
 
-```
+```sh
 (main-localtest@127.0.0.1)24> ar_data_sync:get_chunk(262144 + 1, #{ packing => unpacked, pack => true }).
 {ok,#{chunk_size => 262144,
       chunk =>
@@ -534,7 +537,7 @@ However, we can ask to pack it for us:
 
 Let's create a transaction to upload 2 MiB of data:
 
-```
+```sh
 (main-localtest@127.0.0.1)45> Data = crypto:strong_rand_bytes(2 * 1024 * 1024).
 <<...>>
 (main-localtest@127.0.0.1)46> DataTX = ar_test_node:sign_tx({Priv, Pub}, #{ data => Data }).
@@ -543,7 +546,7 @@ Let's create a transaction to upload 2 MiB of data:
 
 Post the transaction:
 
-```
+```sh
 (main-localtest@127.0.0.1)28> ar_test_node:assert_post_tx_to_peer(main, DataTX).
 {ok,{{<<"200">>,<<"OK">>},
      [{<<"access-control-allow-origin">>,<<"*">>},
@@ -555,7 +558,7 @@ Post the transaction:
 
 Mine a block to include the transaction:
 
-```
+```sh
 (main-localtest@127.0.0.1)48> ar_test_node:mine().
 ok
 ```
@@ -564,7 +567,7 @@ ok
 
 Let's take a look at the metrics:
 
-```
+```sh
 v2_index_data_size_by_packing{store_id="storage_module_4000000_0_replica_2_9_1",packing="replica_2_9_1",partition_number="0",storage_module_size="4000000",storage_module_index="0",packing_difficulty="2"} 786432
 v2_index_data_size_by_packing{store_id="default",packing="unpacked",partition_number="undefined",storage_module_size="undefined",storage_module_index="undefined",packing_difficulty="0"} 2097152
 ```
@@ -573,29 +576,29 @@ The data has been uploaded to the "default" storage module. The default storage 
 
 Let's mine two more blocks and watch the new data moved to the configured storage module.
 
-```
+```sh
 (main-localtest@127.0.0.1)40> ar_test_node:mine().
 ok
 ```
 
 Make sure a new block has been mined and applied:
-```
+```sh
 (main-localtest@127.0.0.1)44> ar_test_node:assert_wait_until_height(main, 3).
 [{<<162,161,197,227,251,60,20,83,168,182,229,45,44,222,
 ```
 
-```
+```sh
 (main-localtest@127.0.0.1)40> ar_test_node:mine().
 ok
 ```
-```
+```sh
 (main-localtest@127.0.0.1)44> ar_test_node:assert_wait_until_height(main, 4).
 [{<<162,161,197,227,251,60,20,83,168,182,229,45,44,222,
 ```
 
 Now query metrics:
 
-```
+```sh
 v2_index_data_size_by_packing{store_id="storage_module_4000000_0_replica_2_9_1",packing="replica_2_9_1",partition_number="0",storage_module_size="4000000",storage_module_index="0",packing_difficulty="2"} 2883584
 v2_index_data_size_by_packing{store_id="default",packing="unpacked",partition_number="undefined",storage_module_size="undefined",storage_module_index="undefined",packing_difficulty="0"} 0
 ```
@@ -604,7 +607,7 @@ v2_index_data_size_by_packing{store_id="default",packing="unpacked",partition_nu
 
 There is a special function for getting the current byte threshold separating the disk pool from confirmed data:
 
-```
+```sh
 (main-localtest@127.0.0.1)45> ar_data_sync:get_disk_pool_threshold().
 2883584
 ```
@@ -615,7 +618,7 @@ The disk pool threshold is the weave size at the `?SEARCH_SPACE_UPPER_BOUND_DEPT
 
 Fetch the updated sync records:
 
-```
+```sh
 (main-localtest@127.0.0.1)15> ar_sync_record:get(ar_data_sync, StoreID).
 {1,{{2883584,0},nil,nil}}
 ```
@@ -624,7 +627,7 @@ The sync record now shows bytes 1 through 2883584 are synced (the original 768 K
 
 Note that the `GET /data_sync_record` endpoint (the one `ar_http_iface_client:get_sync_record/1` queries) does not serve these intervals anymore.
 
-```
+```sh
 (main-localtest@127.0.0.1)56> ar_http_iface_client:get_sync_record(Peer).
 {ok,{0,nil}}
 ```
@@ -639,7 +642,7 @@ See `ar_global_sync_record.erl` for the implementation details.
 
 To fetch footprint records, use `ar_footprint_record:get_intervals/3`:
 
-```
+```sh
 (main-localtest@127.0.0.1)59> FootprintIntervals = ar_footprint_record:get_intervals(0, 0, StoreID).
 ...
 ```
@@ -648,7 +651,7 @@ Footprint intervals have the same form as normal intervals but different semanti
 
 To convert footprint intervals to normal byte-range intervals:
 
-```
+```sh
 (main-localtest@127.0.0.1)60> ar_footprint_record:get_intervals_from_footprint_intervals(FootprintIntervals).
 ...
 ```

@@ -43,13 +43,11 @@
 ## Development
 
 - [Motivation](development/motivation.md)
-- [The Arweave Protocol](development/protocol.md)
-- [Software Architecture](development/architecture.md)
 - [Getting Started](development/getting-started.md)
+- [Building Arweave](development/build.md)
 - [Automated Tests](development/automated-tests.md)
-    - [Debugging](development/debugging.md)
-- Advanced Topics
-    - [Running You Own Localnet](development/localnet.md)
+- [Debugging](development/debugging.md)
+- [Running You Own Localnet](development/localnet.md)
 
 ## Arweave Node Server
 
