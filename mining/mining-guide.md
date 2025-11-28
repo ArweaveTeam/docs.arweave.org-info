@@ -74,43 +74,9 @@ Confirmed Blocks: 0
 Local mining stats:
 ```
 
-#### Receiving Mining Rewards
 
-When you mine a block, the console shows:
 
-```
-Produced candidate block ....
-```
 
-Approximately 20 minutes later, you should see
-
-```
-Your block ... was accepted by the network!
-```
-
-Note that occasionally your block won't be confirmed (the chain chooses a different fork).
-
-{% hint style="warning" %}
-You do not immediately receive the block reward after mining a block. There is a delay in the release of block rewards for miners by approximately thirty days or 30 \* 24 \* 30 blocks. Your node does **not** need to stay online in order to receive your reserved mining rewards. This mechanism is designed to discourage signing the same block several times and several competitive forks in general - the network detects these cases and may slash the reserved rewards and revoke the mining permission from the corresponding mining address. Also, the mechanism incentivizes miners to be aligned with the network for at least the medium-term.
-{% endhint %}
-
-{% hint style="info" %}
-To see the total number of Winston (divide by 1000_000_000_000 to get the AR value) reserved for you address, browse to https://arweave.net/wallet/\[your-mining-address]/reserved\_rewards\_total.
-{% endhint %}
-
-#### Staying in Sync
-
-Watch for the following warnings in your mining console:
-
-{% code overflow="wrap" %}
-
-```
-WARNING: Peer 138.197.232.192 is 5 or more blocks ahead of us. Please, double-check if you are in sync with the network and make sure your CPU computes VDF fast enough or you are connected to a VDF server.
-```
-
-{% endcode %}
-
-If you see them shortly after joining the network, see if they disappear in a few minutes - everything might be fine then. Otherwise, it is likely your processor cannot keep up with VDF computation or there are network connection issues. While VDF execution is done by a single core/thread, the validation of the VDF checkpoints in a block header can be done in parallel (with multiple threads). To speed up VDF validation, try restarting the node with a higher value for `max_vdf_validation_thread_count` (e.g., the number of CPU threads - 1).
 
 #### Defragmenting Storage
 
@@ -126,13 +92,7 @@ The defragmentation is performed before startup. Only chunk files larger than `d
 
 ## Troubleshooting
 
-### Make sure your node is accessible on the Internet
 
-An important part of the mining process is discovering blocks mined by other miners. Your node needs to be accessible from anywhere on the Internet so that your peers can connect with you and share their blocks.
-
-To check if your node is publicly accessible, browse to `http://[Your Internet IP]:1984`. You can [obtain your public IP here](https://ifconfig.me/), or by running `curl ifconfig.me/ip`. If you specified a different port when starting the miner, replace "1984" anywhere in these instructions with your port. If you can not access the node, you need to set up TCP port forwarding for incoming HTTP requests to your Internet IP address on port 1984 to the selected port on your mining machine. For more details on how to set up port forwarding, consult your ISP or cloud provider.
-
-If the node is not accessible on the Internet, the miner functions but is significantly less efficient.
 
 ## Staying up to Date
 
