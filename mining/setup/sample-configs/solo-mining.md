@@ -11,7 +11,10 @@ description: >-
 # 1. Overview
 
 - You've downloaded and packed all your data to 16TB disks using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
-- Run your miner with the `mine`
+- You'll use one of the DHA-provided public VDF servers
+- Run your miner with:
+    - `mine`
+    - `vdf_server_trusted_peer vdf-server-3.arweave.xyz` to use the DHA-provided VDF server
 - See [Running Your Node](../configuration.md) for more information
 
 # 2. Sample Directory Structure
@@ -38,6 +41,7 @@ description: >-
     peer peers.arweave.xyz \
     data_dir /opt/data \
     mine \
+    vdf_server_trusted_peer vdf-server-3.arweave.xyz \
     mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
     storage_module 0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
     storage_module 1,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
@@ -58,6 +62,8 @@ description: >-
     "peers": [ "peers.arweave.xyz" ],
 
     "data_dir": "/opt/data",
+
+    "vdf_server_trusted_peers": [ "vdf-server-3.arweave.xyz" ],
 
     "storage_modules": [
         "0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9",

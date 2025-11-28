@@ -15,7 +15,10 @@ description: >-
 - You'll sync the data from network peers and pack it as you store it to disk
 - You'll pack the data to 16TB disks using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
 - You'll use the `replica_2_9` packing format and will pack 4 partitions per disk
-- Run your miner with `sync_jobs` greater than 0 (default is fine)
+- You'll use one of the DHA-provided public VDF servers
+- Run your miner with:
+  - `sync_jobs` greater than 0 (default is fine)
+  -  `vdf_server_trusted_peer vdf-server-3.arweave.xyz` to use the DHA-provided VDF server
 - See [Running Your Node](../configuration.md) for more information
 
 # 2. Sample Directory Structure
@@ -34,7 +37,7 @@ description: >-
     - `/opt/data/storage_modules/storage_module_6_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 ` ->  `/mnt/b/storage_module_6_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
     - `/opt/data/storage_modules/storage_module_7_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9` ->  `/mnt/b/storage_module_7_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
 
-# 3.Sample Command-line Configuration</summary>
+# 3.Sample Command-line Configuration
 
 ```
 ./bin/start \
@@ -42,6 +45,7 @@ description: >-
     peer peers.arweave.xyz \
     data_dir /opt/data \
     sync_jobs 200 \
+    vdf_server_trusted_peer vdf-server-3.arweave.xyz \
     mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
     storage_module 0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
     storage_module 1,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
@@ -62,6 +66,8 @@ description: >-
     "peers": [ "peers.arweave.xyz" ],
 
     "data_dir": "/opt/data",
+
+    "vdf_server_trusted_peers": [ "vdf-server-3.arweave.xyz" ],
 
     "storage_modules": [
         "0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9",

@@ -30,7 +30,6 @@
     - [Coordinated Mining](mining/coordinated-mining.md)
 
     - [TLS Guide](mining/tls.md)
-    - [VDF](mining/vdf.md)
 - Sample Node Configurations
     - [Entropy Generation](mining/setup/sample-configs/entropy-generation.md)
     - [Syncing & Packing](mining/setup/sample-configs/syncing-packing.md)

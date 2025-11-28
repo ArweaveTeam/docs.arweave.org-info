@@ -11,7 +11,11 @@ description: >-
 
 - You're just getting started and want to generate entropy before you sync and pack your data
 - You'll pack the data to 16TB disks using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
-- Run your miner with `sync_jobs 0` and `replica_2_9_workers` greater than 0 (default is fine)
+- You'll use one of the DHA-provided public VDF servers
+- Run your miner with:
+  - `sync_jobs 0`
+  - `replica_2_9_workers` greater than 0 (default is fine)
+  - `vdf_server_trusted_peer vdf-server-3.arweave.xyz` to use the DHA-provided VDF server
 - Wait until you see a message like the following for each storage module:
     - Console: `The storage module X is prepared for 2.9 replication.`
     - Log: `event: storage_module_entropy_preparation_complete, store_id: X`
@@ -41,6 +45,7 @@ description: >-
     peer peers.arweave.xyz \
     data_dir /opt/data \
     sync_jobs 0 \
+    vdf_server_trusted_peer vdf-server-3.arweave.xyz \
     mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
     storage_module 0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
     storage_module 1,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
@@ -62,6 +67,8 @@ description: >-
 
     "data_dir": "/opt/data",
 
+    "vdf_server_trusted_peers": [ "vdf-server-3.arweave.xyz" ],
+    
     "storage_modules": [
         "0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9",
         "1,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9",

@@ -91,17 +91,29 @@ There are 3 different mining node configurations (described in [Node Types](../o
 
 [Coordinated Mining](../overview/coordinated-mining.md) and [Pool Mining](../overview/pool-mining.md) involve some additional setup. For more information please refer to their dedicated guides.
 
-- **[Example Solo Mining Configuration](sample-configs/solo-mining.md)**
+**[Example Solo Mining Configuration](sample-configs/solo-mining.md)**
 
 # 2. Repacking
 
 When first starting out most miners will need to sync their data from peers and pack it. However if you already have some data locally that you want to repack to a new packing address or format (e.g. `unpacked` to `replica.2.9`), there are 2 other options (described below). For more information on the packing and repacking process see [Syncing & Packing](../overview/syncing-and-packing.md)
 
+
 ## 2.1 Cross-module Repack
 
-xxx
+You can use cross-module repacking if you have a set of data packed to one format or address, and want to **copy** the data while repacking it to a new format or address. In this case your node needs access to both the source and destination storage modules.
+
+**Note:** it's a good idea to first generate entropy for the data you'll be repacking too. See [Entropy Generation](#11-entropy-generation) above.
+
+**[Example Cross-module Repack Configuration](sample-configs/cross-module-repack.md)**
 
 ## 2.2 Repack-in-Place
 
-xxx
+You can use repack-in-place if you have a set of data packed to one format or address, and want to repack it to a new address or format without using any more storage space. In this case the node will replace the source data with the repacked data.
 
+**[Example Repack-in-Place Configuration](sample-configs/repack-in-place.md)**
+
+# 3. VDF Server
+
+VDF Servers are typically run on MacOS hardware and are configured to run without mining and without any storage modules. See [VDF](../overview/vdf.md) for more information.
+
+**[Example VDF Server Configuration](sample-configs/vdf.md)**
