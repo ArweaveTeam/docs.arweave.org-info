@@ -143,30 +143,33 @@ Once your miner has mined a solution and built a block, it will publish that blo
 2. How quickly your miner can share the block with its peers. The more peers you're connected with and the faster your network conenction to them, the higher the chance your block will "win"
 3. Your node's reputation. Nodes will prioritize their relationship with peers based on their reputation. They will share new block and transactions with high reputation peers first, and they will validate and gossip blocks from high reputation peers first. Both of these factors can be the difference between your block "winning" or being orphaned. For more on reputation see [Node Reputation](node-reputation.md)
 
+## 5.1 Logs
+
+When you mine a block, you'll get the following logs:
+- console: `Produced candidate block HASH ...`
+- logs: `{event, mined_block}, {block, HASH} ...`
+
+At this point the race discussed above begins. If your block is accepted by the network and included in the main chain you should see the following message about 20 minutes later:
+- console: `Your block HASH was accepted by the network!`
+- logs: `{event, block_got_10_confirmations}, {block, HASH}`
+
+However, those messages aren't completely reliable. You may also want to search your logs for these messages:
+
+Indicating your block HASH has been orphaned:
+- console: `Your block HASH was orphaned.`
+- logs: `{event, mined_block_orphaned}, {block, HASH}`
+Indicating your previously orphaned block has been rebased:
+- console: `Rebasing block HASH ...`
+- logs: `{event, rebasing_block}, {h, HASH}`
+
+## 5.2 Orphans and Rebasing
+
+When a block ends up on a chain fork that is not the heaviest, it is considered orphaned. Orphaned blocks do not receive mining rewards.
+
+When your node detects that one of the blocks it has mined has become orphaned it will try to rebase it. Rebasing a block involves reusing a solution to build a new block on top of the current chain tip. A solution can only be rebased if it uses a VDF step that is higher than the VDF step included in the tip block. A rebased block is the same as any mined block and, if it is accepted and remains part of the heaviest fork, it will generate mining rewards for the mining address that mined it.
+
 # 6. Receive Mining Rewards
 
-## 6.1 Orphans and Rebasing
-
-#### Receiving Mining Rewards
-
-When you mine a block, the console shows:
-
-```
-Produced candidate block ....
-```
-
-Approximately 20 minutes later, you should see
-
-```
-Your block ... was accepted by the network!
-```
-
-Note that occasionally your block won't be confirmed (the chain chooses a different fork).
-
-{% hint style="warning" %}
 You do not immediately receive the block reward after mining a block. There is a delay in the release of block rewards for miners by approximately thirty days or 30 \* 24 \* 30 blocks. Your node does **not** need to stay online in order to receive your reserved mining rewards. This mechanism is designed to discourage signing the same block several times and several competitive forks in general - the network detects these cases and may slash the reserved rewards and revoke the mining permission from the corresponding mining address. Also, the mechanism incentivizes miners to be aligned with the network for at least the medium-term.
-{% endhint %}
 
-{% hint style="info" %}
 To see the total number of Winston (divide by 1000_000_000_000 to get the AR value) reserved for you address, browse to https://arweave.net/wallet/\[your-mining-address]/reserved\_rewards\_total.
-{% endhint %}
