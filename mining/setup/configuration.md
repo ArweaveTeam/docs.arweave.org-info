@@ -11,6 +11,10 @@ Arweave provides a number of configuration options to control, customize, and tu
 
 We recommend using the `./bin/start` wrapper script to run your node. This script wraps the core [Arweave entrypoint](../operations/entrypoint.md) with naive auto-restart functionality. If your node crashes, `./bin/start` will wait 15 seconds and then restart it with the same configuration.
 
+{% hint style="warning" %}
+Avoid killing the arweave process if at all possible. I.e. **don't** do `kill -9 arweave` or `kill -9 beam` or `kill -9 erl`. To stop the arweave process, use `./bin/stop` and then wait for as long as you can for the node to shutdown gracefully. Sometimes if can take a while for the node to shutdown, which we realize is frustrating, but if you kill the node abruptly it can cause `rocksdb` corruption that can be difficult to recover from. In the worst case you may need to resync and repack a partition. If you can't wait, we recommend using `kill -1` rather thank `kill -9`.
+{% endhint %}
+
 # 0.2 Keeping the Miner Running
 
 Linux provides many way to run an application in the background or as a daemon so that it will keep running even after you've exited your shell or closed your remote connection. You can likely use any approach your comfortable with. Many miners use the `screen` session manager, e.g.:
@@ -78,7 +82,7 @@ Entropy generation is complete when you see that message printed for **each** co
 
 Syncing & Packing is often the most expensive and time consuming part of miner setup. We provide a sample configuration file below, but you may want to tweak the options to optimize your performance. For guidance on this refer to [Syncing & Packing](../overview/syncing-and-packing.md).
 
-**[Example Syncing & Packing Configuration](sample-configs/syncing-packing.md)**
+**[Example Syncing & Packing Configuration](sample-configs/sync-pack.md)**
 
 ## 1.3 Mining
 

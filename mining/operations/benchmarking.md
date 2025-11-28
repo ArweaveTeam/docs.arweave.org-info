@@ -9,7 +9,7 @@ miner's performance.
 - VDF: `./bin/arweave benchmark vdf`
 
 {% hint style="warning" %}
-There are 2 other benchmarking tools (`2.9` and `packing`) that need to be rewritten and can't be relied on to benchmark packing speed.
+There are 3 other benchmarking tools (`2.9`, `packing`, and `./data-doctor bench`) that need to be rewritten and can't be relied on to benchmark packing speed.
 {% endhint %}
 
 # 1. Hashing
@@ -116,7 +116,6 @@ Specify the VDF difficulty to use when running the tool. You can check the curre
 
 If `true` then the benchmark tool will verify the VDF output against a slower "debug" VDF algorithm. This is primarily only useful when you're modifying one of the included VDF algorithms.
 
-
 # 3. Deprecated Tools
 
-There are 2 other benchmarking tools (`2.9` and `packing`) that need to be rewritten and can't be relied on to benchmark packing speed.
+There are 3 other benchmarking tools (`2.9`, `packing`, `./data-doctor bench`) that need to be rewritten and can't be relied on to benchmark packing speed.

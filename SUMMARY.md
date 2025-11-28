@@ -12,28 +12,33 @@
     - [Running Your Node](mining/setup/configuration.md)
 - Overview
     - [Node Types](mining/overview/node-types.md)
+    - [Coordinated Mining](mining/overview/coordinated-mining.md)
+    - [Pool Mining](mining/overview/pool-mining.md)
     - [Trusted Peers](mining/setup/trusted-peers.md)
     - [Syncing and Packing](mining/overview/syncing-and-packing.md)
+      - [Estimated Partition Sizes](mining/overview/estimated-partition-sizes.md)
     - [How Mining Works](mining/overview/mining.md)
     - [Hashrate](mining/overview/hashrate.md)
     - [VDF](mining/overview/vdf.md)
+    - [Transaction Blacklist](mining/overview/blacklist.md)
 - Operations
     - [Arweave Entrypoint](mining/operations/entrypoint.md)
-    - [Benchmarking](mining/operations/benchmarking.md)
+    - [Benchmarking Guide](mining/operations/benchmarking.md)
     - [Multiple Nodes, One Server](mining/operations/multiple-nodes.md)
+    - [Verifying your Data](mining/operations/verify.md)
+    - [Optimizing Sync & Pack](mining/operations/optimize-sync-pack.md)
     - [Metrics Reference](mining/metrics.md)
+    - [Advanced: TLS Guide](mining/operations/tls.md)
     - [Grafana – Mining Dashboard JSON](mining/grafana-mining.json)
     - [Grafana – Debug Dashboard JSON](mining/grafana-debug.json)
     - [Grafana – Syncing/Packing Dashboard JSON](mining/grafana-syncing-packing.json)
-- Advanced Topics
-    - [Advanced Topics Overview](mining/advanced-topics.md)
-    - [Coordinated Mining](mining/coordinated-mining.md)
-
-    - [TLS Guide](mining/tls.md)
 - Sample Node Configurations
     - [Entropy Generation](mining/setup/sample-configs/entropy-generation.md)
-    - [Syncing & Packing](mining/setup/sample-configs/syncing-packing.md)
+    - [Syncing & Packing](mining/setup/sample-configs/sync-pack.md)
     - [Solo Mining](mining/setup/sample-configs/solo-mining.md)
+    - [Cross-Module Repacking](mining/setup/sample-configs/cross-module-repack.md)
+    - [Repack-in-Place](mining/setup/sample-configs/repack-in-place.md)
+    - [VDF Server](mining/setup/sample-configs/vdf.md)
 
 ## Development
 

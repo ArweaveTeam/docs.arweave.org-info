@@ -16,12 +16,12 @@ description: >-
 - You want to pack it so you can mine against it
 - You've downloaded the unpacked partitions to an 16TB disk
 - You'll pack the data to 4TB disks using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
-- You'll use the `replica_2_9` packing format
+- You'll use the `replica.2.9` packing format
 - You'll use one of the DHA-provided public VDF servers
+- You'll use the publicly available NSFW filter provided by Shepherd
 - Run your miner with:
   -  `sync_jobs 0` to prevent it from trying to sync while you repack
   - each `storage_module` defined twice, once as `unpacked` and once as `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
-  - `vdf_server_trusted_peer vdf-server-3.arweave.xyz` to use the DHA-provided VDF server
 - See [Running Your Node](../configuration.md) for more information
 
 # 2. Sample Directory Structure
@@ -52,6 +52,7 @@ description: >-
     data_dir /opt/data \
     sync_jobs 0 \
     vdf_server_trusted_peer vdf-server-3.arweave.xyz \
+    transaction_blacklist_url https://public_shepherd.arweave.net \
     mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
     storage_module 0,unpacked \
     storage_module 0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
@@ -68,12 +69,10 @@ description: >-
 ```
 {
     "enable": [ "randomx_large_pages" ],
-
     "peers": [ "peers.arweave.xyz" ],
-
     "data_dir": "/opt/data",
-
     "vdf_server_trusted_peers": [ "vdf-server-3.arweave.xyz" ],
+    "transaction_blacklist_url": "https://public_shepherd.arweave.net",
 
     "storage_modules": [
         "0,unpacked",

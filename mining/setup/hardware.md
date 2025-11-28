@@ -231,11 +231,11 @@ The CPU requirements while mining, packing, or computing VDF differ substantiall
 
 Packing is a parallelizable, CPU-intensive encryption process (the weave data is symmetrically encrypted using your mining address). Generally miners will sync and pack at the same time - packing data as they download it. As of November, 2025, most miners run AMD Ryzens or EPYC processors - although Intel variants are also common.
 
-When selecting a CPU to use for packing your main metric will be how many chunks per second you can pack. Each chunk is 256KiB which means that a 373 TB full replica (as of November, 2025) contains about 1,492,000,000 chunks. You can use these values, as well as the guidance in [Operations - Benchmarking](../operations/benchmarking.md) to estimate how long your chosen CPU will take to pack a full replica. Of note: under some configurations [storage bandwidth](#314-storage-bandwidth-while-packing) and [network bandwidth](#332-bandwidth-while-syncing-and-packing) may replace the CPU as the main packing bottleneck.
+When selecting a CPU to use for packing your main metric will be how many chunks per second you can pack. Each chunk is 256KiB which means that a 373 TB full replica (as of November, 2025) contains about 1,492,000,000 chunks. You can use these values, as well as the guidance in [Benchmarking](../operations/benchmarking.md) to estimate how long your chosen CPU will take to pack a full replica. Of note: under some configurations [storage bandwidth](#314-storage-bandwidth-while-packing) and [network bandwidth](#332-bandwidth-while-syncing-and-packing) may replace the CPU as the main packing bottleneck.
 
 ## 3.4.2 CPU While Mining
 
-CPU utilization while mining is much lower than packing. [Overview - Hashrate](../overview/hashrate.md) and [Operations - Benchmarking](../operations/benchmarking.md) provide detailed information about estimating hashrate and CPU capacity. As a rough guide you can expect 1 RandomX hash and 1,600 SHA256 hashes per partition per second. So a 100-partition miner needs to compute roughly 100 RandomX hashes (aka H0 hashes), and 160,000 SHA256 hashes (aka H1 and H2 hashes) per second. These hashing computations can be parallelized across cores.
+CPU utilization while mining is much lower than packing. [Hashrate](../overview/hashrate.md) and [Benchmarking](../operations/benchmarking.md) provide detailed information about estimating hashrate and CPU capacity. As a rough guide you can expect 1 RandomX hash and 1,600 SHA256 hashes per partition per second. So a 100-partition miner needs to compute roughly 100 RandomX hashes (aka H0 hashes), and 160,000 SHA256 hashes (aka H1 and H2 hashes) per second. These hashing computations can be parallelized across cores.
 
 ## 3.4.3 CPU While Computing VDF
 
@@ -245,4 +245,4 @@ To date the fastest VDF speed has been observed on Apple's M-class chips (e.g. M
 
 When packing or simply validating the block chain, a slower VDF speed is fine. Your non-Mac CPU is likely fast enough. The Digital History Associate (DHA) team also operates a few public VDF servers running on M2 processors that are free to use.
 
-For more information about VDF please see [Overview - VDF](../overview/vdf.md) and [Operations - Benchmarking](../operations/benchmarking.md).
+For more information about VDF please see [VDF](../overview/vdf.md) and [Benchmarking](../operations/benchmarking.md).

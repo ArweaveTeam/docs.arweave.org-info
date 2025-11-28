@@ -5,14 +5,14 @@ description: >-
 
 One of the first things you'll do when mining is sync and pack some or all of the weave data.
 
-# Syncing
+# 1. Syncing
 
 "Syncing" refers to the process of downloading data from network peers. When you launch your
 miner you'll configure a set of storage modules that cover some or all of the weave. Your
 node will continuously check for any gaps in your configured data and then search out peers 
 from which to download the missing data.
 
-# Packing
+# 2. Packing
 
 Storage modules can be either "unpacked" (e.g. `storage_module 16,unpacked`) or "packed"
 (e.g. `storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`). Before you can mine
@@ -23,53 +23,50 @@ fall under the "packing" umbrella:
 2. `unpack` - Decrypt a packed chunk of data.
 
 Both operations consume roughly the same amount of computational power. See the
-[benchmarking guide](../setup/hardware.md#benchmarking-your-miner) for more details.
+[Benchmarking Guide](../operations/benchmarking.md) for more details.
 
-As of Arweave 2.9 there are two main packing formats available, `spora_2_6` and `replica_2_9`. See the [Packing Format](mining-guide.md#Preparation-Packing-Format) section of the Mining Guide for more information. For new packs we recommend using the `replica_2_9` format.
+As of Arweave 2.9 there is one main packing format: `replica.2.9`. You can read the full [Arweave 2.9 Whitepaper here](https://github.com/ArweaveTeam/arweave/blob/master/papers/arweave2_9_2024.pdf). Put simply: the intent is for packing to be an expensive operation - expensive enough that the most profitable strategy is to pack data once and store it to disk rather than store the data unpacked and pack it "on demand". The Arweave packing format relies heavily on [RandomX](https://xmrig.com/benchmark) to implement this cost/benefit tradeoff.
 
 **Note:** You will almost always have to **unpack** data when syncing it. Whichever
 peer you sync the data from will likely return it to you packed to its own address. Before
 you can do anything with it you will first need to unpack. You may then have to pack it to your
 own address. i.e. each chunk of data synced will usually need 1-2 packing operations.
 
-# Packing Processes
+## 2.1 Packing Processes
 
 There are 3 ways to get packed data:
 
 1. **Sync and Pack**: Used when you don't have any data locally. Your node will query chunk
 data from peers, unpack it from the peer's address, pack it to your address, and then store it
 in your storage module.
-    - See the [Examples](examples.md#syncing-and-packing) guide for
-an example configuration.
 2. **Cross Module Repack**: Used when you have data locally but want to repack it to a
 different format or address. Your node will read data from one storage module, repack it, and
 then write it to a different storage module.
-    - See the
-[Examples](examples.md#cross-module-repack) guide for an example configuration.
 3. **Repack In Place**: Used when you have data locally and want to repack it to a different
 format or address and then store it back in the same storage module. Your node will iterate
 through your storage module, read chunks, repack them, and then write them back to the same
 storage module.
-    - See the [Examples](examples.md#repacking-in-place) guide for an example configuration.
 
-# Replica 2.9 Entropy Generation
+See [Running Your Node](../setup/configuration.md) for a sample configurations of each packing type.
 
-Starting with the `replica_2_9` format introduced in Arweave 2.9, the packing process is
+## 2.2 Replica 2.9 Entropy Generation
+
+Starting with the `replica.2.9` format introduced in Arweave 2.9, the packing process is
 broken into 2 steps:
 
 1. **Entropy Generation**: Generate a random entropy value for each chunk.
 2. **Packing**: Encrypt the chunk data using the entropy value.
 
-Currently (as of 2.9.1) the recommended approach when using "Sync and Pack" or
+Currently the recommended approach when using "Sync and Pack" or
 "Cross Module Repack" is to first generate entropy for an entire partition, and then pack data
 for it. This is not possible with "Repack In Place" so no special handling is needed for it.
-See the [Examples](examples.md) guide for guidance on how to do this.
+See [Running Your Node](../setup/configuration.md) for for guidance on how to do this.
 
-# Storage Module Format
+# 3. Storage Module Data Format
 
 Each storage module has 2 directories `chunk_storage` and `rocksdb`.
 
-## `chunk_storage`
+## 3.1 `chunk_storage`
 
 This directory stores the actual weave data in a series of roughly 2GB sparse files. Each
 file contains 8000 chunks stored as `<< Offset, ChunkData >>`.
@@ -92,16 +89,16 @@ The data stored may be packed or unpacked - and the two formats will often take 
 synced. Diskspace measuring tools (e.g. `du`, `ls -l`) will not be able to give an accurate
 measurement of the amount of weave data synced.
 
-For reasons [explained below](#partitions-are-rarely-full) you will rarely be able to sync a
+For reasons [explained below](#42-partitions-are-rarely-full) you will rarely be able to sync a
 full 3.6TB partition. However,
 your node will continue to search the network for missing chunks so while unlikely it is
 possible that a previously "dormant" `chunk_storage` directory to see some activity if
 previously missing chunk data comes online. In general, though, once you have "fully" synced
 a storage_module you would expect there to be no further writes to the `chunk_storage`
-directory. [Below](#partition-sizes) we provide an estimate of each partition's "full synced"
+directory. [Below](#4-partition-sizes) we provide an estimate of each partition's "full synced"
 size.
 
-## `rocksdb`
+## 3.2 `rocksdb`
 
 The `rocksdb` directory contains several [RocksDB](https://rocksdb.org/) databases used to
 store metadata related to chunk data (e.g. record keeping, indexing, proofs, etc..).
@@ -111,11 +108,11 @@ should expect the `rocksdb` directory to continue to be written to as long as yo
 running. The current rough size of a `rocksdb` directory is ~100 GB (although it will vary
 from partition to partition and node to node).
 
-# Partition Sizes
+# 4. Partition Sizes
 
-# Measuring
+## 4.1 Measuring
 
-As mentioned [above](#chunk_storage) the amount of space your data takes up on disk may
+As mentioned [above](#31-chunk_storage) the amount of space your data takes up on disk may
 not exactly match the amount of weave data that you have synced. This is due to several
 factors:
 1. `chunk_storage` files are sparse
@@ -150,7 +147,7 @@ This indicates that the node has:
   - it is stored **unpacked** on disk and may take up **more or less** than 2.5TB of disk space
 - The `default` partition is a temporary staging partition and can be ignored
 
-# Partitions are rarely full
+## 4.2 Partitions are rarely full
 
 You will find as you sync data that you're never able to download a full 3.6TB partition -
 and in fact some partitions seem to stop syncing well short of the 3.6TB. There are 2 steps
@@ -168,7 +165,7 @@ Typically there are 2 reasons why a user might not seed data after they've paid 
 1. They're just testing / exploring the protocol
 2. They're a miner experimenting with sacrifice mining
 
-# Sacrifice Mining
+# 5. Sacrifice Mining
 
 Sacrifice Mining is a mining strategy where a miner will pay to upload data to the weave but
 then never actually seed it. Instead they will keep and mine the data themselves, only sharing
@@ -193,7 +190,7 @@ partition sizes are materially smaller than the expected 3.6TB (partitions 0-8, 
 believe these correspond to periods when miners were experimenting with the strategy,
 ultimately abandoning it as they realized it was unprofitable.
 
-# Latest Estimated Partition Sizes
+# 6. Latest Estimated Partition Sizes
 
 [See tables here](estimated-partition-sizes.md) 
 
@@ -214,131 +211,4 @@ These numbers are *mostly* reliable, but there is always a chance that a previou
 any time the original uploader decides to finally seed their previously unseeded data. In
 practice this gets less and less likely the older a partition is.
 {% endhint %}
-
-# Performance Tips
-
-**Most important performance tip:** Do not mine while you pack. The two processes are both resource intensive and will slow each other down. (i.e. omit the `mine` flag from your configuration) If you've already removed the `mine` flag, continue on below for more optimization tips.
-
-There are 3 primary bottlenecks when syncing and packing:
-
-1. Your network bandwidth *(used to download chunks from peers)*
-2. Your CPU *(used to pack and unpack chunks)*
-3. Your disk write speed *(used to write chunks to disk)*
-
-And to a lesser degree:
-
-4. RAM *(more heavily used in mining than in syncing/packing, but can become a bottleneck under
-  certain situations)*
-
-If any of the 3 primary resources are maxed out: congratulations! Your configuration is syncing
-and packing as fast as it can!
-
-# Increasing Bandwidth
-
-Not much to do here other than negotiate a faster internet connection, or find a second one.
-
-# Increasing CPU
-
-Packing and unpacking can be parallelized across chunks, so you can add more cores or increase
-the clock speed to increase your packing speed. See the
-[hardware guide](../setup/hardware.md#benchmarking-your-miner) for guidance on evaluating CPU pack
-speed.
-
-# Increasing Disk Write Speed
-
-During the syncing and packing phase you will typically hit a network bandwidth or CPU
-bottleneck before you hit a disk IO bottleneck (the reverse is true once you start mining).
-
-If you believe you've hit a disk IO bottleneck you have a few options.
-
-First, confirm that you're getting your expected disk write speed. You can use tools like `fio`
-or `dd` to measure your disks write speed. If it is below your expected speed, you'll want to
-check your system configuration (software and hardware) for issues.
-
-Second, you can add more disks to your node. This is really only relevant if you have
-partitions that you intend to sync and pack but which you haven't added to your node
-configuration. As a general rule you should add all your storage modules to your node while
-syncing and packing as this will increase your disk IO bandwidth as well as help fully
-use your network and CPU bandwidth.
-
-Third, you can buy faster disks. This is generally not recommended to unblock a syncing and
-packing bottleneck as there's a good chance that extra IO speed will go unused once you
-start mining. Including it here for completeness.
-
-# Increasing RAM
-
-The RAM guidelines mentioned in the [Guide](mining-guide.md#preparation-ram) are
-focused on mining. Often RAM is not a primary bottleneck during syncing and packing. If you
-are maxing out your RAM: review the guidelines below. It's possible you can optimize your node
-configuration.
-
-# Increasing Utilization
-
-Okay, so you've reviewed your bottlenecks and determined that **none** of them are at 
-capacity. Here are some tips to increase syncing and packing speed.
-
-## sync_jobs
-
-The `sync_jobs` flag controls the number of concurrent requests your node will make to peers
-to download data. The default is `100`. Increasing this number should increase your utilization
-of all resources: the amount of data you pull from peers (network bandwidth), the number of
-chunks you're packing (CPU), and the volume of data written to disk (disk IO).
-
-However, it is possible to increase this number **too much**. This can:
-
-1. Cause your node to be rate-limited / throttled by peers and ultimately decrease your
-bandwidth utilization.
-2. Increase your RAM utilization due to backed up sync jobs. This is particularly common if
-your miner has a poor network connection (e.g. high latency or data loss). Increasing the
-volume of slow/hanging requests can cause a backup which eventually leads to an out of memory
-error.
-
-Setting `sync_jobs` to `200` or even `400` is unlikely to cause any issues. But before you
-increase it even further our recommendation is to first confirm:
-1. Your CPU and network bandwidths are below capacity
-2. Your network connectivity is good (e.g. using tools like `mtr` to track packet loss)
-
-## storage_module
-
-As mentioned above under [Increasing Disk Write Speed](#increasing-disk-write-speed) syncing
-to all your storage modules at once will maximize your available disk write bandwidth. The
-same applied to network bandwidth. Adding more storage modules when syncing increases the
-set of peers you can pull data from (as different peers share different parts of the weave
-data). This will help your node maximize its network bandwidth by pulling from the "best" set
-of peers available at a given time.
-
-## Repacking
-
-If you configure your node to repack from one local storage module to another the node
-will prioritize that over pulling data from peers. This can cause you to max out your CPU
-capacity while your network bandwidth stays low.
-
-This is not a problem. It simply means your node will max out its CPU doing local repacks before
-it begins searching for peers to download more data from. If you'd rather focus on syncing, 
-just make sure to configure your node without any repacking. Two examples of configurations
-that will cause local repacking:
-
-1. `storage_module 9,unpacked storage_module 9,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
-2. `storage_module 16,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
-
-**Note:** [as mentioned earlier](#packing), whenever you sync data - even if you are syncing to
-`unpacked` - you will likely have to perform at least one packing operation. 
-
-## Multiple Full Replicas
-
-If you intend to build more than 1 packed full replica, the following approach should get
-you there fastest:
-
-1. Download all the data to `unpacked` storage modules
-2. Build each packed replica by [locally repacking](examples.md#packing-unpacked-data) from
-  your `unpacked` storage modules
-3. You can either keep the `unpacked` data around for later, or, you can do a
-  [repack_in_place](examples.md#repacking-packed-data-in-place) when building your final
-  packed replica.
-
-This approach will reduce your download time (since you only have to download the data once)
-and reduce the number of packing operations (since you only have to unpack peer data once).
-
-**Note:** This approach is not recommended if your goal is to have 1 or fewer packed replicas.
-It will work, but won't be any faster than just syncing straight to packed storage modules.
 

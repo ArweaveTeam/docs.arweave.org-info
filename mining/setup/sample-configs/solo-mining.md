@@ -12,6 +12,7 @@ description: >-
 
 - You've downloaded and packed all your data to 16TB disks using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
 - You'll use one of the DHA-provided public VDF servers
+- You'll use the publicly available NSFW filter provided by Shepherd
 - Run your miner with:
     - `mine`
     - `vdf_server_trusted_peer vdf-server-3.arweave.xyz` to use the DHA-provided VDF server
@@ -42,6 +43,7 @@ description: >-
     data_dir /opt/data \
     mine \
     vdf_server_trusted_peer vdf-server-3.arweave.xyz \
+    transaction_blacklist_url https://public_shepherd.arweave.net \
     mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
     storage_module 0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
     storage_module 1,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
@@ -58,12 +60,10 @@ description: >-
 ```
 {
     "enable": [ "randomx_large_pages" ],
-
     "peers": [ "peers.arweave.xyz" ],
-
     "data_dir": "/opt/data",
-
     "vdf_server_trusted_peers": [ "vdf-server-3.arweave.xyz" ],
+    "transaction_blacklist_url": "https://public_shepherd.arweave.net",
 
     "storage_modules": [
         "0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9",

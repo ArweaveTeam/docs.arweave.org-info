@@ -17,10 +17,10 @@ description: >-
 - Your packed data is stored on 4TB disks and is packed using the mining address `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI`
 - You want to repack your data to the mining address `Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY`
 - You'll use one of the DHA-provided public VDF servers
+- You'll use the publicly available NSFW filter provided by Shepherd
 - **NOTE** Unlike with the other two repacking processes ("Sync and Pack" and "Cross-Module Repack"), you will **not** need to split up the "Repacking in Place" process into two steps. Entropy generation and repacking will happen in a single step.
 - Run your miner with:
   - the special `repack_in_place` syntax for your storage modules
-  - `vdf_server_trusted_peer vdf-server-3.arweave.xyz` to use the DHA-provided VDF server
 - After the repack in place completes you'll need to rename all your storage module directories
 - See [Running Your Node](../configuration.md) for more information
 
@@ -49,6 +49,7 @@ description: >-
     data_dir /opt/data \
     sync_jobs 200 \
     vdf_server_trusted_peer vdf-server-3.arweave.xyz \
+    transaction_blacklist_url https://public_shepherd.arweave.net \
     mining_addr Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY \
     storage_module 0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9,repack_in_place,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY.replica.2.9 \
     storage_module 1,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9,repack_in_place,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY.replica.2.9 \
@@ -61,13 +62,11 @@ description: >-
 ```
 {
     "enable": [ "randomx_large_pages" ],
-
     "peers": [ "peers.arweave.xyz" ],
-
     "data_dir": "/opt/data",
-
     "vdf_server_trusted_peers": [ "vdf-server-3.arweave.xyz" ],
-    
+    "transaction_blacklist_url": "https://public_shepherd.arweave.net",
+
     "storage_modules": [
         "0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9,repack_in_place,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY.replica.2.9",
         "1,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9,repack_in_place,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY.replica.2.9",

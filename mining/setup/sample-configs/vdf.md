@@ -12,6 +12,7 @@ description: >-
 - You'd like to run a dedicated node to compute and publish VDF
 - You are running on an Apple M4 processor (the fastest benchmarked processor as of September, 2025)
 - You've decided not to configure any storge modules no have your VDF server mine (this is the most common setup)
+- You'll use the publicly available NSFW filter provided by Shepherd
 - You only want to provide VDF for the following nodes:
   - `1.2.3.4`
   - `5.6.7.8`
@@ -33,6 +34,7 @@ description: >-
     enable randomx_large_pages \
     peer peers.arweave.xyz \
     data_dir /opt/data \
+    transaction_blacklist_url https://public_shepherd.arweave.net \
     vdf hiopt_m4 \
     vdf_client_peer 1.2.3.4 \
     vdf_client_peer 5.6.7.8 \
@@ -45,10 +47,9 @@ description: >-
 ```
 {
     "enable": [ "randomx_large_pages" ],
-
     "peers": [ "peers.arweave.xyz" ],
-
     "data_dir": "/opt/data",
+    "transaction_blacklist_url": "https://public_shepherd.arweave.net",
 
     "vdf": "hiopt_m4",
 

@@ -5,7 +5,7 @@ description: >-
 
 This pages describes the different roles your node can play. Each role can be launched from the same `arweave` application found on the main [github repository](https://github.com/ArweaveTeam/arweave). 
 
-See [Setup - Hardware](../setup/hardware.md) for guidance on the hardware requirements for each node type, and [Getting Started](../getting-started.md) for next steps in getting your miner setup.
+See the [Hardware Guide]](../setup/hardware.md) for guidance on the hardware requirements for each node type, and [Getting Started](../setup/getting-started.md) for next steps in getting your miner setup.
 
 # 1. Solo Miner
 
@@ -28,7 +28,7 @@ A coordinated miner is collection of 2 or more nodes that coordinate to mine all
 - You want full control over keys and payouts (no pool/coordinator in the middle) (see [Pool Miner](#23-pool-miner) for more information)
 - You can run or rent access to a VDF server (see [VDF Server](#24-vdf-server) for more information)
 
-For more information see [Overview - Coordinated Mining](../overview/coordinated-mining.md).
+For more information see [Coordinated Mining](../overview/coordinated-mining.md).
 
 # 3. Pool Miner
 
@@ -42,7 +42,7 @@ A pool miner can either be a solo miner or a coordinated miner. They mine some o
 - You’re happy to share rewards according to pool rules in exchange for smoother payouts
 - You’re happy to delegate control of the mining keys to pool operator
   
-For more information see [Overview - Pool Mining](../overview/pool-mining.md).
+For more information see [=Pool Mining](../overview/pool-mining.md).
 
 # 4. VDF Server
 
@@ -52,7 +52,7 @@ VDF servers are specialized nodes that focus on computing and distributing VDF s
 - You are also planning to run a miner and want to maximize your mining hashrate without joining a pool or renting access to a 3rd party VDF server
 - You have access to a Mac running on Apple Silicon (e.g. an M4) - to date the fastest VDF calculations observed are on Apple processors
 
-For more information see [Overview - VDF](../overview/vdf.md).
+For more information see [VDF](../overview/vdf.md).
 
 ## 5. Validator
 
