@@ -29,7 +29,7 @@ Be **very** careful before deleting `[data_dir]/wallets` or `[data_dir]/storage_
 {% endhint %}
 
 ## 3.1 `data_dir` Recommendations:
-- At least 200GB of of available space, 500GB is recommended - even more if you want to store the full [blockchain](../overview/blockchain.md).
+- At least 200GB of of available space, 500GB is recommended - even more if you want to store the full blockchain.
 - Stored on an SSD or NVMe. The data in `data_dir` is frequently read and written by all node services and can become a performance bottleneck if it resides on an HDD. See [Hardware Guide](hardware.md/#311-solid-state-drive-ssd-for-data_dir) for more information.
 
 Note: You will need a lot more than 200GB when mining, but typically your mined data (stored in `storage_modules`) is mounted on separate disks from your `data_dir` and symlinked in. So your `data_dir` disk itself only needs to have 200GB+ available capacity. More about this below.

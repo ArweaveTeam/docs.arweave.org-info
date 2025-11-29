@@ -39,8 +39,6 @@ All [node types](node-types.md) participate in the network whether they are mini
 3. Share valid blocks, transactions, and chunks with peers
 4. If there is a fork in the chain, select and advertise the "heaviest" fork
 
-You can read more about the nuances of the Arweave blockchain in [Understanding the Blockchain](blockchain.md).
-
 The most important step for miners is #1 as you always want to be mining ontop of the latest block. If your node falls behind its peers and is unaware of the latest valid blocks, your miner runs the risk of mining valid solutions that don't make it into the main blockchain. These solutions are called "orphans" and they will not provide you with any mining rewards.
 
 ## 1.2 Receiving Blocks, Transactions, and Chunks
@@ -110,8 +108,6 @@ Once your miner finds a valid solution it will build and publish a block.
 There's a lot of information that goes into an Arweave block - you can see the full set of fields by inspecting the JSON returned by any node's `/block/current` endpoint. Many of those fields are determined by the protocol and not configurable by the miner. However a miner does have some flexibility in setting these values:
 - The block height
 - The block transactions
-
-For more information about the Arweave Blockchain see the [Blockchain](blockchain.md) guide.
 
 ## 4.1 Determining Block Height
 

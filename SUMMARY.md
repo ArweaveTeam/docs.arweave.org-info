@@ -19,7 +19,6 @@
       - [Estimated Partition Sizes](mining/overview/estimated-partition-sizes.md)
     - [How Mining Works](mining/overview/mining.md)
     - [Hashrate](mining/overview/hashrate.md)
-    - [Understanding the Blockchain](mining/overview/blockchain.md)
     - [VDF](mining/overview/vdf.md)
     - [Transaction Blacklist](mining/overview/blacklist.md)
 - Operations
