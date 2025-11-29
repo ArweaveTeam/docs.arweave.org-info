@@ -81,8 +81,6 @@ Coordinated mining cluster stats:
   - When a node in your CM cluster generates a Solution, it is sent out to the cluster and the exit node will submit it to the network in the hopes of mining that block
 - H2 In
   - Same as above, except incoming
-- <https://docs.arweave.org/developers/mining/metrics>
-- <https://docs.arweave.org/developers/mining/syncing-packing/estimated-partition-sizes>
 
 # 7. Troubleshooting
 

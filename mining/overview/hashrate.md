@@ -98,9 +98,9 @@ We'll now walk through n example for a miner with sub-optimal characteristics:
 - Sustained disk read speed of 2 MiB/s per partition
   - for simplicity we'll represent this as being to read 40% of each dat arange
 
-| H1                       | H2                              | VDF     | Hashrate
-| ------------------------ | ------------------------------- | ------- | --------
-| (4 x 0.4 x 100 x 0.66) + | 400 x 0.4 x 100 x 0.66 x 0.66 / | 1.05s = | 6,738
+| H1                       | H2                               | VDF     | Hashrate
+| ------------------------ | -------------------------------- | ------- | --------
+| (4 x 0.4 x 100 x 0.66  + | 400 x 0.4 x 100 x 0.66 x 0.66) / | 1.05s = | 6,738
 
 Breakin that down a bit:
 - The 0.4 multiplier indicate that for each range the miner is allowed to read, it can only read 40% of it in time, reducing the hashes it can generate

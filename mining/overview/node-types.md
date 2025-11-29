@@ -5,7 +5,7 @@ description: >-
 
 This pages describes the different roles your node can play. Each role can be launched from the same `arweave` application found on the main [github repository](https://github.com/ArweaveTeam/arweave). 
 
-See the [Hardware Guide]](../setup/hardware.md) for guidance on the hardware requirements for each node type, and [Getting Started](../setup/getting-started.md) for next steps in getting your miner setup.
+See the [Hardware Guide](../setup/hardware.md) for guidance on the hardware requirements for each node type, and [Getting Started](../setup/getting-started.md) for next steps in getting your miner setup.
 
 # 1. Solo Miner
 
