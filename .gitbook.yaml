@@ -5,4 +5,4 @@ root: ./
   summary: SUMMARY.md​
 
 redirects:
-  mining/mining-guide: ./
+  mining/mining-guide: mining/setup/getting-started.md
