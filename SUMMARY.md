@@ -27,11 +27,8 @@
     - [Multiple Nodes, One Server](mining/operations/multiple-nodes.md)
     - [Verifying your Data](mining/operations/verify.md)
     - [Optimizing Sync & Pack](mining/operations/optimize-sync-pack.md)
-    - [Metrics Reference](mining/metrics.md)
+    - [Optimizing with Metrics](mining/operations/metrics.md)
     - [Advanced: TLS Guide](mining/operations/tls.md)
-    - [Grafana – Mining Dashboard JSON](mining/grafana-mining.json)
-    - [Grafana – Debug Dashboard JSON](mining/grafana-debug.json)
-    - [Grafana – Syncing/Packing Dashboard JSON](mining/grafana-syncing-packing.json)
 - Sample Node Configurations
     - [Entropy Generation](mining/setup/sample-configs/entropy-generation.md)
     - [Syncing & Packing](mining/setup/sample-configs/sync-pack.md)
@@ -39,6 +36,7 @@
     - [Cross-Module Repacking](mining/setup/sample-configs/cross-module-repack.md)
     - [Repack-in-Place](mining/setup/sample-configs/repack-in-place.md)
     - [VDF Server](mining/setup/sample-configs/vdf.md)
+    - [Coordnated Mining](mining/setup/sample-configs/coordinated-mining.md)
 
 ## Development
 
