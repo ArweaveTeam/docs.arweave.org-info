@@ -21,6 +21,7 @@
     - [Hashrate](mining/overview/hashrate.md)
     - [VDF](mining/overview/vdf.md)
     - [Transaction Blacklist](mining/overview/blacklist.md)
+    - [Node Reputation](mining/overview/node-reputation.md)
 - Operations
     - [Arweave Entrypoint](mining/operations/entrypoint.md)
     - [Benchmarking Guide](mining/operations/benchmarking.md)
@@ -35,7 +36,7 @@
     - [Cross-Module Repacking](mining/setup/sample-configs/cross-module-repack.md)
     - [Repack-in-Place](mining/setup/sample-configs/repack-in-place.md)
     - [VDF Server](mining/setup/sample-configs/vdf.md)
-    - [Coordnated Mining](mining/setup/sample-configs/coordinated-mining.md)
+    - [Coordinated Mining](mining/setup/sample-configs/coordinated-mining.md)
 
 ## Development
 

@@ -106,26 +106,26 @@ Once your miner finds a valid solution it will build and publish a block.
 # 4. Build a Block
 
 There's a lot of information that goes into an Arweave block - you can see the full set of fields by inspecting the JSON returned by any node's `/block/current` endpoint. Many of those fields are determined by the protocol and not configurable by the miner. However a miner does have some flexibility in setting these values:
-- The block height
+- The block height (via selecting which previous block to build ontop of)
 - The block transactions
 
 ## 4.1 Determining Block Height
 
-Every valid solution is tied to a specific VDF step, and ever valid block is tied to a specific "previous block". However the same solution could be used to build valid blocks at different heights or with different "previous blocks" so long as the previous block's VDF step is **lower** than the solution step. This is discussed more below under [Orphans and Rebasing](#61-orphans-and-rebasing).
+Every valid solution is tied to a specific VDF step, and every valid block is tied to a specific "previous block". However the same solution could be used to build valid blocks at different heights or with different "previous blocks" so long as the previous block's VDF step is **lower** than the solution step. This is discussed more below under [Orphans and Rebasing](#61-orphans-and-rebasing).
 
 {% hint style="danger" %}
-Your should never publish two blocks with the same solution at the same height as this violates the Arweave protocol and will result in the network slashing your rewards and reovking the mining permission of the mining address. 
+Your should never publish two blocks with the same solution at the same height as this violates the Arweave protocol and will result in the network slashing your rewards and revoking the mining permission of the mining address. 
 
 The only way this can happen when mining with an unmodified node is if you have multiple nodes mining against the same mining address at the same time. In order to have multiple nodes use the same mining address they must be configured to use coordinated mining. See the [Coordinated Mining Guide](../overview/coordinated-mining.md) for more information.
 {% endhint %}
 
 ## 4.2 Determining Transactions
 
-The biggest decision a miner has when building a block is which transactions to include. In general miners will simply include as many unconfirmed transactions as they are aware of at that moment and include them. A portion of the block rewards come from the transaction fees paid by users when the post transactions - the more fees that are included in a block, the higher the block reward collected by the miner.
+The biggest decision a miner has when building a block is which transactions to include. In general miners will simply include as many unconfirmed transactions as they are aware of at that moment. A portion of the block rewards come from the transaction fees paid by users when they post transactions - the more fees that are included in a block, the higher the block reward collected by the miner.
 
 ### 4.2.1 0-transaction Blocks
 
-Occasionally a block will be published that contains no transactions. Generally this indicates a network connectivity issue with the miner that mined the block. If you see your miner publishing 0-block transactions you should:
+Occasionally a block will be published that contains no transactions. Generally this indicates a network connectivity issue with the miner that mined the block. If you see your miner publishing 0-transaction blocks you should:
 
 1. Confirm that your miner is reachable from the internet (e.g. `http://NODEIP:PORT/info` is reachable from a remote server)
 2. Confirm that your miner can reach remote peers (e.g. you can issue a `GET http://PEERIP:PORT/info` request from your node's server)
@@ -133,10 +133,10 @@ Occasionally a block will be published that contains no transactions. Generally 
 
 # 5. Share the Block
 
-Once your miner has mined a solution and built a block, it will publish that block by sharing it with its peers. This begins the "race" portion of mining. All miners are mining solutions concurrently and there will often be multiple blocks mined at the same block height. In those cases only one of those blocks will be confirmed and provide mining rewards. In order to increase the chance that your block is the "winner" you want it to be shared and accepted by as many peers as possible, as quickly as possible. The 3 main factors in this race:
+Once your miner has mined a solution and built a block, it will publish that block by sharing it with its peers. This begins the "race" portion of mining. All miners are mining solutions concurrently and there will often be multiple blocks mined ontop of given block (i.e. multiple blocks at the same height and with the same previous block). In those cases only one of those blocks (at most) will provide mining rewards. In order to increase the chance that your block is the "winner" you want it to be shared and accepted by as many peers as possible, as quickly as possible. The 3 main factors in this race:
 
-1. When the block was first published. The earlier you publish a block the higher the chance it will "win"
-2. How quickly your miner can share the block with its peers. The more peers you're connected with and the faster your network conenction to them, the higher the chance your block will "win"
+1. The time that block was first published. The earlier you publish a block the higher the chance it will "win"
+2. How quickly your miner can share the block with its peers. The more peers you're connected with and the faster your network connection to them, the higher the chance your block will "win"
 3. Your node's reputation. Nodes will prioritize their relationship with peers based on their reputation. They will share new block and transactions with high reputation peers first, and they will validate and gossip blocks from high reputation peers first. Both of these factors can be the difference between your block "winning" or being orphaned. For more on reputation see [Node Reputation](node-reputation.md)
 
 ## 5.1 Logs

@@ -54,7 +54,7 @@ The number that comes out is then normalized.
 
 ## 3.1 The Normalization Factor
 
-As described in the [Understanding Mining](mining.md#2-hash-your-data) guide a miner will generate 640 raw hashes for each 5 MiB of data it reads. For historical reasons when reporting the hashrate we normalize that number to 400. This is due to earlier versions of the protocol that yielded a different number of raw hashes for each range of data read - normalizing to 400 was necessary to ensure all packing formats yielded the same chance of finding a valid solution.
+As described in the [Understanding Mining](mining.md#2-hash-your-data) guide a miner will generate 320 raw hashes for each 2.5 MiB of data it reads (e.g. 320 raw H1 hashes and 320 raw H2 hashes). For historical reasons when reporting the hashrate we normalize that number to 400. This is due to earlier versions of the protocol that yielded a different number of raw hashes for each range of data read - normalizing to 400 was necessary to ensure all packing formats yielded the same chance of finding a valid solution.
 
 After normalizing to 400 we discount the H1 hashes by 100x. This has to do with how a hash is compared with the network difficulty to determine whether it is a valid solution.
 
@@ -64,7 +64,7 @@ After normalizing to 400 we discount the H1 hashes by 100x. This has to do with 
 
 This has the effect of making it 100x harder for each H1 hash to yield a valid solution. Another way to represent this is just to say each H1 hash is worth 1/100 of an H2 hash.
 
-The end result is that, in an ideal scenario with a fully packed weave, each partition yields 404 normalized hashes.
+The end result is that, in an ideal scenario with a fully packed weave, each partition yields 404 normalized hashes (4 normalized or effective H1 hashes, 400 normalized or effective H2 hashes).
 
 ### 3.1.2 Why discount H1?
 
@@ -88,7 +88,7 @@ That means they have 40,400 chances every second to find a valid solution.
 
 ## 3.3 Real Hashrate
 
-In practice the ideal never exists, this ideal scenario is unattainable as the weave currently has gaps where storage space has been purchased but not yet filled (for more information on this see the [Syncing and Packing Guide](syncing-and-packing.md#42-partitions-are-rarely-full)). The impact of these gaps varies, as of August, 2024 the weave was about 86% full. As new storage modules (partitions) are filled, this percentage will likely increase, gradually raising the overall maximum hashrate possible per storage module.
+In practice the ideal never exists, this ideal scenario is unattainable as the weave currently has gaps where storage space has been purchased but not yet filled (for more information on this see the [Syncing and Packing Guide](syncing-and-packing.md#42-partitions-are-rarely-full)). The impact of these gaps varies, as of August, 2024 the weave was about 86% full. As newpartitions are filled, this percentage will likely increase, gradually raising the overall maximum hashrate possible per partition.
 
 We'll now walk through n example for a miner with sub-optimal characteristics:
 
@@ -96,14 +96,14 @@ We'll now walk through n example for a miner with sub-optimal characteristics:
   - for simplicity we'll represnt this as having 66% of the weave
 - VDF Speed: 1.05s
 - Sustained disk read speed of 2 MiB/s per partition
-  - for simplicity we'll represent this as being to read 40% of each dat arange
+  - for simplicity we'll represent this as being to read 40% of each data range
 
-| H1                       | H2                               | VDF     | Hashrate
-| ------------------------ | -------------------------------- | ------- | --------
-| (4 x 0.4 x 100 x 0.66  + | 400 x 0.4 x 100 x 0.66 x 0.66) / | 1.05s = | 6,738
+| H1                      | H2                             | VDF     | Hashrate
+| ----------------------- | ------------------------------ | ------- | --------
+| (4 x 40% x 100 x 66%  + | 400 x 40% x 100 x 66% x 66%) / | 1.05s = | 6,738
 
-Breakin that down a bit:
-- The 0.4 multiplier indicate that for each range the miner is allowed to read, it can only read 40% of it in time, reducing the hashes it can generate
-- The 0.66 term under H1 indicates that there is only a 66% change that the randomly selected partition offset falls in data that the miner has packed
-- The (0.66 x 0.66) erm under H2 indicates that the unmpacked data has a quadratic impact on H2 hashes. For each missing H1 hash the miner loses the opportunity to even select an H2 offset (the first 0.66 term). And even when the miner is able to gnerate an H1 hash, there is only a 66% change that the full-weave H2 offset falls in data that the miner has packed.
-- Finally the 1.05s VDF indicates that because the miner's VDF is slow it only gets a chance at generating hashes ever 1.05 seconds and not ever second (a loss of 5% hashrate)
+Breaking that down a bit:
+- The 40% multiplier indicate that for each range the miner is allowed to read, it can only read 40% of it in time, reducing the hashes it can generate
+- The 66% term under H1 indicates that there is only a 66% change that the randomly selected partition offset falls in data that the miner has packed
+- The (66% x 66%) term under H2 indicates that unpacked/missing data has a quadratic impact on H2 hashes. For each missing H1 hash the miner loses the opportunity to even select an H2 offset (the first 66% term). And even when the miner is able to gnerate an H1 hash, there is only a 66% change that the full-weave H2 offset falls in data that the miner has packed.
+- Finally the 1.05s VDF indicates that because the miner's VDF is slow it only gets a chance at generating hashes every 1.05 seconds and not every second (a loss of 5% hashrate)
