@@ -5,5 +5,4 @@ root: ./
   summary: SUMMARY.md​
 
 redirects:
-  info: README.md
-  info/mining/mining-guide: mining/mining-guide.md
+  mining/mining-guide: ./
