@@ -2,31 +2,49 @@
 
 ## Mining
 
-- [Quickstart Guide](mining/mining-quickstart.md)
-- [Mining Guide](mining/mining-guide.md)
-- [Coordinated Mining](mining/coordinated-mining.md)
-- [Syncing and Packing](mining/syncing-packing.md)
-    - [Estimated Partition Sizes](mining/estimated-partition-sizes.md)
-- [VDF](mining/vdf.md)
-- [Hardware Guide](mining/hardware.md)
-- [Understanding Hashrate](mining/hashrate.md)
-- [Examples](mining/examples.md)
-- Advanced Topics
-    - [Metrics](mining/metrics.md)
-    - [Running Multiple Nodes](mining/multiple-nodes.md)
-    - [TLS Guide](mining/tls.md)
-- [FAQs](mining/faqs.md)
+- [Getting Started](mining/setup/getting-started.md)
+    - [Getting Started](mining/setup/getting-started.md)
+    - [Hardware Guide](mining/setup/hardware.md)
+    - [System Configuration](mining/setup/os.md)
+    - [Installing Arweave](mining/setup/install.md)
+    - [Directory Structure](mining/setup/directory-structure.md)
+    - [Node Wallet](mining/setup/wallet.md)
+    - [Running Your Node](mining/setup/configuration.md)
+- Overview
+    - [Node Types](mining/overview/node-types.md)
+    - [Coordinated Mining](mining/overview/coordinated-mining.md)
+    - [Pool Mining](mining/overview/pool-mining.md)
+    - [Trusted Peers](mining/overview/trusted-peers.md)
+    - [Syncing and Packing](mining/overview/syncing-and-packing.md)
+      - [Estimated Partition Sizes](mining/overview/estimated-partition-sizes.md)
+    - [How Mining Works](mining/overview/mining.md)
+    - [Hashrate](mining/overview/hashrate.md)
+    - [VDF](mining/overview/vdf.md)
+    - [Transaction Blacklist](mining/overview/blacklist.md)
+- Operations
+    - [Arweave Entrypoint](mining/operations/entrypoint.md)
+    - [Benchmarking Guide](mining/operations/benchmarking.md)
+    - [Multiple Nodes, One Server](mining/operations/multiple-nodes.md)
+    - [Optimizing Sync & Pack](mining/operations/optimize-sync-pack.md)
+    - [Optimizing with Metrics](mining/operations/metrics.md)
+    - [Advanced: TLS Guide](mining/operations/tls.md)
+- Sample Node Configurations
+    - [Entropy Generation](mining/setup/sample-configs/entropy-generation.md)
+    - [Syncing & Packing](mining/setup/sample-configs/sync-pack.md)
+    - [Solo Mining](mining/setup/sample-configs/solo-mining.md)
+    - [Cross-Module Repacking](mining/setup/sample-configs/cross-module-repack.md)
+    - [Repack-in-Place](mining/setup/sample-configs/repack-in-place.md)
+    - [VDF Server](mining/setup/sample-configs/vdf.md)
+    - [Coordnated Mining](mining/setup/sample-configs/coordinated-mining.md)
 
 ## Development
 
 - [Motivation](development/motivation.md)
-- [The Arweave Protocol](development/protocol.md)
-- [The Arweave Node Software Architecture](development/architecture.md)
 - [Getting Started](development/getting-started.md)
-    - [Automated Tests](development/automated-tests.md)
-    - [Debugging](development/debugging.md)
-- Advanced Topics
-    - [Running You Own Localnet](development/localnet.md)
+- [Building Arweave](development/build.md)
+- [Automated Tests](development/automated-tests.md)
+- [Debugging](development/debugging.md)
+- [Running You Own Localnet](development/localnet.md)
 
 ## Arweave Node Server
 

@@ -9,7 +9,7 @@ The arweave node publishes a set of [Prometheus](https://prometheus.io/docs/intr
 `<IP>:<PORT>/metrics`) - you can see an example at https://arweave.net/metrics. The `/metrics` endpoint also includes descriptions of each metric.
 
 You can integrate Prometheus with a number of monitoring and visualization tools. Below we'll share some sample dashboards in [Grafana](https://grafana.com/) and some guidance:
-1. [Mining Metrics](#mining-metrics)
+1. [Metrics](#mining-metrics)
 2. [Syncing and Packing Metrics](#syncing-and-packing-metrics)
 3. [Debugging Metrics](#debugging-metrics)
 
@@ -28,13 +28,13 @@ You can integrate Prometheus with a number of monitoring and visualization tools
 Note:  If you have previously set up your job_name with a value other than the default 'arweave', you will get a chance to override that default during the dashboard import in step 4 below.
 
 3. [Setup Grafana](https://grafana.com/docs/grafana/latest/datasources/prometheus/configure-prometheus-data-source/) to visualize the Prometheus data.
-4. [Import the sample dashboard](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/). Sample Dashboard JSON is available [here](grafana.json).
+4. [Import the sample dashboard](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/). 
 
 # Mining Metrics
 
-[Sample dashboard in Grafana](grafana-mining.json)
+[Sample dashboard in Grafana](grafana/grafana-mining.json)
 
-![Sample Dashboard](images/dashboard-mining.png)
+![Sample Dashboard](../images/dashboard-mining.png)
 
 ## Read Rate
 
@@ -121,7 +121,7 @@ We recommend setting an alert at 200, and adjusting as needed.
 
 # Syncing and Packing Metrics
 
-[Sample dashboard in Grafana](grafana-syncing-packing.json)
+[Sample dashboard in Grafana](grafana/grafana-syncing-packing.json)
 
 ## Partition Sizes
 
@@ -192,7 +192,7 @@ This panel tracks the number of packing operations performed per second.
 
 # Debugging Metrics
 
-[Sample dashboard in Grafana](grafana-debug.json)
+[Sample dashboard in Grafana](grafana/grafana-debug.json)
 
 The Debugging Dashboard provides some more detail information that can help with debugging
 performance issues. It is split into 3 sections:
@@ -203,14 +203,14 @@ performance issues. It is split into 3 sections:
 
 ## Mining Debug Metrics
 
-![Sample Dashboard](images/dashboard-debug-mining.png)
+![Sample Dashboard](../images/dashboard-debug-mining.png)
 
 ### Raw Read Rate
 
 **Metric**: `mining_rate{type="raw_read"}`
 
 This panel tracks the time it takes to read a 100MiB recall range per partition. This differs
-from the [Mining Read Rate](#read-rate) which tracks the number of chunks read per second. In
+from the [Read Rate](#read-rate) which tracks the number of chunks read per second. In
 particular the Raw Read Rate is not impacted by other bottlenecks in the mining pipeline and
 should give you a good indication of the disk speed actually observed by the node.
 
@@ -245,7 +245,7 @@ negatively impact performance if you are running near your system's memory limit
 
 ## HTTP Requests Debug Metrics
 
-![Sample Dashboard](images/dashboard-debug-http.png)
+![Sample Dashboard](../images/dashboard-debug-http.png)
 
 ### Total Inbound Requests
 
@@ -285,7 +285,7 @@ use these charts to identify activity that could be impacting your node's perfor
 
 These charts are only populated if you run your node with the `debug` launch parameter.
 
-![Sample Dashboard](images/dashboard-debug-debug.png)
+![Sample Dashboard](../images/dashboard-debug-debug.png)
 
 ### CPU Load / # Cores
 

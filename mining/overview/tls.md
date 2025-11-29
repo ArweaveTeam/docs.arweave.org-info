@@ -1,13 +1,9 @@
 # Operating a node with TLS enabled
 
-{% hint style="info" %}
-Throughout this article the terms miner and node are used interchangeably. Traditionally when referring to a node, it means an arweave-server that isn't mining but has joined the arweave network. All miners are nodes but not all nodes are miners. In the context of TLS support, a miner vs node differences are irrelevant.
-{% endhint %}
+Using TLS/HTTPS protocol is not necessary to have when operating a node, in fact most nodes don't use it.
+If you are considering to enable TLS support for your node you are most likely concerned with end-to-end encryption of HTTP requests. This makes sense if your node is publicly accessible and you are expecting to communicate with it using private secrets (example: you have metrics enabled for mining statistics protected by an Authentication).
 
-Using TLS/HTTPS protocol is not necessary to have when operating a miner/node, in fact most miners don't use it.
-If you are considering to enable TLS support for your node you are most likely concerned with end-to-end encryption of HTTP packages. This makes sense if your node is publicly accessible and you are expecting to communicate with it using private secrets (example: you have metrics enabled for mining statistics protected by an Authentication).
-
-This article handles the limited (but usable) support that arweave-server itself has for TLS support via the erlang library cowboy. But we do encourage node operators to consider more stable approaches, like nginx proxy with certbot, or cloud provided solutions like AWS's ELB load-balancer or Cloudfront. Operating TLS certificates on top of the Erlang runtime, is rather "bare-metal" and manual labour, but if that's the only solution for your infrastructure, then read on.
+This article handles the limited (but usable) support that arweaev has for TLS via the erlang library cowboy. But we do encourage node operators to consider more stable approaches, like nginx proxy with certbot, or cloud provided solutions like AWS's ELB load-balancer or Cloudfront. Operating TLS certificates on top of the Erlang runtime, is rather "bare-metal" and can be difficult, but if that's the only solution for your infrastructure, then read on.
 
 ## Generating TLS certificates using certbot
 
@@ -26,7 +22,7 @@ By default these files are going to be symlinks to files stored under `/etc/lets
 Here's an example of starting arweave with tls support.
 
 ```sh
-bin/start port 8443 tls_key_file /etc/letsencrypt/live/{your-domain-name}/privkey.pem tls_cert_file /etc/letsencrypt/live/{your-domain-name}/cert.pem # rest of your arweave cli arguments
+./bin/start port 8443 tls_key_file /etc/letsencrypt/live/{your-domain-name}/privkey.pem tls_cert_file /etc/letsencrypt/live/{your-domain-name}/cert.pem # rest of your arweave cli arguments
 ```
 
 the key here is to pass the arg tls_key_file with the value of the filepath to privkey.pem as well as passing tls_cert_file to the path of cert.pem.
