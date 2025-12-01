@@ -5,46 +5,60 @@ description: >-
 
 **Adapted from a guide originally written by @Thaseus**
 
-# Why would you need to run more than one node?
+# 1. Why would you need to run more than one node on a server?
 
-When using Arweave for a single function such as packing or mining, the setup is straightforward: a single node performs a single function with the available resources. However, what if you have additional capacity on your server and wish to perform more tasks? For instance, you may want to mine storage modules while also syncing/packing the tip partition that isn't yet minable. Another use is to have your exit node/VDF forwarder separate from your miner node on the same server. While this setup is not mandatory, it provides the flexibility to segregate your miner node from your exit node on the same server if desired.
+In most cases miners will run a single node per server. However it is possible, and sometimes beneficial, to run multiple nodes on a single server. Some examples:
+- mine storage modules while also syncing/packing the tip partition that isn't yet minable
+- run both your exit node and a miner on the same server
+- use both CPUs in a dual-CPU server without getting hit by [known performance issues](../setup/hardware.md#344-dual-cpu-motherboards) 
 
-# Things to know about running more than one node
+# 2. How to run more than one node on n server
 
-The primary consideration when running more than one node on a single server is the finite nature of your resources. For instance, if you are mining 16 partitions and have 50% CPU capacity remaining, you can allocate resources to pack the tip partition or other partitions that are not yet packed. However, it is crucial to adjust the packing speed to ensure that your CPU does not reach peak capacity, which could negatively impact your mining performance. 
+Each node on a server needs a unique:
+- `data_dir`
+- `port`
+- [Erlang node name](https://www.erlang.org/doc/system/distributed.html#nodes)
+  - Can be set via the `ARNODE` environment variable
+- [Erlang cookie](https://www.erlang.org/doc/system/distributed.html#security)
+  - Can be set via the `ARCOOKIE` environment
 
-# How to run more than one node per server
-
-1. Give each node a unique Erlang Node Name
-    1. For each node copy the `./arweave/bin/arweave.env` file
-    2. Change `export NODE_NAME='arweave@127.0.0.1'` to a unique name, for example `export NODE_NAME='arweave2@127.0.0.1'`
-2. Have each node load its own `arweave.env` file
-    1. For each node copy the `./arweave/bin/start` and `./arweave/bin/stop` files
-    2. Have each script source the appropriate `arweave.env` file, for example `source $SCRIPT_DIR/arweave2.env`
-3. Update your start command flags as necessary (e.g. to have each node use a different port)
-
-
-
-## How to run multiple nodes on one machine?
-
-An arweave node is identified by its ip address and a TCP port
-(default to 1984). So, more than one node can be started in parallel,
-listening to another TCP port. The first step is to create a new
-arweave configuratoin with an isolated `data_dir` parameter and set a
-new value for `port` parameter. It can be configured from a JSON
-configuration file or directly from the command line. Then, two
-environment variables need to be set, `ARNODE` defining the Erlang
-node name and `ARCOOKIE`, defining the cookie used for this node.
+You can set the environment variables for the session, but easiest is probably set them just for each node invocation. Here is an example launching 2 nodes (each one running in the background):
 
 ```sh
-export ARNODE='my_new_node@127.0.0.1'
-export ARCOOKIE='my_cookie'
-./bin/start port 1985 data_dir /my/new/data_dir
+ARNODE=node1@127.0.0.1 \
+ARCOOKIE=node1 \
+./bin/start port 1984 data_dir /opt/data/node1 &
+
+ARNODE=node2@127.0.0.1 \
+ARCOOKIE=node2 \
+./bin/start port 1985 data_dir /opt/data/node2 &
 ```
 
-To control the default node, unset `ARNODE` and `ARCOOKIE`.
+{% hint style="info" %}
+In practice you will need to provide more launch options if you want the node to do something useful. See [Running Your Node](../setup/configuration.md) for more information.
+{% endhint %}
+
+{% hint style="info" %}
+Running a node in the background using the linux `&` isn't recommended (and just shown here for simplicity). [We recommend](../setup/configuration.md#02-keeping-the-miner-running) using `screen` or some other more sophisticated process manager.
+{% endhint %}
+
+# 3. Pinning your node to certain cores
+
+When running multiple nodes on single server we recommend pinning each node to a distinct set of CPU cores. This is useful for working around the dual-CPU performance issue mentioned above, but is also useful in single-CPU systems to keep the node workloads separate and avoid bottlenecking.
+
+You can use any pinning utility you're comfortable with (e.g. `taskset`, `numactl`, etc...).
+
+An example extending the above example to use `screen` and `numactl`, to both run the nodes in the background and pin them to a different set of cores (0-31 vs. 32-63 on a 64-core CPU):
 
 ```sh
-unset ARNODE
-unset ARCOOKIE
+ARNODE=node1@127.0.0.1 \
+ARCOOKIE=node1 \
+screen -dmSL arweave.node1 -Logfile ./screenlog.node1 \
+    numactl --physcpubind=0-31 \
+    ./bin/start port 1984 data_dir /opt/data/node1;
+ARNODE=node2@127.0.0.1 \
+ARCOOKIE=node2 \
+creen -dmSL arweave.node2 -Logfile ./screenlog.node2 \
+    numactl --physcpubind=32-63 \
+    ./bin/start port 1985 data_dir /opt/data/node2;
 ```

@@ -246,3 +246,7 @@ To date the fastest VDF speed has been observed on Apple's M-class chips (e.g. M
 When packing or simply validating the block chain, a slower VDF speed is fine. Your non-Mac CPU is likely fast enough. The Digital History Associate (DHA) team also operates a few public VDF servers running on M2 processors that are free to use.
 
 For more information about VDF please see [VDF](../overview/vdf.md) and [Benchmarking](../operations/benchmarking.md).
+
+## 3.4.4 Dual-CPU Motherboards
+
+There are several documented performance issues when trying to pack or mine on a dual-CPU motherboard. The current recommendation is to pin each node to a single CPU. You can also experiment with running multiple nodes on a single server (each one pinned to a different CPU) in order to maximize utilization. See [Multiple Nodes, One Server](../operations/multiple-nodes.md) for more information.
