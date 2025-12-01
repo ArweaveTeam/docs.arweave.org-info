@@ -78,7 +78,7 @@ e.g.
 
 ## 3. Run
 
-For instructions on running arweave see [Running Arweave](/mining/setup/run.md).
+For instructions on running arweave see [Running Arweave](/mining/setup/getting-started.md).
 
 ## 4. Developer Mode
 
