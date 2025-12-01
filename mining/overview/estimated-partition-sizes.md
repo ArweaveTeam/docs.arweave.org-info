@@ -7,7 +7,7 @@ description: >-
 
 This is the current estimated size of each partition (*last updated May 23, 2024*). 
 
-Refer to the [Syncing and Packing guide](overview/syncing-and-packing.md) for more information.
+Refer to the [Syncing and Packing guide](syncing-and-packing.md) for more information.
 
 ## Packed Data
 

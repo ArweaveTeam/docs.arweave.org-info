@@ -56,31 +56,7 @@ See [Example Coordinated Mining Configuration](../setup/sample-configs/coordinat
 
 # 6. Coordinated Mining (CM) Cluster Stats:
 
-```
-Coordinated mining cluster stats:
-+-----------------+--------------+--------------+--------------+-------------+--------+-------+
-|      Peer       | H1 Out (Cur) | H1 Out (Avg) |  H1 In (Cur) | H1 In (Avg) | H2 Out | H2 In | 
-+-----------------+--------------+--------------+--------------+-------------+--------+-------+
-|             All | 	3714 h/s | 	   3733 h/s |	  3419 h/s |    3390 h/s |      0 |  	0 |
-| 10.0.0.100:1984 |      602 h/s |  	611 h/s | 	   559 h/s |     489 h/s |      0 |  	0 |
-| 10.0.0.102:1986 | 	1736 h/s | 	   1606 h/s |	  1523 h/s |    1503 h/s |      0 |  	0 |
-+-----------------+--------------+--------------+--------------+-------------+--------+-------+
-```
-
-- Peer
-  - Local CM peer IP:Port#
-- H1 Out (Cur)
-  - The average H1 hashes per second sent to Peer the last screen refresh
-- H1 Out (Avg)
-  - This average H1 hashes per second sent to Peer since the miner was started
-- H1 In (Cur)
-  - The average H1 hashes per second received from Peer since the last screen refresh
-- H1 In (Cur)
-  - The average H1 hashes per second received from Peer since the miner was started
-- H2 Out
-  - When a node in your CM cluster generates a Solution, it is sent out to the cluster and the exit node will submit it to the network in the hopes of mining that block
-- H2 In
-  - Same as above, except incoming
+See [Mining Performance Report](../operations/mining-report.md)
 
 # 7. Troubleshooting
 

@@ -24,6 +24,7 @@
     - [Node Reputation](mining/overview/node-reputation.md)
 - Operations
     - [Arweave Entrypoint](mining/operations/entrypoint.md)
+    - [Mining Performance Report](mining/operations/mining-report.md)
     - [Benchmarking Guide](mining/operations/benchmarking.md)
     - [Multiple Nodes, One Server](mining/operations/multiple-nodes.md)
     - [Optimizing Sync & Pack](mining/operations/optimize-sync-pack.md)
