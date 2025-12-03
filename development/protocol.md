@@ -4,54 +4,69 @@ This document outlines the core architectural components of the Arweave protocol
 
 ## 1. Protocol Design
 
-Arweave is a global network of computers that collectively store multiple copies of all data uploaded to the system. The protocol is designed around two core principles: minimalism (using well-tested cryptographic primitives) and optimization through incentives (incentivizing participants to achieve desirable outcomes rather than prescribing behavior).
+Arweave is a global network of computers that collectively store multiple copies of all data uploaded to the system.
 
-The system uses a decentralized consensus mechanism inspired by Proof of Work but adapted for permanent storage. Nodes periodically reach consensus on new data to be added to the network's globally distributed repository. This process involves "mining" (confirming) blocks, which serve the dual purpose of accepting new data and validating the storage of previously uploaded data.
+One of the core tasks of the protocol is to define incentives for storage providers (miners) such that the emergent network behavior meets the following objectives:
+
+- miners allocate the majority of their budget to storage mediums with read throughput of about 5 MB/s and reasonable latency; beyond that, the price should matter more than the drive specs. This also implies it is not beneficial to exchange some of that storage for extra computation;
+- miners fill up their allocated drive space with Arweave data evenly (contrasted with replicating the same subset over and over again);
+- miners do not accept new data into the Arweave dataset unless the fees cover storage of a sufficient number of replicas so that incidental data loss is extremely improbable over time.
+
+The protocol is designed around two core principles: minimalism (using well-tested cryptographic primitives) and optimization through incentives (incentivizing participants to achieve desirable outcomes rather than prescribing behavior).
+
+To achieve that, the system uses a decentralized consensus mechanism inspired by Proof of Work but adapted for permanent storage. Nodes periodically reach consensus on new data to be added to the ever-growing Arweave dataset (or simply, weave).
+
+Arweave is a blockchain - every state transition is defined by a block (often called a confirmation). Every block serves the dual purpose of accepting new data (in addition to account updates, like in any other cryptocurrency) and validating the storage of previously uploaded data.
 
 ## 2. Cryptographic Proofs of Storage
 
-Arweave uses a succinct cryptographic proof system to verify the even replication and accessibility of data. This system is known as **Succinct Proofs of Random Access (SPoRA)**.
+Arweave uses a succinct cryptographic proof system to verify the even replication and accessibility of data. This system is known as Succinct Proofs of Random Access (SPoRA).
 
-To mine a block, a node must prove it has access to a random chunk of historical data (the "Recall Chunk") that was confirmed as part of an earlier block. The miner hashes the Recall Chunk along with some other cryptographic data and compares the hash against the network difficulty. If the hash is greater than the network difficulty the solution is considered valid. See [Understanding Mining](/mining/overview/mining.md) for more information about the mining process.
+To mine a block, a node must prove it has access to historical data. A naive approach would be to require every miner to include all of their data in the block and distribute it across the network to prove it to everyone they actually store this data. The obvious downside of this naive approach is the requirement for huge communication bandwidth.
 
-Crucially, SPoRA is designed to work in conjunction with the **Verifiable Delay Function (VDF)**. The VDF is a form of cryptographic "speed limit" that limits the number of Recall Chunks tha can be hashed per second. This limit ensures that mining is bottlenecked by the VDF computation time rather than pure data retrieval speed. This shift removes the incentive for expensive, high-speed storage (e.g. NVMe SSDs), allowing miners to use cost-effective commodity hard drives while still mining efficiently.
+To address this, we rely on a certain generation-verification asymmetry where we require every block to include only one or two 256 KiB chunks (called "Recall Chunks"). These, however, are picked up randomly (pseudorandomly, to be precise, as the protocol has to be deterministic) from all historical data (every miner always works with whatever data they have synced, but benefits from replicating as much data as possible, evenly).
 
-## 3. Replica Uniqueness
+The miner iterates over the Recall Chunks picked out by the protocol, combines them with some metadata, computes the cryptographic hash of the combined data, and compares the hash with the current network difficulty. If the hash is greater than the network difficulty, the solution is considered valid. See [Understanding Mining](/mining/overview/mining.md) for more information about the mining process.
 
-To ensure the network is resilient against data loss, Arweave incentivizes the creation of distinct physical copies of data. This is achieved through **Replica Uniqueness**.
+## 3. Verifiable Delay Function
 
-When a miner stores a "partition" (a segment of the weave), the data is packed using the miner's unique mining address as a seed. This packing process creates a unique representation of the data for that specific miner. Because the consensus mechanism requires proving access to this *unique* replica, miners cannot share a single storage volume. If two miners attempt to share a disk, they cannot both efficiently mine on it because the data must be packed specifically for the winning address. This enforces the physical replication of the dataset across the network.
+Crucially, SPoRA is designed to work in conjunction with the Verifiable Delay Function (VDF). The VDF is a form of cryptographic "speed limit" that limits the number of Recall Chunks that can be considered per second. This limit ensures that mining is bottlenecked by storage volumes rather than pure data retrieval speed. This shift removes the incentive for expensive, high-speed storage (e.g., NVMe SSDs), allowing miners to use cost-effective commodity hard drives while still mining efficiently.
 
-## 4. Verifiable Delay Function (VDF)
+## 4. Replica Uniqueness
 
-The **Verifiable Delay Function (VDF)** helps stabilize the network's block production and mitigate the dominance of raw compute power.
+To ensure the network is resilient against data loss, Arweave incentivizes the creation of distinct physical copies of data. 
 
-The mining process involves two steps:
-1.  **Memory-Hard Search**: Miners search their stored data chunks for a candidate that meets the difficulty criteria.
-2.  **VDF Computation**: Once a candidate is found, the miner must compute a VDF.
-
-The VDF enforces a cryptographic "speed limit" that takes a verifiable amount of wall-clock time to compute and cannot be parallelized. This ensures that mining is primarily bound by storage bandwidth (finding the chunk) rather than raw CPU/ASIC hashing speed, allowing commodity hardware to compete effectively.
+The weave is broken down into 3.6 TB segments called "partitions." Every partition is packed using the miner's unique mining address as a seed. This packing process creates a unique representation of the data for that specific miner, and only that specific miner receives a reward from mining with recall chunks from this packed partition.
 
 ## 5. The Storage Endowment
 
-Arweave guarantees permanent storage through an economic mechanism known as the **Storage Endowment**.
-
-When a user pays to store a file, the transaction fee is split:
-- A portion goes to the miner who accepts the transaction.
-- The majority is deposited into the Storage Endowment.
-
-The Endowment is a decentralized pool of tokens designed to cover the cost of storage in perpetuity. It relies on the deflationary nature of storage costs (bytes per dollar increasing over time). The protocol calculates the cost to store data for 200 years at current prices. As storage costs drop, the purchasing power of the endowment covers the maintenance of the data indefinitely. Miners are paid from this endowment when the block reward is insufficient to cover their storage costs.
+Arweave's incentive model requires uploaders of data to pay a small transaction placement fee and provide an upfront contribution, denominated in AR, to the network's storage endowment. This endowment serves as a faucet through which miners are paid out over time, as they collectively provide proofs of replication of the dataset. The necessary payout from the endowment to maintain a piece of data decreases as the cost of storage declines.
 
 ## 6. Pricing
 
-Transaction pricing in Arweave is dynamic and algorithmic, designed to ensure the endowment is always sufficient. The cost to write data is composed of:
-1.  **Perpetual Storage Cost**: Calculated based on the current price of storage space and the required endowment contribution.
-2.  **Network Congestion**: A dynamic fee that scales with the demand for block space.
+The Arweave protocol determines the minimum required fee every transaction should pay at any given time.
 
-The pricing mechanism is conservative, assuming storage costs will decline at a rate far below the historical average (e.g., 0.5% per year vs. historical ~30%). This surplus creates a significant safety margin for the Endowment. Users pay a one-time, up-front fee that effectively pre-pays for centuries of storage.
+Even if a transaction does not upload data (i.e., it only transfers tokens), it is considered a small burden to the network and has to pay a small fee to cover that.
 
-## 7. Decentralised Content Policies
+When a transfer is made to an account that does not yet exist in the state, a "new account fee" is charged, as every new account increases the block processing overhead.
 
-The Arweave protocol includes mechanisms that allow the network to support diverse content policies without centralization. **Decentralised Content Policies** empower node operators to choose which data they are willing to store and propagate.
+If a transaction does upload data, the required upload fee scales with the uploaded volume.
 
-When a transaction is broadcast to the network, nodes scan the data against their local policies (e.g., blacklists of illicit material). If the content violates a node's policy, the node rejects the transaction and will not include it in its memory pool or blocks. If a node receives a block containing a transaction it has rejected, it will ignore that block. This creates a democratic content moderation system where the network collectively "votes" on content through storage behavior. As long as a transaction is accepted by a sufficient portion of the network (the "adaptive interacting majority"), it will be permanently stored, preventing censorship while respecting the legal and ethical boundaries of individual operators.
+A part of the fee goes directly to the miner including this transaction into a block. Its purpose is to incentivize miners to enlarge the Arweave dataset.
+
+The rest of the fee goes to the endowment.
+
+The Arweave network's endowment removes tokens from circulation every time data is uploaded, creating a reserve to
+pay for data storage over time. The storage purchasing power of the endowment is elastic, changing with the volume of data committed, the cost of data storage, and token value over time. One of the main drivers of change in the value of the endowment is that a decreasing cost of storage creates a corresponding proportional increase in storage purchasing power, leading to fewer tokens needing to be released from the endowment in the future. We call the rate of decline in overall costs for storing a unit of data for a fixed period of time the Kryder+ rate. This rate incorporates the change in price of hardware, electricity, and operational costs surrounding data storage.
+
+Users pay for 200 years' worth of replicated storage at present prices, such that only a 0.5% Kryder+ rate is sufficient to sustain the endowment for an indefinite term, in the absence of token price changes. Under these conditions, the storage purchasing power of the endowment at the end of each year would be equal to that at the beginning. The actual declining cost of storage over the last 50 years has been, on average, ≈38.5% per year.
+
+To determine how much a single byte costs in AR at any given time, the protocol uses the current network difficulty (as an oracle of the total amount of mining resources currently maintaining the network) and the recent history of operations.
+
+## 7. Decentralized Content Policies
+
+By not enforcing individual miners to store specific data, the Arweave protocol allows the network to support diverse content policies without centralization.
+
+The Arweave network thus employs a disintermediated, layered system of content policies without centralized points of control or moderation. The underlying principle of this system is voluntarism: every participant is able to choose what data they would like to store and serve, without any mandates from the protocol. This system allows each participant in the network to create and operate their own content policy without requiring consensus from others.
+
+The Arweave node software provides a blacklisting system. Each node accepts an optional blacklist containing the identifiers of transactions with unwanted data. The node operator may either maintain a list themselves or subscribe to a service where the node will periodically fetch updates from remote servers.
