@@ -42,6 +42,7 @@
 ## Development
 
 - [Motivation](development/motivation.md)
+- [Protocol](development/protocol.md)
 - [Getting Started](development/getting-started.md)
 - [Building Arweave](development/build.md)
 - [Automated Tests](development/automated-tests.md)
