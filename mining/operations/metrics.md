@@ -300,11 +300,11 @@ state it is in:
 | sync      | Syncing and packing |
 | repack    | Repacking in place  |
 
-| State    | Metric Value |
-| -------- | ------------ |
-| paused   | 0            |
-| active   | 1            |
-| complete | 2            | 
+| Metric Value | State    |
+| ------------ | -------- |
+| 0            | paused   |
+| 1            | active   |
+| 2            | complete | 
 
 This can help explain some syncing or packing behaviors. For example if you're expecting
 a storage module to be syncing data but it's not, it might be that the node has `paused`
