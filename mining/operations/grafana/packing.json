@@ -1,45 +1,38 @@
 {
   "__inputs": [
     {
-      "name": "DS_PROMETHEUS",
-      "label": "prometheus",
       "description": "",
-      "type": "datasource",
+      "label": "prometheus",
+      "name": "DS_PROMETHEUS",
       "pluginId": "prometheus",
-      "pluginName": "Prometheus"
+      "pluginName": "Prometheus",
+      "type": "datasource"
     },
     {
+      "description": "",
+      "label": "job_name",
       "name": "VAR_JOBNAME",
       "type": "constant",
-      "label": "job_name",
-      "value": "arweave",
-      "description": ""
+      "value": "arweave"
     }
   ],
-  "__elements": {},
   "__requires": [
     {
-      "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
+      "type": "grafana",
       "version": "12.0.2"
     },
     {
-      "type": "datasource",
       "id": "prometheus",
       "name": "Prometheus",
+      "type": "datasource",
       "version": "1.0.0"
     },
     {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
       "id": "timeseries",
       "name": "Time series",
+      "type": "panel",
       "version": ""
     }
   ],
@@ -62,7 +55,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
   "links": [],
   "panels": [
     {
@@ -70,49 +62,107 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "fixed"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "binBps"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*\\#.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 10,
+        "h": 8,
+        "w": 12,
+        "x": 0,
         "y": 0
       },
-      "id": 5,
+      "id": 2,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
+        "legend": {
           "calcs": [
-            "delta"
+            "mean"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
         },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
+        "tooltip": {
+          "hideZeros": false,
+          "maxHeight": 600,
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.4.0-19576184216",
       "targets": [
         {
           "datasource": {
@@ -120,14 +170,27 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(chunks_stored{instance=\"$node\"}) * 256 * 1000",
-          "legendFormat": "Chunks Written",
+          "expr": "rate(chunks_stored{instance=\"$node\"}[10m]) * 256 * 1024",
+          "hide": false,
+          "legendFormat": "{{store_id}} {{packing}}",
+          "range": true,
+          "refId": "Chunks Written (bytes)"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (packing) (rate(chunks_stored{instance=\"$node\"}[10m]) * 256 * 1024)",
+          "hide": false,
+          "legendFormat": "Total {{packing}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Total Chunks Written (in bytes)",
-      "type": "stat"
+      "title": "Chunks Written",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -163,6 +226,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -172,12 +236,14 @@
               "mode": "off"
             }
           },
+          "decimals": 4,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -190,20 +256,22 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 3
+        "x": 12,
+        "y": 0
       },
-      "id": 7,
+      "id": 4,
       "options": {
         "legend": {
           "calcs": [
-            "max"
+            "last"
           ],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": false
         },
         "tooltip": {
           "hideZeros": false,
@@ -211,13 +279,9 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.4.0-19576184216",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
           "editorMode": "code",
           "expr": "sum(v2_index_data_size_by_packing{instance=\"$node\"}) by (partition_number, packing)",
           "legendFormat": "{{partition_number}} {{packing}}",
@@ -225,7 +289,7 @@
           "refId": "A"
         }
       ],
-      "title": "Partition Size (bytes)",
+      "title": "Partition Size",
       "type": "timeseries"
     },
     {
@@ -233,121 +297,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "binBps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 3
-      },
-      "id": 6,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Name",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "rate(replica_2_9_entropy_stored{instance=\"$node\"}[2m])",
-          "hide": false,
-          "legendFormat": "Write {{store_id}}",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "sum(rate(replica_2_9_entropy_stored{instance=\"$node\"}[2m]))",
-          "hide": false,
-          "legendFormat": "Write Total",
-          "range": true,
-          "refId": "D"
-        }
-      ],
-      "title": "2.9 Entropy Written (bytes/s)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "description": "GET /chunk2 requests sent per second to different peers. Each successful request downloads a chunk to your node.",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -371,12 +321,13 @@
             },
             "insertNulls": false,
             "lineInterpolation": "linear",
-            "lineWidth": 1,
+            "lineWidth": 0,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -391,7 +342,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -399,48 +351,13 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "binBps"
         },
         "overrides": [
           {
             "matcher": {
-              "id": "byName",
-              "options": "scheduled_sync_tasks"
-            },
-            "properties": [
-              {
-                "id": "custom.drawStyle",
-                "value": "line"
-              },
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              },
-              {
-                "id": "custom.lineWidth",
-                "value": 2
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "purple",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.axisLabel",
-                "value": "Scheduled Tasks"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Total Requests"
+              "id": "byFrameRefID",
+              "options": "A"
             },
             "properties": [
               {
@@ -454,42 +371,37 @@
               {
                 "id": "custom.lineWidth",
                 "value": 2
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "red",
-                  "mode": "fixed"
-                }
               }
             ]
           }
         ]
       },
       "gridPos": {
-        "h": 10,
+        "h": 8,
         "w": 12,
         "x": 0,
-        "y": 13
+        "y": 8
       },
-      "id": 1,
+      "id": 13,
       "options": {
         "legend": {
           "calcs": [
-            "max",
             "mean"
           ],
           "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
           "hideZeros": false,
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.0.2",
+      "pluginVersion": "12.4.0-19576184216",
       "targets": [
         {
           "datasource": {
@@ -497,25 +409,30 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum by(peer) (rate(http_client_get_chunk_duration_seconds_count{instance=\"$node\"}[2m]))",
-          "legendFormat": "{{peer}}",
+          "expr": "rate(packing_requests{instance=\"$node\"}[5m]) * 256 * 1024",
+          "hide": false,
+          "legendFormat": "{{packing}} {{type}}",
           "range": true,
-          "refId": "A"
+          "refId": "Events"
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "sum(rate(http_client_get_chunk_duration_seconds_count{instance=\"$node\"}[2m]))",
+          "expr": "sum(rate(packing_requests{instance=\"$node\"}[1h])) * 256 * 1024",
+          "fullMetaSearch": false,
           "hide": false,
-          "legendFormat": "Total Requests",
+          "includeNullMetadata": true,
+          "legendFormat": "Average (1h)",
           "range": true,
-          "refId": "B"
+          "refId": "A",
+          "useBackend": false
         }
       ],
-      "title": "Sync Requests (# / second)",
+      "title": "Packing Requests",
       "type": "timeseries"
     },
     {
@@ -523,7 +440,6 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "Each chunk written is assumed to be 256 KiB.\n\nNote: this may differ from your packing rate as each chunk written may need a different number of packing operations (0 to 2 depending on the format the chunk is received and the format it is written)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -553,6 +469,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -567,7 +484,158 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Generate Total",
+                  "Write Total"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.4.0-19576184216",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(replica_2_9_entropy_stored{instance=\"$node\"}[10m])",
+          "hide": false,
+          "legendFormat": "Write {{store_id}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(replica_2_9_entropy_stored{instance=\"$node\"}[10m]))",
+          "hide": false,
+          "legendFormat": "Write Total",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(replica_2_9_entropy_generated{instance=\"$node\"}[10m]))",
+          "hide": false,
+          "legendFormat": "Generate Total",
+          "range": true,
+          "refId": "E"
+        }
+      ],
+      "title": "Entropy",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -580,204 +648,36 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 13
-      },
-      "id": 3,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "maxHeight": 600,
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "12.0.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "rate(chunks_stored{instance=\"$node\"}[2m]) * 256 * 1024",
-          "hide": false,
-          "legendFormat": "{{store_id}} {{packing}}",
-          "range": true,
-          "refId": "Chunks Written (bytes)"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "rate(chunks_stored{instance=\"$node\"}[1h]) * 256 * 1024",
-          "hide": false,
-          "legendFormat": "[1h] {{store_id}} {{packing}}",
-          "range": true,
-          "refId": "Average Chunks Written Per Hour"
-        }
-      ],
-      "title": "Chunks Written (bytes / second)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "description": "Average latency for sync requests made to each peer",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "bars",
-            "fillOpacity": 100,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Overall"
-            },
-            "properties": [
-              {
-                "id": "custom.drawStyle",
-                "value": "line"
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              },
-              {
-                "id": "custom.lineWidth",
-                "value": 2
-              },
-              {
-                "id": "custom.stacking",
-                "value": {
-                  "group": "A",
-                  "mode": "none"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
+        "h": 8,
         "w": 12,
         "x": 0,
-        "y": 23
+        "y": 16
       },
-      "id": 2,
+      "id": 11,
       "options": {
         "legend": {
-          "calcs": [
-            "max",
-            "mean"
-          ],
-          "displayMode": "table",
+          "calcs": [],
+          "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": false
         },
         "tooltip": {
           "hideZeros": false,
           "mode": "multi",
-          "sort": "desc"
+          "sort": "none"
         }
       },
-      "pluginVersion": "11.5.0-81311",
+      "pluginVersion": "12.4.0-19576184216",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
           "editorMode": "code",
-          "expr": "sum by(peer) (rate(http_client_get_chunk_duration_seconds_sum{instance=\"$node\", status_class=~\"success\"}[2m])) / sum by(peer) (rate(http_client_get_chunk_duration_seconds_count{instance=\"$node\", status_class=~\"success\"}[2m]))",
-          "legendFormat": "{{peer}}",
+          "expr": "packing_buffer_size{instance=\"$node\"} * 256 * 1024",
+          "legendFormat": "Size",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "sum(rate(http_client_get_chunk_duration_seconds_sum{instance=\"$node\", status_class=~\"success\"}[2m])) / sum(rate(http_client_get_chunk_duration_seconds_count{instance=\"$node\", status_class=~\"success\"}[2m]))",
-          "hide": false,
-          "legendFormat": "Overall",
-          "range": true,
-          "refId": "B"
         }
       ],
-      "title": "Average Sync Latency (seconds)",
+      "title": "Packing Buffer",
       "type": "timeseries"
     },
     {
@@ -785,7 +685,6 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "Packing operations performed per second",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -815,13 +714,14 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "line"
+              "mode": "off"
             }
           },
           "mappings": [],
@@ -829,7 +729,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           }
@@ -837,97 +742,77 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 8,
         "w": 12,
         "x": 12,
-        "y": 23
+        "y": 16
       },
-      "id": 4,
+      "id": 14,
       "options": {
         "legend": {
           "calcs": [
-            "mean"
+            "last"
           ],
           "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Last",
+          "sortDesc": false
         },
         "tooltip": {
           "hideZeros": false,
-          "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.0-81311",
+      "pluginVersion": "12.4.0-19576184216",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
           "disableTextWrap": false,
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by(packing) (rate(packing_duration_milliseconds_count{instance=\"$node\"}[2m]))",
+          "expr": "device_lock_status{instance=\"$node\"} > -1",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{packing}}",
+          "legendFormat": "{{store_id}} {{mode}}",
           "range": true,
-          "refId": "Total Packing Rate",
+          "refId": "A",
           "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "sum by(packing) (rate(packing_duration_milliseconds_count{instance=\"$node\"}[1h]))",
-          "hide": false,
-          "legendFormat": "[1h] {{packing}}",
-          "range": true,
-          "refId": "A"
         }
       ],
-      "title": "Packing Rate (chunks / second)",
+      "title": "Device Lock Status",
       "type": "timeseries"
     }
   ],
-  "refresh": "",
-  "schemaVersion": 41,
+  "preload": false,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {},
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+        "current": {
+          "text": "YOUR_NODE_ID",
+          "value": "YOUR_NODE_ID"
         },
-        "definition": "label_values({job=\"$JOBNAME\"}, instance)",
-        "includeAll": false,
         "label": "Node",
         "name": "node",
-        "options": [],
-        "query": {
-          "query": "label_values({job=\"$JOBNAME\"}, instance)",
-          "refId": "Prometheus-nodename-Variable-Query"
-        },
-        "refresh": 1,
-        "regex": "",
-        "sort": 1,
-        "type": "query"
+        "options": [
+          {
+            "selected": true,
+            "text": "YOUR_NODE_ID",
+            "value": "YOUR_NODE_ID"
+          }
+        ],
+        "query": "YOUR_NODE_ID",
+        "type": "textbox"
       },
       {
-        "description": "Enter the job_name as specified in prometheus.yml",
-        "hide": 2,
-        "label": "job_name",
         "name": "JOBNAME",
-        "query": "${VAR_JOBNAME}",
-        "skipUrlSync": true,
+        "label": "job_name",
         "type": "constant",
+        "value": "${VAR_JOBNAME}",
+        "query": "${VAR_JOBNAME}",
+        "hide": 2,
+        "skipUrlSync": true,
         "current": {
           "value": "${VAR_JOBNAME}",
           "text": "${VAR_JOBNAME}",
@@ -944,13 +829,11 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Arweave Syncing/Packing",
-  "uid": "arweave-syncpack",
-  "version": 37,
+  "title": "Packing",
   "weekStart": ""
 }

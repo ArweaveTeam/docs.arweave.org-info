@@ -144,47 +144,13 @@ task type that is queued up waiting to be processed.
 regularly. If you notice that one task type queue is growing and rarely being emptied
 it indicates a bottleneck somewhere in the mining process.
 
-# Syncing and Packing Metrics
+# 4. Syncing Metrics
 
-[Sample dashboard in Grafana](grafana/grafana-syncing-packing.json)
+[Sample dashboard in Grafana](grafana/syncing.json)
 
-## Partition Sizes
+![Sample Dashboard](../images/dashboard-syncing.png)
 
-**Metric**: `v2_index_data_size_by_packing`
-
-This metric tracks the size of the data synced for each partition and packing format. The
-packing format is indicated by the `packing` label, and the partition number is indicated
-by the `partition_number` label.
-
-## Entropy Written
-
-**Metric**: `replica_2_9_entropy_stored`
-
-This metric tracks the amount of entropy generated and written to each storage module. The
-storage module is indicated by the `store_id` label.
-
-## Total Chunks Written
-
-**Metric**: `chunks_stored`
-
-This widget display the total number of chunks written (in bytes) over the current dashboard
-time period. This can provide a gauge of how much data you've synced and packed over
-a given time period.
-
-## Chunks Written
-
-**Metric**: `chunks_stored`
-
-This panel tracks the number of chunks written per second (in bytes).  Each chunk written is
-assumed to be 256 KiB. This may differ from your packing rate as each chunk written may need
-a different number of packing operations (0 to 2 depending on the format the chunk is received
-and the format it is written)
-
-**Debugging**: If your node is mining and packing at the same time you may see your hash
-rate drop. Consulting this panel can help you determine if an increase in packing activity
-corresponds with the drop in hash rate.
-
-## Sync Requests
+## 4.1 Sync Requests
 
 **Metric**: `http_client_get_chunk_duration_seconds_count`
 
@@ -196,47 +162,223 @@ phase.
 why. Your node should pull data from several peers at once - if this isn't the case, your
 node could be in the process of searching for healthier peers.
 
-## Average Sync Latency
+## 4.2 Average Sync Latency
 
 **Metrics**: `http_client_get_chunk_duration_seconds_sum` and `http_client_get_chunk_duration_seconds_count`
 
-This panel tracks the average latency of `GET /chunk2` requests to peers. 
+These metrics track the average latency of `GET /chunk2` requests to peers. 
 
 **Debugging**: If you believe your sync rate is too slow, consulting this graph might explain
 why. The node should detect and adjust to high latencies by selecting different peers. But it
 can take some time to find new peers - during this period syncing/packing rate may dip.
 
+## 4.3 Chunks Received and Written
 
+**Metrics**: `ar_http_request_duration_seconds_count` and `chunks_stored`
 
-## Packing Rate
+This panel tracks both the number of chunks received from peers and the number of chunks
+written (in bytes per second). Each chunk that is received is validated, unpacked, and then
+repacked to your miner's address and packing format. While we expect the chumks received
+and the chunks written to be very close, it is possible for some chunks to be
+discarded in this process which can result in the chunks written being lower than chunks
+received. Each chunk written is
+assumed to be 256 KiB. This may differ from your packing rate as each chunk written may need
+a different number of packing operations (0 to 2 depending on the format the chunk is received
+and the format it is written)
 
-**Metric**: `packing_duration_milliseconds_count`
+**Debugging**:  If Chunks Received is lower than you'd expect you may want to look at the
+Sync Requests and Average Sync Latency charts. If there is a wide and sustained gap between
+Chunks Received and Chunks Written it could indicate an error somewhere in the validation
+or packing processes.
+
+## 4.4 Sync Request Status
+
+**Metric**: `ar_http_request_duration_seconds_count`
+
+This panel breaks down the response codes from all `GET /chunk2` requests. A `client-error`
+response indicates a 4xx status and is usually a 404, meaning that your node requested a
+chunk from a peer that did not have it. Given how chunk requests are batched you should expect
+a lot of 404s.
+
+**Debugging**: If your Chunks Received is not as high as you'd expect this chart can provide
+some insight as to the cause. As noted above `client-error`s are generally expected and it's
+hard to know what is an "appropriate amount". However if you're seeing al ot of `timeout`, or
+shutdown responses it may indicate that your node has poort network connectivity with a set of
+peers.
+
+## 4.5 Device Lock Status
+
+**Metric**: `device_lock_status`
+
+When syncing, packing, and preparing entropy the node will manage which operations can be
+active on a given storage module at a time. This is to prevent the disk thrash that can
+occur when different operations try to read or write to different locations of a disk at
+the same time. The `device_lock_status` metric tracks what state a storge module is in.
+
+The metric reports both the operation name and what
+state it is in:
+
+| Operation | Description         |
+| --------- | ------------------- |
+| prepare   | Generating entropy  |
+| sync      | Syncing and packing |
+| repack    | Repacking in place  |
+
+| State    | Metric Value |
+| -------- | ------------ |
+| paused   | 0            |
+| active   | 1            |
+| complete | 2            | 
+
+This can help explain some syncing or packing behaviors. For example if you're expecting
+a storage module to be syncing data but it's not, it might be that the node has `paused`
+the syncing temporarily or has swtiched that storage module to `prepare`.
+
+# 5. Packing Metrics
+
+[Sample dashboard in Grafana](grafana/packing.json)
+
+![Sample Dashboard](../images/dashboard-packing.png)
+
+## 5.1 Chunks Written
+
+**Metrics**: `chunks_stored`
+
+This panel is similar to [Chunks Received and Written](#43-chunks-received-and-written) from
+the Syncing dashboard, but it excludes "Chunks Received". The `chunks_stored` metric tracks
+the number of chunks written to disk for a given packing type (represented as MiB/s). Each chunk written is
+assumed to be 256 KiB. This may differ from your packing rate as each chunk written may need
+a different number of packing operations (0 to 2 depending on the format the chunk is received
+and the format it is written)
+
+**Debugging**:  This chart can highlight which storage modules are packing at slower or
+faster rates, and will also tease out an intermediate steps (E.g. a chunk might first
+be written as `unpacked_padded` and then packed and rewritten as `replcia_2_9_1`)
+
+## 5.2 Partition Sizes
+
+**Metric**: `v2_index_data_size_by_packing`
+
+This metric tracks the size of the data synced for each partition and packing format. The
+packing format is indicated by the `packing` label, and the partition number is indicated
+by the `partition_number` label.
+
+## 5.3 Packing Requests
+
+**Metric**: `packing_requests`
 
 This panel tracks the number of packing operations performed per second. 
 
+## 5.4 Entropy
 
-# Debugging Metrics
+**Metrics**: `replica_2_9_entropy_stored` and `replica_2_9_entropy_generated`
 
-[Sample dashboard in Grafana](grafana/grafana-debug.json)
+This metric tracks the total amount of entropy generated and the amount written to each storage module. 
+"Generate Total" and "Write Total" should match almost exactly.
+
+## 5.5 Packing Buffer
+
+**Metric**: `packing_buffer_size`
+
+Before being packed or unpacked a chunk is added to the packing buffer. We expect this buffer
+to be empited out frequently and never to get too large. If you see the packing buffer steadily
+growing or rarely being emptied to 0, it might indicate a performance bottleneck somewhere.
+
+## 5.6 Device Lock Status
+
+**Metric**: `device_lock_status`
+
+When syncing, packing, and preparing entropy the node will manage which operations can be
+active on a given storage module at a time. This is to prevent the disk thrash that can
+occur when different operations try to read or write to different locations of a disk at
+the same time. The `device_lock_status` metric tracks what state a storge module is in.
+
+The metric reports both the operation name and what
+state it is in:
+
+| Operation | Description         |
+| --------- | ------------------- |
+| prepare   | Generating entropy  |
+| sync      | Syncing and packing |
+| repack    | Repacking in place  |
+
+| State    | Metric Value |
+| -------- | ------------ |
+| paused   | 0            |
+| active   | 1            |
+| complete | 2            | 
+
+This can help explain some syncing or packing behaviors. For example if you're expecting
+a storage module to be syncing data but it's not, it might be that the node has `paused`
+the syncing temporarily or has swtiched that storage module to `prepare`.
+
+
+# 6. Debugging Metrics
 
 The Debugging Dashboard provides some more detail information that can help with debugging
-performance issues. It is split into 3 sections:
+performance issues. Some of the metrics are only populated when the `debug` option is set.
 
-1. [Mining](#mining-debug-metrics)
-2. [HTTP Requests](#http-requests-debug-metrics)
-3. [Debug Mode](#debug-mode-debug-metrics)
+[Sample dashboard in Grafana](grafana/debug.json)
 
-## Mining Debug Metrics
+![Sample Dashboard](../images/dashboard-debug.png)
 
-![Sample Dashboard](../images/dashboard-debug-mining.png)
+## 6.1 Block Height
 
+**Metric**: `arweave_block_height`
 
+This metric tracks the height of the node's current tip block. We expect this number to increase roughly every 2 minutes, but there can be substantial variation in the block time. 
 
-## HTTP Requests Debug Metrics
+## 6.2 VDF Steps Behind
 
-![Sample Dashboard](../images/dashboard-debug-http.png)
+**Metric**: `block_vdf_advance`
 
-### Total Inbound Requests
+This metric tracks how many VDF steps the node is behind the last block it processed. A negative number means the node is *ahead* of the VDF step in the latest block. We expect this number to be usually negative on a well-functioning node, with occasionally short-lived positive spikes. 
+
+If this number grows too large or is consistently positivve it can indicate that the node's VDF or VDF server is too slow or has fallen behind.
+
+**Alerting**:
+We recommend setting an alert at 200, and adjusting as needed.
+
+## 6.3 Message Queue
+
+**Metric**: `process_info{type="message_queue"}`
+
+**Note**: this metric is only populated when the `debug` node option is set
+
+This panel tracks the number of messages stored in each erlang process's message queue.
+Erlang processes can be thought of as threads without shared memory. They send messages to
+communicate with each other. Before being processed a message is stored in a message queue.
+If a process's message queue is growing it means that process is receiving more messages than
+it can process.
+
+## 6.4 CPU Load / # Cores
+
+**Metric**: `process_cpu_seconds_total`
+
+**Note**: this metric is only populated when the `debug` node option is set
+
+Total CPU across all *virtual* cores. If you have a 16-core CPU with Hyperthreading/SMT
+enabled, you will likely have 32 virtual cores. Set the dashboard variable appropriately to
+get a sense of your overall CPU load.
+
+## 6.5 Memory
+
+**Metric**: `process_info{type=~"memory}`
+
+**Note**: this metric is only populated when the `debug` node option is set
+
+This panel tracks the memory used per Erlang process.
+
+## 6.6 Reductions
+
+**Metric**: `process_info{type="reductions"}`
+
+**Note**: this metric is only populated when the `debug` node option is set
+
+This panel tracks Erlang reductions. Reductions are a measure of Eerlang process activity. 
+the more reductions performed by a process, the more CPU cycles it has consumed.
+
+## 6.7 Inbound Requests
 
 **Metrics**: `cowboy_requests_total`, `cowboy_request_duration_seconds_sum`, and `cowboy_request_duration_seconds_count`
 
@@ -259,7 +401,8 @@ concurrent `get_chunk` requests your node will handle. Default is 100.
 Note: restricting `get_chunk` too much may negatively impact your node's reputation, which
 can in turn negatively impact sync rate or block orphan rate.
 
-### Total Outbound Requests
+
+## 6.8 Outbound Requests
 
 **Metrics**: `cowboy_requests_total`, `cowboy_request_duration_seconds_sum`, and `cowboy_request_duration_seconds_count`
 
@@ -267,77 +410,10 @@ These panels track the requests that your node is making to peers on the network
 track number of requests per second, total latency by request type, and average latency per
 request per type.
 
-**Debugging**: Similar to the [Total Inbound Requests](#total-inbound-requests) chart, you can
+**Debugging**: Similar to the [Total Inbound Requests](#67-inbound-requests) chart, you can
 use these charts to identify activity that could be impacting your node's performance.
 
-## Debug Mode Metrics
-
-These charts are only populated if you run your node with the `debug` launch parameter.
-
-![Sample Dashboard](../images/dashboard-debug-debug.png)
-
-### CPU Load / # Cores
-
-**Metric**: `process_cpu_seconds_total`
-
-Total CPU across all *virtual* cores. If you have a 16-core CPU with Hyperthreading/SMT
-enabled, you will likely have 32 virtual cores. Set the dashboard variable appropriately to
-get a sense of your overall CPU load.
-
-### Memory
-
-**Metric**: `process_info{type=~"memory}`
-
-This panel tracks the memory used per Erlang process.
-
-### Message Queue
-
-**Metric**: `process_info{type="message_queue"}`
-
-This panel tracks the number of messages stored in each erlang process's message queue.
-Erlang processes can be thought of as threads without shared memory. They send messages to
-communicate with each other. Before being processed a message is stored in a message queue.
-If a process's message queue is growing it means that process is receiving more messages than
-it can process.
-
-### Reductions
-
-**Metric**: `process_info{type="reductions"}`
-
-This panel tracks Erlang reductions. Reductions are a measure of Eerlang process activity. 
-the more reductions performed by a process, the more CPU cycles it has consumed.
 
 
 
 
-
-## VDF Step Number
-
-**Metric**: `vdf_step`
-
-This metric tracks the current VDF step number of the node - either calculated locally or received from a trusted VDF server. 
-
-You expect this number to increase roughly every second.
-
-**Alerting**:
-We recommend starting with an alert that goes off if there are fewer than 200 steps in a 5-minute period.
-
-## Block Height
-
-**Metric**: `arweave_block_height`
-
-This metric tracks the height of the node's current tip block. We expect this number to increase roughly every 2 minutes, but there can be substantial variation in the block time. 
-
-**Alerting**:
-We recommend alerting if you don't see a new block in 15 minutes.
-
-## VDF Step Behind
-
-**Metric**: `block_vdf_advance`
-
-This metric tracks how many VDF steps the node is behind the last block it processed. A negative number means the node is *ahead* of the VDF step in the latest block.
-
-If this number grows too large it can indicate that the node's VDF or VDF server is too slow or has fallen behind.
-
-**Alerting**:
-We recommend setting an alert at 200, and adjusting as needed.
