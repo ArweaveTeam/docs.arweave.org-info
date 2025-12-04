@@ -3,7 +3,7 @@ description: >-
   A guide to monitoring your miner.
 ---
 
-# Metrics
+# 1. Metrics
 
 The arweave node publishes a set of [Prometheus](https://prometheus.io/docs/introduction/overview/) metrics at the `/metrics` endpoint (i.e. 
 `<IP>:<PORT>/metrics`) - you can see an example at https://arweave.net/metrics. The `/metrics` endpoint also includes descriptions of each metric.
@@ -13,7 +13,7 @@ You can integrate Prometheus with a number of monitoring and visualization tools
 2. [Syncing and Packing Metrics](#syncing-and-packing-metrics)
 3. [Debugging Metrics](#debugging-metrics)
 
-## Setup
+## 1.1 Setup
 
 1. [Setup Prometheus](https://prometheus.io/docs/prometheus/latest/getting_started/) to scrape the `/metrics` endpoint of your arweave node.
 2. When you get to the point of defining Prometheus targets to monitor, add an `instance` label for each target that provides a name for your node (can just be your IP if you want). This isn't required in general, but it will make using the sample dashboard easier. e.g.
@@ -30,24 +30,24 @@ Note:  If you have previously set up your job_name with a value other than the d
 3. [Setup Grafana](https://grafana.com/docs/grafana/latest/datasources/prometheus/configure-prometheus-data-source/) to visualize the Prometheus data.
 4. [Import the sample dashboard](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/). 
 
-# Mining Metrics
+# 2. Mining Metrics
 
-[Sample dashboard in Grafana](grafana/grafana-mining.json)
+[Sample dashboard in Grafana](grafana/mining.json)
 
 ![Sample Dashboard](../images/dashboard-mining.png)
 
-## Read Rate
+## 2.1 Read Rate
 
 **Metric**: `mining_rate{type="read"}`
 
-This metric tracks the number of chunks read per second. 1 chunk is 256kib.
+This metric tracks the number of chunks read per second (reported in MiB/s). 1 chunk is 256KiB.
 
-The protocol allows for up to 800 chunks per partition per VDF step to be read. That equates to roughly 200MiB/s per partition.
+The protocol allows for up to 20 chunks per partition per VDF step to be read. That equates to roughly 5MiB/s per partition.
 
 **Alerting**:
 We recommend setting an alert at 0 MiB/s as that indicates the miner is no longer mining. You may also want to establish a baseline and set an alert if read rate falls some amount below that baseline
 
-## Read Rate vs. Ideal
+## 2.2 Read Rate vs. Ideal
 
 **Metrics**: `mining_rate{type="read"}` and `mining_rate{type="ideal_read"}`
 
@@ -62,18 +62,18 @@ The result is a percentage where 100% indicates you are mining at the ideal rate
 **Alerting**:
 You may want to establish a baseline and set an alert if read rate falls some amount below that baseline
 
-## Hash Rate
+## 2.3 Hash Rate
 
 **Metric**: `mining_rate{type="hash"}`
 
-This metric tracks the miner hashrate. The protocol allows for up to 400 H1 hashes and 400 H2 hashes per partition per VDF step. The metric also consider that an H1 hash is 100x less likely to result in a solution and scales the H1 hash count down accordingly. You can roughly interpret that as the protocol allowing 404 solution attempts (combination of H1 and H2 hashes) per partition per VDF step.
+This metric tracks the miner hashrate. The protocol allows for up to 400 H1 hashes and 400 H2 hashes per partition per VDF step. The metric also consider that an H1 hash is 100x less likely to result in a solution and scales the H1 hash count down accordingly. You can roughly interpret that as the protocol allowing 404 solution attempts (combination of H1 and H2 hashes) per partition per VDF step. Please see the [Hashrate](../overview/hashrate.md) guide for more information.
 
 Note: hashes are generated after chunks are read, so if your Read Rate chart shows a low read rate, your Hash Rate chart will also be lower.
 
 **Alerting**:
 Re recommend setting an alert on 0 as that indicates your miner is no longer mining. You may also want to establish a baseline and set an alert if hashrate falls some amount below that baseline
 
-## Hash Rate vs. Ideal
+## 2.4 Hash Rate vs. Ideal
 
 **Metrics**: `mining_rate{type="hash"}` and `mining_rate{type="ideal_hash"}`
 
@@ -88,36 +88,61 @@ The result is a percentage where 100% indicates you are mining at the ideal rate
 **Alerting**:
 You may want to establish a baseline and set an alert if hashrate falls some amount below that baseline
 
-## VDF Step Number
+# 3. Mining Debug Metrics
 
-**Metric**: `vdf_step`
+These metrics, found in the "Debugging" row on the Mining Dashboard, provide additional information to help investigate mining performance issues. If you are seeing ~100% of the ideal hashrate, you can ignore these metrics.
 
-This metric tracks the current VDF step number of the node - either calculated locally or received from a trusted VDF server. 
+Note: The mining debug metrics are always available and don't require that you set the `debug` launch flag.
 
-You expect this number to increase roughly every second.
+## 3.1 Raw Read Rate
 
-**Alerting**:
-We recommend starting with an alert that goes off if there are fewer than 200 steps in a 5-minute period.
+**Metric**: `mining_rate{type="raw_read"}`
 
-## Block Height
+This panel tracks the time it takes to read a 2.5MiB recall range per partition (reported in MiB/s). This differs
+from the [Read Rate](#21-read-rate) which tracks the number of chunks read per second. In
+particular the Raw Read Rate is not impacted by other bottlenecks in the mining pipeline and
+should give you a good indication of the disk speed actually observed by the node.
 
-**Metric**: `arweave_block_height`
+For example if your disk is capable of reading at 200MiB/s the Raw Read Rate should reflect
+this. However if, for example, you have a slow VDF speed, your Read Rate might show
+a much lower number.
 
-This metric tracks the height of the node's current tip block. We expect this number to increase roughly every 2 minutes, but there can be substantial variation in the block time. 
+**Debugging**: If you're not getting the hashrate you expect from your miner, this chart can
+help you pinpoint the bottleneck. If this chart is showing lower read rates than you'd expect
+you might want to check your hardware or system-level configuration. If this chart is showing
+expected read rates, then you'll have to look elsewhere in the pipeline (e.g. VDF Speed,
+CPU utilization, RAM utilization, etc.)
 
-**Alerting**:
-We recommend alerting if you don't see a new block in 15 minutes.
+## 3.2 Chunk Cache Size
 
-## VDF Step Behind
+**Metric**: `mining_server_chunk_cache_size`
 
-**Metric**: `block_vdf_advance`
+This panel tracks the size of your mining chunk cache (in MiB chks). While mining
+your node will need to temporarily cache chunks of data after reading them, this metric
+tracks how many of those chunks are currently cached. The cache has a size limit which 
+is printed periodically by your node (to the console and to the logs), and can be set
+using the `mining_server_chunk_cache_size_limit` launch parameter.
 
-This metric tracks how many VDF steps the node is behind the last block it processed. A negative number means the node is *ahead* of the VDF step in the latest block.
+**Debugging**: An optimal miner would expect the per-partition chunk cache size to stay
+beteen 0 and 5 MiB. Occasional spikes above 5 MiB are also fine as they can occur when
+there is temporary system-level resource contention or when your node validates a block
+that is ahead of it in the VDF chain and it can process a number of VDF steps at once.
 
-If this number grows too large it can indicate that the node's VDF or VDF server is too slow or has fallen behind.
+However if you see that some partitions are regularly using more thann 5MiB it can
+indicate a performance issue somewhere in the mining pipeline (e.g. low read rate, 
+CPU capacity, low VDF, memory contention, etc...)
 
-**Alerting**:
-We recommend setting an alert at 200, and adjusting as needed.
+## 3.3 Mining Task Queue
+
+**Metric**: `mining_server_task_queue_len`
+
+There are several steps in the [Mining Process](../overview/mining.md). Those steps
+are tracked and managed via a mining task queue. This chart shows the number of each
+task type that is queued up waiting to be processed.
+
+**Debugging**: An optimal miner would expect each task queue to grow and be emptied
+regularly. If you notice that one task type queue is growing and rarely being emptied
+it indicates a bottleneck somewhere in the mining process.
 
 # Syncing and Packing Metrics
 
@@ -205,43 +230,7 @@ performance issues. It is split into 3 sections:
 
 ![Sample Dashboard](../images/dashboard-debug-mining.png)
 
-### Raw Read Rate
 
-**Metric**: `mining_rate{type="raw_read"}`
-
-This panel tracks the time it takes to read a 100MiB recall range per partition. This differs
-from the [Read Rate](#read-rate) which tracks the number of chunks read per second. In
-particular the Raw Read Rate is not impacted by other bottlenecks in the mining pipeline and
-should give you a good indication of the disk speed actually observed by the node.
-
-For example if your disk is capable of reading at 200MiB/s the Raw Read Rate should reflect
-this. However if, for example, you have a slow VDF speed, your Mining Read Rate might show
-a much lower number.
-
-**Debugging**: If you're not getting the hashrate you expect from your miner, this chart can
-help you pinpoint the bottleneck. If this chart is showing lower read rates than you'd expect
-you might want to check your hardware or system-level configuration. If this chart is showing
-expected read rates, then you'll have to look elsewhere in the pipeline (e.g. VDF Speed,
-CPU utilization, RAM utilization, etc.)
-
-### Chunk Cache Size
-
-**Metric**: `mining_server_chunk_cache_size`
-
-This panel tracks the size of your mining chunk cache (in 256 KiB chunks). While mining
-your node will need to temporarily cache chunks of data after reading them, this metric
-tracks how many of those chunks are currently cached. The cache has a size limit which 
-is printed periodically by your node (to the console and to the logs), and can be set
-using the `mining_server_chunk_cache_size_limit` launch parameter.
-
-**Debugging**: If your chunk cache size is consistently at or above the limit, your miner
-is not able to keep up with its optimal mining rate. This can be for a number of reason,
-however one thing you can try is increasing the `mining_server_chunk_cache_size_limit`. If
-your miner is only temporarily falling behind (e.g. due to other processes running and
-stealing CPU or disk bandwidth), an increased cache can allow your miner to "catch up".
-
-Note: increasing the cache size limit may increase your node's memory usage which can
-negatively impact performance if you are running near your system's memory limit.
 
 ## HTTP Requests Debug Metrics
 
@@ -317,3 +306,38 @@ it can process.
 
 This panel tracks Erlang reductions. Reductions are a measure of Eerlang process activity. 
 the more reductions performed by a process, the more CPU cycles it has consumed.
+
+
+
+
+
+## VDF Step Number
+
+**Metric**: `vdf_step`
+
+This metric tracks the current VDF step number of the node - either calculated locally or received from a trusted VDF server. 
+
+You expect this number to increase roughly every second.
+
+**Alerting**:
+We recommend starting with an alert that goes off if there are fewer than 200 steps in a 5-minute period.
+
+## Block Height
+
+**Metric**: `arweave_block_height`
+
+This metric tracks the height of the node's current tip block. We expect this number to increase roughly every 2 minutes, but there can be substantial variation in the block time. 
+
+**Alerting**:
+We recommend alerting if you don't see a new block in 15 minutes.
+
+## VDF Step Behind
+
+**Metric**: `block_vdf_advance`
+
+This metric tracks how many VDF steps the node is behind the last block it processed. A negative number means the node is *ahead* of the VDF step in the latest block.
+
+If this number grows too large it can indicate that the node's VDF or VDF server is too slow or has fallen behind.
+
+**Alerting**:
+We recommend setting an alert at 200, and adjusting as needed.
