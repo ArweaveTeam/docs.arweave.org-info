@@ -8,10 +8,7 @@ description: >-
 The arweave node publishes a set of [Prometheus](https://prometheus.io/docs/introduction/overview/) metrics at the `/metrics` endpoint (i.e. 
 `<IP>:<PORT>/metrics`) - you can see an example at https://arweave.net/metrics. The `/metrics` endpoint also includes descriptions of each metric.
 
-You can integrate Prometheus with a number of monitoring and visualization tools. Below we'll share some sample dashboards in [Grafana](https://grafana.com/) and some guidance:
-1. [Metrics](#mining-metrics)
-2. [Syncing and Packing Metrics](#syncing-and-packing-metrics)
-3. [Debugging Metrics](#debugging-metrics)
+You can integrate Prometheus with a number of monitoring and visualization tools. Below we'll share some sample dashboards in [Grafana](https://grafana.com/) and some guidance.
 
 ## 1.1 Setup
 
@@ -28,7 +25,8 @@ You can integrate Prometheus with a number of monitoring and visualization tools
 Note:  If you have previously set up your job_name with a value other than the default 'arweave', you will get a chance to override that default during the dashboard import in step 4 below.
 
 3. [Setup Grafana](https://grafana.com/docs/grafana/latest/datasources/prometheus/configure-prometheus-data-source/) to visualize the Prometheus data.
-4. [Import the sample dashboard](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/). 
+4. Download the sample dashboards (.json files) linked in each section and...
+5. [Import the sample dashboards](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/). 
 
 # 2. Mining Metrics
 
