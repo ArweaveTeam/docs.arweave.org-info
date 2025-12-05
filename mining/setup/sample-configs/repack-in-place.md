@@ -65,7 +65,7 @@ description: >-
     "peers": [ "peers.arweave.xyz" ],
     "data_dir": "/opt/data",
     "vdf_server_trusted_peers": [ "vdf-server-3.arweave.xyz" ],
-    "transaction_blacklist_url": "https://public_shepherd.arweave.net",
+    "transaction_blacklist_urls": [ "https://public_shepherd.arweave.net" ],
 
     "storage_modules": [
         "0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9,repack_in_place,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY.replica.2.9",
