@@ -49,7 +49,7 @@ description: >-
     "enable": [ "randomx_large_pages" ],
     "peers": [ "peers.arweave.xyz" ],
     "data_dir": "/opt/data",
-    "transaction_blacklist_url": "https://public_shepherd.arweave.net",
+    "transaction_blacklist_urls": [ "https://public_shepherd.arweave.net" ],
 
     "vdf": "hiopt_m4",
 
