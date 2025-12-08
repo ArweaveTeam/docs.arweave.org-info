@@ -72,7 +72,7 @@ description: >-
     "peers": [ "peers.arweave.xyz" ],
     "data_dir": "/opt/data",
     "vdf_server_trusted_peers": [ "vdf-server-3.arweave.xyz" ],
-    "transaction_blacklist_url": "https://public_shepherd.arweave.net",
+    "transaction_blacklist_urls": [ "https://public_shepherd.arweave.net" ],
 
     "storage_modules": [
         "0,unpacked",
