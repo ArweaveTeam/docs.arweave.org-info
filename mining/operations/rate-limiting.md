@@ -67,8 +67,41 @@ Once the leaky bucket tokens are exhausted (limit is reached) the request will b
 | http_api.limiter.<group_id>.concurrency_limit                | Number  | same as leaky_limit                                                           | Number of concurrent requests allowed per peer                                                       |
 | http_api.limiter.<group_id>.is_manual_reduction_disabled     | Boolean | False                                                                         | Whether external requests can reduce leaky tokens                                                    |
 
+## 2.3 Example
+
+```
+{
+    "enable": [ "randomx_large_pages" ],
+    "peers": [
+        "chain-1.arweave.xyz",
+        "data-2.arweave.xyz",
+        "data-3.arweave.xyz",
+        "data-4.arweave.xyz",
+        "vdf-server-3.arweave.xyz"
+    ],
+    "data_dir": "/opt/data_dir",
+    "vdf_server_trusted_peers": ["vdf-server-3.arweave.xyz"	],
+    "transaction_blacklist_urls": ["https://public_shepherd.arweave.net"],
+
+    "storage_modules": [
+        "0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9"
+    ],
+    "mining_addr": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI",
+
+    "max_connections": 250,
+
+    "http_api.limiter.general.sliding_window_limit": 0,
+    "http_api.limiter.general.leaky_limit": 450,
+    "http_api.limiter.general.leaky_tick_interval": 30000,
+    "http_api.limiter.general.leaky_tick_reduction": 450,
+
+    "sync_jobs": 0
+}
+```
 
 # 3. Metrics
+
+Following metrics are provided per rate-limiting group.
 
 | Name | Type | Description |
 |------|------|-------------|
