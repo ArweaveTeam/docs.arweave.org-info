@@ -3,6 +3,10 @@ description: >-
   A guide to server-side rate-limiting
 ---
 
+{% hint style="warning" %}
+This page documents a change introduced in version **2.9.6-alpha1**
+{% endhint %}
+
 # 1. Rate limiter
 
 To regulate resource use, the arweave node implements rate limiting groups on HTTP endpoints. Endpoints are freely mapped to different groups.
