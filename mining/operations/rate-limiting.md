@@ -3,9 +3,9 @@ description: >-
   A guide to server-side rate-limiting
 ---
 
-{% hint style="warning" %}
-This page documents a change introduced in version **2.9.6-alpha1**
-{% endhint %}
+>
+> This page documents a change introduced in version **2.9.6-alpha1**
+> 
 
 # 1. Rate limiter
 
