@@ -16,16 +16,21 @@ denomination and the block `denomination` field increments by 1.
 
 ## Use Explicit Denomination in Transactions
 
-Transactions have a `denomination` field. We recommend always setting it
-explicitly rather than leaving it at 0 (implicit/legacy).
+Transactions have a single `denomination` field that applies to both the
+`reward` and `quantity` amounts. We recommend always setting it explicitly
+rather than leaving it at 0 (implicit/legacy).
 
 - `denomination = 0` — uses the current block's denomination implicitly.
 - `denomination >= 1` — explicitly declares the denomination.
 
+When `denomination >= 1`, the value is included in the transaction's signed
+payload, so a transaction signed with an explicit denomination cannot be
+reinterpreted at a different denomination after a redenomination event.
+
 To determine the current denomination, read the `denomination` field from the
 latest block via `GET /block/current`.
 
-During the transition period around a redenomination event, transactions with
+In the blocks leading up to a redenomination event (when `height` <= `redenomination_height`), transactions with
 `denomination = 0` are rejected (see Transition Period below). Services that
 always set explicit denomination will be unaffected.
 
@@ -48,9 +53,13 @@ Response format:
 }
 ```
 
+Note that `fee` is a JSON string (to preserve precision for large integers)
+while `denomination` is a JSON number. By contrast, the `denomination` field
+inside block JSON is a string (e.g. `"1"`).
+
 Use the returned `fee` for the transaction `reward` field and the returned
-`denomination` for the transaction `denomination` field. Use the same
-denomination for the `quantity` field when transferring AR.
+`denomination` for the transaction `denomination` field. The `quantity` field
+on the same transaction is interpreted in that same denomination.
 
 The legacy `GET /price/{bytes}` endpoints return a plain integer without
 denomination. Migrate to `/price2/` or `/optimistic_price/`.
@@ -73,18 +82,21 @@ blocks (~200 minutes) during which transactions with `denomination = 0` are
 rejected. This prevents ambiguity about which denomination a transaction
 intends.
 
-- Once `redenomination_height` is set in block headers, transactions with
-  `denomination = 0` are rejected until the redenomination height is reached.
+- While the current block height is at or below `redenomination_height`,
+  transactions with `denomination = 0` are rejected. The rejection is lifted
+  in the block immediately after `redenomination_height`.
 - Transactions with explicit denomination (`1 <= denomination <= current block
-  denomination`) remain valid throughout.
+  denomination`) pass the denomination check throughout.
 
 Services that always set explicit denomination experience no disruption.
 
 ## Monitoring
 
 Monitor the `redenomination_height` field in block headers via
-`GET /block/current`:
+`GET /block/current`, comparing it to the current block's `height`:
 
-- `redenomination_height = 0` — no redenomination scheduled.
-- `redenomination_height > 0` — redenomination scheduled at that height;
-  ~100 blocks to prepare.
+- `redenomination_height = 0` — no redenomination has ever been scheduled.
+- `redenomination_height > height` — a redenomination is scheduled at that
+  height; ~100 blocks to prepare.
+- `redenomination_height > 0` and `redenomination_height <= height` — the
+  redenomination at that height has already taken effect. In theory, multiple redenominations may occur over very long time horizons; each adds 1 to denomination and multiplies amounts by 1,000.
