@@ -24,6 +24,8 @@ You can create a wallet with the provided `wallet` tool:
 
 This script will create the wallet and place it in the `[data_dir]/wallets` directory. See [Directory Structure](directory-structure.md) for more information on setting your `data_dir`.
 
+Reward keys may also be `secp256k1` (ECDSA) since the 2.9 hard fork — substitute `ecdsa` for `rsa` above. See [ECDSA Keys](../../development/protocol/ecdsa-keys.md) for details.
+
 If you want to use an existing wallet, place it in `[data_dir]/wallets`. Imported wallets must bin in `.json` format and be named `arweave_keyfile_ADDRESS.json` where `ADDRESS` is the address associated with the wallet.
 
 Note: when using [coordinated mining](../overview/coordinated-mining.md), the wallet only needs to be present on the exit node.
