@@ -90,6 +90,10 @@ We are almost there! Both Ledger and Keystone are working on integrating Arweave
 
 No, these are fundamentally incompatible. Don’t send your AR tokens to other blockchain addresses or wallets.
 
+## **Are ECDSA wallets supported?**
+
+Yes. Since the [2.9 hard fork](../development/protocol/ecdsa-keys.md), Arweave accounts may use either RSA or ECDSA (secp256k1) keys. Note that Arweave ECDSA addresses are **not** compatible with Ethereum addresses, even though both use secp256k1. See [ECDSA Keys](../development/protocol/ecdsa-keys.md) for details.
+
 ## **Where can I see my AR token transfers' status?**
 
 The [Viewblock](https://viewblock.io/arweave) block explorer allows you to discover and view statuses of Arweave transactions. To find your transfer, you can search for your wallet address or the ID of your transfer in the search bar, at the top of their site.

@@ -45,6 +45,7 @@
 - [Motivation](development/motivation.md)
 - [Protocol](development/protocol/overview.md)
   - [Denomination](development/protocol/denomination.md)
+  - [ECDSA Keys](development/protocol/ecdsa-keys.md)
 - [Getting Started](development/getting-started.md)
 - [Building Arweave](development/build.md)
 - [Automated Tests](development/automated-tests.md)
