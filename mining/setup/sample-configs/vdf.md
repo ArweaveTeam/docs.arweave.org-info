@@ -21,6 +21,9 @@ description: >-
 - Run your miner with:
   - `vdf_client_peer` flags to restrict which nodes can query your server's VDF
   - `vdf hiopt_m4` to enable a VDF algorithm optimized for the M4 processor
+  - `local_peers` set to include the nodes you provide vdf for
+- Run your nodes with:
+  - `local_peers` set to include the VDF nodes address
 
 # 2. Sample Directory Structure
 
