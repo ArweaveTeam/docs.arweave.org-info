@@ -18,12 +18,12 @@ description: >-
   - `5.6.7.8`
   - `5.6.7.8:1985`
   - `node.example.com`
-- Run your miner with:
+- Run your VDF server with:
   - `vdf_client_peer` flags to restrict which nodes can query your server's VDF
   - `vdf hiopt_m4` to enable a VDF algorithm optimized for the M4 processor
-  - `local_peers` set to include the nodes you provide vdf for
+  - `local_peer` set to include the nodes you provide vdf for
 - Run your nodes with:
-  - `local_peers` set to include the VDF nodes address
+  - `local_peer` set to include the VDF node address
 
 # 2. Sample Directory Structure
 
@@ -42,7 +42,11 @@ description: >-
     vdf_client_peer 1.2.3.4 \
     vdf_client_peer 5.6.7.8 \
     vdf_client_peer 5.6.7.8:1985 \
-    vdf_client_peer node.example.com
+    vdf_client_peer node.example.com \
+    local_peer 1.2.3.4 \
+    local_peer 5.6.7.8 \
+    local_peer 5.6.7.8:1985 \
+    local_peer node.example.com
 ```
 
 # 4. Sample Configuration File (config.json)
@@ -57,6 +61,13 @@ description: >-
     "vdf": "hiopt_m4",
 
     "vdf_client_peers": [
+        "1.2.3.4",
+        "5.6.7.8",
+        "5.6.7.8:1985",
+        "node.example.com"
+    ],
+
+     "local_peers": [
         "1.2.3.4",
         "5.6.7.8",
         "5.6.7.8:1985",

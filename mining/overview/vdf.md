@@ -24,7 +24,7 @@ For context the current VDF difficulty is `685,976` _(May 2024, block height 141
 Since VDF is so important to mining performance you may have another machine compute VDF for you. For instance, you may set up a dedicated VDF node broadcasting VDF outputs to all your mining nodes.
 
 {% hint style="info" %}
-Traffic from and to your private VDF node should not be throttled, so you should configure your nodes, and VDF to whitelist each other by adding them to the `local_peers` list.
+Traffic from and to your private VDF node should not be throttled, so you should configure your nodes, and VDF server to whitelist each other by adding them to each others' `local_peer` list.
 {% endhint %}
 
 Running a node fetching VDF states from a peer (aka a "VDF client"):
@@ -61,10 +61,6 @@ The team operates 2 VDF servers that can be used by any miner that wants to:
 To configure your miner to use the team VDF servers:
 1. Add this to your launch config: `enable vdf_server_pull`
 2. Add the team VDF servers to your list of `vdf_server_trusted_peer`s
-3. Add the team VDF servers to your list of `local_peers`
-
-To configure your VDFs to server your nodes:
-1. Add nodes to your list of `local_peers`
 {% endhint %}
 
 The number of SHA256 iterations (aka VDF difficulty) required to compute a single VDF step is continually adjusted by the Arweave network in order to target a 1-second step time. You can query the current VDF difficulty by looking at the `nonce_limiter_info.vdf_difficuly` field of the latest Arweave block (i.e. https://arweave.net/block/current). As of block height 1798684 the `vdf_difficulty` is 1,107,523 - meaning each VDF step requires 1,107,523 recursive SHA256 hashes.
