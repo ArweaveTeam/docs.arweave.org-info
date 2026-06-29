@@ -30,8 +30,9 @@ previous / following / uncle reconstruction.
 | Module                     | Role                                                                                                                          |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | **`ar_account_tree`**      | gen_server **manager** of the **account tree** — the single, serialized point of access. Owns the ETS table (the **sink**) and the **diff DAG**, and drives every operation on it: moving the sink, applying / reversing **diffs**, and persisting         |
-| **`ar_patricia_tree_ets`** | the ETS **patricia tree** that backs the **sink**: a single mutable ETS table holding one full tree, mutated in place to represent whichever block's tree the sink currently points at             |
-| **`ar_patricia_tree`**     | the immutable map-based **patricia tree**, used where a standalone tree is needed (genesis, peer download, JSON serialization, disk reads) |
+| **`ar_patricia_tree_core`** | the shared **patricia tree** algorithm (insert / get / delete / hash / iterate), parameterized by a storage backend — the two variants below just supply storage and delegate here |
+| **`ar_patricia_tree_ets`** | the ETS storage backend that backs the **sink**: a single mutable ETS table holding one full tree, mutated in place to represent whichever block's tree the sink currently points at             |
+| **`ar_patricia_tree`** | the immutable, map-based storage backend, used where a standalone tree is needed (genesis, peer download, JSON serialization, disk reads) |
 | **`ar_diff_dag`**          | the **diff DAG**: stores the **diffs** as edge labels and the **sink** pointer (the `Sink` element)                             |
 
 
@@ -133,7 +134,8 @@ contents; the hashes bubble up to the root — the block's `wallet_list`:
 ```
 
 The whole trie lives in one mutable ETS table (`ar_patricia_tree_ets`) or one
-immutable map (`ar_patricia_tree`).
+immutable map (`ar_patricia_tree`) — both driven by the shared algorithm in
+`ar_patricia_tree_core`.
 
 ---
 
