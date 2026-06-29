@@ -51,6 +51,7 @@
 - [Automated Tests](development/automated-tests.md)
 - [Debugging](development/debugging.md)
 - [Running You Own Localnet](development/localnet.md)
+- [Account Tree](development/account-tree.md)
 
 ## Arweave Node Server
 
