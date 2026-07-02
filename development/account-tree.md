@@ -36,7 +36,7 @@ previous / following / uncle reconstruction.
 | **`ar_diff_dag`**          | the **diff DAG**: stores the **diffs** as edge labels and the **sink** pointer (the `Sink` element)                             |
 
 
-> **"wallet" naming:** `ar_wallet` (keypair / address / signing utilities) is *upstream* of all this — it mints the addresses that key the account tree, then steps out; it isn't one of the data structures here. `B#block.wallet_list` is the legacy field name for the account-tree **root hash**.
+> **"wallet" naming:** `ar_wallet` manages cryptographic wallets (generates keypairs, translates public keys to wallet addresses, verifies signatures) and is not directly related to the account management. The connection is wallet addresses are keys in the account tree and they are produced from public keys via `ar_wallet:to_address` functions. For example, `ar_wallet:to_address(TX#tx.owner)` returns the address the transaction takes funds from. Note that a transaction can send AR to any 32-byte target, which ends up as a key in the account tree, but may not in fact have an actual cryptographic wallet behind it. Also, the protocol used to allow shorter target values in the past so the account tree has an entry for the `<<>>` (empty binary) key.  `B#block.wallet_list` is the legacy field name for the account-tree **root hash**.
 
 ### Why a patricia trie?
 
