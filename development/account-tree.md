@@ -51,7 +51,7 @@ size.
 **2. Canonical root.** Every node must derive the identical root for the same
 account set, regardless of the order updates arrived in. A patricia trie is
 canonical by construction — its shape is a pure function of the keys present
-(`order_independence_test_` pins this down).
+(`ar_patricia_tree_ets_tests:order_independence_test_` tests this).
 
 **The naive alternative — a sorted-leaf Merkle tree — gives (2) but not (1).**
 Sort the accounts by id and hash them up a balanced binary tree. The sort is
