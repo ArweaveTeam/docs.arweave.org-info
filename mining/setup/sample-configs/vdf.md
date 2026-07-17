@@ -19,59 +19,48 @@ description: >-
   - `5.6.7.8:1985`
   - `node.example.com`
 - Run your VDF server with:
-  - `vdf_client_peer` flags to restrict which nodes can query your server's VDF
-  - `vdf hiopt_m4` to enable a VDF algorithm optimized for the M4 processor
-  - `local_peer` set to include the nodes you provide vdf for
+  - `peers.vdf_client` set to restrict which nodes can query your server's VDF
+  - `vdf.algorithm: hiopt_m4` to enable a VDF algorithm optimized for the M4 processor
+  - `peers.local` set to include the nodes you provide vdf for
 - Run your nodes with:
-  - `local_peer` set to include the VDF node address
+  - `peers.local` set to include the VDF node address
 
 # 2. Sample Directory Structure
 
 - `data_dir`: `/opt/data`
 - Storage module symlinks: None
 
-# 3. Sample Command-line Configuration
+# 3. Sample Launch Command
 
-```
-./bin/start \
-    enable randomx_large_pages \
-    peer peers.arweave.xyz \
-    data_dir /opt/data \
-    transaction_blacklist_url https://public_shepherd.arweave.net \
-    vdf hiopt_m4 \
-    vdf_client_peer 1.2.3.4 \
-    vdf_client_peer 5.6.7.8 \
-    vdf_client_peer 5.6.7.8:1985 \
-    vdf_client_peer node.example.com \
-    local_peer 1.2.3.4 \
-    local_peer 5.6.7.8 \
-    local_peer 5.6.7.8:1985 \
-    local_peer node.example.com
+Launch your VDF server with the configuration file shown in the next section:
+
+```sh
+./bin/start --config_file /opt/arweave/config.yaml
 ```
 
-# 4. Sample Configuration File (config.json)
+# 4. Sample Configuration File (config.yaml)
 
-```
-{
-    "enable": [ "randomx_large_pages" ],
-    "peers": [ "peers.arweave.xyz" ],
-    "data_dir": "/opt/data",
-    "transaction_blacklist_urls": [ "https://public_shepherd.arweave.net" ],
-
-    "vdf": "hiopt_m4",
-
-    "vdf_client_peers": [
-        "1.2.3.4",
-        "5.6.7.8",
-        "5.6.7.8:1985",
-        "node.example.com"
-    ],
-
-     "local_peers": [
-        "1.2.3.4",
-        "5.6.7.8",
-        "5.6.7.8:1985",
-        "node.example.com"
-    ]
-}
+```yaml
+data_dir: /opt/data
+peers:
+  trusted:
+    - peers.arweave.xyz
+  vdf_client:
+    - 1.2.3.4
+    - 5.6.7.8
+    - 5.6.7.8:1985
+    - node.example.com
+  local:
+    - 1.2.3.4
+    - 5.6.7.8
+    - 5.6.7.8:1985
+    - node.example.com
+randomx:
+  large_pages: true
+vdf:
+  algorithm: hiopt_m4
+transactions:
+  blocklist:
+    urls:
+      - "https://public_shepherd.arweave.net"
 ```

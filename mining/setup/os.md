@@ -55,4 +55,4 @@ The output of `cat /proc/meminfo | grep HugePages` should then look like this:\
 
 If it does not or if there is a "erl_drv_rwlock_destroy" error on startup, reboot the machine.
 
-Finally, tell the miner it can use large pages by specifying `enable randomx_large_pages` on startup (you can find a complete startup example further in the guide).
+Finally, tell the miner it can use large pages by specifying `--randomx.large_pages` on startup (you can find a complete startup example further in the guide).

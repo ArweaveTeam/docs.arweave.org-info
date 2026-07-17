@@ -14,8 +14,9 @@ from which to download the missing data.
 
 # 2. Packing
 
-Storage modules can be either "unpacked" (e.g. `storage_module 16,unpacked`) or "packed"
-(e.g. `storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`). Before you can mine
+Storage modules can be either "unpacked" (e.g. a `storage_modules` entry of
+`{partition: 16, packing_format: unpacked}`) or "packed"
+(e.g. `{partition: 16, packing_format: replica_2_9, packing_address: "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"}`). Before you can mine
 data it must be packed to your mining address. There are two symmetric operations that
 fall under the "packing" umbrella:
 
@@ -47,7 +48,7 @@ format or address and then store it back in the same storage module. Your node w
 through your storage module, read chunks, repack them, and then write them back to the same
 storage module.
 
-See [Running Your Node](../setup/configuration.md) for a sample configurations of each packing type.
+See [Running Your Node](../setup/running.md) for a sample configurations of each packing type.
 
 ## 2.2 Replica 2.9 Entropy Generation
 
@@ -60,7 +61,7 @@ broken into 2 steps:
 Currently the recommended approach when using "Sync and Pack" or
 "Cross Module Repack" is to first generate entropy for an entire partition, and then pack data
 for it. This is not possible with "Repack In Place" so no special handling is needed for it.
-See [Running Your Node](../setup/configuration.md) for for guidance on how to do this.
+See [Running Your Node](../setup/running.md) for for guidance on how to do this.
 
 # 3. Storage Module Data Format
 

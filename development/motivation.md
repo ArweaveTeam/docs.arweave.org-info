@@ -1,12 +1,12 @@
 # The Vision
 
-Imagine a world where information cannot be lost, censored, or controlled by any single entity. Where creators truly own their content, developers build on a shared data commons, and human knowledge is preserved for generations to come. This is the mission of Arweave — permanent, decentralized data storage that can serve as the foundation for an open internet.
+Imagine a world where information cannot be lost, censored, or controlled by any single entity. Where creators truly own their content, developers build on a shared data commons, and human knowledge is preserved for generations to come. This is the mission of Arweave - permanent, decentralized data storage that can serve as the foundation for an open internet.
 
 The Arweave promise: pay once, store forever, own it permanently.
 
 # The Ecosystem
 
-The Arweave ecosystem is broader than the base network — it includes gateways (that offer indexing, search, seeding, caching), bundlers (scale uploads), and compute layers like [AO](https://ao.arweave.net/). The Arweave node is a fundamental building block that provides permanence and consensus, while adjacent services provide distribution, discovery, and higher-level UX.
+The Arweave ecosystem is broader than the base network - it includes gateways (that offer indexing, search, seeding, caching), bundlers (scale uploads), and compute layers like [AO](https://ao.arweave.net/). The Arweave node is a fundamental building block that provides permanence and consensus, while adjacent services provide distribution, discovery, and higher-level UX.
 
 Responsibilities of an Arweave node:
 

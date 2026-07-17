@@ -98,7 +98,7 @@ The `"current"` field stores the hash of the tip block - we can see the nodes ar
 
 #### Joining the Network
 
-Instead, we want them to be in the same network. We can use `ar_test_node:join_on/1` to make one node join the network from the other. This is what usually happens on mainnet when we run `./bin/start peer ...`
+Instead, we want them to be in the same network. We can use `ar_test_node:join_on/1` to make one node join the network from the other. This is what usually happens on mainnet when we run `./bin/start --peers.trusted ...`
 
 ```sh
 (main-localtest@127.0.0.1)10> ar_test_node:join_on(#{ node => peer1, join_on => main }).

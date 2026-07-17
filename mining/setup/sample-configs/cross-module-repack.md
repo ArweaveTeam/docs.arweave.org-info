@@ -20,9 +20,9 @@ description: >-
 - You'll use one of the DHA-provided public VDF servers
 - You'll use the publicly available NSFW filter provided by Shepherd
 - Run your miner with:
-  -  `sync_jobs 0` to prevent it from trying to sync while you repack
-  - each `storage_module` defined twice, once as `unpacked` and once as `En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
-- See [Running Your Node](../configuration.md) for more information
+  - `sync.jobs: 0` to prevent it from trying to sync while you repack
+  - each partition listed twice under `storage_modules`, once with `packing_format: unpacked` and once with `packing_format: replica_2_9` and your packing address
+- See [Running Your Node](../running.md) for more information
 
 # 2. Sample Directory Structure
 
@@ -43,50 +43,52 @@ description: >-
     - `/opt/data/storage_modules/storage_module_2_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9` ->  `/mnt/c/storage_module_2_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
     - `/opt/data/storage_modules/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9` ->  `/mnt/d/storage_module_3_En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
 
-# 3.Sample Command-line Configuration
+# 3. Sample Launch Command
 
-```
-./bin/start \
-    enable randomx_large_pages \
-    peer peers.arweave.xyz \
-    data_dir /opt/data \
-    sync_jobs 0 \
-    vdf_server_trusted_peer vdf-server-3.arweave.xyz \
-    transaction_blacklist_url https://public_shepherd.arweave.net \
-    mining_addr En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
-    storage_module 0,unpacked \
-    storage_module 0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
-    storage_module 1,unpacked \
-    storage_module 1,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
-    storage_module 2,unpacked \
-    storage_module 2,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 \
-    storage_module 3,unpacked \
-    storage_module 3,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9 
+Launch your node with the configuration file shown in the next section:
+
+```sh
+./bin/start --config_file /opt/arweave/config.yaml
 ```
 
-4. Sample Configuration File (config.json)
+# 4. Sample Configuration File (config.yaml)
 
-```
-{
-    "enable": [ "randomx_large_pages" ],
-    "peers": [ "peers.arweave.xyz" ],
-    "data_dir": "/opt/data",
-    "vdf_server_trusted_peers": [ "vdf-server-3.arweave.xyz" ],
-    "transaction_blacklist_urls": [ "https://public_shepherd.arweave.net" ],
-
-    "storage_modules": [
-        "0,unpacked",
-        "0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9",
-        "1,unpacked",
-        "1,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9",
-        "2,unpacked",
-        "2,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9",
-        "3,unpacked",
-        "3,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9"
-    ],
-     
-    "mining_addr": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI",
-
-    "sync_jobs": 0
-}
+```yaml
+data_dir: /opt/data
+peers:
+  trusted:
+    - peers.arweave.xyz
+  vdf_server:
+    - vdf-server-3.arweave.xyz
+randomx:
+  large_pages: true
+mining:
+  address: "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
+sync:
+  jobs: 0
+transactions:
+  blocklist:
+    urls:
+      - "https://public_shepherd.arweave.net"
+storage_modules:
+  - partition: 0
+    packing_format: unpacked
+  - partition: 0
+    packing_format: replica_2_9
+    packing_address: "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
+  - partition: 1
+    packing_format: unpacked
+  - partition: 1
+    packing_format: replica_2_9
+    packing_address: "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
+  - partition: 2
+    packing_format: unpacked
+  - partition: 2
+    packing_format: replica_2_9
+    packing_address: "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
+  - partition: 3
+    packing_format: unpacked
+  - partition: 3
+    packing_format: replica_2_9
+    packing_address: "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
 ```

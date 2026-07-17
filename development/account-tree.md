@@ -30,7 +30,7 @@ reconstruction of the previous, following, and uncle representations.
 | Module                     | Role                                                                                                                          |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | **`ar_account_tree`**      | gen_server manager of the account tree, the single serialized point of access. Owns the ETS table that holds the sink and owns the diff DAG, and drives every operation on them: moving the sink, applying and reversing diffs, and persisting         |
-| **`ar_patricia_tree_core`** | the shared patricia tree algorithm — insert, get, delete, hash, iterate — parameterized by a storage backend. The two variants below supply storage and delegate here |
+| **`ar_patricia_tree_core`** | the shared patricia tree algorithm - insert, get, delete, hash, iterate - parameterized by a storage backend. The two variants below supply storage and delegate here |
 | **`ar_patricia_tree_ets`** | the ETS storage backend that backs the sink: a single mutable ETS table holding one full tree, mutated in place to represent whichever block's tree the sink currently points at             |
 | **`ar_patricia_tree`** | the immutable, map-based storage backend, used where a standalone tree is needed: genesis, peer download, JSON serialization, disk reads |
 | **`ar_diff_dag`**          | the diff DAG: stores the diffs as edge labels and the sink pointer                             |

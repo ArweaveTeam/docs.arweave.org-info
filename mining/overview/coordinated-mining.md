@@ -19,36 +19,38 @@ All nodes in the cluster share the same mining address. Each Miner generates H1 
 
 # 3. VDF Forwarding
 
-When using Coordinated Mining (CM), it is beneficial to keep your VDF steps relatively synchronized. To achieve this, there is an optional VDF forwarder function that can be used. On the CM exit node, you should set the flag `vdf_server_trusted_peer IP:Port` to designate the [VDF Server](vdf.md) to use for your cluster.
+When using Coordinated Mining (CM), it is beneficial to keep your VDF steps relatively synchronized. To achieve this, there is an optional VDF forwarder function that can be used. On the CM exit node, you should set `peers.vdf_server` to designate the [VDF Server](vdf.md) to use for your cluster.
 
-In addition to this flag, you must specify each peer to which you wish to send VDF steps by using the `vdf_client_peer IP:Port` flag for each client server. While employing this feature is not strictly required, it significantly enhances the stability of your systems.
+In addition to this option, you must specify each peer to which you wish to send VDF steps by listing them in the `peers.vdf_client` option. While employing this feature is not strictly required, it significantly enhances the stability of your systems.
 
-On the client servers, you would use the `vdf_server_trusted_peer <Exit Node IP>:<port>` flag to specify the IP:Port of your VDF forwarder.
+On the client servers, you would set `peers.vdf_server` to `<Exit Node IP>:<port>` to specify the IP:Port of your VDF forwarder.
 
-# 4. Coordinated Mining Start Flags
+# 4. Coordinated Mining Options
 
-- `coordinated_mining`:  Enables coordinated mining mode
-- `local_peer IP:Port`: Registers a node as a local peer which disables rate limiting
-  - While this is not specifically a CM command, it corrects an edge case which may cause rate limiting between CM cluster members. This is useful for all nodes you operate
-- `cm_peer IP:Port`:  Registers a node as a CM peer and allow sharing H1 and H2 hashes between them
-  - Each peer will have to include this flag for each other node in the cluster
-- `cm_api_secret your_secret_12_char_string`: This is the password for your CM cluster, each node must have the same password
-- `cm_exit_peer IP:Port`: This flag must be included on all nodes except for the exit peer
-  - When this flag is included, it directs all solutions to be sent to this exit node
-  - When this flag is not included, that single node will be responsible for publishing blocks
-- `cm_out_batch_timeout 10`: This is the only optional cm flag
+Options that take a list of peers (`peers.local`, `peers.cm_peer`, `peers.vdf_client`) are best set in a config file - a CLI flag only accepts a single value.
+
+- `cm.enabled`:  Enables coordinated mining mode
+- `peers.local` (list of `IP:Port`): Registers nodes as local peers which disables rate limiting
+  - While this is not specifically a CM option, it corrects an edge case which may cause rate limiting between CM cluster members. This is useful for all nodes you operate
+- `peers.cm_peer` (list of `IP:Port`):  Registers nodes as CM peers and allow sharing H1 and H2 hashes between them
+  - Each peer will have to list every other node in the cluster
+- `cm.api_secret your_secret_12_char_string`: This is the password for your CM cluster, each node must have the same password
+- `peers.cm_exit IP:Port`: This option must be included on all nodes except for the exit peer
+  - When this option is included, it directs all solutions to be sent to this exit node
+  - When this option is not included, that single node will be responsible for publishing blocks
+- `cm.out_batch_timeout 10`: This is the only optional cm option
   - Frequency in ms that a node will send out H1 hashes to the CM peers
   - Default is 20ms
   - A higher value will result in less network usage, but higher hash latency
   - A lower value will result in more network usage, but lower hash latency
-- `mining_addr <your_mining_address>`: All nodes in the CM cluster must have the same mining address
-- `vdf_server_trusted_peer IP:Port`: This flag can be used in two ways
+- `mining.address <your_mining_address>`: All nodes in the CM cluster must have the same mining address
+- `peers.vdf_server` (list of `IP:Port`): This option can be used in two ways
   - On the exit node to connect to an external VDF server, such as the Arweave team VDF servers
   - On the CM client nodes to connect to either the VDF forwarder, or a dedicated internal VDF server
-  - This flag is used to connect to external VDF servers to receive their VDF steps
-- `vdf_client_peer IP:Port`: 
-  - This flag must only be included on the exit node or a designated internal VDF server
-  - This flag tells the exit node / VDF forwarder to send the VDF steps that it received (or generated) to the clients listed by IP:Port
+  - This option is used to connect to external VDF servers to receive their VDF steps
+- `peers.vdf_client` (list of `IP:Port`): 
+  - This option must only be included on the exit node or a designated internal VDF server
+  - This option tells the exit node / VDF forwarder to send the VDF steps that it received (or generated) to the clients listed by IP:Port
 
 # 5. Example Configuration
 
@@ -60,7 +62,7 @@ See [Mining Performance Report](../operations/mining-report.md)
 
 # 7. Troubleshooting
 
-Coordinated mining operates effectively when all suggested flags above are used. This ensures your nodes remain synchronized and operational. Typically, the only reported errors are connectivity issues and discrepancies in the "Hash (Ideal)" values on the mining screens.
+Coordinated mining operates effectively when all suggested options above are used. This ensures your nodes remain synchronized and operational. Typically, the only reported errors are connectivity issues and discrepancies in the "Hash (Ideal)" values on the mining screens.
 
 The output screen below displays your CM statistics. The values will scale with the number of partitions each node is mining. If you observe zeros in any column (other than H2 in/out), it indicates an improper connection between your nodes. This could be due to a network issue or a misconfiguration in the start command.
 
