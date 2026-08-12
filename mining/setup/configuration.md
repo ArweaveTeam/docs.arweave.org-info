@@ -97,7 +97,7 @@ Every option can also be set as a long flag: the option's dotted path prefixed w
 * Values follow the flag: `--port 1985`, or use the `=` form: `--port=1985`.
 * Boolean options can be given as a bare flag (`--mining.enabled` means `true`) or with an explicit value (`--mining.enabled false`).
 * Flags set scalar values: booleans, numbers, strings, and single peers (a lone `--peers.trusted 188.166.200.45` becomes a one-element list).
-* A flag value that starts with `[` or `{` is parsed as JSON, so lists and structured options can also be set on the command line - wrap the value in single quotes so the shell passes it through intact:
+* A flag value that starts with `[` or `{` is parsed as JSON - the same value format [`config set`](dynamic-configuration.md#31-list-options) accepts - so lists and structured options can also be set on the command line. Wrap the value in single quotes so the shell passes it through intact:
 
 ```sh
 ./bin/start \

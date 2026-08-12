@@ -36,18 +36,39 @@ arweave node, this script is equivalent to:
 ./bin/arweave foreground ${parameters}
 ```
 
-The parameters are the node's configuration: `--long` flags named
-after dotted option keys, usually combined with a `--config_file`
-pointing at a JSON or YAML config file. Options can also be set with
-`AR_*` environment variables. For example:
+The parameters are the node's configuration. There are several ways to pass it:
+
+1. `--long` flags named after dotted option keys:
+
+```sh
+./bin/arweave foreground --data_dir /opt/data --mining.enabled \
+    --mining.address En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
+```
+
+2. `--config_file` pointing at a JSON or YAML config file:
 
 ```sh
 ./bin/arweave foreground --config_file /opt/arweave/config.yaml
+```
 
-./bin/arweave foreground --data_dir /opt/data --mining.enabled \
-    --mining.address En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
+3. `AR_*` environment variables. The variable name follows mechanically
+from the dotted option key: `mining.enabled` becomes
+`AR_MINING_ENABLED`:
 
-AR_CONFIG_FILE=/opt/arweave/config.yaml AR_PORT=1985 ./bin/arweave foreground
+```sh
+AR_DATA_DIR=/opt/data AR_MINING_ENABLED=true ./bin/arweave foreground
+```
+
+4. Any combination of the above. When the same option is set more than
+one way, command-line flags override environment variables, and both
+override the config file (see
+[Precedence](../setup/configuration.md#4-precedence)). For example, a
+config file for the bulk of the configuration plus individual
+overrides:
+
+```sh
+AR_PORT=1985 ./bin/arweave foreground \
+    --config_file /opt/arweave/config.yaml --mining.enabled
 ```
 
 See [Configuring Your Node](../setup/configuration.md) for the config

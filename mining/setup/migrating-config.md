@@ -80,7 +80,7 @@ transactions:
       - "https://public_shepherd.arweave.net"
 ```
 
-There is no mechanical rule for mapping a legacy option name to its current key - options were renamed and regrouped case by case. To look up any mapping, use `./bin/arweave config help <group>` (see [Configuring Your Node](configuration.md#5-discovering-options)): every option that replaces a legacy option lists the legacy name on a `legacy:` line. For example:
+There is no mechanical rule for mapping a legacy option name to its current key - options were renamed and regrouped case by case. To look up any mapping, use `./bin/arweave config help <group>` (see [Configuring Your Node](configuration.md#5-configuration-help)): every option that replaces a legacy option lists the legacy name on a `legacy:` line. For example:
 
 ```
 $ ./bin/arweave config help mining
@@ -153,7 +153,7 @@ If you configure your node on the command line rather than in a file, translate 
     --mining.address En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
 ```
 
-For list-heavy configurations, move the configuration into a YAML or JSON file. Lists and structured options such as storage modules *can* be passed as a single-quoted JSON value (`--peers.trusted '["a:1984", "b:1984"]'` - a repeated flag doesn't accumulate, the last occurrence wins), but a file is easier to read and maintain.
+For list-heavy configurations, move the configuration into a YAML or JSON file. Lists and structured options such as storage modules *can* be passed as a single-quoted JSON value (`--peers.trusted '["a:1984", "b:1984"]'` - a repeated flag doesn't accumulate, the last occurrence wins; see [Command-line Flags](configuration.md#3-command-line-flags)), but a file is easier to read and maintain.
 
 # 3. Gotchas
 

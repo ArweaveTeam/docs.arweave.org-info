@@ -43,7 +43,13 @@ Launch your node with the configuration file shown in the next section:
 ./bin/start --config_file /opt/arweave/config.yaml
 ```
 
-## 4. Sample Configuration File (config.yaml)
+## 4. Sample Configuration
+
+The same configuration in YAML, JSON, and command-line form:
+
+{% tabs %}
+{% tab title="YAML" %}
+`/opt/arweave/config.yaml`:
 
 ```yaml
 data_dir: /opt/data
@@ -87,3 +93,65 @@ storage_modules:
     packing_format: replica_2_9
     packing_address: "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
 ```
+{% endtab %}
+
+{% tab title="JSON" %}
+`/opt/arweave/config.json`:
+
+```json
+{
+    "data_dir": "/opt/data",
+    "peers": {
+        "trusted": ["peers.arweave.xyz"],
+        "vdf_server": ["vdf-server-3.arweave.xyz"]
+    },
+    "randomx": {
+        "large_pages": true
+    },
+    "mining": {
+        "enabled": true,
+        "address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
+    },
+    "transactions": {
+        "blocklist": {
+            "urls": ["https://public_shepherd.arweave.net"]
+        }
+    },
+    "storage_modules": [
+        { "partition": 0, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI" },
+        { "partition": 1, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI" },
+        { "partition": 2, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI" },
+        { "partition": 3, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI" },
+        { "partition": 4, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI" },
+        { "partition": 5, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI" },
+        { "partition": 6, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI" },
+        { "partition": 7, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI" }
+    ]
+}
+```
+{% endtab %}
+
+{% tab title="CLI" %}
+With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.6 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
+
+```sh
+./bin/start \
+    --data_dir /opt/data \
+    --peers.trusted '["peers.arweave.xyz"]' \
+    --peers.vdf_server '["vdf-server-3.arweave.xyz"]' \
+    --randomx.large_pages \
+    --mining.enabled \
+    --mining.address En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
+    --transactions.blocklist.urls '["https://public_shepherd.arweave.net"]' \
+    --storage_modules '[
+        {"partition": 0, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"},
+        {"partition": 1, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"},
+        {"partition": 2, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"},
+        {"partition": 3, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"},
+        {"partition": 4, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"},
+        {"partition": 5, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"},
+        {"partition": 6, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"},
+        {"partition": 7, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"}]'
+```
+{% endtab %}
+{% endtabs %}

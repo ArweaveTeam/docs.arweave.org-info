@@ -3,11 +3,13 @@ description: >-
   A guide to running your node for different purposes
 ---
 
-This guide walks through launching your node and the main operating phases for different [node types](../overview/node-types.md), with example configurations you can adapt as needed. For how to set configuration options (config file, environment variables, command-line flags), see [Configuring Your Node](configuration.md).
+This guide walks through launching your node and the main operating phases for different [node types](../overview/node-types.md), with example configurations you can adapt as needed. For how to set configuration options - in a [config file](configuration.md#2-the-configuration-file), as [environment variables](environment-variables.md), or as [command-line flags](configuration.md#3-command-line-flags) - see [Configuring Your Node](configuration.md).
 
 # 1. Run-script
 
 We recommend using the `./bin/start` wrapper script to run your node. This script wraps the core [Arweave entrypoint](../operations/entrypoint.md) with naive auto-restart functionality. If your node crashes, `./bin/start` will wait 15 seconds and then restart it with the same configuration.
+
+`./bin/start` takes the same parameters as the entrypoint: `--long` configuration flags, usually including a `--config_file`. Any `AR_*` [environment variables](environment-variables.md) set in the shell also apply to the launch.
 
 {% hint style="warning" %}
 Avoid killing the arweave process if at all possible. I.e. **don't** do `kill -9 arweave` or `kill -9 beam` or `kill -9 erl`. To stop the arweave process, use `./bin/stop` and then wait for as long as you can for the node to shutdown gracefully. Sometimes if can take a while for the node to shutdown, which we realize is frustrating, but if you kill the node abruptly it can cause `rocksdb` corruption that can be difficult to recover from. In the worst case you may need to resync and repack a partition. If you can't wait, we recommend using `kill -1` rather thank `kill -9`.
