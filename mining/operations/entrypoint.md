@@ -36,6 +36,46 @@ arweave node, this script is equivalent to:
 ./bin/arweave foreground ${parameters}
 ```
 
+The parameters are the node's configuration. There are several ways to pass it:
+
+1. `--long` flags named after dotted option keys:
+
+```sh
+./bin/arweave foreground --data_dir /opt/data --mining.enabled \
+    --mining.address En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
+```
+
+2. `--config_file` pointing at a JSON or YAML config file:
+
+```sh
+./bin/arweave foreground --config_file /opt/arweave/config.yaml
+```
+
+3. `AR_*` environment variables. The variable name follows mechanically
+from the dotted option key: `mining.enabled` becomes
+`AR_MINING_ENABLED`:
+
+```sh
+AR_DATA_DIR=/opt/data AR_MINING_ENABLED=true ./bin/arweave foreground
+```
+
+4. Any combination of the above. When the same option is set more than
+one way, command-line flags override environment variables, and both
+override the config file (see
+[Precedence](../setup/configuration.md#4-precedence)). For example, a
+config file for the bulk of the configuration plus individual
+overrides:
+
+```sh
+AR_PORT=1985 ./bin/arweave foreground \
+    --config_file /opt/arweave/config.yaml --mining.enabled
+```
+
+See [Configuring Your Node](../setup/configuration.md) for the config
+file syntax and precedence rules, and
+[Environment Variables](../setup/environment-variables.md) for the
+`AR_*` naming convention.
+
 To have access to Arweave output directly from the terminal (without
 the Erlang console) the following command can be used. It could be
 used with any process manager like `systemd`, because the VM will not
@@ -119,7 +159,50 @@ It can take some time for the node to shutdown. If you can, it is best to wait f
 Sending a SIGKILL (`kill -9`) is **not** recommended as it can cause data corruption.
 {% endhint %}
 
-# 6. Custom Erlang VM Arguments
+# 6. Manage Configuration
+
+The `config` subcommand groups the configuration tools.
+
+To print the built-in option reference - the canonical list of every
+option, its default, and whether it can be changed at runtime:
+
+```sh
+./bin/arweave config help
+./bin/arweave config help mining
+```
+
+To read or change configuration values on a **running** node:
+
+```sh
+./bin/arweave config get sync.jobs
+./bin/arweave config set sync.jobs 50
+```
+
+`config get` and `config set` connect to the local node, so run them
+from the node's install directory as the node's user (and with the
+same `ARNODE` / `ARCOOKIE` values, if you set them). Only
+runtime-writable options accept `set` on a live node - these are
+marked with a `*` in the top-level `config help` listing and with
+`runtime: true` in the group help. See
+[Dynamic Configuration](../setup/dynamic-configuration.md) for
+details.
+
+# 7. Convert a Legacy Config File
+
+`convert_config` converts a legacy (pre-2.9.6) `config.json` into the
+current JSON or YAML configuration format:
+
+```sh
+./bin/arweave convert_config <json|yaml> <InputFile> <OutputFile>
+
+# For example:
+./bin/arweave convert_config yaml config.json config.yaml
+```
+
+See [Migrating Your Configuration](../setup/migrating-config.md) for
+a worked example and migration gotchas.
+
+# 8. Custom Erlang VM Arguments
 
 The first - and easiest - method is to pass the new argument directly
 from the command line, all arguments before `--` will be used to
@@ -128,7 +211,7 @@ after `--` will be used for Arweave.
 
 Example:
 ```sh
-./bin/start +MMscs 131072 +S 16:16 -- config_file config.json
+./bin/start +MMscs 131072 +S 16:16 -- --config_file config.yaml
 ```
 
 The second method is to modify the

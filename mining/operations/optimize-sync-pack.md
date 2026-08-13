@@ -6,7 +6,7 @@ description: Tips for optimizing the sync and pack process
 
 ## 1. Overview
 
-**Most important performance tip:** Do not mine while you pack. The two processes are both resource intensive and will slow each other down. (i.e. omit the `mine` flag from your configuration) If you've already removed the `mine` flag, continue on below for more optimization tips.
+**Most important performance tip:** Do not mine while you pack. The two processes are both resource intensive and will slow each other down. (i.e. omit the `--mining.enabled` flag from your configuration) If you've already removed the `--mining.enabled` flag, continue on below for more optimization tips.
 
 There are 3 primary bottlenecks when syncing and packing:
 
@@ -48,21 +48,21 @@ The RAM guidelines mentioned in the [Guide](https://github.com/ArweaveTeam/docs.
 
 Okay, so you've reviewed your bottlenecks and determined that **none** of them are at capacity. Here are some tips to increase syncing and packing speed.
 
-### 6.1 sync\_jobs
+### 6.1 sync.jobs
 
-The `sync_jobs` flag controls the number of concurrent requests your node will make to peers to download data. The default is `100`. Increasing this number should increase your utilization of all resources: the amount of data you pull from peers (network bandwidth), the number of chunks you're packing (CPU), and the volume of data written to disk (disk IO).
+The `sync.jobs` option controls the number of concurrent requests your node will make to peers to download data. The default is `100`. Increasing this number should increase your utilization of all resources: the amount of data you pull from peers (network bandwidth), the number of chunks you're packing (CPU), and the volume of data written to disk (disk IO).
 
 However, it is possible to increase this number **too much**. This can:
 
 1. Cause your node to be rate-limited / throttled by peers and ultimately decrease your bandwidth utilization.
 2. Increase your RAM utilization due to backed up sync jobs. This is particularly common if your miner has a poor network connection (e.g. high latency or data loss). Increasing the volume of slow/hanging requests can cause a backup which eventually leads to an out of memory error.
 
-Setting `sync_jobs` to `200` or even `400` is unlikely to cause any issues. But before you increase it even further our recommendation is to first confirm:
+Setting `sync.jobs` to `200` or even `400` is unlikely to cause any issues. But before you increase it even further our recommendation is to first confirm:
 
 1. Your CPU and network bandwidths are below capacity
 2. Your network connectivity is good (e.g. using tools like `mtr` to track packet loss)
 
-### 6.2 storage\_module
+### 6.2 storage\_modules
 
 As mentioned above under [Increasing Disk Write Speed](optimize-sync-pack.md#4-increasing-disk-write-speed) syncing to all your storage modules at once will maximize your available disk write bandwidth. The same applied to network bandwidth. Adding more storage modules when syncing increases the set of peers you can pull data from (as different peers share different parts of the weave data). This will help your node maximize its network bandwidth by pulling from the "best" set of peers available at a given time.
 
@@ -72,8 +72,25 @@ If you configure your node to repack from one local storage module to another th
 
 This is not a problem. It simply means your node will max out its CPU doing local repacks before it begins searching for peers to download more data from. If you'd rather focus on syncing, just make sure to configure your node without any repacking. Two examples of configurations that will cause local repacking:
 
-1. `storage_module 9,unpacked storage_module 9,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
-2. `storage_module 16,Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY.replica.2.9 storage_module 16,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9`
+1. Two storage modules covering the same partition with different packing formats:
+   ```yaml
+   storage_modules:
+     - partition: 9
+       packing_format: unpacked
+     - partition: 9
+       packing_format: replica_2_9
+       packing_address: En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
+   ```
+2. Two storage modules covering the same partition packed to different addresses:
+   ```yaml
+   storage_modules:
+     - partition: 16
+       packing_format: replica_2_9
+       packing_address: Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY
+     - partition: 16
+       packing_format: replica_2_9
+       packing_address: En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
+   ```
 
 **Note:** As mentioned in [Syncing & Packing](../overview/syncing-and-packing.md#2-packing), whenever you sync data - even if you are syncing to `unpacked` - you will likely have to perform at least one packing operation.
 
@@ -82,8 +99,8 @@ This is not a problem. It simply means your node will max out its CPU doing loca
 If you intend to build more than 1 packed full replica, the following approach should get you there fastest:
 
 1. Download all the data to `unpacked` storage modules
-2. Build each packed replica using [Cross-Module Repacking](../setup/configuration.md#21-cross-module-repack) from your `unpacked` storage modules
-3. You can either keep the `unpacked` data around for later, or, you can do a [Repack-in-Place](../setup/configuration.md#22-repack-in-place) when building your final packed replica.
+2. Build each packed replica using [Cross-Module Repacking](../setup/running.md#41-cross-module-repack) from your `unpacked` storage modules
+3. You can either keep the `unpacked` data around for later, or, you can do a [Repack-in-Place](../setup/running.md#42-repack-in-place) when building your final packed replica.
 
 This approach will reduce your download time (since you only have to download the data once) and reduce the number of packing operations (since you only have to unpack peer data once).
 

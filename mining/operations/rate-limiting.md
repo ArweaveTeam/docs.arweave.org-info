@@ -3,9 +3,9 @@ description: >-
   A guide to server-side rate-limiting
 ---
 
->
-> This page documents a change introduced in version **2.9.6-alpha1**
-> 
+{% hint style="info" %}
+This feature is available from Arweave **2.9.6**.
+{% endhint %}
 
 # 1. Rate limiter
 
@@ -13,7 +13,7 @@ To regulate resource use, the arweave node implements rate limiting groups on HT
 
 Each group can be independently configured to fit different load profiles.
 
-A list of local nodes in exempt from the rate limiting logic. This list with the peers addresses can be provided in the configuration.
+Peers listed in the `peers.local` configuration option are exempt from the rate limiting logic.
 
 ## 1.1 Purpose
 
@@ -56,51 +56,77 @@ Once the leaky bucket tokens are exhausted (limit is reached) the request will b
 - get_vdf_session
 - get_previous_vdf_session
 - metrics
+- local_peers
+
+The `local_peers` group applies to every request coming from a peer listed in `peers.local`. It has `no_limit: true` by default, so those peers bypass rate limiting.
 
 ## 2.2 Config parameters
 
-| Name                                                         | Type    | Default Value                                                                 | Description                                                                                          |
-|--------------------------------------------------------------|---------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| http_api.limiter.<group_id>.sliding_window_limit             | Number  | 0                                                                             | Amount of requests allowed in Sliding Window limiter                                                 |
-| http_api.limiter.<group_id>.sliding_window_duration          | Number  | 1000                                                                          | Sliding Window interval length in milliseconds                                                       |
-| http_api.limiter.<group_id>.sliding_window_timestamp_cleanup_interval | Number  | 120000                                                                        | How often sliding window cleanup routine runs (milliseconds)                                         |
-| http_api.limiter.<group_id>.sliding_window_timestamp_cleanup_expiry   | Number  | 120000                                                                        | Interval of inactivity after which cleanup routine removes peer from the registry                   |
-| http_api.limiter.<group_id>.leaky_limit                      | Number  | general: 450<br>chunk: 6000<br>data_sync_record: 20<br>recent_hash_list_diff: 120<br>block_index: 10<br>wallet_list: 10<br>get_vdf: 90<br>get_vdf_session: 30<br>get_previous_vdf_session: 30<br>metrics: 2 | Leaky bucket token limit; requests beyond this start to be rejected                                  |
-| http_api.limiter.<group_id>.leaky_tick_interval              | Number  | 30000                                                                         | Leaky bucket token reduction interval (how often tokens are reduced), in milliseconds               |
-| http_api.limiter.<group_id>.leaky_tick_reduction             | Number  | same as leaky_limit                                                           | Number of leaky bucket tokens removed in one run                                                     |
-| http_api.limiter.<group_id>.concurrency_limit                | Number  | same as leaky_limit                                                           | Number of concurrent requests allowed per peer                                                       |
-| http_api.limiter.<group_id>.is_manual_reduction_disabled     | Boolean | False                                                                         | Whether external requests can reduce leaky tokens                                                    |
+| Name                                                | Type    | Default Value                                                                 | Description                                                                                          |
+|-----------------------------------------------------|---------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| limiter.<group_id>.sliding_window_limit             | Number  | 0<br>chunk: 100                                                               | Amount of requests allowed in Sliding Window limiter                                                 |
+| limiter.<group_id>.sliding_window_duration          | Number  | 1000                                                                          | Sliding Window interval length in milliseconds                                                       |
+| limiter.<group_id>.timestamp_cleanup_tick_ms        | Number  | 120000                                                                        | How often sliding window cleanup routine runs (milliseconds)                                         |
+| limiter.<group_id>.timestamp_cleanup_expiry         | Number  | 120000                                                                        | Interval of inactivity after which cleanup routine removes peer from the registry                   |
+| limiter.<group_id>.leaky_rate_limit                 | Number  | general: 450<br>chunk: 6000<br>data_sync_record: 20<br>recent_hash_list_diff: 120<br>block_index: 1<br>wallet_list: 1<br>get_vdf: 90<br>get_vdf_session: 30<br>get_previous_vdf_session: 30<br>metrics: 2 | Leaky bucket token limit; requests beyond this start to be rejected                                  |
+| limiter.<group_id>.leaky_tick_ms                    | Number  | 30000<br>metrics: 1000                                                        | Leaky bucket token reduction interval (how often tokens are reduced), in milliseconds               |
+| limiter.<group_id>.tick_reduction                   | Number  | same as the group's leaky_rate_limit<br>chunk: 30<br>data_sync_record: 20     | Number of leaky bucket tokens removed in one run                                                     |
+| limiter.<group_id>.concurrency_limit                | Number  | general: 150<br>chunk: 200<br>data_sync_record: 40<br>recent_hash_list_diff: 240<br>block_index: 2<br>wallet_list: 2<br>get_vdf: 90<br>get_vdf_session: 30<br>get_previous_vdf_session: 30<br>metrics: 2 | Number of concurrent requests allowed per peer                                                       |
+| limiter.<group_id>.is_manual_reduction_disabled     | Boolean | false                                                                         | Whether external requests can reduce leaky tokens                                                    |
+| limiter.<group_id>.no_limit                         | Boolean | false<br>local_peers: true                                                    | Bypass all rate limiting for the group                                                               |
+| limiter.<group_id>.number_of_workers                | Number  | 5<br>metrics: 1<br>local_peers: 1                                             | Number of limiter workers for the group; applied at startup only                                     |
 
 ## 2.3 Example
 
+```yaml
+randomx:
+  large_pages: true
+
+peers:
+  trusted:
+    - chain-1.arweave.xyz
+    - data-2.arweave.xyz
+    - data-3.arweave.xyz
+    - data-4.arweave.xyz
+    - vdf-server-3.arweave.xyz
+  vdf_server:
+    - vdf-server-3.arweave.xyz
+
+data_dir: /opt/data_dir
+
+transactions:
+  blocklist:
+    urls:
+      - https://public_shepherd.arweave.net
+
+storage_modules:
+  - partition: 0
+    packing_format: replica_2_9
+    packing_address: En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
+
+mining:
+  address: En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
+
+network:
+  server:
+    tcp:
+      max_connections: 250
+
+limiter:
+  general:
+    sliding_window_limit: 0
+    leaky_rate_limit: 450
+    leaky_tick_ms: 30000
+    tick_reduction: 450
+
+sync:
+  jobs: 0
 ```
-{
-    "enable": [ "randomx_large_pages" ],
-    "peers": [
-        "chain-1.arweave.xyz",
-        "data-2.arweave.xyz",
-        "data-3.arweave.xyz",
-        "data-4.arweave.xyz",
-        "vdf-server-3.arweave.xyz"
-    ],
-    "data_dir": "/opt/data_dir",
-    "vdf_server_trusted_peers": ["vdf-server-3.arweave.xyz"	],
-    "transaction_blacklist_urls": ["https://public_shepherd.arweave.net"],
 
-    "storage_modules": [
-        "0,En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI.replica.2.9"
-    ],
-    "mining_addr": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI",
+Pass the config file on startup (the file extension must be `.yaml` or `.json`):
 
-    "max_connections": 250,
-
-    "http_api.limiter.general.sliding_window_limit": 0,
-    "http_api.limiter.general.leaky_limit": 450,
-    "http_api.limiter.general.leaky_tick_interval": 30000,
-    "http_api.limiter.general.leaky_tick_reduction": 450,
-
-    "sync_jobs": 0
-}
+```sh
+./bin/start --config_file /path/to/config.yaml
 ```
 
 # 3. Metrics

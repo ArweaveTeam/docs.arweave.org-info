@@ -20,26 +20,32 @@ Each node on a server needs a unique:
 - [Erlang node name](https://www.erlang.org/doc/system/distributed.html#nodes)
   - Can be set via the `ARNODE` environment variable
 - [Erlang cookie](https://www.erlang.org/doc/system/distributed.html#security)
-  - Can be set via the `ARCOOKIE` environment
+  - Can be set via the `ARCOOKIE` environment variable
+
+(`ARNODE` and `ARCOOKIE` are also covered in [Environment Variables](../setup/environment-variables.md).)
 
 You can set the environment variables for the session, but easiest is probably set them just for each node invocation. Here is an example launching 2 nodes (each one running in the background):
 
 ```sh
 ARNODE=node1@127.0.0.1 \
 ARCOOKIE=node1 \
-./bin/start port 1984 data_dir /opt/data/node1 &
+./bin/start --port 1984 --data_dir /opt/data/node1 &
 
 ARNODE=node2@127.0.0.1 \
 ARCOOKIE=node2 \
-./bin/start port 1985 data_dir /opt/data/node2 &
+./bin/start --port 1985 --data_dir /opt/data/node2 &
 ```
 
 {% hint style="info" %}
-In practice you will need to provide more launch options if you want the node to do something useful. See [Running Your Node](../setup/configuration.md) for more information.
+Commands that talk to a running node - [`./bin/arweave config get` / `config set`](../setup/dynamic-configuration.md), `ping`, `stop`, etc. - reach the node via its Erlang node name and cookie. When running multiple nodes, invoke them with the same `ARNODE` / `ARCOOKIE` values as the target node.
 {% endhint %}
 
 {% hint style="info" %}
-Running a node in the background using the linux `&` isn't recommended (and just shown here for simplicity). [We recommend](../setup/configuration.md#02-keeping-the-miner-running) using `screen` or some other more sophisticated process manager.
+In practice you will need to provide more launch options if you want the node to do something useful. See [Configuring Your Node](../setup/configuration.md) for more information.
+{% endhint %}
+
+{% hint style="info" %}
+Running a node in the background using the linux `&` isn't recommended (and just shown here for simplicity). [We recommend](../setup/running.md#2-keeping-the-miner-running) using `screen` or some other more sophisticated process manager.
 {% endhint %}
 
 # 3. Pinning your node to certain cores
@@ -55,10 +61,10 @@ ARNODE=node1@127.0.0.1 \
 ARCOOKIE=node1 \
 screen -dmSL arweave.node1 -Logfile ./screenlog.node1 \
     numactl --physcpubind=0-31 \
-    ./bin/start port 1984 data_dir /opt/data/node1;
+    ./bin/start --port 1984 --data_dir /opt/data/node1;
 ARNODE=node2@127.0.0.1 \
 ARCOOKIE=node2 \
-creen -dmSL arweave.node2 -Logfile ./screenlog.node2 \
+screen -dmSL arweave.node2 -Logfile ./screenlog.node2 \
     numactl --physcpubind=32-63 \
-    ./bin/start port 1985 data_dir /opt/data/node2;
+    ./bin/start --port 1985 --data_dir /opt/data/node2;
 ```

@@ -444,7 +444,7 @@ See the [sample transactions](#sample-transactions) below for full examples.
   <td><code>owner</code></td>
   <td>Yes</td>
   <td>Base64URL string</td>
-  <td>The full RSA modulus value of the sending wallet. The modulus is the n value from the JWK. The RSA public key. For ECDSA (secp256k1) accounts, this field must be an empty string — the public key is recovered from the signature. See <a href="../development/protocol/ecdsa-keys.md">ECDSA Keys</a>.</td>
+  <td>The full RSA modulus value of the sending wallet. The modulus is the n value from the JWK. The RSA public key. For ECDSA (secp256k1) accounts, this field must be an empty string - the public key is recovered from the signature. See <a href="../development/protocol/ecdsa-keys.md">ECDSA Keys</a>.</td>
 </tr>
 <tr>
   <td><code>tags</code></td>

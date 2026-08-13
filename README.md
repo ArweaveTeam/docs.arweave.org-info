@@ -38,11 +38,15 @@ Create the directories and links for your `data_dir` and storage modules.
 
 All nodes need a configured wallet (aka mining key), if you don't specify one it will be created for you. If you're not mining, this default wallet is probably fine. For miners:
 
-## 7. [Configure and Run Your Node](mining/setup/configuration.md)
+## 7. [Configure Your Node](mining/setup/configuration.md)
 
-Depending on your node type, operating phase, and different elements of your hardware and system configuration you will want to run your node with a different set of configuration options. We've provided a few examples in the [Node Configuration Guide](mining/setup/configuration.md) to get you started.
+Depending on your node type, operating phase, and different elements of your hardware and system configuration you will want to run your node with a different set of configuration options. The [Configuring Your Node](mining/setup/configuration.md) guide describes how to set them.
 
-## 8. Learn, Iterate, and Optimize
+## 8. [Run Your Node](mining/setup/running.md)
+
+Launch your node and work through the operating phases for your node type. We've provided a few examples in the [Running Your Node](mining/setup/running.md) guide to get you started.
+
+## 9. Learn, Iterate, and Optimize
 
 After you get your node running, we recommend familiarizing yourself with the rest of the Mining Guide, joining the [Discord Server](https://discord.gg/GHB4fxVv8B), and reviewing the [Discussions Board](https://github.com/ArweaveTeam/arweave/discussions). There is a lot to learn and you will likely hit issues as you ramp up and tune your Arweave node - hopefully these resources will help you through it.
 

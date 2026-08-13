@@ -20,8 +20,8 @@ Transactions have a single `denomination` field that applies to both the
 `reward` and `quantity` amounts. We recommend always setting it explicitly
 rather than leaving it at 0 (implicit/legacy).
 
-- `denomination = 0` — uses the current block's denomination implicitly.
-- `denomination >= 1` — explicitly declares the denomination.
+- `denomination = 0` - uses the current block's denomination implicitly.
+- `denomination >= 1` - explicitly declares the denomination.
 
 When `denomination >= 1`, the value is included in the transaction's signed
 payload, so a transaction signed with an explicit denomination cannot be
@@ -39,10 +39,10 @@ always set explicit denomination will be unaffected.
 Use `/price2/` or `/optimistic_price/` endpoints for fee estimation. They
 return the denomination alongside the fee:
 
-- `GET /price2/{bytes}` — estimated fee, no new wallet fee
-- `GET /price2/{bytes}/{address}` — estimated fee, includes new wallet fee if the address is not in the account tree
-- `GET /optimistic_price/{bytes}` — optimistic (lower) fee estimate
-- `GET /optimistic_price/{bytes}/{address}` — optimistic fee with new wallet fee check
+- `GET /price2/{bytes}` - estimated fee, no new wallet fee
+- `GET /price2/{bytes}/{address}` - estimated fee, includes new wallet fee if the address is not in the account tree
+- `GET /optimistic_price/{bytes}` - optimistic (lower) fee estimate
+- `GET /optimistic_price/{bytes}/{address}` - optimistic fee with new wallet fee check
 
 Response format:
 
@@ -66,8 +66,8 @@ denomination. Migrate to `/price2/` or `/optimistic_price/`.
 
 ## Account Balances
 
-- `GET /wallet/{address}/balance` — current balance as a plain integer, in the current denomination
-- `GET /block/height/{height}/wallet/{address}/balance` — balance at a specific height, in that block's denomination
+- `GET /wallet/{address}/balance` - current balance as a plain integer, in the current denomination
+- `GET /block/height/{height}/wallet/{address}/balance` - balance at a specific height, in that block's denomination
 
 These endpoints do not include denomination in the response. Read the
 `denomination` field from the corresponding block to interpret the value.
@@ -95,8 +95,8 @@ Services that always set explicit denomination experience no disruption.
 Monitor the `redenomination_height` field in block headers via
 `GET /block/current`, comparing it to the current block's `height`:
 
-- `redenomination_height = 0` — no redenomination has ever been scheduled.
-- `redenomination_height > height` — a redenomination is scheduled at that
+- `redenomination_height = 0` - no redenomination has ever been scheduled.
+- `redenomination_height > height` - a redenomination is scheduled at that
   height; ~100 blocks to prepare.
-- `redenomination_height > 0` and `redenomination_height <= height` — the
+- `redenomination_height > 0` and `redenomination_height <= height` - the
   redenomination at that height has already taken effect. In theory, multiple redenominations may occur over very long time horizons; each adds 1 to denomination and multiplies amounts by 1,000.

@@ -306,7 +306,7 @@ These panels track the requests that your node is receiving from peers on the ne
 
 **Debugging**: These charts can help you identify activity that could be impacting your performance (e.g. mining, syncing, packing). For example a spike in `POST /tx2` or `GET /tx` might correspond to a period of high Arweave network activity. Or a high total latency servicing `GET /chunk2` might indicate that your node is serving a lot of chunks to peers. Depending on the type of activity and how strongly it is impacting your node performance, you can take different actions.
 
-For example if you believe your node is serving too much chunk data and it is negatively impacting performance you can set the `get_chunk` `semaphore` (see the help for a brief description of how to set it - it's only usable via config.json). This will control how many concurrent `get_chunk` requests your node will handle. Default is 100.
+For example if you believe your node is serving too much chunk data and it is negatively impacting performance you can set the `semaphores.get_chunk.limit` option (see `./bin/arweave config help semaphores` for a brief description). This will control how many concurrent `get_chunk` requests your node will handle. Default is 100.
 
 Note: restricting `get_chunk` too much may negatively impact your node's reputation, which can in turn negatively impact sync rate or block orphan rate.
 

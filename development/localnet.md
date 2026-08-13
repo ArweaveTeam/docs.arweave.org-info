@@ -12,21 +12,35 @@ create a wallet:
 ./bin/create-wallet localnet_data_dir
 ```
 ,
+create a config file (e.g. `localnet.yaml`):
+
+```yaml
+genesis:
+  init: true
+data_dir: <your-data-dir>
+mining:
+  enabled: true
+  address: <your-mining-addr>
+storage_modules:
+  - partition: 0
+    packing_format: spora_2_6
+    packing_address: <your-mining-addr>
+```
+
 and run:
 
 ```sh
-$ ./bin/start-localnet init data_dir <your-data-dir> mining_addr <your-mining-addr>
-storage_module 0,<your-mining-addr> mine
+$ ./bin/start-localnet --config_file /path/to/localnet.yaml
 ```
 
 The given address (if none is specified, one will be generated for you) will be assigned
 `1_000_000_000_000` AR in the new weave.
 
 The network name will be `arweave.localnet`. You can not start the same node again with the
-init option unless you clean the data directory - you need to either restart with the
-`start_from_block_index` option or specify a peer from the same Arweave network via
-`peer <peer>`. Note that the state is only persisted every 50 blocks so if you
-restart the node without peers via `start_from_block_index` before reaching the height 50,
+`genesis.init` option unless you clean the data directory - you need to either restart with the
+`join.start_from_latest_state` option or specify a peer from the same Arweave network via
+`--peers.trusted <peer>`. Note that the state is only persisted every 50 blocks so if you
+restart the node without peers via `join.start_from_latest_state` before reaching the height 50,
 it will go back to the genesis block.
 
 As with mainnet peers, each peer must be run in its own physical or virtual environment (e.g. on its own machine or in its own container or virtual machine). If you try to run two nodes within the same environment you will get an error like `Protocol 'inet_tcp': the name arweave@127.0.0.1 seems to be in use by another Erlang node`

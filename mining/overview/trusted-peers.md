@@ -3,7 +3,7 @@ description: >-
   Understanding Trusted Peers
 ---
 
-When your node first connects to the network it does so through a set of "trusted peers". These are nodes that you specify using the `peer` flag. Your node queries its trusted peers for the recent blockchain data. It's important to only specify nodes you trust, but since your node will validate the data it receives from these peers the potential for abuse is minimal.
+When your node first connects to the network it does so through a set of "trusted peers". These are nodes that you specify using the `peers.trusted` option. Your node queries its trusted peers for the recent blockchain data. It's important to only specify nodes you trust, but since your node will validate the data it receives from these peers the potential for abuse is minimal.
 
 If you operate multiple nodes yourself you can (and should) have your own nodes specify each other as trusted peers. Although it's important to also include some external nodes as well in case all of your nodes go offline at once.
 

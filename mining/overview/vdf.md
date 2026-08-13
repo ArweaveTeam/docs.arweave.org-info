@@ -24,19 +24,26 @@ For context the current VDF difficulty is `685,976` _(May 2024, block height 141
 Since VDF is so important to mining performance you may have another machine compute VDF for you. For instance, you may set up a dedicated VDF node broadcasting VDF outputs to all your mining nodes.
 
 {% hint style="info" %}
-Traffic from and to your private VDF node should not be throttled, so you should configure your nodes, and VDF server to whitelist each other by adding them to each others' `local_peer` list.
+Traffic from and to your private VDF node should not be throttled, so you should configure your nodes, and VDF server to whitelist each other by adding them to each others' `peers.local` list.
 {% endhint %}
 
 Running a node fetching VDF states from a peer (aka a "VDF client"):
 
-```
-./bin/start vdf_server_trusted_peer IP-ADDRESS ...
+```sh
+./bin/start --peers.vdf_server IP-ADDRESS ...
 ```
 
-Running a node pushing its VDF outputs to other peers (aka a "VDF server"):
+Running a node pushing its VDF outputs to other peers (aka a "VDF server") - to list several client peers, put them in a config file:
 
+```yaml
+peers:
+  vdf_client:
+    - IP-ADDRESS-1
+    - IP-ADDRESS-2
 ```
-./bin/start vdf_client_peer IP-ADDRESS-1 vdf_client_peer IP-ADDRESS-2 ...
+
+```sh
+./bin/start --config_file /path/to/config.yaml ...
 ```
 
 Make sure to specify \[IP-ADDRESS]:\[PORT] if your node is configured to listen on a TCP port other than 1984.
@@ -50,7 +57,7 @@ Do not connect to an external peer you do not trust.&#x20;
 {% endhint %}
 
 {% hint style="info" %}
-Make sure every client node is reachable from its VDF servers - they are in the same network or the node has a public IP and the port (the default is 1984) is forwarded if there are firewalls. If the node is launched with the mine flag and showing no mining performance reports, it is likely no input comes from the VDF server(s).
+Make sure every client node is reachable from its VDF servers - they are in the same network or the node has a public IP and the port (the default is 1984) is forwarded if there are firewalls. If the node is launched with the `--mining.enabled` flag and showing no mining performance reports, it is likely no input comes from the VDF server(s).
 {% endhint %}
 
 {% hint style="info" %}
@@ -59,8 +66,15 @@ The team operates 2 VDF servers that can be used by any miner that wants to:
 - `vdf-server-4.arweave.xyz`
 
 To configure your miner to use the team VDF servers:
-1. Add this to your launch config: `enable vdf_server_pull`
-2. Add the team VDF servers to your list of `vdf_server_trusted_peer`s
+1. Make sure `vdf.pull` is set to `true` (this is the default)
+2. Add the team VDF servers to your `peers.vdf_server` list:
+
+```yaml
+peers:
+  vdf_server:
+    - vdf-server-3.arweave.xyz
+    - vdf-server-4.arweave.xyz
+```
 {% endhint %}
 
 The number of SHA256 iterations (aka VDF difficulty) required to compute a single VDF step is continually adjusted by the Arweave network in order to target a 1-second step time. You can query the current VDF difficulty by looking at the `nonce_limiter_info.vdf_difficuly` field of the latest Arweave block (i.e. https://arweave.net/block/current). As of block height 1798684 the `vdf_difficulty` is 1,107,523 - meaning each VDF step requires 1,107,523 recursive SHA256 hashes.
