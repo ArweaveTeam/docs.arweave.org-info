@@ -55,6 +55,7 @@
 * [Building Arweave](development/build.md)
 * [Automated Tests](development/automated-tests.md)
 * [Debugging](development/debugging.md)
+* [Querying Chunks](development/querying-chunks.md)
 * [Running You Own Localnet](development/localnet.md)
 * [Account Tree](development/account-tree.md)
 
