@@ -27,6 +27,10 @@ Since VDF is so important to mining performance you may have another machine com
 Traffic from and to your private VDF node should not be throttled, so you should configure your nodes, and VDF server to whitelist each other by adding them to each others' `peers.local` list.
 {% endhint %}
 
+{% hint style="info" %}
+On clients that already receive pushes, set vdf.pull = false. Pull is then only used as a fallback for fetching sessions. Otherwise, your client might get rate-limited.
+{% endhint %}
+
 Running a node fetching VDF states from a peer (aka a "VDF client"):
 
 ```sh
@@ -49,6 +53,10 @@ peers:
 Make sure to specify \[IP-ADDRESS]:\[PORT] if your node is configured to listen on a TCP port other than 1984.
 
 In all cases `IP-ADDRESS` can also be a resolvable domain name.
+
+{% hint style="info" %}
+When you have multiple clients connecting from the same IP address, raise `limiter.get_vdf.leaky_rate_limit`. The default rate-limit is set for a single client per IP address.
+{% endhint %}
 
 For an example invocation see [Examples](https://docs.arweave.org/developers/mining/examples#running-a-vdf-server).
 
