@@ -110,6 +110,26 @@ Control mining behavior and reward attribution.
 
 `runtime: true` means the option accepts `config set` on a live node; `runtime: false` means it can only be set at startup.
 
+### Limiter and Throttling Examples
+
+See [Rate Limiting and Outbound Throttling](../operations/rate-limiting.md) for the algorithms, defaults, and operational constraints. Inspect the installed node's option reference with:
+
+```sh
+./bin/arweave config help limiter
+./bin/arweave config help throttling
+```
+
+For example, change the general limiter group's bucket capacity or the outbound throttler's idle timeout:
+
+```sh
+./bin/arweave config get limiter.general.leaky_rate_limit
+./bin/arweave config set limiter.general.leaky_rate_limit 600
+./bin/arweave config get throttling.idle_timeout
+./bin/arweave config set throttling.idle_timeout 120000
+```
+
+Limiter `number_of_workers`, `no_limit`, `leaky_tick_ms`, and `timestamp_cleanup_tick_ms` are startup-only; the other limiter fields are runtime-writable. Both `throttling.idle_timeout` and `throttling.max_processes` are runtime-writable. Existing throttling groups pick up idle-timeout changes at their next idle check; reducing the process threshold does not stop existing groups.
+
 ## 3.3 Validation and Rollback
 
 Every `config set` is validated before it sticks. If the new value is malformed, of the wrong type, or would leave the node with an invalid overall configuration, the command returns an error and the previous value is restored - a failed `set` never leaves the node in a partially-applied state.

@@ -1,126 +1,105 @@
 ---
 description: >-
-  A guide to server-side rate-limiting
+  A guide to incoming HTTP rate limiting and outbound request throttling
 ---
 
 {% hint style="info" %}
-This feature is available from Arweave **2.9.6**.
+The rate limiter is available from Arweave **2.9.7**. Use `config help` on your installed node to check the options and defaults supported by that version.
 {% endhint %}
 
 # 1. Rate limiter
 
-To regulate resource use, the arweave node implements rate limiting groups on HTTP endpoints. Endpoints are freely mapped to different groups.
+The Arweave node limits incoming HTTP requests to regulate resource use and handle uneven load. Endpoints are assigned to limiter groups, each of which can be configured independently.
 
-Each group can be independently configured to fit different load profiles.
+## 1.1 Hybrid rate limiting
 
-Peers listed in the `peers.local` configuration option are exempt from the rate limiting logic.
+Requests are checked in this order: concurrency, sliding window, then leaky bucket. Sliding-window and leaky-bucket budgets are tracked per peer IP, ignoring the port.
 
-## 1.1 Purpose
-
-The arweave node aims to handle uneven load with mitigate possible starvation.
-
-## 1.2 Hybrid rate limiting
-
-The arweave node implements a hybrid rate-limiting algorithm; a composition of concurrency-monitoring, sliding windows, and leaky bucket limiting. 
-
-By configuration, sliding windows, or leak bucket limiting can be disabled, or be used in combination, but their order of precendence can't be changed.
-
-### 1.2.1 Concurrency
+### 1.1.1 Concurrency
 
 Each pool has an arbitrary limit for the allowed concurrent requests being handled. Once the limit is reached further requests will be rejected.
 
-Please note, that the webservice has a global concurrency limit as well.
+The HTTP server also has a separate connection limit (`network.server.tcp.max_connections`).
 
-### 1.2.2 Sliding Windows
+### 1.1.2 Sliding window
 
-If the concurrency limit is not breached, requests are validated against a Sliding Windows limiter. If the load is within the configured rate for the configured interval, the request will be processed.
-However, if the load is over the configured profile, the validation falls back to the Leaky Bucket Tokens algorithm
+After passing the concurrency check, a request is admitted if the peer has room within `sliding_window_limit` over the preceding `sliding_window_duration` milliseconds. Such requests consume only sliding-window budget.
 
-### 1.2.3 Leaky Bucket Tokens
+Once the sliding-window budget is exhausted, requests fall through to the leaky bucket. Setting `sliding_window_limit` to `0` sends all requests directly to the bucket after the concurrency check.
 
-A leaky bucket token rate limiter is a traffic-shaping algorithm that enforces a steady request rate by adding tokens to a bucket at a fixed rate and allowing requests only when a token is available, effectively smoothing bursts and preventing overload.
+### 1.1.3 Leaky bucket
 
-Once the leaky bucket tokens are exhausted (limit is reached) the request will be rejected, there is no further option to fall back to.
+The bucket tracks consumed capacity for each peer. Each admitted overflow request adds one token to this counter. Every `leaky_tick_ms` milliseconds, the worker drains up to `tick_reduction` tokens from each peer's counter. Requests are rejected when the sliding window is exhausted and the consumed bucket capacity has reached `leaky_rate_limit`.
 
-# 2. Configuration
+Setting `leaky_rate_limit` to `0` disables the leaky bucket limiter, leaving only the sliding-window. For a group that limits requests, the two capacities cannot both be zero.
 
-## 2.1 List of rate limiting groups
+## 1.2 HTTP responses
 
-- general
-- chunk
-- data_sync_record
-- recent_hash_list_diff
-- block_index
-- wallet_list
-- get_vdf
-- get_vdf_session
-- get_previous_vdf_session
-- metrics
-- local_peers
+Rate-limit and concurrency rejections return HTTP `429 Too Many Requests`. Limiter errors return HTTP `503 Service Unavailable`.
 
-The `local_peers` group applies to every request coming from a peer listed in `peers.local`. It has `no_limit: true` by default, so those peers bypass rate limiting.
+Limited responses advertise `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`, and `RateLimit-Reset-Amount` headers. `RateLimit-Limit` includes the group ID in its policy descriptions, `RateLimit-Remaining` reports remaining budget, and `RateLimit-Reset` is expressed in seconds. Rejections with zero remaining budget also include `Retry-After`; clients should wait before retrying. Bypass groups do not advertise these headers.
 
-## 2.2 Config parameters
+# 2. Limiter configuration
 
-| Name                                                | Type    | Default Value                                                                 | Description                                                                                          |
-|-----------------------------------------------------|---------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| limiter.<group_id>.sliding_window_limit             | Number  | 0<br>chunk: 100                                                               | Amount of requests allowed in Sliding Window limiter                                                 |
-| limiter.<group_id>.sliding_window_duration          | Number  | 1000                                                                          | Sliding Window interval length in milliseconds                                                       |
-| limiter.<group_id>.timestamp_cleanup_tick_ms        | Number  | 120000                                                                        | How often sliding window cleanup routine runs (milliseconds)                                         |
-| limiter.<group_id>.timestamp_cleanup_expiry         | Number  | 120000                                                                        | Interval of inactivity after which cleanup routine removes peer from the registry                   |
-| limiter.<group_id>.leaky_rate_limit                 | Number  | general: 450<br>chunk: 6000<br>data_sync_record: 20<br>recent_hash_list_diff: 120<br>block_index: 1<br>wallet_list: 1<br>get_vdf: 90<br>get_vdf_session: 30<br>get_previous_vdf_session: 30<br>metrics: 2 | Leaky bucket token limit; requests beyond this start to be rejected                                  |
-| limiter.<group_id>.leaky_tick_ms                    | Number  | 30000<br>metrics: 1000                                                        | Leaky bucket token reduction interval (how often tokens are reduced), in milliseconds               |
-| limiter.<group_id>.tick_reduction                   | Number  | same as the group's leaky_rate_limit<br>chunk: 30<br>data_sync_record: 20     | Number of leaky bucket tokens removed in one run                                                     |
-| limiter.<group_id>.concurrency_limit                | Number  | general: 150<br>chunk: 200<br>data_sync_record: 40<br>recent_hash_list_diff: 240<br>block_index: 2<br>wallet_list: 2<br>get_vdf: 90<br>get_vdf_session: 30<br>get_previous_vdf_session: 30<br>metrics: 2 | Number of concurrent requests allowed per peer                                                       |
-| limiter.<group_id>.is_manual_reduction_disabled     | Boolean | false                                                                         | Whether external requests can reduce leaky tokens                                                    |
-| limiter.<group_id>.no_limit                         | Boolean | false<br>local_peers: true                                                    | Bypass all rate limiting for the group                                                               |
-| limiter.<group_id>.number_of_workers                | Number  | 5<br>metrics: 1<br>local_peers: 1                                             | Number of limiter workers for the group; applied at startup only                                     |
+The canonical option reference is the help shipped with your node:
+
+```sh
+./bin/arweave config help limiter
+```
+
+The tables below describe production defaults. Test builds use different defaults for some groups.
+
+## 2.1 Endpoint groups and defaults
+
+| Group | Endpoints | Sliding limit / duration (ms) | Bucket capacity / drain per tick | Drain interval (ms) | Concurrency per worker |
+|-------|-----------|------------------------------|----------------------------------|---------------------|------------------------|
+| general | All endpoints not assigned below | 3 / 2000 | 450 / 450 | 30000 | 150 |
+| chunk | `/chunk`, `/chunk2` and their sub-paths | 1000 / 1000 | 6000 / 6000 | 30000 | 200 |
+| data_sync_record | `/data_sync_record` and its sub-paths | 0 / 1000 | 20 / 20 | 30000 | 40 |
+| recent_hash_list_diff | `/recent_hash_list_diff` and its sub-paths | 0 / 1000 | 120 / 120 | 30000 | 240 |
+| block_index | `/hash_list`, `/hash_list2`, `/block_index`, `/block_index2`, `/block/{type}/{id}/hash_list` | 0 / 1000 | 1 / 1 | 30000 | 2 |
+| wallet_list | `/wallet_list`, `/block/{type}/{id}/wallet_list` | 0 / 1000 | 1 / 1 | 30000 | 2 |
+| get_vdf | `/vdf`, `/vdf2` | 0 / 1000 | 180 / 180 | 30000 | 90 |
+| get_vdf_session | `/vdf/session`, `/vdf2/session`, `/vdf3/session`, `/vdf4/session` | 0 / 1000 | 30 / 30 | 30000 | 30 |
+| get_previous_vdf_session | `/vdf/previous_session`, `/vdf2/previous_session`, `/vdf4/previous_session` | 0 / 1000 | 30 / 30 | 30000 | 30 |
+| metrics | `/metrics` and its sub-paths | 0 / 1000 | 2 / 2 | 1000 | 2 |
+| local_peers | Every request from an IP listed in `peers.local`, regardless of path | Bypassed by default | Bypassed by default | No timer | Bypassed by default |
+
+Local-peer membership is matched by IP, ignoring the port. The `local_peers` group has `no_limit: true` by default. Its ignored limit and timer defaults are internal `infinity` values; operators cannot supply `infinity`. To enable limiting for this group at startup, set `no_limit: false` and supply valid numeric values for all limit and timer fields.
+
+## 2.2 Parameters and runtime support
+
+All keys below have the prefix `limiter.<group_id>.`.
+
+| Parameter | Type | Default | Runtime-writable | Description |
+|-----------|------|---------|---dd---------------|-------------|
+| sliding_window_limit | Non-negative integer | See group table | Yes | Per-peer sliding-window request budget; `0` disables this allowance |
+| sliding_window_duration | Positive integer | See group table | Yes | Sliding-window width in milliseconds |
+| leaky_rate_limit | Non-negative integer | See group table | Yes | Per-peer bucket capacity; `0` disables overflow allowance |
+| leaky_tick_ms | Positive integer | See group table | No | Interval between bucket drains in milliseconds |
+| tick_reduction | Positive integer | See group table | Yes | Maximum consumed tokens removed per peer on each drain tick |
+| concurrency_limit | Positive integer | See group table | Yes | Maximum in-flight requests shared within each worker |
+| timestamp_cleanup_tick_ms | Positive integer | 120000 | No | Interval between sliding-window cleanup sweeps, in milliseconds; expiry uses `sliding_window_duration` |
+| is_external_reduction_enabled | Boolean | general: `true`; other groups: `false` | Yes | Allow explicit reduction calls from request handlers |
+| no_limit | Boolean | local_peers: `true`; other groups: `false` | No | Bypass all limiting for the group |
+| number_of_workers | Non-negative integer | 5; metrics and local_peers: 1 | No | Number of workers; use a positive count for an active group |
+
+The numeric defaults above apply to limiting groups; `local_peers` uses ignored `infinity` defaults for its limit and timer fields. `sliding_window_duration`, `leaky_tick_ms`, and `timestamp_cleanup_tick_ms` must be between **1 and 86,400,000 milliseconds**, inclusive. `timestamp_cleanup_expiry` and `is_manual_reduction_disabled` are not current option names.
 
 ## 2.3 Example
 
+This configuration fragment explicitly sets the general group's production defaults:
+
 ```yaml
-randomx:
-  large_pages: true
-
-peers:
-  trusted:
-    - chain-1.arweave.xyz
-    - data-2.arweave.xyz
-    - data-3.arweave.xyz
-    - data-4.arweave.xyz
-    - vdf-server-3.arweave.xyz
-  vdf_server:
-    - vdf-server-3.arweave.xyz
-
-data_dir: /opt/data_dir
-
-transactions:
-  blocklist:
-    urls:
-      - https://public_shepherd.arweave.net
-
-storage_modules:
-  - partition: 0
-    packing_format: replica_2_9
-    packing_address: En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
-
-mining:
-  address: En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI
-
-network:
-  server:
-    tcp:
-      max_connections: 250
-
 limiter:
   general:
-    sliding_window_limit: 0
+    sliding_window_limit: 3
+    sliding_window_duration: 2000
     leaky_rate_limit: 450
     leaky_tick_ms: 30000
     tick_reduction: 450
-
-sync:
-  jobs: 0
+    concurrency_limit: 150
+    is_external_reduction_enabled: true
 ```
 
 Pass the config file on startup (the file extension must be `.yaml` or `.json`):
@@ -129,21 +108,67 @@ Pass the config file on startup (the file extension must be `.yaml` or `.json`):
 ./bin/start --config_file /path/to/config.yaml
 ```
 
-# 3. Metrics
+Inspect or change a runtime-writable setting on a running node:
 
-Following metrics are provided per rate-limiting group.
+```sh
+./bin/arweave config get limiter.general.leaky_rate_limit
+./bin/arweave config set limiter.general.leaky_rate_limit 600
+```
+
+Runtime changes are not saved to the configuration file. See [Dynamic Configuration](../setup/dynamic-configuration.md) for prerequisites, validation, and persistence.
+
+# 3. Outbound throttling
+
+The client-side throttler learns a remote peer's quota and throttles requests accordingly. Once the remote peer's quota is exhausted, outgoing requests wait for budget. Requests for an unknown peer/path mapping initially proceed because no quota has been learned yet. Requests for peers that do not advertise the required headers will not be throttled at all.
+
+Throttling groups are learned from remote responses; the `limiter` settings above control your node's incoming requests. The two `throttling` options control process lifecycle, rather than defining outbound requests-per-second limits.
+
+```sh
+./bin/arweave config help throttling
+```
+
+| Option | Type | Default | Runtime-writable | Description |
+|--------|------|---------|------------------|-------------|
+| throttling.idle_timeout | Positive integer | 60000 ms | Yes | Time a group process may remain idle before shutting down |
+| throttling.max_processes | Positive integer | 1000 | Yes | Active-process threshold used when admitting a new, non-exempt throttling group |
+
+A group is idle when it has received no throttle, throttle-status, or quota-update request for the configured interval, has no queued callers, and has no pending quota refill. Existing groups read a changed `idle_timeout` at their next idle check. An idle group stops and is started again on the next quota update.
+
+{% hint style="info" %}
+Use an idle timeout of at least **1000 ms** and a process threshold of at least **50**.
+{% endhint %}
+
+For example:
+
+```yaml
+throttling:
+  idle_timeout: 60000
+  max_processes: 1000
+```
+
+Both settings can also be changed at runtime:
+
+```sh
+./bin/arweave config get throttling.idle_timeout
+./bin/arweave config set throttling.idle_timeout 120000
+./bin/arweave config set throttling.max_processes 1500
+```
+
+# 4. Limiter metrics
+
+The following metrics are provided per limiter group through the node's metrics endpoint. All have a `limiter_id` label. Rejection and error counters also have a `reason` label; `ar_limiter_peers` is declared with a `limiting_type` label. The tracked-items collector exports an `item_type` label for concurrency entries, bucket peer entries, sliding-window timestamps, and sliding-window peer entries.
 
 | Name | Type | Description |
 |------|------|-------------|
-| ar_limiter_response_time_microseconds	| Histogram | Time it took for the limiter to respond to requests|
-| ar_limiter_requests_total | Counter | The number of requests the limiter has processed |
-| ar_limiter_rejected_total	| Counter |	The number of request were rejected by the limiter |
-| ar_limiter_reduce_requests_total | Counter | The number of reduce request by peer in total. (This reduction is requested by the handler when a transaction is successful) |
-| ar_limiter_peers | Gauge | The number of peers the limiter is monitoring currently (Connection, Memory) |
-| ar_limiter_tracked_items_total | Gauge | The number of timestamps, leaky tokens, concurrent processes are tracked (Memory leaks, process memory use) |
-|ar_limiter_leaky_ticks | Counter | The number of leaky bucket ticks the limiter has processed 
-(Perhaps, overkill, should confirm correctness of behaviour, when there is no peer to drop etc) |
-| ar_limiter_leaky_tick_delete_peer_total | Counter | The number of times a peer has been dropped from the leaky bucket token register |
-| ar_limiter_cleanup_tick_expired_sliding_peers_deleted_total | Counter | The number of times a peer has been dropped from the sliding window timestamp register - how many peers have been deleted |
-| ar_limiter_leaky_tick_token_reductions_total | Counter | All the consumed leaky bucket tokens that were reduced for all peers in total (How much of the burst is being used) |
-| ar_limiter_leaky_tick_reductions_peer | Counter | The times a leaky bucket token reduction had have to be performed for a peer - how many peers have burned tokens|
+| ar_limiter_response_time_microseconds | Histogram | Time taken for limiter calls, in microseconds |
+| ar_limiter_requests_total | Counter | Requests processed by the limiter |
+| ar_limiter_rejected_total | Counter | Requests rejected by the limiter, by reason |
+| ar_limiter_requests_error | Counter | Limiter request errors, by reason |
+| ar_limiter_reduce_requests_total | Counter | Explicit budget-reduction requests from handlers |
+| ar_limiter_peers | Gauge | Peers or in-flight entries tracked by limiting type |
+| ar_limiter_tracked_items_total | Gauge | Tracked sliding-window timestamps, bucket peer entries, sliding-window peer entries, or concurrent requests |
+| ar_limiter_leaky_ticks | Counter | Bucket drain ticks processed |
+| ar_limiter_leaky_tick_delete_peer_total | Counter | Peer entries removed from the bucket register |
+| ar_limiter_cleanup_tick_expired_sliding_peers_deleted_total | Counter | Peer entries removed from the sliding-window register during cleanup |
+| ar_limiter_leaky_tick_token_reductions_total | Counter | Consumed bucket tokens removed by periodic drains |
+| ar_limiter_leaky_tick_reductions_peer | Counter | Peer entries visited during bucket drain ticks |
