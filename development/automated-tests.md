@@ -21,10 +21,10 @@ As you familiarize yourself with the `eunit` test suite we expect you will have 
 
 ## Finally, the tests
 
-To run the unit/integration test suite: `./bin/start test`
+To run the unit/integration test suite: `./bin/test`
 
 Of note: the full test run will take a while and, unfortunately, there are several flaky tests, so you may need to run it a few times to get everything to pass. The flakiness and long-runtime of integration tests are two of their biggest shortcomings - however the coverage we get from some of those flaky tests is important for preventing regressions in some critical and hard to manually tests code paths. Addressing the flakiness is a constant priority.
 
 In general engineers will rely on the Github actions that run on PRs to confirm a code change passes the full body of tests. Locally engineers often run a subset of the testsuite as part of their iterative development cycle.
 
-You can run also run a single module of tests: `./bin/start test MODULE_NAME`
+You can run also run a single module of tests: `./bin/test MODULE_NAME`
