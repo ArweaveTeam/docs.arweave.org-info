@@ -36,6 +36,7 @@
   * [Optimizing with Metrics](mining/operations/metrics.md)
   * [Advanced: TLS Guide](mining/operations/tls.md)
   * [Advanced: Rate-Limiting](mining/operations/rate-limiting.md)
+  * [Advanced: Upgrading Erlang](mining/operations/upgrading-erlang.md)
 * [Sample Node Configurations](mining/sample-node-configurations/README.md)
   * [Entropy Generation](mining/setup/sample-configs/entropy-generation.md)
   * [Syncing & Packing](mining/setup/sample-configs/sync-pack.md)
