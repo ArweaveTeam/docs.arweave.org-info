@@ -13,13 +13,13 @@ The Arweave node limits incoming HTTP requests to regulate resource use and hand
 
 ## 1.1 Hybrid rate limiting
 
-Requests are checked in this order: concurrency (enforced via `semaphores`), sliding window, then leaky bucket. Sliding-window and leaky-bucket budgets are tracked per peer IP, ignoring the port.
+Requests are checked in this order: concurrency (`concurrency_limit`, per limiter worker), sliding window, then leaky bucket. Sliding-window and leaky-bucket budgets are tracked per peer IP, ignoring the port.
 
 ### 1.1.1 Concurrency
 
 Each pool has an arbitrary limit for the allowed concurrent requests being handled. Once the limit is reached further requests will be rejected.
 
-The HTTP server also has a separate connection limit (`network.server.tcp.max_connections`).
+The HTTP server also has a separate connection limit (`network.server.http.max_connections`).
 
 ### 1.1.2 Sliding window
 
@@ -35,7 +35,7 @@ Setting `leaky_rate_limit` to `0` disables the leaky bucket limiter, leaving onl
 
 ## 1.2 HTTP responses
 
-Rate-limit and concurrency rejections return HTTP `429 Too Many Requests`. Limiter errors return HTTP `503 Service Unavailable`.
+Rate-limit and concurrency rejections return HTTP `429 Too Many Requests`. Unexpected errors thrown by the limiter code return HTTP `503 Service Unavailable`.
 
 Limited responses advertise `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`, and `RateLimit-Reset-Amount` headers. `RateLimit-Limit` includes the group ID in its policy descriptions, `RateLimit-Remaining` reports remaining budget, and `RateLimit-Reset` is expressed in seconds. Rejections with zero remaining budget also include `Retry-After`; clients should wait before retrying. Bypass groups do not advertise these headers.
 
@@ -56,6 +56,7 @@ The tables below describe production defaults. Test builds use different default
 | general | All endpoints not assigned below | 3 / 2000 | 450 / 450 | 30000 | 150 |
 | chunk | `/chunk`, `/chunk2` and their sub-paths | 1000 / 1000 | 6000 / 6000 | 30000 | 200 |
 | data_sync_record | `/data_sync_record` and its sub-paths | 0 / 1000 | 20 / 20 | 30000 | 40 |
+| footprints | `/footprints`, `/footprint_buckets` | 3 / 2000 | 450 / 450 | 30000 | 150 |
 | recent_hash_list_diff | `/recent_hash_list_diff` and its sub-paths | 0 / 1000 | 120 / 120 | 30000 | 240 |
 | block_index | `/hash_list`, `/hash_list2`, `/block_index`, `/block_index2`, `/block/{type}/{id}/hash_list` | 0 / 1000 | 1 / 1 | 30000 | 2 |
 | wallet_list | `/wallet_list`, `/block/{type}/{id}/wallet_list` | 0 / 1000 | 1 / 1 | 30000 | 2 |
@@ -72,7 +73,7 @@ Local-peer membership is matched by IP, ignoring the port. The `local_peers` gro
 All keys below have the prefix `limiter.<group_id>.`.
 
 | Parameter | Type | Default | Runtime-writable | Description |
-|-----------|------|---------|---dd---------------|-------------|
+|-----------|------|---------|------------------|-------------|
 | sliding_window_limit | Non-negative integer | See group table | Yes | Per-peer sliding-window request budget; `0` disables this allowance |
 | sliding_window_duration | Positive integer | See group table | Yes | Sliding-window width in milliseconds |
 | leaky_rate_limit | Non-negative integer | See group table | Yes | Per-peer bucket capacity; `0` disables overflow allowance |
