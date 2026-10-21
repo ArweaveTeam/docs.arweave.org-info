@@ -67,8 +67,6 @@ randomx:
   large_pages: true
 mining:
   address: "Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY"
-sync:
-  jobs: 200
 transactions:
   blocklist:
     urls:
@@ -113,9 +111,6 @@ repack_modules:
     "mining": {
         "address": "Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY"
     },
-    "sync": {
-        "jobs": 200
-    },
     "transactions": {
         "blocklist": {
             "urls": ["https://public_shepherd.arweave.net"]
@@ -156,7 +151,7 @@ repack_modules:
 {% endtab %}
 
 {% tab title="CLI" %}
-With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.6 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
+With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.7 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
 
 ```sh
 ./bin/start \
@@ -165,7 +160,6 @@ With the CLI form there is no config file - every option is passed as a flag, wi
     --peers.vdf_server '["vdf-server-3.arweave.xyz"]' \
     --randomx.large_pages \
     --mining.address Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY \
-    --sync.jobs 200 \
     --transactions.blocklist.urls '["https://public_shepherd.arweave.net"]' \
     --repack_modules '[
         {"partition": 0, "from_format": "replica_2_9", "from_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI", "to_format": "replica_2_9", "to_address": "Q5EfKawrRazp11HEDf_NJpxjYMV385j21nlQNjR8_pY"},

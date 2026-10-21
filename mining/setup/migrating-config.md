@@ -6,12 +6,12 @@ description: >-
 
 # Migrating Your Configuration
 
-Arweave 2.9.6 introduced the current configuration system: dotted option keys, JSON/YAML config files with nested keys, `--long` command-line flags, and `AR_*` environment variables. Earlier releases used a flat `config.json` schema and space-separated command-line arguments (`mine`, `data_dir /opt/data`, `storage_module 0,...`) - documented in [Legacy Configuration](legacy-configuration.md).
+Arweave 2.9.7 introduced the current configuration system: dotted option keys, JSON/YAML config files with nested keys, `--long` command-line flags, and `AR_*` environment variables. Earlier releases used a flat `config.json` schema and space-separated command-line arguments (`mine`, `data_dir /opt/data`, `storage_module 0,...`) - documented in [Legacy Configuration](legacy-configuration.md).
 
 Legacy configurations still load, so upgrading the node does not force an immediate rewrite. This guide covers converting when you're ready.
 
 {% hint style="info" %}
-**Upgrading from 2.9.5.1?** The release after 2.9.5.1 ships the `convert_config` tool described below. After upgrading, run it once against your existing `config.json` to produce an equivalent file in the current format, review the output, and switch your launch command to `--config_file`.
+**Upgrading from 2.9.6 or earlier?** Arweave 2.9.7 ships the `convert_config` tool described below. After upgrading, run it once against your existing `config.json` to produce an equivalent file in the current format, review the output, and switch your launch command to `--config_file`.
 {% endhint %}
 
 # 1. Converting a Config File

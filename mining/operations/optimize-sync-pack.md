@@ -48,19 +48,11 @@ The RAM guidelines mentioned in the [Guide](https://github.com/ArweaveTeam/docs.
 
 Okay, so you've reviewed your bottlenecks and determined that **none** of them are at capacity. Here are some tips to increase syncing and packing speed.
 
-### 6.1 sync.jobs
+### 6.1 sync.max\_download\_rate
 
-The `sync.jobs` option controls the number of concurrent requests your node will make to peers to download data. The default is `100`. Increasing this number should increase your utilization of all resources: the amount of data you pull from peers (network bandwidth), the number of chunks you're packing (CPU), and the volume of data written to disk (disk IO).
+The node sizes the number of concurrent download requests automatically, so there is no concurrency option to tune. Releases before 2.9.7 used `sync.jobs` for this. The option is now ignored, except that `0` still turns syncing off.
 
-However, it is possible to increase this number **too much**. This can:
-
-1. Cause your node to be rate-limited / throttled by peers and ultimately decrease your bandwidth utilization.
-2. Increase your RAM utilization due to backed up sync jobs. This is particularly common if your miner has a poor network connection (e.g. high latency or data loss). Increasing the volume of slow/hanging requests can cause a backup which eventually leads to an out of memory error.
-
-Setting `sync.jobs` to `200` or even `400` is unlikely to cause any issues. But before you increase it even further our recommendation is to first confirm:
-
-1. Your CPU and network bandwidths are below capacity
-2. Your network connectivity is good (e.g. using tools like `mtr` to track packet loss)
+`sync.max_download_rate` caps the total sync download rate in bytes per second. The default, `infinity`, means no cap. Set it to `0` to stop fetching chunks from peers.
 
 ### 6.2 storage\_modules
 

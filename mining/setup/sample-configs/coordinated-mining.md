@@ -136,7 +136,7 @@ Launch command:
 {% endtab %}
 
 {% tab title="CLI" %}
-With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.6 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
+With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.7 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
 
 ```sh
 ./bin/start \
@@ -253,7 +253,7 @@ Launch command (the `--port` flag overrides any value in the configuration file)
 {% endtab %}
 
 {% tab title="CLI" %}
-With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.6 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
+With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.7 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
 
 ```sh
 ./bin/start \
@@ -376,7 +376,7 @@ Launch command:
 {% endtab %}
 
 {% tab title="CLI" %}
-With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.6 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
+With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.7 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
 
 ```sh
 ./bin/start \

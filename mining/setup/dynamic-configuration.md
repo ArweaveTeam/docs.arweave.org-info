@@ -7,7 +7,7 @@ description: >-
 # Dynamic Configuration
 
 {% hint style="info" %}
-Dynamic configuration is only available from Arweave 2.9.6 onward.
+Dynamic configuration is only available from Arweave 2.9.7 onward.
 {% endhint %}
 
 A running node's configuration can be inspected - and, for many options, changed - without a restart, using the `config get` and `config set` subcommands of the [Arweave entrypoint](../operations/entrypoint.md).
@@ -30,8 +30,8 @@ ARNODE=node1@127.0.0.1 ARCOOKIE=node1 ./bin/arweave config get port
 $ ./bin/arweave config get mining.enabled
 true
 
-$ ./bin/arweave config get sync.jobs
-100
+$ ./bin/arweave config get sync.max_download_rate
+infinity
 
 $ ./bin/arweave config get debug
 false
@@ -115,7 +115,7 @@ Control mining behavior and reward attribution.
 Every `config set` is validated before it sticks. If the new value is malformed, of the wrong type, or would leave the node with an invalid overall configuration, the command returns an error and the previous value is restored - a failed `set` never leaves the node in a partially-applied state.
 
 ```sh
-$ ./bin/arweave config set sync.jobs not_a_number
+$ ./bin/arweave config set sync.max_download_rate not_a_number
 {error, ...}
 ```
 
