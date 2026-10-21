@@ -174,8 +174,8 @@ option, its default, and whether it can be changed at runtime:
 To read or change configuration values on a **running** node:
 
 ```sh
-./bin/arweave config get sync.jobs
-./bin/arweave config set sync.jobs 50
+./bin/arweave config get sync.max_download_rate
+./bin/arweave config set sync.max_download_rate 100000000
 ```
 
 `config get` and `config set` connect to the local node, so run them
@@ -189,7 +189,7 @@ details.
 
 # 7. Convert a Legacy Config File
 
-`convert_config` converts a legacy (pre-2.9.6) `config.json` into the
+`convert_config` converts a legacy (pre-2.9.7) `config.json` into the
 current JSON or YAML configuration format:
 
 ```sh

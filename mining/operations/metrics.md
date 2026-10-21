@@ -108,7 +108,7 @@ For example if your disk is capable of reading at 200MiB/s the Raw Read Rate sho
 
 **Metric**: `mining_server_chunk_cache_size`
 
-This panel tracks the size of your mining chunk cache (in MiB chks). While mining your node will need to temporarily cache chunks of data after reading them, this metric tracks how many of those chunks are currently cached. The cache has a size limit which is printed periodically by your node (to the console and to the logs), and can be set using the `mining_server_chunk_cache_size_limit` launch parameter.
+This panel tracks the size of your mining chunk cache (in MiB chks). While mining your node will need to temporarily cache chunks of data after reading them, this metric tracks how many of those chunks are currently cached. The cache has a size limit which is printed periodically by your node (to the console and to the logs), and can be set using the `mining.cache_size` option (in MiB).
 
 **Debugging**: An optimal miner would expect the per-partition chunk cache size to stay beteen 0 and 5 MiB. Occasional spikes above 5 MiB are also fine as they can occur when there is temporary system-level resource contention or when your node validates a block that is ahead of it in the VDF chain and it can process a number of VDF steps at once.
 

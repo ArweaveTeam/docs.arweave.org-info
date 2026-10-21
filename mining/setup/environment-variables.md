@@ -6,7 +6,7 @@ description: >-
 # Environment Variables
 
 {% hint style="info" %}
-`AR_*` configuration variables are only available from Arweave 2.9.6 onward.
+`AR_*` configuration variables are only available from Arweave 2.9.7 onward.
 {% endhint %}
 
 Every configuration option can be set through an environment variable. 
@@ -21,8 +21,8 @@ The variable name is derived from the option's dotted key: prefix `AR_`, upper-c
 | `data_dir` | `AR_DATA_DIR` |
 | `mining.enabled` | `AR_MINING_ENABLED` |
 | `mining.address` | `AR_MINING_ADDRESS` |
-| `sync.jobs` | `AR_SYNC_JOBS` |
-| `network.server.tcp.max_connections` | `AR_NETWORK_SERVER_TCP_MAX_CONNECTIONS` |
+| `sync.max_download_rate` | `AR_SYNC_MAX_DOWNLOAD_RATE` |
+| `network.server.http.max_connections` | `AR_NETWORK_SERVER_HTTP_MAX_CONNECTIONS` |
 
 Values are written the same way as on the command line:
 

@@ -18,7 +18,7 @@ description: >-
 - You'll use one of the DHA-provided public VDF servers
 - You'll use the publicly available NSFW filter provided by Shepherd
 - Run your miner with:
-  - `sync.jobs` greater than 0 (default is fine)
+  - `sync.max_download_rate` greater than 0 (default is fine)
 - See [Running Your Node](../running.md) for more information
 
 # 2. Sample Directory Structure
@@ -64,8 +64,6 @@ randomx:
   large_pages: true
 mining:
   address: "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
-sync:
-  jobs: 200
 transactions:
   blocklist:
     urls:
@@ -114,9 +112,6 @@ storage_modules:
     "mining": {
         "address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
     },
-    "sync": {
-        "jobs": 200
-    },
     "transactions": {
         "blocklist": {
             "urls": ["https://public_shepherd.arweave.net"]
@@ -137,7 +132,7 @@ storage_modules:
 {% endtab %}
 
 {% tab title="CLI" %}
-With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.6 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
+With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.7 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
 
 ```sh
 ./bin/start \
@@ -146,7 +141,6 @@ With the CLI form there is no config file - every option is passed as a flag, wi
     --peers.vdf_server '["vdf-server-3.arweave.xyz"]' \
     --randomx.large_pages \
     --mining.address En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
-    --sync.jobs 200 \
     --transactions.blocklist.urls '["https://public_shepherd.arweave.net"]' \
     --storage_modules '[
         {"partition": 0, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"},

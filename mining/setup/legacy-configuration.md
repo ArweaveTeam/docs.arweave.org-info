@@ -1,12 +1,12 @@
 ---
 description: >-
-  The pre-2.9.6 configuration style: space-separated command-line
+  The pre-2.9.7 configuration style: space-separated command-line
   arguments and the flat config.json schema
 ---
 
 # Legacy Configuration
 
-Releases before Arweave 2.9.6 configured the node with space-separated command-line arguments and a flat `config.json` schema. This page documents that legacy style.
+Releases before Arweave 2.9.7 configured the node with space-separated command-line arguments and a flat `config.json` schema. This page documents that legacy style.
 
 The legacy style still works: a launch with no `--long` flags and no recognized `AR_*` environment variables is parsed in the legacy style. The two styles cannot be mixed in a single launch, and we recommend the [current style](configuration.md) for new configurations - see [Migrating Your Configuration](migrating-config.md) for the option name mappings and the `convert_config` tool that converts a legacy `config.json` automatically.
 

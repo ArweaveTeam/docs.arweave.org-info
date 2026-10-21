@@ -14,7 +14,7 @@ description: >-
 - You'll use one of the DHA-provided public VDF servers
 - You'll use the publicly available NSFW filter provided by Shepherd
 - Run your miner with:
-  - `sync.jobs: 0`
+  - `sync.max_download_rate: 0`
   - `packing.entropy.workers` greater than 0 (default is fine)
 - Wait until you see a message like the following for each storage module:
     - Console: `The storage module X is prepared for 2.9 replication.`
@@ -65,7 +65,7 @@ randomx:
 mining:
   address: "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
 sync:
-  jobs: 0
+  max_download_rate: 0
 transactions:
   blocklist:
     urls:
@@ -115,7 +115,7 @@ storage_modules:
         "address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"
     },
     "sync": {
-        "jobs": 0
+        "max_download_rate": 0
     },
     "transactions": {
         "blocklist": {
@@ -137,7 +137,7 @@ storage_modules:
 {% endtab %}
 
 {% tab title="CLI" %}
-With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.6 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
+With the CLI form there is no config file - every option is passed as a flag, with list options as a single-quoted JSON value (see [Command-line Flags](../configuration.md#3-command-line-flags) for the value syntax). The pre-2.9.7 space-separated launch style also still works ([Legacy Configuration](../legacy-configuration.md)). For example:
 
 ```sh
 ./bin/start \
@@ -146,7 +146,7 @@ With the CLI form there is no config file - every option is passed as a flag, wi
     --peers.vdf_server '["vdf-server-3.arweave.xyz"]' \
     --randomx.large_pages \
     --mining.address En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI \
-    --sync.jobs 0 \
+    --sync.max_download_rate 0 \
     --transactions.blocklist.urls '["https://public_shepherd.arweave.net"]' \
     --storage_modules '[
         {"partition": 0, "packing_format": "replica_2_9", "packing_address": "En2eqsVJARnTVOSh723PBXAKGmKgrGSjQ2YIGwE_ZRI"},

@@ -49,7 +49,7 @@ To setup your storage modules, the first step is to create a folder inside `[dat
 * **Any other range**: `storage_module_[range_start]_[range_end]_[packing]` with both offsets in bytes.
 
 {% hint style="info" %}
-Storage modules covering arbitrary byte ranges (`range_start` / `range_end`) are new in Arweave 2.9.6. Earlier versions declare storage modules using a bucket size and index notation. If you are running an earlier version, run `./bin/start help` for info on the bucket size and index format.
+Storage modules covering arbitrary byte ranges (`range_start` / `range_end`) are new in Arweave 2.9.7. Earlier versions declare storage modules using a bucket size and index notation. If you are running an earlier version, run `./bin/start help` for info on the bucket size and index format.
 {% endhint %}
 
 Nodes running a [legacy configuration](legacy-configuration.md) keep using the legacy directory names: custom bucket sizes map to `storage_module_[bucket_size]_[bucket_index]_[packing]`, exactly as before. When you migrate a custom-bucket-size config to the current format, rename those directories to the range form above (`bucket_index * bucket_size` → `range_start`, `(bucket_index + 1) * bucket_size` → `range_end`); whole-partition directories keep their names and need no change. See [Migrating Custom Bucket Sizes Manually](migrating-config.md#12-migrating-custom-bucket-sizes-manually) for the full migration workflow.

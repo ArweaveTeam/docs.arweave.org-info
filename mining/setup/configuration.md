@@ -5,14 +5,14 @@ description: >-
 
 # 1. Overview
 
-Arweave provides a number of configuration options to control, customize, and tune its operation. Every option has a single canonical dotted key (for example `mining.enabled` or `network.server.tcp.max_connections`) and can be set three ways:
+Arweave provides a number of configuration options to control, customize, and tune its operation. Every option has a single canonical dotted key (for example `mining.enabled` or `network.server.http.max_connections`) and can be set three ways:
 
 1. In a **configuration file** (JSON or YAML)
 2. As an **environment variable** (see [Environment Variables](environment-variables.md))
 3. As a **command-line flag**
 
 {% hint style="info" %}
-Node configuration changed substantially in Arweave 2.9.6. If you are running an earlier Arweave version please see [Legacy Configuration](legacy-configuration.md). If you have a `config.json` or launch script written for an earlier release, see [Migrating Your Configuration](migrating-config.md) for instructions on converting the old config file. Arweave 2.9.6 maintains backwards compatibilty with the legacy configuration formats so converting your legacy configuration is not required.
+Node configuration changed substantially in Arweave 2.9.7. If you are running an earlier Arweave version please see [Legacy Configuration](legacy-configuration.md). If you have a `config.json` or launch script written for an earlier release, see [Migrating Your Configuration](migrating-config.md) for instructions on converting the old config file. Arweave 2.9.7 maintains backwards compatibilty with the legacy configuration formats so converting your legacy configuration is not required.
 {% endhint %}
 
 This guide describes how to configure your node. Once you have a configuration, see [Running Your Node](running.md) for a walkthrough of the main operating phases for different [node types](../overview/node-types.md), with example configurations you can adapt as needed.
@@ -150,4 +150,4 @@ All node types and operating phases require at least the following options
 
 # 7. Legacy Configuration
 
-Releases before Arweave 2.9.6 used a different configuration style (`config_file config.json` with a flat legacy JSON schema, and space-separated command-line arguments such as `mine` and `data_dir /opt/data`). That style still works, but the two styles cannot be mixed in a single launch. See [Legacy Configuration](legacy-configuration.md) for the legacy style itself, and [Migrating Your Configuration](migrating-config.md) for the `convert_config` tool that converts a legacy `config.json` automatically.
+Releases before Arweave 2.9.7 used a different configuration style (`config_file config.json` with a flat legacy JSON schema, and space-separated command-line arguments such as `mine` and `data_dir /opt/data`). That style still works, but the two styles cannot be mixed in a single launch. See [Legacy Configuration](legacy-configuration.md) for the legacy style itself, and [Migrating Your Configuration](migrating-config.md) for the `convert_config` tool that converts a legacy `config.json` automatically.
