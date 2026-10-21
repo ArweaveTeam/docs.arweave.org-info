@@ -30,23 +30,28 @@ git config blame.ignoreRevsFile .git-blame-ignore-revs
 * Ubuntu 22 or 24 is recommended
 * OpenSSL development headers
 * GCC or Clang (GCC 8+ recommended)
-* Erlang OTP v26, with OpenSSL support
+* Erlang OTP v27, with OpenSSL support
 * GNU Make
 * CMake (CMake version > 3.10.0)
 * SQLite3 header
 * GNU MP
 * On some systems you might need to install `libncurses-dev`.
 
-Erlang R26 is now required. Unfortunately, Ubuntu 22.04 and 24.04 do not natively support Erlang R26 and a PPA repository is required. The RabbitMQ Team is maintaining this release for all Ubuntu version:
+Erlang R27 is now required. Unfortunately, Ubuntu 22.04 and 24.04 do not natively support Erlang R27 and a PPA repository is required. The RabbitMQ Team is maintaining this release for all Ubuntu version:
 
 ```sh
 # add rabbitmq ppa repository
-sudo add-apt-repository ppa:rabbitmq/rabbitmq-erlang-26
+sudo add-apt-repository ppa:rabbitmq/rabbitmq-erlang-27
 sudo apt update
 
 # install required packages
 sudo apt install erlang libssl-dev libgmp-dev libsqlite3-dev make cmake gcc g++
 ```
+
+{% hint style="info" %}
+Versions 2.9.7-alpha1 and earlier require Erlang 26
+RabbitMQ Team maintains this version as well at the repository `ppa:rabbitmq/rabbitmq-erlang-26`
+{% endhint %}
 
 ### 2.2 MacOS Dependencies
 
@@ -58,8 +63,14 @@ Syncing, packing, and mining is not supported on MacOS. MacOS has only been vali
 2. Install dependencies
 
 ```sh
-brew install gmp erlang@26 cmake pkg-config
+brew install gmp erlang@27 cmake pkg-config
 ```
+
+{% hint style="info" %}
+Versions 2.9.7-alpha1 and earlier require Erlang 26.
+You can install this version with Homebrew.
+{% endhint %}
+
 
 3. Homebrew may ask you to update your `LDFLAGS` for erlang: don't. You should however update your `PATH` as requested.
 
