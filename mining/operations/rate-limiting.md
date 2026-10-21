@@ -13,7 +13,7 @@ The Arweave node limits incoming HTTP requests to regulate resource use and hand
 
 ## 1.1 Hybrid rate limiting
 
-Requests are checked in this order: concurrency, sliding window, then leaky bucket. Sliding-window and leaky-bucket budgets are tracked per peer IP, ignoring the port.
+Requests are checked in this order: concurrency (enforced via `semaphores`), sliding window, then leaky bucket. Sliding-window and leaky-bucket budgets are tracked per peer IP, ignoring the port.
 
 ### 1.1.1 Concurrency
 
