@@ -34,7 +34,6 @@
   * [Multiple Nodes, One Server](mining/operations/multiple-nodes.md)
   * [Optimizing Sync & Pack](mining/operations/optimize-sync-pack.md)
   * [Optimizing with Metrics](mining/operations/metrics.md)
-  * [Advanced: TLS Guide](mining/operations/tls.md)
   * [Advanced: Rate-Limiting](mining/operations/rate-limiting.md)
 * [Sample Node Configurations](mining/sample-node-configurations/README.md)
   * [Entropy Generation](mining/setup/sample-configs/entropy-generation.md)
