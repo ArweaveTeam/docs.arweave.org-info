@@ -82,7 +82,6 @@ The Arweave repo supports several build types, each configured for a different u
 * `testnet`: configured to run against a separate testnet. Search for `testenet` in the [rebar.config](https://github.com/ArweaveTeam/arweave/blob/master/rebar.config) for more instructions.
 * `test`: configured for automated tests. See [Automated Tests](automated-tests.md) for more information.
 * `e2e`: configured for the end-to-end tests. See [Automated Tests](automated-tests.md) for more information.
-* `localnet`: configurd to launch a new chain from genesis. See [Localnet](localnet.md) for more information.
 
 To build a runnable Arweave binary for given build type:
 
