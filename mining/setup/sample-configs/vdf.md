@@ -61,8 +61,6 @@ peers:
     - 5.6.7.8
     - 5.6.7.8:1985
     - node.example.com
-randomx:
-  large_pages: true
 vdf:
   algorithm: hiopt_m4
 transactions:
@@ -82,9 +80,6 @@ transactions:
         "trusted": ["peers.arweave.xyz"],
         "vdf_client": ["1.2.3.4", "5.6.7.8", "5.6.7.8:1985", "node.example.com"],
         "local": ["1.2.3.4", "5.6.7.8", "5.6.7.8:1985", "node.example.com"]
-    },
-    "randomx": {
-        "large_pages": true
     },
     "vdf": {
         "algorithm": "hiopt_m4"
@@ -107,7 +102,6 @@ With the CLI form there is no config file - every option is passed as a flag, wi
     --peers.trusted '["peers.arweave.xyz"]' \
     --peers.vdf_client '["1.2.3.4", "5.6.7.8", "5.6.7.8:1985", "node.example.com"]' \
     --peers.local '["1.2.3.4", "5.6.7.8", "5.6.7.8:1985", "node.example.com"]' \
-    --randomx.large_pages \
     --vdf.algorithm hiopt_m4 \
     --transactions.blocklist.urls '["https://public_shepherd.arweave.net"]'
 ```
